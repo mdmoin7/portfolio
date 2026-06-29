@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Mohammad Moin — Senior Full Stack Engineer &amp; Corporate Trainer
-    </title>
+    <title>Mohammad Moin — Full Stack Developer &amp; Corporate Trainer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
@@ -379,8 +377,172 @@
         line-height: 1.5;
       }
 
-      .stack-block {
-        margin-bottom: 30px;
+      .pillars {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+      }
+      @media (max-width: 760px) {
+        .pillars {
+          grid-template-columns: 1fr;
+        }
+      }
+      .pillar-card {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 34px 32px;
+        transition:
+          border-color 0.2s,
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+      .pillar-card:hover {
+        border-color: #c9d8f2;
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px -28px rgba(11, 37, 69, 0.25);
+      }
+      .pillar-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 11px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+      .pillar-icon svg {
+        width: 22px;
+        height: 22px;
+      }
+      .pillar-card.dev .pillar-icon {
+        background: var(--blue-soft);
+        color: var(--blue);
+      }
+      .pillar-card.train .pillar-icon {
+        background: #fff3e6;
+        color: #b5651d;
+      }
+      .pillar-card h3 {
+        font-family: var(--display);
+        font-size: 21px;
+        font-weight: 600;
+        color: var(--navy);
+        margin: 0 0 10px;
+      }
+      .pillar-card .tag-row {
+        font-family: var(--mono);
+        font-size: 11.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--ink-soft);
+        margin-bottom: 14px;
+      }
+      .pillar-card p {
+        color: var(--ink-soft);
+        font-size: 14.5px;
+        margin: 0 0 18px;
+      }
+      .pillar-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .pillar-list li {
+        font-size: 13.5px;
+        color: var(--ink);
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+      }
+      .pillar-list li::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        margin-top: 6px;
+        flex: 0 0 auto;
+      }
+      .pillar-card.dev .pillar-list li::before {
+        background: var(--blue);
+      }
+      .pillar-card.train .pillar-list li::before {
+        background: #b5651d;
+      }
+
+      .stack-subhead {
+        font-family: var(--display);
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--navy);
+        margin: 0 0 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .stack-subhead .swatch {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+      }
+      .stack-subhead.dev .swatch {
+        background: var(--blue);
+      }
+      .stack-subhead.train .swatch {
+        background: #b5651d;
+      }
+      .stack-group {
+        margin-bottom: 46px;
+      }
+      .stack-group:last-child {
+        margin-bottom: 0;
+      }
+      .badge.train {
+        border-color: #fbe3c5;
+      }
+      .badge.train:hover {
+        border-color: #e0a24b;
+        background: #fff6ea;
+      }
+      .badge.train .dot {
+        background: #d08a3c;
+      }
+      .badge.train.lead {
+        border-color: #f4cb94;
+        background: #fff6ea;
+      }
+      .badge.train.lead .dot {
+        background: #b5651d;
+      }
+
+      .track-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        font-family: var(--mono);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 4px 10px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+      }
+      .track-label.dev {
+        background: var(--blue-soft);
+        color: var(--blue-deep);
+      }
+      .track-label.train {
+        background: #fff3e6;
+        color: #9c5417;
+      }
+      .track-label .dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: currentColor;
       }
       .stack-block:last-child {
         margin-bottom: 0;
@@ -549,6 +711,7 @@
       <div class="wrap">
         <div class="brand">Mohammad Moin</div>
         <div class="navlinks">
+          <a href="#pillars">What I Do</a>
           <a href="#about">About</a>
           <a href="#stack">Stack</a>
           <a href="#experience">Experience</a>
@@ -560,23 +723,22 @@
     <header class="hero">
       <div class="wrap">
         <p class="eyebrow hero-eyebrow-in">
-          Freelance Corporate Trainer/Consultant
+          Web &amp; Mobile Engineer · Corporate Trainer
         </p>
         <h1 class="title hero-title-in">
-          14+ years building frontends —
+          I build JavaScript-powered products —
           <span class="accent"
-            >and helping engineering teams learn to build them well.</span
+            >and train the engineers who'll build the next ones.</span
           >
         </h1>
         <p class="lede hero-lede-in">
-          Full stack engineer across Angular, React, Vue and Node, and a
-          corporate trainer who designs curriculum that takes teams from one
-          stack to another with confidence.
+          14+ years across two disciplines: shipping production web and mobile
+          apps with Angular, React, Vue and Node — and designing corporate
+          training programs that move individuals and teams onto modern stacks
+          with confidence.
         </p>
         <div class="hero-cta hero-cta-in">
-          <a class="btn btn-primary" href="mailto:mohammad.nicoll@gmail.com"
-            >Get in touch</a
-          >
+          <a class="btn btn-primary" href="#contact">Get in touch</a>
           <a
             class="btn btn-ghost"
             href="https://www.linkedin.com/in/mohammadmoin/"
@@ -607,30 +769,95 @@
       </div>
     </div>
 
+    <section id="pillars">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="kicker kicker-line">01 — What I Do</span>
+        </div>
+        <div class="pillars reveal-stagger reveal">
+          <div class="pillar-card dev">
+            <div class="pillar-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+            </div>
+            <div class="tag-row">Development</div>
+            <h3>Web &amp; mobile apps, end to end</h3>
+            <p>
+              Designing and shipping production applications across the
+              JavaScript ecosystem — from customer-facing web apps to
+              cross-platform mobile, backed by solid architecture and CI.
+            </p>
+            <ul class="pillar-list">
+              <li>Web apps with Angular, React and Vue</li>
+              <li>Cross-platform mobile with React Native &amp; Ionic</li>
+              <li>Node/NestJS APIs and full-stack delivery</li>
+              <li>Monorepo architecture, CI/CD and code quality tooling</li>
+            </ul>
+          </div>
+          <div class="pillar-card train">
+            <div class="pillar-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+              </svg>
+            </div>
+            <div class="tag-row">Training</div>
+            <h3>Upskilling, for people and companies</h3>
+            <p>
+              Designing and delivering structured learning programs that move
+              individuals and corporate teams onto modern technology stacks —
+              built on real production experience, not just docs.
+            </p>
+            <ul class="pillar-list">
+              <li>Stack-migration curricula (e.g. Vue → Angular)</li>
+              <li>Enterprise upskilling for backend-to-frontend transitions</li>
+              <li>
+                Corporate workshops on frameworks, tooling &amp; architecture
+              </li>
+              <li>1:1 and cohort-based mentoring for individuals</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="about">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="kicker kicker-line">01 — About</span>
+          <span class="kicker kicker-line">02 — About</span>
         </div>
         <div class="about-grid reveal">
           <div>
             <p>
-              I'm a <strong>full stack developer and team leader</strong> with
-              14+ years building scalable web applications across MEAN and MERN
-              stacks, and a <strong>freelance corporate trainer</strong> who
-              turns that depth into curriculum that gets teams shipped to
-              production.
+              I work at the intersection of <strong>building</strong> and
+              <strong>teaching</strong>. As a full stack engineer, I design and
+              ship web and mobile applications across the JavaScript ecosystem —
+              Angular, React, Vue, Node, React Native — leading delivery from
+              architecture through production.
             </p>
             <p>
-              Recent work has centered on enterprise enablement — helping
-              <strong
-                >Java and backend engineers transition into modern frontend
-                roles</strong
-              >, and guiding
-              <strong>Vue teams through migration to Angular</strong>. Beyond
-              training, I've led delivery on React Native, Ionic, Next.js,
-              NestJS and GraphQL projects, taking teams from architecture
-              through to launch.
+              As a freelance corporate trainer, I take that same production
+              experience and turn it into structured upskilling programs —
+              helping individuals and engineering teams move onto modern stacks
+              they haven't worked in before. Recent work includes guiding
+              Java/backend engineers into frontend roles, and migrating Vue
+              teams onto Angular through contrastive, hands-on curricula.
             </p>
           </div>
           <div class="pull-card">
@@ -646,63 +873,114 @@
     <section id="stack">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="kicker kicker-line">02 — Technology Stack</span>
+          <span class="kicker kicker-line">03 — Stack &amp; Focus Areas</span>
         </div>
 
-        <div class="stack-block">
-          <div class="stack-label">Frontend</div>
-          <div class="badges reveal-stagger reveal">
-            <span class="badge lead"><span class="dot"></span>Angular</span>
-            <span class="badge lead"
-              ><span class="dot"></span>React &amp; Redux Toolkit</span
-            >
-            <span class="badge"><span class="dot"></span>Vue.js</span>
-            <span class="badge"><span class="dot"></span>Next.js</span>
-            <span class="badge"><span class="dot"></span>React Native</span>
-            <span class="badge"><span class="dot"></span>Ionic</span>
-            <span class="badge"><span class="dot"></span>Stencil.js</span>
-            <span class="badge lead"><span class="dot"></span>TypeScript</span>
+        <div class="stack-group">
+          <div class="stack-subhead dev">
+            <span class="swatch"></span>Development stack — building web &amp;
+            mobile apps
+          </div>
+
+          <div class="stack-block">
+            <div class="stack-label">Frontend &amp; Mobile</div>
+            <div class="badges reveal-stagger reveal">
+              <span class="badge lead"><span class="dot"></span>Angular</span>
+              <span class="badge lead"
+                ><span class="dot"></span>React &amp; Redux Toolkit</span
+              >
+              <span class="badge"><span class="dot"></span>Vue.js</span>
+              <span class="badge"><span class="dot"></span>Next.js</span>
+              <span class="badge lead"
+                ><span class="dot"></span>React Native</span
+              >
+              <span class="badge"><span class="dot"></span>Ionic</span>
+              <span class="badge"><span class="dot"></span>Stencil.js</span>
+              <span class="badge lead"
+                ><span class="dot"></span>TypeScript</span
+              >
+            </div>
+          </div>
+
+          <div class="stack-block">
+            <div class="stack-label">Backend &amp; APIs</div>
+            <div class="badges reveal-stagger reveal">
+              <span class="badge lead"><span class="dot"></span>Node.js</span>
+              <span class="badge"><span class="dot"></span>NestJS</span>
+              <span class="badge"><span class="dot"></span>Express</span>
+              <span class="badge"><span class="dot"></span>GraphQL</span>
+              <span class="badge"><span class="dot"></span>PHP / Laravel</span>
+              <span class="badge"
+                ><span class="dot"></span>Python / Django</span
+              >
+            </div>
+          </div>
+
+          <div class="stack-block">
+            <div class="stack-label">Data, Infra &amp; Tooling</div>
+            <div class="badges reveal-stagger reveal">
+              <span class="badge"><span class="dot"></span>MongoDB</span>
+              <span class="badge"><span class="dot"></span>PostgreSQL</span>
+              <span class="badge"><span class="dot"></span>AWS</span>
+              <span class="badge"><span class="dot"></span>Docker</span>
+              <span class="badge"><span class="dot"></span>Nx Monorepo</span>
+              <span class="badge"
+                ><span class="dot"></span>Webpack 5 / esbuild</span
+              >
+              <span class="badge"><span class="dot"></span>GitHub Actions</span>
+            </div>
           </div>
         </div>
 
-        <div class="stack-block">
-          <div class="stack-label">Backend</div>
-          <div class="badges reveal-stagger reveal">
-            <span class="badge lead"><span class="dot"></span>Node.js</span>
-            <span class="badge"><span class="dot"></span>NestJS</span>
-            <span class="badge"><span class="dot"></span>Express</span>
-            <span class="badge"><span class="dot"></span>GraphQL</span>
-            <span class="badge"><span class="dot"></span>PHP / Laravel</span>
-            <span class="badge"><span class="dot"></span>Python / Django</span>
+        <div class="stack-group">
+          <div class="stack-subhead train">
+            <span class="swatch"></span>Training focus — upskilling individuals
+            &amp; corporates
           </div>
-        </div>
 
-        <div class="stack-block">
-          <div class="stack-label">Data &amp; Infrastructure</div>
-          <div class="badges reveal-stagger reveal">
-            <span class="badge"><span class="dot"></span>MongoDB</span>
-            <span class="badge"><span class="dot"></span>PostgreSQL</span>
-            <span class="badge"><span class="dot"></span>MySQL</span>
-            <span class="badge"><span class="dot"></span>AWS</span>
-            <span class="badge"><span class="dot"></span>GCP</span>
-            <span class="badge"><span class="dot"></span>Azure</span>
-            <span class="badge"><span class="dot"></span>Docker</span>
+          <div class="stack-block">
+            <div class="stack-label">Programs &amp; formats</div>
+            <div class="badges reveal-stagger reveal">
+              <span class="badge train lead"
+                ><span class="dot"></span>Stack migration curricula</span
+              >
+              <span class="badge train lead"
+                ><span class="dot"></span>Backend → Frontend upskilling</span
+              >
+              <span class="badge train"
+                ><span class="dot"></span>Corporate workshops</span
+              >
+              <span class="badge train"
+                ><span class="dot"></span>1:1 mentoring</span
+              >
+              <span class="badge train"
+                ><span class="dot"></span>Cohort-based training</span
+              >
+            </div>
           </div>
-        </div>
 
-        <div class="stack-block">
-          <div class="stack-label">Tooling &amp; Quality</div>
-          <div class="badges reveal-stagger reveal">
-            <span class="badge"><span class="dot"></span>Nx Monorepo</span>
-            <span class="badge"
-              ><span class="dot"></span>Webpack 5 / esbuild</span
-            >
-            <span class="badge"><span class="dot"></span>ESLint</span>
-            <span class="badge"
-              ><span class="dot"></span>Husky / lint-staged</span
-            >
-            <span class="badge"><span class="dot"></span>GitHub Actions</span>
-            <span class="badge"><span class="dot"></span>Jira / Git</span>
+          <div class="stack-block">
+            <div class="stack-label">Subjects taught</div>
+            <div class="badges reveal-stagger reveal">
+              <span class="badge train lead"
+                ><span class="dot"></span>Angular internals</span
+              >
+              <span class="badge train"
+                ><span class="dot"></span>React &amp; React Native</span
+              >
+              <span class="badge train"
+                ><span class="dot"></span>Vue → Angular migration</span
+              >
+              <span class="badge train"
+                ><span class="dot"></span>TypeScript fundamentals</span
+              >
+              <span class="badge train"
+                ><span class="dot"></span>Nx &amp; monorepo architecture</span
+              >
+              <span class="badge train"
+                ><span class="dot"></span>Code quality &amp; CI/CD</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -711,39 +989,47 @@
     <section id="experience">
       <div class="wrap">
         <div class="section-head reveal">
-          <span class="kicker kicker-line">03 — Experience</span>
+          <span class="kicker kicker-line">04 — Experience</span>
         </div>
         <div class="exp-grid reveal-stagger reveal">
           <div class="exp-card">
             <div class="when">Current</div>
             <div>
+              <span class="track-label dev"
+                ><span class="dot"></span>Development</span
+              >
               <h3>Senior Software Engineer</h3>
               <p>
-                Leading full stack delivery across MEAN/MERN stacks;
-                architecting scalable web applications and mentoring
-                cross-functional teams.
+                Leading full stack delivery of web and mobile applications
+                across MEAN/MERN stacks; architecting scalable systems and
+                mentoring cross-functional teams.
               </p>
             </div>
           </div>
           <div class="exp-card">
             <div class="when">Ongoing</div>
             <div>
+              <span class="track-label train"
+                ><span class="dot"></span>Training</span
+              >
               <h3>Freelance Corporate Trainer</h3>
               <p>
-                Designing and delivering frontend engineering training —
-                Angular, React, Vue, Node, TypeScript, Nx — for teams
-                transitioning stacks or upskilling at scale.
+                Designing and delivering upskilling programs — Angular, React,
+                Vue, Node, TypeScript, Nx — for individuals and corporate teams
+                moving onto modern stacks.
               </p>
             </div>
           </div>
           <div class="exp-card">
             <div class="when">14+ yrs</div>
             <div>
+              <span class="track-label dev"
+                ><span class="dot"></span>Development</span
+              >
               <h3>Full Stack Developer / Consultant</h3>
               <p>
-                Custom PHP, WordPress, Shopify, CodeIgniter, Laravel and Symfony
-                work alongside modern JS frameworks across client and enterprise
-                engagements.
+                Web and mobile delivery across PHP, WordPress, Shopify, Laravel
+                and modern JS frameworks for client and enterprise engagements.
               </p>
             </div>
           </div>
@@ -755,10 +1041,11 @@
       <div class="wrap">
         <div class="contact-card reveal">
           <div>
-            <h2>Building a frontend training track for your team?</h2>
+            <h2>Need an app built, or a team trained?</h2>
             <p>
-              Open to corporate training engagements, curriculum design, and
-              senior frontend/full-stack consulting.
+              Open to full-stack web/mobile development engagements and
+              corporate training programs — stack migrations, upskilling, and
+              curriculum design.
             </p>
             <div class="links">
               <a href="https://www.linkedin.com/in/mohammadmoin/">LinkedIn ↗</a>
