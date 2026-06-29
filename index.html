@@ -1,240 +1,603 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mohammad Moin — Senior Full Stack Engineer &amp; Corporate Trainer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#F6F4EF;
-    --surface:#FFFFFF;
-    --line:#E4E0D6;
-    --ink:#16233B;
-    --ink-soft:#4B5567;
-    --navy:#16233B;
-    --accent:#9C6B2E;
-    --accent-soft:#F1E6D3;
-    --teal:#2E6F73;
-    --display:'Newsreader', serif;
-    --body:'Inter', sans-serif;
-    --mono:'IBM Plex Mono', monospace;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{margin:0; background:var(--bg); color:var(--ink); font-family:var(--body); line-height:1.65; -webkit-font-smoothing:antialiased;}
-  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
-  a{color:inherit;}
-  .wrap{max-width:1040px; margin:0 auto; padding:0 32px;}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Mohammad Moin — Senior Full Stack Engineer &amp; Corporate Trainer
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f6f4ef;
+        --surface: #ffffff;
+        --line: #e4e0d6;
+        --ink: #16233b;
+        --ink-soft: #4b5567;
+        --navy: #16233b;
+        --accent: #9c6b2e;
+        --accent-soft: #f1e6d3;
+        --teal: #2e6f73;
+        --display: "Newsreader", serif;
+        --body: "Inter", sans-serif;
+        --mono: "IBM Plex Mono", monospace;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--body);
+        line-height: 1.65;
+        -webkit-font-smoothing: antialiased;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+      a {
+        color: inherit;
+      }
+      .wrap {
+        max-width: 1040px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
 
-  nav{position:sticky; top:0; z-index:50; background:rgba(246,244,239,0.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
-  nav .wrap{display:flex; align-items:center; justify-content:space-between; height:68px;}
-  .brand{font-family:var(--display); font-weight:600; font-size:19px; letter-spacing:0.2px;}
-  .navlinks{display:flex; gap:30px; font-size:14px; color:var(--ink-soft);}
-  .navlinks a{text-decoration:none; transition:color .15s;}
-  .navlinks a:hover{color:var(--accent);}
-  a:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(246, 244, 239, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--line);
+      }
+      nav .wrap {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 68px;
+      }
+      .brand {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: 19px;
+        letter-spacing: 0.2px;
+      }
+      .navlinks {
+        display: flex;
+        gap: 30px;
+        font-size: 14px;
+        color: var(--ink-soft);
+      }
+      .navlinks a {
+        text-decoration: none;
+        transition: color 0.15s;
+      }
+      .navlinks a:hover {
+        color: var(--accent);
+      }
+      a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
 
-  header.hero{padding:90px 0 56px;}
-  .eyebrow{font-family:var(--mono); font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--teal); margin:0 0 20px;}
-  h1.title{font-family:var(--display); font-weight:600; font-size:clamp(34px,5vw,50px); line-height:1.15; margin:0 0 20px; max-width:760px;}
-  h1.title em{font-style:italic; color:var(--accent);}
-  .lede{font-size:18px; color:var(--ink-soft); max-width:600px; margin:0 0 36px;}
-  .hero-cta{display:flex; gap:14px; flex-wrap:wrap;}
-  .btn{font-size:14px; font-weight:600; padding:12px 22px; border-radius:7px; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:transform .15s, box-shadow .15s;}
-  .btn-primary{background:var(--navy); color:#fff;}
-  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 22px -10px rgba(22,35,59,0.45);}
-  .btn-ghost{background:transparent; color:var(--navy); border:1px solid var(--line);}
-  .btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
+      header.hero {
+        padding: 90px 0 56px;
+      }
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--teal);
+        margin: 0 0 20px;
+      }
+      h1.title {
+        font-family: var(--display);
+        font-weight: 600;
+        font-size: clamp(34px, 5vw, 50px);
+        line-height: 1.15;
+        margin: 0 0 20px;
+        max-width: 760px;
+      }
+      h1.title em {
+        font-style: italic;
+        color: var(--accent);
+      }
+      .lede {
+        font-size: 18px;
+        color: var(--ink-soft);
+        max-width: 600px;
+        margin: 0 0 36px;
+      }
+      .hero-cta {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        font-size: 14px;
+        font-weight: 600;
+        padding: 12px 22px;
+        border-radius: 7px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition:
+          transform 0.15s,
+          box-shadow 0.15s;
+      }
+      .btn-primary {
+        background: var(--navy);
+        color: #fff;
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px -10px rgba(22, 35, 59, 0.45);
+      }
+      .btn-ghost {
+        background: transparent;
+        color: var(--navy);
+        border: 1px solid var(--line);
+      }
+      .btn-ghost:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
 
-  .metrics{padding:8px 0 64px;}
-  .metric-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden;}
-  @media (max-width:760px){.metric-grid{grid-template-columns:repeat(2,1fr);}}
-  .metric{background:var(--surface); padding:30px 24px;}
-  .metric .num{font-family:var(--display); font-size:34px; font-weight:600; color:var(--navy);}
-  .metric .lbl{font-size:13px; color:var(--ink-soft); margin-top:4px;}
+      .metrics {
+        padding: 8px 0 64px;
+      }
+      .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      @media (max-width: 760px) {
+        .metric-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      .metric {
+        background: var(--surface);
+        padding: 30px 24px;
+      }
+      .metric .num {
+        font-family: var(--display);
+        font-size: 34px;
+        font-weight: 600;
+        color: var(--navy);
+      }
+      .metric .lbl {
+        font-size: 13px;
+        color: var(--ink-soft);
+        margin-top: 4px;
+      }
 
-  section{padding:64px 0; border-top:1px solid var(--line);}
-  .section-head{display:flex; align-items:baseline; gap:14px; margin-bottom:36px;}
-  .kicker{font-family:var(--mono); font-size:12px; letter-spacing:0.05em; text-transform:uppercase; color:var(--accent);}
-  h2{font-family:var(--display); font-size:27px; margin:0; font-weight:600; color:var(--navy);}
+      section {
+        padding: 64px 0;
+        border-top: 1px solid var(--line);
+      }
+      .section-head {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        margin-bottom: 36px;
+      }
+      .kicker {
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      h2 {
+        font-family: var(--display);
+        font-size: 27px;
+        margin: 0;
+        font-weight: 600;
+        color: var(--navy);
+      }
 
-  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:56px;}
-  @media (max-width:760px){.about-grid{grid-template-columns:1fr;}}
-  .about-grid p{color:var(--ink-soft); margin:0 0 16px; font-size:15.5px;}
-  .about-grid strong{color:var(--ink); font-weight:600;}
-  .pull{border-left:3px solid var(--accent); padding:4px 0 4px 20px; font-family:var(--display); font-size:19px; font-style:italic; color:var(--navy); margin:0;}
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 56px;
+      }
+      @media (max-width: 760px) {
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+      .about-grid p {
+        color: var(--ink-soft);
+        margin: 0 0 16px;
+        font-size: 15.5px;
+      }
+      .about-grid strong {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      .pull {
+        border-left: 3px solid var(--accent);
+        padding: 4px 0 4px 20px;
+        font-family: var(--display);
+        font-size: 19px;
+        font-style: italic;
+        color: var(--navy);
+        margin: 0;
+      }
 
-  .stack-block{margin-bottom:28px;}
-  .stack-block:last-child{margin-bottom:0;}
-  .stack-label{font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:12px; text-transform:uppercase; letter-spacing:0.04em;}
-  .badges{display:flex; flex-wrap:wrap; gap:10px;}
-  .badge{display:inline-flex; align-items:center; gap:7px; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:9px 14px; font-size:13.5px; font-weight:500; color:var(--ink); transition:border-color .15s, transform .15s;}
-  .badge:hover{border-color:var(--accent); transform:translateY(-1px);}
-  .badge .dot{width:6px; height:6px; border-radius:50%; background:var(--teal); flex:0 0 auto;}
-  .badge.lead .dot{background:var(--accent);}
+      .stack-block {
+        margin-bottom: 28px;
+      }
+      .stack-block:last-child {
+        margin-bottom: 0;
+      }
+      .stack-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--ink-soft);
+        margin-bottom: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 9px 14px;
+        font-size: 13.5px;
+        font-weight: 500;
+        color: var(--ink);
+        transition:
+          border-color 0.15s,
+          transform 0.15s;
+      }
+      .badge:hover {
+        border-color: var(--accent);
+        transform: translateY(-1px);
+      }
+      .badge .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--teal);
+        flex: 0 0 auto;
+      }
+      .badge.lead .dot {
+        background: var(--accent);
+      }
 
-  .timeline{display:flex; flex-direction:column;}
-  .trow{display:grid; grid-template-columns:150px 1fr; gap:28px; padding:26px 0; border-top:1px solid var(--line);}
-  .trow:first-child{border-top:none; padding-top:0;}
-  .trow .when{font-family:var(--mono); font-size:12.5px; color:var(--accent); padding-top:3px;}
-  .trow h3{margin:0 0 6px; font-size:17px; font-family:var(--display); font-weight:600; color:var(--navy);}
-  .trow p{margin:0; color:var(--ink-soft); font-size:14.5px;}
+      .timeline {
+        display: flex;
+        flex-direction: column;
+      }
+      .trow {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 28px;
+        padding: 26px 0;
+        border-top: 1px solid var(--line);
+      }
+      .trow:first-child {
+        border-top: none;
+        padding-top: 0;
+      }
+      .trow .when {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        color: var(--accent);
+        padding-top: 3px;
+      }
+      .trow h3 {
+        margin: 0 0 6px;
+        font-size: 17px;
+        font-family: var(--display);
+        font-weight: 600;
+        color: var(--navy);
+      }
+      .trow p {
+        margin: 0;
+        color: var(--ink-soft);
+        font-size: 14.5px;
+      }
 
-  footer{padding:70px 0 56px; border-top:1px solid var(--line);}
-  .contact-card{background:var(--navy); color:#fff; border-radius:16px; padding:48px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:28px;}
-  .contact-card h2{color:#fff; font-size:25px;}
-  .contact-card p{color:rgba(255,255,255,0.72); margin:10px 0 0; max-width:420px; font-size:14.5px;}
-  .contact-card .btn-primary{background:var(--accent); color:#fff;}
-  .links{display:flex; gap:20px; font-size:13.5px; margin-top:16px;}
-  .links a{text-decoration:none; color:rgba(255,255,255,0.78);}
-  .links a:hover{color:var(--accent-soft);}
-  .foot-note{text-align:center; font-size:12.5px; color:var(--ink-soft); margin-top:36px;}
-</style>
-</head>
-<body>
-
-<nav>
-  <div class="wrap">
-    <div class="brand">Mohammad Moin</div>
-    <div class="navlinks">
-      <a href="#about">About</a>
-      <a href="#stack">Stack</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-    </div>
-  </div>
-</nav>
-
-<header class="hero">
-  <div class="wrap">
-    <p class="eyebrow">Senior Software Engineer · Freelance Corporate Trainer</p>
-    <h1 class="title">14+ years building frontends — <em>and helping engineering teams learn to build them well.</em></h1>
-    <p class="lede">Full stack engineer across Angular, React, Vue and Node, and a corporate trainer who designs curriculum that takes teams from one stack to another with confidence.</p>
-    <div class="hero-cta">
-      <a class="btn btn-primary" href="#contact">Get in touch</a>
-      <a class="btn btn-ghost" href="https://www.linkedin.com/in/mohammadmoin/">View LinkedIn</a>
-    </div>
-  </div>
-</header>
-
-<div class="metrics wrap">
-  <div class="metric-grid">
-    <div class="metric"><div class="num">14+</div><div class="lbl">Years in software engineering</div></div>
-    <div class="metric"><div class="num">500+</div><div class="lbl">Engineers trained</div></div>
-    <div class="metric"><div class="num">50+</div><div class="lbl">Training sessions delivered</div></div>
-    <div class="metric"><div class="num">8+</div><div class="lbl">Stacks taught end-to-end</div></div>
-  </div>
-</div>
-
-<section id="about">
-  <div class="wrap">
-    <div class="section-head"><span class="kicker">01 — About</span></div>
-    <div class="about-grid">
-      <div>
-        <p>I'm a <strong>full stack developer and team leader</strong> with 14+ years building scalable web applications across MEAN and MERN stacks, and a <strong>freelance corporate trainer</strong> who turns that depth into curriculum that gets teams shipped to production.</p>
-        <p>Recent work has centered on enterprise enablement — helping <strong>Java and backend engineers transition into modern frontend roles</strong>, and guiding <strong>Vue teams through migration to Angular</strong>. Beyond training, I've led delivery on React Native, Ionic, Next.js, NestJS and GraphQL projects, taking teams from architecture through to launch.</p>
-      </div>
-      <p class="pull">"The goal of training isn't a slide deck — it's an engineer who can ship in the new stack without me in the room."</p>
-    </div>
-  </div>
-</section>
-
-<section id="stack">
-  <div class="wrap">
-    <div class="section-head"><span class="kicker">02 — Technology Stack</span></div>
-
-    <div class="stack-block">
-      <div class="stack-label">Frontend</div>
-      <div class="badges">
-        <span class="badge lead"><span class="dot"></span>Angular</span>
-        <span class="badge lead"><span class="dot"></span>React &amp; Redux Toolkit</span>
-        <span class="badge"><span class="dot"></span>Vue.js</span>
-        <span class="badge"><span class="dot"></span>Next.js</span>
-        <span class="badge"><span class="dot"></span>React Native</span>
-        <span class="badge"><span class="dot"></span>Ionic</span>
-        <span class="badge"><span class="dot"></span>Stencil.js</span>
-        <span class="badge lead"><span class="dot"></span>TypeScript</span>
-      </div>
-    </div>
-
-    <div class="stack-block">
-      <div class="stack-label">Backend</div>
-      <div class="badges">
-        <span class="badge lead"><span class="dot"></span>Node.js</span>
-        <span class="badge"><span class="dot"></span>NestJS</span>
-        <span class="badge"><span class="dot"></span>Express</span>
-        <span class="badge"><span class="dot"></span>GraphQL</span>
-        <span class="badge"><span class="dot"></span>PHP / Laravel</span>
-        <span class="badge"><span class="dot"></span>Python / Django</span>
-      </div>
-    </div>
-
-    <div class="stack-block">
-      <div class="stack-label">Data &amp; Infrastructure</div>
-      <div class="badges">
-        <span class="badge"><span class="dot"></span>MongoDB</span>
-        <span class="badge"><span class="dot"></span>PostgreSQL</span>
-        <span class="badge"><span class="dot"></span>MySQL</span>
-        <span class="badge"><span class="dot"></span>AWS</span>
-        <span class="badge"><span class="dot"></span>GCP</span>
-        <span class="badge"><span class="dot"></span>Azure</span>
-        <span class="badge"><span class="dot"></span>Docker</span>
-      </div>
-    </div>
-
-    <div class="stack-block">
-      <div class="stack-label">Tooling &amp; Quality</div>
-      <div class="badges">
-        <span class="badge"><span class="dot"></span>Nx Monorepo</span>
-        <span class="badge"><span class="dot"></span>Webpack 5 / esbuild</span>
-        <span class="badge"><span class="dot"></span>ESLint</span>
-        <span class="badge"><span class="dot"></span>Husky / lint-staged</span>
-        <span class="badge"><span class="dot"></span>GitHub Actions</span>
-        <span class="badge"><span class="dot"></span>Jira / Git</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="experience">
-  <div class="wrap">
-    <div class="section-head"><span class="kicker">03 — Experience</span></div>
-    <div class="timeline">
-      <div class="trow">
-        <div class="when">Current</div>
-        <div><h3>Senior Software Engineer</h3><p>Leading full stack delivery across MEAN/MERN stacks; architecting scalable web applications and mentoring cross-functional teams.</p></div>
-      </div>
-      <div class="trow">
-        <div class="when">Ongoing</div>
-        <div><h3>Freelance Corporate Trainer</h3><p>Designing and delivering frontend engineering training — Angular, React, Vue, Node, TypeScript, Nx — for teams transitioning stacks or upskilling at scale.</p></div>
-      </div>
-      <div class="trow">
-        <div class="when">14+ yrs</div>
-        <div><h3>Full Stack Developer / Consultant</h3><p>Custom PHP, WordPress, Shopify, CodeIgniter, Laravel and Symfony work alongside modern JS frameworks across client and enterprise engagements.</p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer id="contact">
-  <div class="wrap">
-    <div class="contact-card">
-      <div>
-        <h2>Building a frontend training track for your team?</h2>
-        <p>Open to corporate training engagements, curriculum design, and senior frontend/full-stack consulting.</p>
-        <div class="links">
-          <a href="https://www.linkedin.com/in/mohammadmoin/">LinkedIn ↗</a>
-          <a href="#">GitHub ↗</a>
-          <a href="mailto:hello@example.com">Email ↗</a>
+      footer {
+        padding: 70px 0 56px;
+        border-top: 1px solid var(--line);
+      }
+      .contact-card {
+        background: var(--navy);
+        color: #fff;
+        border-radius: 16px;
+        padding: 48px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 28px;
+      }
+      .contact-card h2 {
+        color: #fff;
+        font-size: 25px;
+      }
+      .contact-card p {
+        color: rgba(255, 255, 255, 0.72);
+        margin: 10px 0 0;
+        max-width: 420px;
+        font-size: 14.5px;
+      }
+      .contact-card .btn-primary {
+        background: var(--accent);
+        color: #fff;
+      }
+      .links {
+        display: flex;
+        gap: 20px;
+        font-size: 13.5px;
+        margin-top: 16px;
+      }
+      .links a {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.78);
+      }
+      .links a:hover {
+        color: var(--accent-soft);
+      }
+      .foot-note {
+        text-align: center;
+        font-size: 12.5px;
+        color: var(--ink-soft);
+        margin-top: 36px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="wrap">
+        <div class="brand">Mohammad Moin</div>
+        <div class="navlinks">
+          <a href="#about">About</a>
+          <a href="#stack">Stack</a>
+          <a href="#experience">Experience</a>
+          <a href="#contact">Contact</a>
         </div>
       </div>
-      <a class="btn btn-primary" href="mailto:hello@example.com">Contact me</a>
-    </div>
-    <p class="foot-note">© 2026 Mohammad Moin · Built for GitHub Pages</p>
-  </div>
-</footer>
+    </nav>
 
-</body>
+    <header class="hero">
+      <div class="wrap">
+        <p class="eyebrow">
+          Senior Software Engineer · Freelance Corporate Trainer
+        </p>
+        <h1 class="title">
+          14+ years building frontends —
+          <em>and helping engineering teams learn to build them well.</em>
+        </h1>
+        <p class="lede">
+          Full stack engineer across Angular, React, Vue and Node, and a
+          corporate trainer who designs curriculum that takes teams from one
+          stack to another with confidence.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#contact">Get in touch</a>
+          <a
+            class="btn btn-ghost"
+            href="https://www.linkedin.com/in/mohammadmoin/"
+            >View LinkedIn</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <div class="metrics wrap">
+      <div class="metric-grid">
+        <div class="metric">
+          <div class="num">14+</div>
+          <div class="lbl">Years in software engineering</div>
+        </div>
+        <div class="metric">
+          <div class="num">500+</div>
+          <div class="lbl">Engineers trained</div>
+        </div>
+        <div class="metric">
+          <div class="num">50+</div>
+          <div class="lbl">Training sessions delivered</div>
+        </div>
+        <div class="metric">
+          <div class="num">8+</div>
+          <div class="lbl">Stacks taught end-to-end</div>
+        </div>
+      </div>
+    </div>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="section-head"><span class="kicker">01 — About</span></div>
+        <div class="about-grid">
+          <div>
+            <p>
+              I'm a <strong>full stack developer and team leader</strong> with
+              14+ years building scalable web applications across MEAN and MERN
+              stacks, and a <strong>freelance corporate trainer</strong> who
+              turns that depth into curriculum that gets teams shipped to
+              production.
+            </p>
+            <p>
+              Recent work has centered on enterprise enablement — helping
+              <strong
+                >Java and backend engineers transition into modern frontend
+                roles</strong
+              >, and guiding
+              <strong>Vue teams through migration to Angular</strong>. Beyond
+              training, I've led delivery on React Native, Ionic, Next.js,
+              NestJS and GraphQL projects, taking teams from architecture
+              through to launch.
+            </p>
+          </div>
+          <p class="pull">
+            "The goal of training isn't a slide deck — it's an engineer who can
+            ship in the new stack without me in the room."
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">02 — Technology Stack</span>
+        </div>
+
+        <div class="stack-block">
+          <div class="stack-label">Frontend</div>
+          <div class="badges">
+            <span class="badge lead"><span class="dot"></span>Angular</span>
+            <span class="badge lead"
+              ><span class="dot"></span>React &amp; Redux Toolkit</span
+            >
+            <span class="badge"><span class="dot"></span>Vue.js</span>
+            <span class="badge"><span class="dot"></span>Next.js</span>
+            <span class="badge"><span class="dot"></span>React Native</span>
+            <span class="badge"><span class="dot"></span>Ionic</span>
+            <span class="badge"><span class="dot"></span>Stencil.js</span>
+            <span class="badge lead"><span class="dot"></span>TypeScript</span>
+          </div>
+        </div>
+
+        <div class="stack-block">
+          <div class="stack-label">Backend</div>
+          <div class="badges">
+            <span class="badge lead"><span class="dot"></span>Node.js</span>
+            <span class="badge"><span class="dot"></span>NestJS</span>
+            <span class="badge"><span class="dot"></span>Express</span>
+            <span class="badge"><span class="dot"></span>GraphQL</span>
+            <span class="badge"><span class="dot"></span>PHP / Laravel</span>
+            <span class="badge"><span class="dot"></span>Python / Django</span>
+          </div>
+        </div>
+
+        <div class="stack-block">
+          <div class="stack-label">Data &amp; Infrastructure</div>
+          <div class="badges">
+            <span class="badge"><span class="dot"></span>MongoDB</span>
+            <span class="badge"><span class="dot"></span>PostgreSQL</span>
+            <span class="badge"><span class="dot"></span>MySQL</span>
+            <span class="badge"><span class="dot"></span>AWS</span>
+            <span class="badge"><span class="dot"></span>GCP</span>
+            <span class="badge"><span class="dot"></span>Azure</span>
+            <span class="badge"><span class="dot"></span>Docker</span>
+          </div>
+        </div>
+
+        <div class="stack-block">
+          <div class="stack-label">Tooling &amp; Quality</div>
+          <div class="badges">
+            <span class="badge"><span class="dot"></span>Nx Monorepo</span>
+            <span class="badge"
+              ><span class="dot"></span>Webpack 5 / esbuild</span
+            >
+            <span class="badge"><span class="dot"></span>ESLint</span>
+            <span class="badge"
+              ><span class="dot"></span>Husky / lint-staged</span
+            >
+            <span class="badge"><span class="dot"></span>GitHub Actions</span>
+            <span class="badge"><span class="dot"></span>Jira / Git</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="kicker">03 — Experience</span>
+        </div>
+        <div class="timeline">
+          <div class="trow">
+            <div class="when">Current</div>
+            <div>
+              <h3>Senior Software Engineer</h3>
+              <p>
+                Leading full stack delivery across MEAN/MERN stacks;
+                architecting scalable web applications and mentoring
+                cross-functional teams.
+              </p>
+            </div>
+          </div>
+          <div class="trow">
+            <div class="when">Ongoing</div>
+            <div>
+              <h3>Freelance Corporate Trainer</h3>
+              <p>
+                Designing and delivering frontend engineering training —
+                Angular, React, Vue, Node, TypeScript, Nx — for teams
+                transitioning stacks or upskilling at scale.
+              </p>
+            </div>
+          </div>
+          <div class="trow">
+            <div class="when">14+ yrs</div>
+            <div>
+              <h3>Full Stack Developer / Consultant</h3>
+              <p>
+                Custom PHP, WordPress, Shopify, CodeIgniter, Laravel and Symfony
+                work alongside modern JS frameworks across client and enterprise
+                engagements.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <div class="wrap">
+        <div class="contact-card">
+          <div>
+            <h2>Building a frontend training track for your team?</h2>
+            <p>
+              Open to corporate training engagements, curriculum design, and
+              senior frontend/full-stack consulting.
+            </p>
+            <div class="links">
+              <a href="https://www.linkedin.com/in/mohammadmoin/">LinkedIn ↗</a>
+              <a href="#">GitHub ↗</a>
+              <a href="mailto:mohammad.nicoll@gmail.com">Email ↗</a>
+            </div>
+          </div>
+          <a class="btn btn-primary" href="mailto:hello@example.com"
+            >Contact me</a
+          >
+        </div>
+        <p class="foot-note">© 2026 Mohammad Moin · Built for GitHub Pages</p>
+      </div>
+    </footer>
+  </body>
 </html>
