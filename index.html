@@ -8,21 +8,21 @@
     </title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,500;6..72,600;6..72,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --bg: #f6f4ef;
-        --surface: #ffffff;
-        --line: #e4e0d6;
-        --ink: #16233b;
-        --ink-soft: #4b5567;
-        --navy: #16233b;
-        --accent: #9c6b2e;
-        --accent-soft: #f1e6d3;
-        --teal: #2e6f73;
-        --display: "Newsreader", serif;
+        --bg: #ffffff;
+        --surface: #f7f9fc;
+        --line: #e3e8f0;
+        --ink: #0f1b2d;
+        --ink-soft: #54627a;
+        --navy: #0b2545;
+        --blue: #1d4ed8;
+        --blue-soft: #eaf1ff;
+        --blue-deep: #0f3d8c;
+        --display: "Source Serif 4", serif;
         --body: "Inter", sans-serif;
         --mono: "IBM Plex Mono", monospace;
       }
@@ -40,26 +40,130 @@
         line-height: 1.65;
         -webkit-font-smoothing: antialiased;
       }
+      a {
+        color: inherit;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+
+      /* ---- entrance + reveal animation system ---- */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      @keyframes growLine {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(1);
+        }
+      }
+      .hero-eyebrow-in {
+        animation: fadeUp 0.6s ease both;
+      }
+      .hero-title-in {
+        animation: fadeUp 0.7s ease 0.08s both;
+      }
+      .hero-lede-in {
+        animation: fadeUp 0.7s ease 0.16s both;
+      }
+      .hero-cta-in {
+        animation: fadeUp 0.7s ease 0.24s both;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(22px);
+        transition:
+          opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-stagger > * {
+        opacity: 0;
+        transform: translateY(18px);
+        transition:
+          opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal-stagger.in-view > * {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-stagger.in-view > *:nth-child(1) {
+        transition-delay: 0.02s;
+      }
+      .reveal-stagger.in-view > *:nth-child(2) {
+        transition-delay: 0.09s;
+      }
+      .reveal-stagger.in-view > *:nth-child(3) {
+        transition-delay: 0.16s;
+      }
+      .reveal-stagger.in-view > *:nth-child(4) {
+        transition-delay: 0.23s;
+      }
+      .reveal-stagger.in-view > *:nth-child(5) {
+        transition-delay: 0.3s;
+      }
+      .reveal-stagger.in-view > *:nth-child(6) {
+        transition-delay: 0.37s;
+      }
+      .reveal-stagger.in-view > *:nth-child(7) {
+        transition-delay: 0.44s;
+      }
+      .reveal-stagger.in-view > *:nth-child(8) {
+        transition-delay: 0.51s;
+      }
+
+      .kicker-line {
+        position: relative;
+        display: inline-block;
+      }
+      .kicker-line::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -8px;
+        height: 2px;
+        width: 100%;
+        background: var(--blue);
+        transform-origin: left center;
+        transform: scaleX(0);
+      }
+      .section-head.in-view .kicker-line::after {
+        animation: growLine 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+      }
+
       @media (prefers-reduced-motion: reduce) {
         * {
           animation: none !important;
           transition: none !important;
         }
-      }
-      a {
-        color: inherit;
-      }
-      .wrap {
-        max-width: 1040px;
-        margin: 0 auto;
-        padding: 0 32px;
+        .reveal,
+        .reveal-stagger > * {
+          opacity: 1 !important;
+          transform: none !important;
+        }
       }
 
       nav {
         position: sticky;
         top: 0;
         z-index: 50;
-        background: rgba(246, 244, 239, 0.92);
+        background: rgba(255, 255, 255, 0.92);
         backdrop-filter: blur(8px);
         border-bottom: 1px solid var(--line);
       }
@@ -67,17 +171,17 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 68px;
+        height: 70px;
       }
       .brand {
         font-family: var(--display);
         font-weight: 600;
         font-size: 19px;
-        letter-spacing: 0.2px;
+        color: var(--navy);
       }
       .navlinks {
         display: flex;
-        gap: 30px;
+        gap: 32px;
         font-size: 14px;
         color: var(--ink-soft);
       }
@@ -86,41 +190,56 @@
         transition: color 0.15s;
       }
       .navlinks a:hover {
-        color: var(--accent);
+        color: var(--blue);
       }
       a:focus-visible {
-        outline: 2px solid var(--accent);
+        outline: 2px solid var(--blue);
         outline-offset: 3px;
       }
 
       header.hero {
-        padding: 90px 0 56px;
+        padding: 96px 0 60px;
+        background: radial-gradient(
+          900px 420px at 85% -10%,
+          var(--blue-soft),
+          transparent 60%
+        );
       }
       .eyebrow {
         font-family: var(--mono);
         font-size: 12.5px;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.07em;
         text-transform: uppercase;
-        color: var(--teal);
-        margin: 0 0 20px;
+        color: var(--blue);
+        margin: 0 0 22px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--blue);
       }
       h1.title {
         font-family: var(--display);
         font-weight: 600;
-        font-size: clamp(34px, 5vw, 50px);
-        line-height: 1.15;
-        margin: 0 0 20px;
-        max-width: 760px;
+        font-size: clamp(34px, 5vw, 52px);
+        line-height: 1.18;
+        margin: 0 0 22px;
+        max-width: 780px;
+        color: var(--navy);
       }
-      h1.title em {
-        font-style: italic;
-        color: var(--accent);
+      h1.title .accent {
+        color: var(--blue);
       }
       .lede {
         font-size: 18px;
         color: var(--ink-soft);
-        max-width: 600px;
-        margin: 0 0 36px;
+        max-width: 620px;
+        margin: 0 0 38px;
       }
       .hero-cta {
         display: flex;
@@ -130,36 +249,38 @@
       .btn {
         font-size: 14px;
         font-weight: 600;
-        padding: 12px 22px;
-        border-radius: 7px;
+        padding: 13px 24px;
+        border-radius: 8px;
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: 8px;
         transition:
           transform 0.15s,
-          box-shadow 0.15s;
+          box-shadow 0.15s,
+          background 0.15s;
       }
       .btn-primary {
-        background: var(--navy);
+        background: var(--blue);
         color: #fff;
       }
       .btn-primary:hover {
+        background: var(--blue-deep);
         transform: translateY(-2px);
-        box-shadow: 0 10px 22px -10px rgba(22, 35, 59, 0.45);
+        box-shadow: 0 14px 26px -14px rgba(29, 78, 216, 0.5);
       }
       .btn-ghost {
-        background: transparent;
+        background: #fff;
         color: var(--navy);
         border: 1px solid var(--line);
       }
       .btn-ghost:hover {
-        border-color: var(--accent);
-        color: var(--accent);
+        border-color: var(--blue);
+        color: var(--blue);
       }
 
       .metrics {
-        padding: 8px 0 64px;
+        padding: 8px 0 70px;
       }
       .metric-grid {
         display: grid;
@@ -167,7 +288,7 @@
         gap: 1px;
         background: var(--line);
         border: 1px solid var(--line);
-        border-radius: 14px;
+        border-radius: 16px;
         overflow: hidden;
       }
       @media (max-width: 760px) {
@@ -176,41 +297,48 @@
         }
       }
       .metric {
-        background: var(--surface);
-        padding: 30px 24px;
+        background: #fff;
+        padding: 32px 26px;
+        transition:
+          transform 0.25s ease,
+          background 0.25s ease;
+      }
+      .metric:hover {
+        background: var(--blue-soft);
+        transform: translateY(-3px);
       }
       .metric .num {
         font-family: var(--display);
-        font-size: 34px;
+        font-size: 36px;
         font-weight: 600;
         color: var(--navy);
       }
       .metric .lbl {
         font-size: 13px;
         color: var(--ink-soft);
-        margin-top: 4px;
+        margin-top: 6px;
       }
 
       section {
-        padding: 64px 0;
+        padding: 68px 0;
         border-top: 1px solid var(--line);
       }
       .section-head {
         display: flex;
         align-items: baseline;
         gap: 14px;
-        margin-bottom: 36px;
+        margin-bottom: 38px;
       }
       .kicker {
         font-family: var(--mono);
         font-size: 12px;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.06em;
         text-transform: uppercase;
-        color: var(--accent);
+        color: var(--blue);
       }
       h2 {
         font-family: var(--display);
-        font-size: 27px;
+        font-size: 28px;
         margin: 0;
         font-weight: 600;
         color: var(--navy);
@@ -219,7 +347,7 @@
       .about-grid {
         display: grid;
         grid-template-columns: 1.4fr 1fr;
-        gap: 56px;
+        gap: 60px;
       }
       @media (max-width: 760px) {
         .about-grid {
@@ -235,18 +363,24 @@
         color: var(--ink);
         font-weight: 600;
       }
-      .pull {
-        border-left: 3px solid var(--accent);
-        padding: 4px 0 4px 20px;
+      .pull-card {
+        background: var(--blue-soft);
+        border: 1px solid #d6e4ff;
+        border-radius: 14px;
+        padding: 28px 26px;
+        height: fit-content;
+      }
+      .pull-card p {
         font-family: var(--display);
         font-size: 19px;
         font-style: italic;
         color: var(--navy);
         margin: 0;
+        line-height: 1.5;
       }
 
       .stack-block {
-        margin-bottom: 28px;
+        margin-bottom: 30px;
       }
       .stack-block:last-child {
         margin-bottom: 0;
@@ -255,107 +389,139 @@
         font-size: 13px;
         font-weight: 600;
         color: var(--ink-soft);
-        margin-bottom: 12px;
+        margin-bottom: 13px;
         text-transform: uppercase;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.05em;
       }
       .badges {
         display: flex;
         flex-wrap: wrap;
         gap: 10px;
       }
+      .badges.reveal-stagger > * {
+        transition-duration: 0.45s;
+      }
       .badge {
         display: inline-flex;
         align-items: center;
         gap: 7px;
-        background: var(--surface);
+        background: #fff;
         border: 1px solid var(--line);
         border-radius: 8px;
-        padding: 9px 14px;
+        padding: 9px 15px;
         font-size: 13.5px;
         font-weight: 500;
         color: var(--ink);
         transition:
           border-color 0.15s,
-          transform 0.15s;
+          transform 0.15s,
+          background 0.15s;
       }
       .badge:hover {
-        border-color: var(--accent);
+        border-color: var(--blue);
+        background: var(--blue-soft);
         transform: translateY(-1px);
       }
       .badge .dot {
         width: 6px;
         height: 6px;
         border-radius: 50%;
-        background: var(--teal);
+        background: #9daec9;
         flex: 0 0 auto;
       }
+      .badge.lead {
+        border-color: #d6e4ff;
+        background: var(--blue-soft);
+      }
       .badge.lead .dot {
-        background: var(--accent);
+        background: var(--blue);
       }
 
-      .timeline {
-        display: flex;
-        flex-direction: column;
-      }
-      .trow {
+      .exp-grid {
         display: grid;
-        grid-template-columns: 150px 1fr;
+        gap: 18px;
+      }
+      .exp-card {
+        display: grid;
+        grid-template-columns: 160px 1fr;
         gap: 28px;
-        padding: 26px 0;
-        border-top: 1px solid var(--line);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 26px 28px;
+        transition: border-color 0.15s;
       }
-      .trow:first-child {
-        border-top: none;
-        padding-top: 0;
+      .exp-card:hover {
+        border-color: #c9d8f2;
       }
-      .trow .when {
+      .exp-card .when {
         font-family: var(--mono);
         font-size: 12.5px;
-        color: var(--accent);
+        color: var(--blue);
         padding-top: 3px;
       }
-      .trow h3 {
+      .exp-card h3 {
         margin: 0 0 6px;
         font-size: 17px;
         font-family: var(--display);
         font-weight: 600;
         color: var(--navy);
       }
-      .trow p {
+      .exp-card p {
         margin: 0;
         color: var(--ink-soft);
         font-size: 14.5px;
       }
 
       footer {
-        padding: 70px 0 56px;
+        padding: 74px 0 60px;
         border-top: 1px solid var(--line);
       }
       .contact-card {
         background: var(--navy);
         color: #fff;
-        border-radius: 16px;
-        padding: 48px;
+        border-radius: 18px;
+        padding: 50px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         flex-wrap: wrap;
         gap: 28px;
+        position: relative;
+        overflow: hidden;
+      }
+      .contact-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          500px 300px at 100% 0%,
+          rgba(29, 78, 216, 0.35),
+          transparent 70%
+        );
+      }
+      .contact-card > * {
+        position: relative;
+        z-index: 1;
       }
       .contact-card h2 {
         color: #fff;
-        font-size: 25px;
+        font-size: 26px;
       }
       .contact-card p {
         color: rgba(255, 255, 255, 0.72);
         margin: 10px 0 0;
-        max-width: 420px;
+        max-width: 430px;
         font-size: 14.5px;
       }
       .contact-card .btn-primary {
-        background: var(--accent);
-        color: #fff;
+        background: #fff;
+        color: var(--navy);
+      }
+      .contact-card .btn-primary:hover {
+        background: var(--blue-soft);
+        box-shadow: none;
+        color: var(--navy);
       }
       .links {
         display: flex;
@@ -368,13 +534,13 @@
         color: rgba(255, 255, 255, 0.78);
       }
       .links a:hover {
-        color: var(--accent-soft);
+        color: #afc8ff;
       }
       .foot-note {
         text-align: center;
         font-size: 12.5px;
         color: var(--ink-soft);
-        margin-top: 36px;
+        margin-top: 38px;
       }
     </style>
   </head>
@@ -393,20 +559,24 @@
 
     <header class="hero">
       <div class="wrap">
-        <p class="eyebrow">
-          Senior Software Engineer · Freelance Corporate Trainer
+        <p class="eyebrow hero-eyebrow-in">
+          Freelance Corporate Trainer/Consultant
         </p>
-        <h1 class="title">
+        <h1 class="title hero-title-in">
           14+ years building frontends —
-          <em>and helping engineering teams learn to build them well.</em>
+          <span class="accent"
+            >and helping engineering teams learn to build them well.</span
+          >
         </h1>
-        <p class="lede">
+        <p class="lede hero-lede-in">
           Full stack engineer across Angular, React, Vue and Node, and a
           corporate trainer who designs curriculum that takes teams from one
           stack to another with confidence.
         </p>
-        <div class="hero-cta">
-          <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <div class="hero-cta hero-cta-in">
+          <a class="btn btn-primary" href="mailto:mohammad.nicoll@gmail.com"
+            >Get in touch</a
+          >
           <a
             class="btn btn-ghost"
             href="https://www.linkedin.com/in/mohammadmoin/"
@@ -417,21 +587,21 @@
     </header>
 
     <div class="metrics wrap">
-      <div class="metric-grid">
+      <div class="metric-grid reveal-stagger reveal">
         <div class="metric">
-          <div class="num">14+</div>
+          <div class="num" data-target="14" data-suffix="+">0+</div>
           <div class="lbl">Years in software engineering</div>
         </div>
         <div class="metric">
-          <div class="num">500+</div>
+          <div class="num" data-target="5000" data-suffix="+">0+</div>
           <div class="lbl">Engineers trained</div>
         </div>
         <div class="metric">
-          <div class="num">50+</div>
+          <div class="num" data-target="350" data-suffix="+">0+</div>
           <div class="lbl">Training sessions delivered</div>
         </div>
         <div class="metric">
-          <div class="num">8+</div>
+          <div class="num" data-target="10" data-suffix="+">0+</div>
           <div class="lbl">Stacks taught end-to-end</div>
         </div>
       </div>
@@ -439,8 +609,10 @@
 
     <section id="about">
       <div class="wrap">
-        <div class="section-head"><span class="kicker">01 — About</span></div>
-        <div class="about-grid">
+        <div class="section-head reveal">
+          <span class="kicker kicker-line">01 — About</span>
+        </div>
+        <div class="about-grid reveal">
           <div>
             <p>
               I'm a <strong>full stack developer and team leader</strong> with
@@ -461,23 +633,25 @@
               through to launch.
             </p>
           </div>
-          <p class="pull">
-            "The goal of training isn't a slide deck — it's an engineer who can
-            ship in the new stack without me in the room."
-          </p>
+          <div class="pull-card">
+            <p>
+              "The goal of training isn't a slide deck — it's an engineer who
+              can ship in the new stack without me in the room."
+            </p>
+          </div>
         </div>
       </div>
     </section>
 
     <section id="stack">
       <div class="wrap">
-        <div class="section-head">
-          <span class="kicker">02 — Technology Stack</span>
+        <div class="section-head reveal">
+          <span class="kicker kicker-line">02 — Technology Stack</span>
         </div>
 
         <div class="stack-block">
           <div class="stack-label">Frontend</div>
-          <div class="badges">
+          <div class="badges reveal-stagger reveal">
             <span class="badge lead"><span class="dot"></span>Angular</span>
             <span class="badge lead"
               ><span class="dot"></span>React &amp; Redux Toolkit</span
@@ -493,7 +667,7 @@
 
         <div class="stack-block">
           <div class="stack-label">Backend</div>
-          <div class="badges">
+          <div class="badges reveal-stagger reveal">
             <span class="badge lead"><span class="dot"></span>Node.js</span>
             <span class="badge"><span class="dot"></span>NestJS</span>
             <span class="badge"><span class="dot"></span>Express</span>
@@ -505,7 +679,7 @@
 
         <div class="stack-block">
           <div class="stack-label">Data &amp; Infrastructure</div>
-          <div class="badges">
+          <div class="badges reveal-stagger reveal">
             <span class="badge"><span class="dot"></span>MongoDB</span>
             <span class="badge"><span class="dot"></span>PostgreSQL</span>
             <span class="badge"><span class="dot"></span>MySQL</span>
@@ -518,7 +692,7 @@
 
         <div class="stack-block">
           <div class="stack-label">Tooling &amp; Quality</div>
-          <div class="badges">
+          <div class="badges reveal-stagger reveal">
             <span class="badge"><span class="dot"></span>Nx Monorepo</span>
             <span class="badge"
               ><span class="dot"></span>Webpack 5 / esbuild</span
@@ -536,11 +710,11 @@
 
     <section id="experience">
       <div class="wrap">
-        <div class="section-head">
-          <span class="kicker">03 — Experience</span>
+        <div class="section-head reveal">
+          <span class="kicker kicker-line">03 — Experience</span>
         </div>
-        <div class="timeline">
-          <div class="trow">
+        <div class="exp-grid reveal-stagger reveal">
+          <div class="exp-card">
             <div class="when">Current</div>
             <div>
               <h3>Senior Software Engineer</h3>
@@ -551,7 +725,7 @@
               </p>
             </div>
           </div>
-          <div class="trow">
+          <div class="exp-card">
             <div class="when">Ongoing</div>
             <div>
               <h3>Freelance Corporate Trainer</h3>
@@ -562,7 +736,7 @@
               </p>
             </div>
           </div>
-          <div class="trow">
+          <div class="exp-card">
             <div class="when">14+ yrs</div>
             <div>
               <h3>Full Stack Developer / Consultant</h3>
@@ -579,7 +753,7 @@
 
     <footer id="contact">
       <div class="wrap">
-        <div class="contact-card">
+        <div class="contact-card reveal">
           <div>
             <h2>Building a frontend training track for your team?</h2>
             <p>
@@ -592,12 +766,81 @@
               <a href="mailto:mohammad.nicoll@gmail.com">Email ↗</a>
             </div>
           </div>
-          <a class="btn btn-primary" href="mailto:hello@example.com"
+          <a class="btn btn-primary" href="mailto:mohammad.nicoll@gmail.com"
             >Contact me</a
           >
         </div>
         <p class="foot-note">© 2026 Mohammad Moin · Built for GitHub Pages</p>
       </div>
     </footer>
+
+    <script>
+      // Scroll-reveal: fade/slide elements in as they enter the viewport
+      const revealEls = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("in-view");
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+        );
+        revealEls.forEach((el) => io.observe(el));
+      } else {
+        revealEls.forEach((el) => el.classList.add("in-view"));
+      }
+      // Count-up animation for metric numbers
+      const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      const counters = document.querySelectorAll(".num[data-target]");
+
+      function animateCount(el) {
+        const target = parseInt(el.getAttribute("data-target"), 10);
+        const suffix = el.getAttribute("data-suffix") || "";
+        if (prefersReducedMotion) {
+          el.textContent = target + suffix;
+          return;
+        }
+        const duration = 1100;
+        const start = performance.now();
+        const easeOutExpo = (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
+
+        function tick(now) {
+          const elapsed = now - start;
+          const progress = Math.min(elapsed / duration, 1);
+          const eased = easeOutExpo(progress);
+          const value = Math.round(eased * target);
+          el.textContent = value + suffix;
+          if (progress < 1) {
+            requestAnimationFrame(tick);
+          } else {
+            el.textContent = target + suffix;
+          }
+        }
+        requestAnimationFrame(tick);
+      }
+
+      if ("IntersectionObserver" in window) {
+        const counterIo = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                animateCount(entry.target);
+                counterIo.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.4 },
+        );
+        counters.forEach((el) => counterIo.observe(el));
+      } else {
+        counters.forEach((el) => animateCount(el));
+      }
+    </script>
   </body>
 </html>
