@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mohammad Moin — Full Stack Developer &amp; Corporate Trainer</title>
+    <meta
+      name="description"
+      content="Mohammad Moin — Senior Full Stack Engineer building JavaScript web &amp; mobile applications, and a corporate trainer delivering upskilling programs on modern frontend stacks."
+    />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B2545'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='17' fill='%231D4ED8' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E"
+    />
+    <meta name="theme-color" content="#0B2545" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
@@ -176,6 +185,7 @@
         font-weight: 600;
         font-size: 19px;
         color: var(--navy);
+        text-decoration: none;
       }
       .navlinks {
         display: flex;
@@ -193,6 +203,51 @@
       a:focus-visible {
         outline: 2px solid var(--blue);
         outline-offset: 3px;
+      }
+      .nav-toggle {
+        display: none;
+        background: none;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        width: 38px;
+        height: 38px;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .nav-toggle svg {
+        width: 18px;
+        height: 18px;
+        color: var(--navy);
+      }
+      @media (max-width: 680px) {
+        .nav-toggle {
+          display: flex;
+        }
+        .navlinks {
+          position: absolute;
+          top: 70px;
+          left: 0;
+          right: 0;
+          background: #fff;
+          border-bottom: 1px solid var(--line);
+          flex-direction: column;
+          gap: 0;
+          padding: 8px 0;
+          max-height: 0;
+          overflow: hidden;
+          transition: max-height 0.25s ease;
+        }
+        .navlinks.open {
+          max-height: 260px;
+        }
+        .navlinks a {
+          padding: 13px 32px;
+          width: 100%;
+        }
+        .navlinks a:hover {
+          background: var(--surface);
+        }
       }
 
       header.hero {
@@ -742,16 +797,33 @@
       }
       .links {
         display: flex;
-        gap: 20px;
-        font-size: 13.5px;
-        margin-top: 16px;
+        gap: 14px;
+        margin-top: 18px;
+        flex-wrap: wrap;
       }
       .links a {
         text-decoration: none;
-        color: rgba(255, 255, 255, 0.78);
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 13.5px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        padding: 8px 14px;
+        border-radius: 7px;
+        transition:
+          background 0.15s,
+          border-color 0.15s;
       }
       .links a:hover {
-        color: #afc8ff;
+        background: rgba(255, 255, 255, 0.16);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      .links svg {
+        width: 14px;
+        height: 14px;
       }
       .foot-note {
         text-align: center;
@@ -764,14 +836,33 @@
   <body>
     <nav>
       <div class="wrap">
-        <div class="brand">Mohammad Moin</div>
-        <div class="navlinks">
+        <a href="#" class="brand">Mohammad Moin</a>
+        <div class="navlinks" id="navlinks">
           <a href="#pillars">What I Do</a>
           <a href="#about">About</a>
           <a href="#stack">Stack</a>
           <a href="#experience">Experience</a>
           <a href="#contact">Contact</a>
         </div>
+        <button
+          class="nav-toggle"
+          id="navToggle"
+          aria-label="Toggle navigation menu"
+          aria-expanded="false"
+          aria-controls="navlinks"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          >
+            <line x1="4" y1="7" x2="20" y2="7"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="17" x2="20" y2="17"></line>
+          </svg>
+        </button>
       </div>
     </nav>
 
@@ -821,7 +912,7 @@
           <div class="lbl">Engineers trained</div>
         </div>
         <div class="metric">
-          <div class="num" data-target="530" data-suffix="+">0+</div>
+          <div class="num" data-target="350" data-suffix="+">0+</div>
           <div class="lbl">Training sessions delivered</div>
         </div>
         <div class="metric">
@@ -1110,20 +1201,56 @@
               curriculum design.
             </p>
             <div class="links">
-              <a href="https://www.linkedin.com/in/mohammadmoin/">LinkedIn ↗</a>
-              <a href="#">GitHub ↗</a>
-              <a href="mailto:mohammad.nicoll@gmail.com">Email ↗</a>
+              <a
+                href="https://www.linkedin.com/in/mohammadmoin/"
+                target="_blank"
+                rel="noopener"
+                ><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19h-3v-9h3v9zm-1.5-10.28c-.97 0-1.75-.79-1.75-1.75s.78-1.75 1.75-1.75 1.75.79 1.75 1.75-.78 1.75-1.75 1.75zm13.5 10.28h-3v-4.5c0-1.07-.02-2.45-1.5-2.45-1.5 0-1.73 1.17-1.73 2.37v4.58h-3v-9h2.88v1.23h.04c.4-.75 1.38-1.55 2.84-1.55 3.04 0 3.6 2 3.6 4.59v4.73z"
+                  /></svg
+                >LinkedIn</a
+              >
+              <a href="mailto:mohammad.nicoll@gmail.com"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                  <path d="M2 7l10 6 10-6"></path></svg
+                >Email</a
+              >
             </div>
           </div>
           <a class="btn btn-primary" href="mailto:mohammad.nicoll@gmail.com"
             >Contact me</a
           >
         </div>
-        <p class="foot-note">© 2026 Mohammad Moin · Built for GitHub Pages</p>
+        <p class="foot-note">
+          © 2026 Mohammad Moin — Full Stack Developer &amp; Corporate Trainer
+        </p>
       </div>
     </footer>
 
     <script>
+      // Mobile nav toggle
+      const navToggle = document.getElementById("navToggle");
+      const navLinks = document.getElementById("navlinks");
+      if (navToggle && navLinks) {
+        navToggle.addEventListener("click", () => {
+          const isOpen = navLinks.classList.toggle("open");
+          navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+        navLinks.querySelectorAll("a").forEach((a) => {
+          a.addEventListener("click", () => {
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+          });
+        });
+      }
+
       // Scroll-reveal: fade/slide elements in as they enter the viewport
       const revealEls = document.querySelectorAll(".reveal");
       if ("IntersectionObserver" in window) {
