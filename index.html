@@ -203,6 +203,61 @@
           transparent 60%
         );
       }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 0.9fr;
+        gap: 56px;
+        align-items: center;
+      }
+      @media (max-width: 860px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .hero-photo-in {
+          order: -1;
+          display: flex;
+          justify-content: center;
+        }
+        .hero-photo {
+          width: 220px !important;
+          height: 220px !important;
+        }
+      }
+      .hero-photo-in {
+        animation: fadeUp 0.8s ease 0.1s both;
+      }
+      .hero-photo {
+        position: relative;
+        width: 100%;
+        max-width: 340px;
+        aspect-ratio: 1/1;
+        margin-left: auto;
+        border-radius: 20px;
+        overflow: hidden;
+        background: var(--surface);
+        box-shadow:
+          0 30px 60px -28px rgba(11, 37, 69, 0.35),
+          0 0 0 1px var(--line);
+      }
+      .hero-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .hero-photo::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        box-shadow: inset 0 0 0 1px rgba(11, 37, 69, 0.06);
+        background: linear-gradient(
+          160deg,
+          rgba(29, 78, 216, 0.1),
+          transparent 45%
+        );
+      }
       .eyebrow {
         font-family: var(--mono);
         font-size: 12.5px;
@@ -721,29 +776,36 @@
     </nav>
 
     <header class="hero">
-      <div class="wrap">
-        <p class="eyebrow hero-eyebrow-in">
-          Web &amp; Mobile Engineer · Corporate Trainer
-        </p>
-        <h1 class="title hero-title-in">
-          I build JavaScript-powered products —
-          <span class="accent"
-            >and train the engineers who'll build the next ones.</span
-          >
-        </h1>
-        <p class="lede hero-lede-in">
-          14+ years across two disciplines: shipping production web and mobile
-          apps with Angular, React, Vue and Node — and designing corporate
-          training programs that move individuals and teams onto modern stacks
-          with confidence.
-        </p>
-        <div class="hero-cta hero-cta-in">
-          <a class="btn btn-primary" href="#contact">Get in touch</a>
-          <a
-            class="btn btn-ghost"
-            href="https://www.linkedin.com/in/mohammadmoin/"
-            >View LinkedIn</a
-          >
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow hero-eyebrow-in">
+            Web &amp; Mobile Engineer · Corporate Trainer
+          </p>
+          <h1 class="title hero-title-in">
+            I build JavaScript-powered products —
+            <span class="accent"
+              >and train the engineers who'll build the next ones.</span
+            >
+          </h1>
+          <p class="lede hero-lede-in">
+            14+ years across two disciplines: shipping production web and mobile
+            apps with Angular, React, Vue and Node — and designing corporate
+            training programs that move individuals and teams onto modern stacks
+            with confidence.
+          </p>
+          <div class="hero-cta hero-cta-in">
+            <a class="btn btn-primary" href="#contact">Get in touch</a>
+            <a
+              class="btn btn-ghost"
+              href="https://www.linkedin.com/in/mohammadmoin/"
+              >View LinkedIn</a
+            >
+          </div>
+        </div>
+        <div class="hero-photo-in">
+          <div class="hero-photo">
+            <img src="assets/profile.webp" alt="Portrait of Mohammad Moin" />
+          </div>
         </div>
       </div>
     </header>
@@ -755,15 +817,15 @@
           <div class="lbl">Years in software engineering</div>
         </div>
         <div class="metric">
-          <div class="num" data-target="500" data-suffix="+">0+</div>
+          <div class="num" data-target="5000" data-suffix="+">0+</div>
           <div class="lbl">Engineers trained</div>
         </div>
         <div class="metric">
-          <div class="num" data-target="50" data-suffix="+">0+</div>
+          <div class="num" data-target="530" data-suffix="+">0+</div>
           <div class="lbl">Training sessions delivered</div>
         </div>
         <div class="metric">
-          <div class="num" data-target="8" data-suffix="+">0+</div>
+          <div class="num" data-target="10" data-suffix="+">0+</div>
           <div class="lbl">Stacks taught end-to-end</div>
         </div>
       </div>
