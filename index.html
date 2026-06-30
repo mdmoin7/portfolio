@@ -14,6 +14,13 @@
     />
     <meta name="theme-color" content="#0B2545" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="image"
+      href="assets/profile.webp"
+      fetchpriority="high"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
       rel="stylesheet"
@@ -54,6 +61,11 @@
         max-width: 1080px;
         margin: 0 auto;
         padding: 0 32px;
+      }
+      @media (max-width: 480px) {
+        .wrap {
+          padding: 0 20px;
+        }
       }
 
       /* ---- entrance + reveal animation system ---- */
@@ -264,36 +276,36 @@
         gap: 56px;
         align-items: center;
       }
-      @media (max-width: 860px) {
-        .hero-grid {
-          grid-template-columns: 1fr;
-          gap: 40px;
-        }
-        .hero-photo-in {
-          order: -1;
-          display: flex;
-          justify-content: center;
-        }
-        .hero-photo {
-          width: 220px !important;
-          height: 220px !important;
-        }
-      }
       .hero-photo-in {
-        animation: fadeUp 0.8s ease 0.1s both;
+        display: flex;
+        justify-content: flex-end;
+        animation: fadeUp 0.35s ease both;
       }
       .hero-photo {
         position: relative;
         width: 100%;
         max-width: 340px;
         aspect-ratio: 1/1;
-        margin-left: auto;
         border-radius: 20px;
         overflow: hidden;
         background: var(--surface);
         box-shadow:
           0 30px 60px -28px rgba(11, 37, 69, 0.35),
           0 0 0 1px var(--line);
+      }
+      @media (max-width: 860px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 36px;
+        }
+        .hero-photo-in {
+          order: -1;
+          justify-content: center;
+        }
+        .hero-photo {
+          width: 200px;
+          max-width: 200px;
+        }
       }
       .hero-photo img {
         width: 100%;
@@ -385,6 +397,42 @@
       .btn-ghost:hover {
         border-color: var(--blue);
         color: var(--blue);
+      }
+
+      .clients {
+        padding: 0 0 70px;
+      }
+      .clients-label {
+        font-family: var(--mono);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--ink-soft);
+        text-align: center;
+        margin: 0 0 22px;
+      }
+      .client-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 14px;
+      }
+      .client-pill {
+        font-family: var(--display);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--ink-soft);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        padding: 12px 22px;
+        transition:
+          color 0.15s,
+          border-color 0.15s;
+      }
+      .client-pill:hover {
+        color: var(--navy);
+        border-color: #c9d8f2;
       }
 
       .metrics {
@@ -888,6 +936,25 @@
             <a class="btn btn-primary" href="#contact">Get in touch</a>
             <a
               class="btn btn-ghost"
+              href="assets/resume.pdf"
+              target="_blank"
+              rel="noopener"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                style="width: 15px; height: 15px"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line></svg
+              >Download Resume</a
+            >
+            <a
+              class="btn btn-ghost"
               href="https://www.linkedin.com/in/mohammadmoin/"
               >View LinkedIn</a
             >
@@ -895,7 +962,15 @@
         </div>
         <div class="hero-photo-in">
           <div class="hero-photo">
-            <img src="assets/profile.webp" alt="Portrait of Mohammad Moin" />
+            <img
+              src="assets/profile.webp"
+              alt="Portrait of Mohammad Moin"
+              width="680"
+              height="680"
+              fetchpriority="high"
+              decoding="async"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
@@ -919,6 +994,17 @@
           <div class="num" data-target="10" data-suffix="+">0+</div>
           <div class="lbl">Stacks taught end-to-end</div>
         </div>
+      </div>
+    </div>
+
+    <div class="clients wrap reveal-stagger reveal">
+      <p class="clients-label">Engineers &amp; teams trained at</p>
+      <div class="client-row">
+        <span class="client-pill">IBM</span>
+        <span class="client-pill">Amazon</span>
+        <span class="client-pill">Walmart</span>
+        <span class="client-pill">SAP</span>
+        <span class="client-pill">Dell</span>
       </div>
     </div>
 
