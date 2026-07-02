@@ -52,10 +52,25 @@
       href="assets/profile.webp"
       fetchpriority="high"
     />
+    <!-- Non-render-blocking font load. Browser paints immediately with system
+         fonts, swaps to web fonts once downloaded. display=swap handles FOUT. -->
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
-      rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap"
+      />
+    </noscript>
     <style>
       :root {
         --bg: #ffffff;
@@ -67,9 +82,11 @@
         --blue: #1d4ed8;
         --blue-soft: #eaf1ff;
         --blue-deep: #0f3d8c;
-        --display: "Source Serif 4", serif;
-        --body: "Inter", sans-serif;
-        --mono: "IBM Plex Mono", monospace;
+        --display: "Source Serif 4", "Georgia", "Times New Roman", serif;
+        --body:
+          "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        --mono: "IBM Plex Mono", "Menlo", "Consolas", "Courier New", monospace;
       }
       * {
         box-sizing: border-box;

@@ -15,14 +15,77 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install minifier
+        run: pip install htmlmin
+
+      - name: Minify HTML (inline CSS + JS + markup)
+        run: |
+          python3 - << 'PYEOF'
+          import htmlmin, re, shutil, os
+
+          with open('index.html', 'r') as f:
+              html = f.read()
+
+          def minify_css(css):
+              css = re.sub(r'/\*.*?\*/', '', css, flags=re.DOTALL)
+              css = re.sub(r'\s*{\s*', '{', css)
+              css = re.sub(r'\s*}\s*', '}', css)
+              css = re.sub(r'\s*:\s*', ':', css)
+              css = re.sub(r'\s*;\s*', ';', css)
+              css = re.sub(r'\s*,\s*', ',', css)
+              css = re.sub(r'\n+', '', css)
+              css = re.sub(r'  +', ' ', css)
+              return css.strip()
+
+          def minify_js(js):
+              js = re.sub(r'//[^\n]*', '', js)
+              js = re.sub(r'\n\s*\n', '\n', js)
+              js = re.sub(r'  +', ' ', js)
+              return js.strip()
+
+          html = re.sub(
+              r'(<style[^>]*>)(.*?)(</style>)',
+              lambda m: m.group(1) + minify_css(m.group(2)) + m.group(3),
+              html, flags=re.DOTALL
+          )
+          html = re.sub(
+              r'(<script(?![^>]*src)[^>]*>)(.*?)(</script>)',
+              lambda m: m.group(1) + minify_js(m.group(2)) + m.group(3),
+              html, flags=re.DOTALL
+          )
+          minified = htmlmin.minify(html,
+              remove_comments=True,
+              remove_empty_space=True,
+              reduce_boolean_attributes=False,
+              remove_optional_attribute_quotes=False,
+              keep_pre=True
+          )
+
+          # Write to dist/
+          os.makedirs('dist', exist_ok=True)
+          with open('dist/index.html', 'w') as f:
+              f.write(minified)
+
+          orig = os.path.getsize('index.html')
+          mini = len(minified.encode())
+          print(f"index.html: {orig:,}B → {mini:,}B ({(1-mini/orig)*100:.0f}% reduction)")
+          PYEOF
+
+      - name: Copy assets to dist
+        run: |
+          cp -r assets dist/assets
+          if [ -f "CNAME" ]; then cp CNAME dist/; fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -30,8 +93,15 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "."
+          path: "dist"
 
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
