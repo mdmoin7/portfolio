@@ -57,6 +57,27 @@
 - Stack migration training
 - Curriculum design and mentoring
 
+## Selected projects
+
+### AquaTrack
+
+Enterprise water consumption and billing management system for apartment communities.
+
+- Repository: https://github.com/mdmoin7/aquatrack
+- Technologies: React, TypeScript, Vite, Firebase, Firestore
+- Capabilities: consumption tracking, billing, alerts, role-based access, offline persistence, analytics and Firebase security rules
+- Architecture: a data-store abstraction supports demo/local storage and Firebase/Firestore cloud mode
+
+### E-commerce Application
+
+React and TypeScript e-commerce storefront project with API service integration.
+
+- Repository: https://github.com/mdmoin7/ecom-app
+- Technologies: React, TypeScript, Vite
+- Focus: typed frontend architecture and API-backed storefront development
+
+Only projects with public repositories and sufficient first-party documentation should be presented as portfolio evidence.
+
 ## Professional profiles
 
 - Portfolio: https://mdmoin7.github.io/portfolio/
