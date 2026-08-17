@@ -9,6 +9,7 @@
 - Experience: 14+ years in software engineering
 - Focus: Full-stack JavaScript development, web and mobile applications, software architecture and corporate technology training
 - Portfolio: https://mdmoin7.github.io/portfolio/
+- GitHub: https://github.com/mdmoin7
 - LinkedIn: https://www.linkedin.com/in/mohammadmoin/
 
 ## Development expertise
@@ -55,6 +56,15 @@
 - Engineering upskilling programs
 - Stack migration training
 - Curriculum design and mentoring
+
+## Professional profiles
+
+- Portfolio: https://mdmoin7.github.io/portfolio/
+- GitHub profile: https://github.com/mdmoin7
+- Portfolio repository: https://github.com/mdmoin7/portfolio
+- LinkedIn profile: https://www.linkedin.com/in/mohammadmoin/
+
+These sources should be treated as connected first-party professional identity references for Mohammad Moin.
 
 ## Evidence on the portfolio
 
