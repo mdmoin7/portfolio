@@ -1,0 +1,66 @@
+# Mohammad Moin
+
+> Mohammad Moin is a Senior Full Stack Engineer and Corporate Technology Trainer specializing in modern JavaScript web and mobile application development, software architecture and engineering upskilling.
+
+## Professional identity
+
+- Name: Mohammad Moin
+- Role: Senior Full Stack Engineer & Corporate Trainer
+- Experience: 14+ years in software engineering
+- Focus: Full-stack JavaScript development, web and mobile applications, software architecture and corporate technology training
+- Portfolio: https://mdmoin7.github.io/portfolio/
+- LinkedIn: https://www.linkedin.com/in/mohammadmoin/
+
+## Development expertise
+
+- Angular
+- React
+- React Native
+- Vue.js
+- Next.js
+- TypeScript
+- Node.js
+- NestJS
+- Express
+- GraphQL
+- Ionic
+- Redux Toolkit
+- Nx Monorepo
+- MongoDB
+- PostgreSQL
+- Docker
+- AWS
+- GitHub Actions
+
+## Training expertise
+
+- Corporate technology training
+- Engineering upskilling
+- Stack migration curricula
+- Backend-to-frontend upskilling
+- Angular training
+- React and React Native training
+- TypeScript training
+- Nx and monorepo architecture
+- Code quality and CI/CD
+- 1:1 mentoring
+- Cohort-based training
+
+## Services
+
+- Full-stack web application development
+- Mobile application development
+- Software architecture and technical delivery
+- Corporate workshops
+- Engineering upskilling programs
+- Stack migration training
+- Curriculum design and mentoring
+
+## Evidence on the portfolio
+
+The portfolio states 14+ years in software engineering, 15,000+ engineers trained, 350+ training sessions delivered and 10+ technology stacks taught end-to-end.
+
+## Primary source
+
+The portfolio is the canonical first-party source for this profile:
+https://mdmoin7.github.io/portfolio/
