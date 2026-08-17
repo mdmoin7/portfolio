@@ -19,10 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
@@ -35,7 +35,6 @@ jobs:
           import htmlmin
           import os
           import re
-          import shutil
 
           with open('index.html', 'r', encoding='utf-8') as f:
               html = f.read()
@@ -83,9 +82,7 @@ jobs:
               f.write(minified)
           PYEOF
 
-          # Publish all static site content. The previous workflow only copied
-          # the root index.html and assets, which excluded nested pages such as
-          # /training/, /consulting/ and /engineering/*.
+          # Publish all static site content, including nested authority pages.
           cp -r assets dist/assets
           for path in training consulting engineering; do
             if [ -d "$path" ]; then cp -r "$path" "dist/$path"; fi
@@ -95,10 +92,10 @@ jobs:
           done
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
         with:
           path: "dist"
 
@@ -111,4 +108,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
