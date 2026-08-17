@@ -29,12 +29,15 @@ jobs:
       - name: Install minifier
         run: pip install htmlmin
 
-      - name: Minify HTML (inline CSS + JS + markup)
+      - name: Build static site
         run: |
           python3 - << 'PYEOF'
-          import htmlmin, re, shutil, os
+          import htmlmin
+          import os
+          import re
+          import shutil
 
-          with open('index.html', 'r') as f:
+          with open('index.html', 'r', encoding='utf-8') as f:
               html = f.read()
 
           def minify_css(css):
@@ -57,14 +60,17 @@ jobs:
           html = re.sub(
               r'(<style[^>]*>)(.*?)(</style>)',
               lambda m: m.group(1) + minify_css(m.group(2)) + m.group(3),
-              html, flags=re.DOTALL
+              html,
+              flags=re.DOTALL
           )
           html = re.sub(
               r'(<script(?![^>]*src)[^>]*>)(.*?)(</script>)',
               lambda m: m.group(1) + minify_js(m.group(2)) + m.group(3),
-              html, flags=re.DOTALL
+              html,
+              flags=re.DOTALL
           )
-          minified = htmlmin.minify(html,
+          minified = htmlmin.minify(
+              html,
               remove_comments=True,
               remove_empty_space=True,
               reduce_boolean_attributes=False,
@@ -72,20 +78,21 @@ jobs:
               keep_pre=True
           )
 
-          # Write to dist/
           os.makedirs('dist', exist_ok=True)
-          with open('dist/index.html', 'w') as f:
+          with open('dist/index.html', 'w', encoding='utf-8') as f:
               f.write(minified)
-
-          orig = os.path.getsize('index.html')
-          mini = len(minified.encode())
-          print(f"index.html: {orig:,}B → {mini:,}B ({(1-mini/orig)*100:.0f}% reduction)")
           PYEOF
 
-      - name: Copy assets to dist
-        run: |
+          # Publish all static site content. The previous workflow only copied
+          # the root index.html and assets, which excluded nested pages such as
+          # /training/, /consulting/ and /engineering/*.
           cp -r assets dist/assets
-          if [ -f "CNAME" ]; then cp CNAME dist/; fi
+          for path in training consulting engineering; do
+            if [ -d "$path" ]; then cp -r "$path" "dist/$path"; fi
+          done
+          for file in robots.txt sitemap.xml llms.txt index-old.html CNAME; do
+            if [ -f "$file" ]; then cp "$file" "dist/$file"; fi
+          done
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
