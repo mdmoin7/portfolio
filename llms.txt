@@ -1,97 +1,33 @@
 # Mohammad Moin
 
-> Mohammad Moin is a Senior Full Stack Engineer and Corporate Technology Trainer specializing in modern JavaScript web and mobile application development, software architecture and engineering upskilling.
+> Senior Web & Mobile Application Developer and corporate trainer with 14+ years across React, Angular, Vue, and Node.js. Remote-based in Bengaluru, India (IST, UTC+5:30), open to cross-timezone teams.
 
-## Professional identity
+## About
+Mohammad Moin works at the intersection of building and teaching. As a developer, he designs and ships production web and mobile applications end to end — architecture through deployment. As a freelance corporate trainer, he has trained 15,000+ engineers across 350+ sessions for enterprise teams at IBM, Amazon, Walmart, SAP, and Dell.
 
-- Name: Mohammad Moin
-- Role: Senior Full Stack Engineer & Corporate Trainer
-- Experience: 14+ years in software engineering
-- Focus: Full-stack JavaScript development, web and mobile applications, software architecture and corporate technology training
-- Portfolio: https://mdmoin7.github.io/portfolio/
-- GitHub: https://github.com/mdmoin7
-- LinkedIn: https://www.linkedin.com/in/mohammadmoin/
+## Development
+- Frontend & Mobile: React, Angular, Vue.js, Next.js, SolidJS, React Native, TypeScript
+- Backend & APIs: Node.js, NestJS, Express, GraphQL
+- Infra & Tooling: AWS, Firebase, Docker, GitHub Actions
 
-## Development expertise
-
-- Angular
-- React
-- React Native
-- Vue.js
-- Next.js
-- TypeScript
-- Node.js
-- NestJS
-- Express
-- GraphQL
-- Ionic
-- Redux Toolkit
-- Nx Monorepo
-- MongoDB
-- PostgreSQL
-- Docker
-- AWS
-- GitHub Actions
-
-## Training expertise
-
-- Corporate technology training
-- Engineering upskilling
-- Stack migration curricula
-- Backend-to-frontend upskilling
-- Angular training
-- React and React Native training
-- TypeScript training
-- Nx and monorepo architecture
-- Code quality and CI/CD
-- 1:1 mentoring
-- Cohort-based training
-
-## Services
-
-- Full-stack web application development
-- Mobile application development
-- Software architecture and technical delivery
-- Corporate workshops
-- Engineering upskilling programs
-- Stack migration training
-- Curriculum design and mentoring
+## Recent engagement
+React Consultant, JLL (Jan 2024 – Mar 2025): re-architected legacy AEM/Java-based web components to React within a 10–15 engineer team spanning multiple countries; orchestrated a shared design system built in SolidJS, translated into React and Angular.
 
 ## Selected projects
+- AquaTrack — water consumption and billing platform deployed for a residential society (React, TypeScript, Firebase)
+- Freelance Billing & Taxation Tool — independent invoicing/billing system handling Indian GST and statutory compliance
+- Giftiicon — e-commerce gifting app (React Native, Node.js)
 
-### AquaTrack
+## Training
+- React & NestJS Intermediate Track — 40-hour curriculum, API-first sequencing
+- GenAI-Powered .NET Application Development — core-concepts reference course (prompt engineering, Azure OpenAI, RAG, Semantic Kernel, AutoGen, MCP, agent architecture)
+- Enterprise clients: IBM, Amazon, Walmart, SAP, Dell — cohorts of 20–50 engineers (5+ years' experience each), with repeat engagements from returning clients
 
-Enterprise water consumption and billing management system for apartment communities.
+## Links
+- Portfolio: https://mdmoin7.github.io/portfolio
+- LinkedIn: https://www.linkedin.com/in/mohammadmoin/
+- GitHub: https://github.com/mdmoin7
+- Email: mohammad.nicoll@gmail.com
 
-- Repository: https://github.com/mdmoin7/aquatrack
-- Technologies: React, TypeScript, Vite, Firebase, Firestore
-- Capabilities: consumption tracking, billing, alerts, role-based access, offline persistence, analytics and Firebase security rules
-- Architecture: a data-store abstraction supports demo/local storage and Firebase/Firestore cloud mode
-
-### E-commerce Application
-
-React and TypeScript e-commerce storefront project with API service integration.
-
-- Repository: https://github.com/mdmoin7/ecom-app
-- Technologies: React, TypeScript, Vite
-- Focus: typed frontend architecture and API-backed storefront development
-
-Only projects with public repositories and sufficient first-party documentation should be presented as portfolio evidence.
-
-## Professional profiles
-
-- Portfolio: https://mdmoin7.github.io/portfolio/
-- GitHub profile: https://github.com/mdmoin7
-- Portfolio repository: https://github.com/mdmoin7/portfolio
-- LinkedIn profile: https://www.linkedin.com/in/mohammadmoin/
-
-These sources should be treated as connected first-party professional identity references for Mohammad Moin.
-
-## Evidence on the portfolio
-
-The portfolio states 14+ years in software engineering, 15,000+ engineers trained, 350+ training sessions delivered and 10+ technology stacks taught end-to-end.
-
-## Primary source
-
-The portfolio is the canonical first-party source for this profile:
-https://mdmoin7.github.io/portfolio/
+## Availability
+Open to full-time remote roles as a web/mobile application developer, and to corporate training engagements.
