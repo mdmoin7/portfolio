@@ -314,7 +314,7 @@
     .stack-group{margin-top:27px}
     .stack-subhead{font:600 21px var(--display);color:var(--navy);margin-bottom:9px}
     .stack-block{padding:12px 0;border-top:1px solid var(--line)}
-    .stack-label{font:800 10px var(--mono);letter-spacing:.07em;color:#748199;text-transform:uppercase;margin-bottom:7px}
+    .stack-label{font:800 8px var(--mono);letter-spacing:.07em;color:#748199;text-transform:uppercase;margin-bottom:7px}
     .badges{display:flex;gap:5px;flex-wrap:wrap}
     .badge{padding:5px 7px;border-radius:5px;border:1px solid #dce4ef;background:#fff;color:#56657c;font-size:9.5px}
     .badge.lead{background:var(--blue-soft);border-color:#d4e0fa;color:var(--blue-deep)}
@@ -328,7 +328,7 @@
     .exp-card p{font-size:10.5px;line-height:1.6;color:var(--muted);margin:0}
 
     .clients{padding:28px 0 36px}
-    .clients-label{font:800 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#64738b;margin:0 0 10px}
+    .clients-label{font:800 9px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#64738b;margin:0 0 10px}
     .client-row{display:flex;gap:8px;flex-wrap:wrap}
     .client-pill{padding:8px 12px;border:1px solid #dce4ef;border-radius:9px;background:#fff;color:#59677d;font:600 14px var(--display)}
     .client-pill::before{content:"•";color:var(--blue);margin-right:7px}
@@ -1038,6 +1038,418 @@
         margin: 6px 0 18px;
       }
     }
+
+    /* Final timeline order: marker → date → gap → experience */
+    .experience-timeline::before {
+      left: 12px;
+    }
+
+    .timeline-item {
+      grid-template-columns: 30px 150px minmax(0, 1fr);
+      column-gap: 0;
+      min-height: 138px;
+    }
+
+    .timeline-date {
+      grid-column: 2;
+      grid-row: 1;
+      position: relative;
+      min-width: 0;
+      padding: 15px 26px 0 14px;
+      text-align: left;
+      font-size: 10px;
+      line-height: 1.45;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .timeline-date::after {
+      content: "";
+      position: absolute;
+      left: -24px;
+      right: auto;
+      top: 16px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--blue);
+      box-shadow: 0 0 0 4px var(--blue-soft);
+      box-sizing: border-box;
+    }
+
+    .timeline-item:first-child .timeline-date::after {
+      background: var(--blue);
+    }
+
+    .timeline-marker {
+      display: none;
+    }
+
+    .timeline-card {
+      grid-column: 3;
+      grid-row: 1;
+      min-width: 0;
+      margin-bottom: 17px;
+      margin-left: 28px;
+    }
+
+    @media (max-width: 800px) {
+      .experience-timeline::before {
+        left: 10px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 28px minmax(0, 1fr);
+        min-height: 0;
+      }
+
+      .timeline-date {
+        grid-column: 2;
+        grid-row: 1;
+        padding: 10px 0 0;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      .timeline-date::after {
+        left: -24px;
+        right: auto;
+        top: 15px;
+      }
+
+      .timeline-card {
+        grid-column: 2;
+        grid-row: 2;
+        margin: 6px 0 18px;
+      }
+    }
+
+    /* ---------------------------------------------------------
+       Footer — restrained editorial treatment
+       --------------------------------------------------------- */
+    footer {
+      position: relative;
+      overflow: hidden;
+      padding: 52px 0 18px;
+      background: #f3f6fa;
+      border-top: 1px solid #dfe5ee;
+      color: var(--navy);
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      right: -110px;
+      top: -130px;
+      width: 300px;
+      height: 300px;
+      border: 1px solid rgba(48,54,79,.07);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .footer-intro {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 40px;
+    }
+
+    .footer-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 13px;
+      color: #60708a;
+      font: 800 10px/1 var(--mono);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .footer-eyebrow span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #3a8f67;
+    }
+
+    .footer-intro h2 {
+      margin: 0;
+      color: var(--navy);
+      font: 600 clamp(29px,3.8vw,45px)/1.08 var(--display);
+      letter-spacing: -.025em;
+    }
+
+    .footer-cta-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 18px;
+      flex: 0 0 auto;
+      min-width: 180px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--navy);
+      color: var(--navy);
+      text-decoration: none;
+      font: 800 12px/1 var(--mono);
+    }
+
+    .footer-cta-link b {
+      margin-left: auto;
+      font-size: 18px;
+      font-weight: 400;
+      transition: transform .18s ease;
+    }
+
+    .footer-cta-link:hover b {
+      transform: translate(3px,-3px);
+    }
+
+    .footer-rule {
+      height: 1px;
+      margin: 36px 0 24px;
+      background: #d7dee8;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1fr) 180px 210px;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .footer-note p {
+      max-width: 430px;
+      margin: 0;
+      color: #647189;
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .footer-nav {
+      display: grid;
+      gap: 10px;
+    }
+
+    .footer-nav a {
+      width: fit-content;
+      color: #34425a;
+      text-decoration: none;
+      font: 700 11px/1.2 var(--mono);
+      transition: color .18s ease, transform .18s ease;
+    }
+
+    .footer-nav a:hover {
+      color: var(--blue);
+      transform: translateX(2px);
+    }
+
+    .footer-location {
+      display: grid;
+      gap: 4px;
+      text-align: right;
+    }
+
+    .footer-location span {
+      color: #8995a8;
+      font: 9px/1 var(--mono);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .footer-location strong {
+      color: var(--navy);
+      font: 700 11px/1.3 var(--mono);
+    }
+
+    .footer-location small {
+      color: #8995a8;
+      font: 9px/1.4 var(--mono);
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      margin-top: 28px;
+      padding-top: 12px;
+      border-top: 1px solid #dfe5ee;
+      color: #8a95a7;
+      font: 9px/1.4 var(--mono);
+    }
+
+    @media (max-width: 800px) {
+      footer {
+        padding-top: 42px;
+      }
+
+      .footer-intro {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 25px;
+      }
+
+      .footer-cta-link {
+        min-width: 160px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+      }
+
+      .footer-note {
+        grid-column: 1 / -1;
+      }
+
+      .footer-location {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .footer-intro h2 {
+        font-size: 30px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .footer-location {
+        text-align: left;
+      }
+
+      .footer-bottom {
+        display: grid;
+        gap: 5px;
+      }
+    }
+
+    /* Homepage connectivity: cards remain visually unchanged, but behave as links */
+    a.do-item,
+    a.pillar-card {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a.do-item {
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    a.do-item:hover {
+      transform: translateY(-1px);
+      border-color: #c5d3ef;
+      box-shadow: 0 12px 24px -24px rgba(20,35,63,.7);
+    }
+
+    a.pillar-card {
+      display: block;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    a.pillar-card:hover {
+      transform: translateY(-2px);
+      border-color: #c5d3ef;
+      box-shadow: 0 16px 28px -26px rgba(20,35,63,.65);
+    }
+
+    a.do-item:focus-visible,
+    a.pillar-card:focus-visible,
+    .footer-cta-link:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
+
+    /* Homepage connectivity */
+    a.do-item, a.pillar-card, .project-title-link { color: inherit; text-decoration: none; }
+    a.do-item, a.pillar-card { transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }
+    a.do-item:hover { transform: translateY(-1px); border-color: #c5d3ef; box-shadow: 0 12px 24px -24px rgba(20,35,63,.7); }
+    a.pillar-card:hover { transform: translateY(-2px); border-color: #c5d3ef; box-shadow: 0 16px 28px -26px rgba(20,35,63,.65); }
+    .project-title-link:hover { color: var(--blue); }
+    a.do-item:focus-visible, a.pillar-card:focus-visible, .project-title-link:focus-visible, .footer-cta-link:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+    /* Refined footer */
+    footer { position:relative; overflow:hidden; padding:52px 0 18px; background:#f3f6fa; border-top:1px solid #dfe5ee; color:var(--navy); }
+    footer::before { content:""; position:absolute; right:-110px; top:-130px; width:300px; height:300px; border:1px solid rgba(48,54,79,.07); border-radius:50%; pointer-events:none; }
+    .footer-intro { position:relative; z-index:1; display:flex; align-items:flex-end; justify-content:space-between; gap:40px; }
+    .footer-eyebrow { display:flex; align-items:center; gap:8px; margin-bottom:13px; color:#60708a; font:800 10px/1 var(--mono); letter-spacing:.08em; text-transform:uppercase; }
+    .footer-eyebrow span { width:6px; height:6px; border-radius:50%; background:#3a8f67; }
+    .footer-intro h2 { margin:0; color:var(--navy); font:600 clamp(29px,3.8vw,45px)/1.08 var(--display); letter-spacing:-.025em; }
+    .footer-cta-link { display:inline-flex; align-items:center; gap:18px; flex:0 0 auto; min-width:180px; padding:13px 0; border-bottom:1px solid var(--navy); color:var(--navy); text-decoration:none; font:800 12px/1 var(--mono); }
+    .footer-cta-link b { margin-left:auto; font-size:18px; font-weight:400; transition:transform .18s ease; }
+    .footer-cta-link:hover b { transform:translate(3px,-3px); }
+    .footer-rule { height:1px; margin:36px 0 24px; background:#d7dee8; }
+    .footer-grid { display:grid; grid-template-columns:minmax(0,1fr) 180px 210px; gap:48px; align-items:start; }
+    .footer-note p { max-width:430px; margin:0; color:#647189; font-size:12px; line-height:1.65; }
+    .footer-nav { display:grid; gap:10px; }
+    .footer-nav a { width:fit-content; color:#34425a; text-decoration:none; font:700 11px/1.2 var(--mono); transition:color .18s ease, transform .18s ease; }
+    .footer-nav a:hover { color:var(--blue); transform:translateX(2px); }
+    .footer-location { display:grid; gap:4px; text-align:right; }
+    .footer-location span { color:#8995a8; font:9px/1 var(--mono); text-transform:uppercase; letter-spacing:.08em; }
+    .footer-location strong { color:var(--navy); font:700 11px/1.3 var(--mono); }
+    .footer-location small { color:#8995a8; font:9px/1.4 var(--mono); }
+    .footer-bottom { display:flex; justify-content:space-between; align-items:center; gap:18px; margin-top:28px; padding-top:12px; border-top:1px solid #dfe5ee; color:#8a95a7; font:9px/1.4 var(--mono); }
+    @media (max-width:800px) {
+      .footer-intro { align-items:flex-start; flex-direction:column; gap:25px; }
+      .footer-grid { grid-template-columns:1fr 1fr; gap:28px; }
+      .footer-note { grid-column:1/-1; }
+      .footer-location { text-align:left; }
+      .footer-bottom { flex-wrap:wrap; }
+    }
+    @media (max-width:560px) {
+      .footer-intro h2 { font-size:30px; }
+      .footer-grid { grid-template-columns:1fr; gap:22px; }
+      .footer-location { text-align:left; }
+      .footer-bottom { display:grid; gap:5px; }
+    }
+
+    /* Footer navigation must not inherit the sticky header's global nav shell */
+    footer .footer-nav {
+      position: static;
+      top: auto;
+      z-index: auto;
+      height: auto;
+      min-height: 0;
+      width: auto;
+      background: transparent;
+      border: 0;
+      border-bottom: 0;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      display: grid;
+      align-items: start;
+      justify-content: start;
+      gap: 10px;
+      padding: 0;
+      margin: 0;
+    }
+
+    footer .footer-nav a {
+      display: block;
+      position: static;
+      width: fit-content;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    footer .footer-nav a::after {
+      display: none;
+    }
+
+    @media (max-width: 560px) {
+      footer .footer-nav {
+        width: 100%;
+        gap: 9px;
+      }
+    }
 </style>
 </head>
 
@@ -1111,10 +1523,22 @@
   <div class="wrap">
     <div class="do-label" id="what-i-do-title">02 — What I Do</div>
     <div class="do-grid">
-      <div class="do-item"><div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"></path></svg></div><div><strong>Production Delivery</strong><span>Ship features that matter</span></div></div>
-      <div class="do-item"><div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"></path><path d="m3 12 9 5 9-5M3 16l9 5 9-5"></path></svg></div><div><strong>Frontend Architecture</strong><span>Scalable, maintainable, modern</span></div></div>
-      <div class="do-item"><div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"></path></svg></div><div><strong>Full Stack Engineering</strong><span>Web, mobile &amp; backend</span></div></div>
-      <div class="do-item"><div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7 12 3l9 4-9 4-9-4Z"></path><path d="M7 10v5c2.5 2 7.5 2 10 0v-5M21 7v7"></path></svg></div><div><strong>Corporate Enablement</strong><span>Upskill individuals &amp; teams</span></div></div>
+      <a class="do-item" href="consulting/">
+        <div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"></path></svg></div>
+        <div><strong>Production Delivery</strong><span>Ship features that matter</span></div>
+      </a>
+      <a class="do-item" href="engineering/frontend-architecture/">
+        <div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"></path><path d="m3 12 9 5 9-5M3 16l9 5 9-5"></path></svg></div>
+        <div><strong>Frontend Architecture</strong><span>Scalable, maintainable, modern</span></div>
+      </a>
+      <a class="do-item" href="consulting/">
+        <div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"></path></svg></div>
+        <div><strong>Full Stack Engineering</strong><span>Web, mobile &amp; backend</span></div>
+      </a>
+      <a class="do-item" href="training/">
+        <div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7 12 3l9 4-9 4-9-4Z"></path><path d="M7 10v5c2.5 2 7.5 2 10 0v-5M21 7v7"></path></svg></div>
+        <div><strong>Corporate Enablement</strong><span>Upskill individuals &amp; teams</span></div>
+      </a>
     </div>
   </div>
 </section>
@@ -1128,11 +1552,11 @@
     </div>
     <p class="stack-note">Five core areas anchor the engineering portfolio. Each has a dedicated authority page covering the technology, architecture patterns, delivery practices and related training or consulting work.</p>
     <div class="pillar-grid">
-      <article class="pillar-card"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"></rect><rect x="3" y="16" width="6" height="5" rx="1"></rect><rect x="15" y="16" width="6" height="5" rx="1"></rect><path d="M12 8v4M6 16v-3h12v3"></path></svg></div><h3>Frontend Engineering</h3><p>Component-driven UI with performance and scalability.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>React</span><span>Angular</span><span>Vue.js</span><span class="more">+ More</span></div></article>
-      <article class="pillar-card"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"></rect><path d="M10 5h4M11 18.5h2"></path></svg></div><h3>Mobile Development</h3><p>Cross-platform mobile apps with native performance.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>React Native</span><span>Ionic</span><span>Expo</span><span class="more">+ More</span></div></article>
-      <article class="pillar-card"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4h10v17M14 8h6v13M7 8h4M7 12h4M7 16h4M17 12h1M17 16h1M2 21h20"></path></svg></div><h3>Backend Engineering</h3><p>Robust APIs, microservices and secure integrations.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>Node.js</span><span>Express</span><span>NestJS</span><span class="more">+ More</span></div></article>
-      <article class="pillar-card"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 19h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.3 9.6 4.7 4.7 0 0 0 7.5 19Z"></path></svg></div><h3>DevOps &amp; Cloud</h3><p>Infrastructure as code, CI/CD and cloud automation.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>Terraform</span><span>Azure</span><span>Docker</span><span class="more">+ More</span></div></article>
-      <article class="pillar-card"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"></rect><rect x="3" y="16" width="6" height="5" rx="1"></rect><rect x="15" y="16" width="6" height="5" rx="1"></rect><path d="M12 8v4M6 16v-3h12v3"></path></svg></div><h3>Architecture &amp; Design</h3><p>System design, patterns and scalable architecture.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>Nx</span><span>DDD</span><span>Design Patterns</span><span class="more">+ More</span></div></article>
+      <a class="pillar-card" href="engineering/frontend-architecture/"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"></rect><rect x="3" y="16" width="6" height="5" rx="1"></rect><rect x="15" y="16" width="6" height="5" rx="1"></rect><path d="M12 8v4M6 16v-3h12v3"></path></svg></div><h3>Frontend Engineering</h3><p>Component-driven UI with performance and scalability.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>React</span><span>Angular</span><span>Vue.js</span><span class="more">+ More</span></div></a>
+      <a class="pillar-card" href="engineering/react-native/"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"></rect><path d="M10 5h4M11 18.5h2"></path></svg></div><h3>Mobile Development</h3><p>Cross-platform mobile apps with native performance.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>React Native</span><span>Ionic</span><span>Expo</span><span class="more">+ More</span></div></a>
+      <a class="pillar-card" href="consulting/"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4h10v17M14 8h6v13M7 8h4M7 12h4M7 16h4M17 12h1M17 16h1M2 21h20"></path></svg></div><h3>Backend Engineering</h3><p>Robust APIs, microservices and secure integrations.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>Node.js</span><span>Express</span><span>NestJS</span><span class="more">+ More</span></div></a>
+      <a class="pillar-card" href="engineering/terraform/"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 19h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.3 9.6 4.7 4.7 0 0 0 7.5 19Z"></path></svg></div><h3>DevOps &amp; Cloud</h3><p>Infrastructure as code, CI/CD and cloud automation.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>Terraform</span><span>Azure</span><span>Docker</span><span class="more">+ More</span></div></a>
+      <a class="pillar-card" href="engineering/frontend-architecture/"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"></rect><rect x="3" y="16" width="6" height="5" rx="1"></rect><rect x="15" y="16" width="6" height="5" rx="1"></rect><path d="M12 8v4M6 16v-3h12v3"></path></svg></div><h3>Architecture &amp; Design</h3><p>System design, patterns and scalable architecture.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>Nx</span><span>DDD</span><span>Design Patterns</span><span class="more">+ More</span></div></a>
     </div>
 
     <div class="stack-group">
@@ -1174,11 +1598,11 @@
       </article>
       <article class="project-card">
         <div class="project-visual"><div class="mock-shop"><div class="mock-top"></div><div class="shop-row"><i></i><i></i><i></i></div><div class="shop-row"><i></i><i></i><i></i></div></div></div>
-        <div><span class="tag">Selected Engineering Work</span><h3>E-commerce Platform</h3><p>Modern e-commerce application architecture covering product data, cart state, authentication and responsive application UI using a contemporary React stack.</p><div class="project-meta"><span class="project-tech">React</span><span class="project-tech">Redux Toolkit</span><span class="project-tech">Firebase</span><span class="project-tech">Vite</span></div><a class="project-link" href="https://github.com/mdmoin7" target="_blank" rel="noopener">View GitHub profile →</a></div>
+        <div><span class="tag">Selected Engineering Work</span><h3><a class="project-title-link" href="consulting/">E-commerce Platform</a></h3><p>Modern e-commerce application architecture covering product data, cart state, authentication and responsive application UI using a contemporary React stack.</p><div class="project-meta"><span class="project-tech">React</span><span class="project-tech">Redux Toolkit</span><span class="project-tech">Firebase</span><span class="project-tech">Vite</span></div><a class="project-link" href="https://github.com/mdmoin7" target="_blank" rel="noopener">View GitHub profile →</a></div>
       </article>
       <article class="project-card">
         <div class="project-visual"><div class="consult-visual">ARCHITECTURE<br/>CONSULTING<br/><strong>DELIVERY · TEAMS · SYSTEMS</strong></div></div>
-        <div><span class="tag">Long-term Practice</span><h3>Freelance Consulting</h3><p>Full-stack web and mobile delivery for clients end to end — architecture, build and deployment — working remotely and asynchronously with distributed teams.</p><div class="project-meta"><span class="project-tech">Architecture</span><span class="project-tech">Consulting</span><span class="project-tech">Delivery</span><span class="project-tech">Training</span></div><a class="project-link" href="consulting/">View consulting profile →</a></div>
+        <div><span class="tag">Long-term Practice</span><h3><a class="project-title-link" href="consulting/">Freelance Consulting</a></h3><p>Full-stack web and mobile delivery for clients end to end — architecture, build and deployment — working remotely and asynchronously with distributed teams.</p><div class="project-meta"><span class="project-tech">Architecture</span><span class="project-tech">Consulting</span><span class="project-tech">Delivery</span><span class="project-tech">Training</span></div><a class="project-link" href="consulting/">View consulting profile →</a></div>
       </article>
     </div>
   </div>
@@ -1258,15 +1682,33 @@
 
 <footer id="contact">
   <div class="wrap">
-    <div class="contact-card">
+    <div class="footer-intro">
       <div>
-        <h2>Need an app built, or a team trained?</h2>
-        <p>Open to full-stack web/mobile development engagements and corporate training programs — stack migrations, upskilling and curriculum design.</p>
-        <div class="links"><a href="https://www.linkedin.com/in/mohammadmoin/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:mohammad.nicoll@gmail.com">Email</a><a href="training/">Training</a><a href="consulting/">Consulting</a></div>
+        <div class="footer-eyebrow"><span></span> Let's work together</div>
+        <h2>Have a project, a team,<br>or a technical challenge?</h2>
       </div>
-      <a class="btn btn-primary" href="mailto:mohammad.nicoll@gmail.com">Contact me</a>
+      <a class="footer-cta-link" href="mailto:mohammad.nicoll@gmail.com"><span>Get in touch</span><b>↗</b></a>
     </div>
-    <p>© 2026 Mohammad Moin — Senior Full Stack Engineer &amp; Corporate Trainer</p>
+    <div class="footer-rule"></div>
+    <div class="footer-grid">
+      <div class="footer-note"><p>Full-stack engineering, frontend architecture, mobile development and corporate technology training.</p></div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="training/">Training</a>
+        <a href="consulting/">Consulting</a>
+        <a href="https://www.linkedin.com/in/mohammadmoin/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:mohammad.nicoll@gmail.com">Email</a>
+      </nav>
+      <div class="footer-location">
+        <span>Based in</span>
+        <strong>Bengaluru, India</strong>
+        <small>Available for remote engagements</small>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Mohammad Moin</span>
+      <span>Senior Full Stack Engineer · Corporate Trainer</span>
+      <span>Built with intention.</span>
+    </div>
   </div>
 </footer>
 
