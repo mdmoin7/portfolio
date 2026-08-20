@@ -16,6 +16,12 @@ COPY_FILES = [
     "CNAME",
 ]
 
+# Immutable CDN asset URLs keep source files local and maintainable while
+# allowing the deployed site to serve image assets from jsDelivr's edge cache.
+CDN_ASSETS = {
+    "assets/profile.webp": "https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@b4e402c3adbefe8714c71c5917299d758f86ee9a/assets/profile.webp",
+}
+
 
 def copy_site():
     if DIST.exists():
@@ -35,6 +41,26 @@ def copy_site():
     shutil.copy2(ROOT / "index.html", DIST / "index.html")
     shutil.copy2(ROOT / "styles.css", DIST / "styles.css")
     shutil.copy2(ROOT / "main.js", DIST / "main.js")
+
+
+def rewrite_cdn_assets():
+    """Rewrite local asset references in deployed HTML to CDN URLs.
+
+    Source HTML remains unchanged so local development, previews and future
+    asset replacement remain straightforward. Every generated HTML page is
+    processed, including nested authority pages and the preserved old page.
+    """
+    rewritten = 0
+    for path in DIST.rglob("*.html"):
+        source = path.read_text(encoding="utf-8")
+        updated = source
+        for local_path, cdn_url in CDN_ASSETS.items():
+            updated = updated.replace(local_path, cdn_url)
+        if updated != source:
+            path.write_text(updated, encoding="utf-8")
+            rewritten += 1
+
+    print(f"CDN asset rewrite: {rewritten} HTML pages")
 
 
 def minify_assets():
@@ -88,6 +114,7 @@ def validate():
 
 if __name__ == "__main__":
     copy_site()
+    rewrite_cdn_assets()
     minify_assets()
     minify_html()
     validate()
