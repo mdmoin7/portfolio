@@ -1,14 +1,22 @@
 # Mohammad Moin
 
-> Senior Web & Mobile Application Developer and corporate trainer with 14+ years across React, Angular, Vue, and Node.js. Remote-based in Bengaluru, India (IST, UTC+5:30), open to cross-timezone teams.
+> Senior Full Stack Engineer, Web & Mobile Application Developer and corporate trainer with 14+ years across React, Angular, Vue, React Native, Node.js, TypeScript, frontend architecture and Infrastructure as Code. Based in Bengaluru, India (IST, UTC+5:30), open to remote and cross-timezone teams.
 
 ## About
-Mohammad Moin works at the intersection of building and teaching. As a developer, he designs and ships production web and mobile applications end to end — architecture through deployment. As a freelance corporate trainer, he has trained 15,000+ engineers across 350+ sessions for enterprise teams at IBM, Amazon, Walmart, SAP, and Dell.
+Mohammad Moin works at the intersection of building and teaching. As a developer, he designs and ships production web and mobile applications end to end — architecture through deployment. As a freelance corporate trainer, he designs practical engineering upskilling programs for corporate teams.
+
+## Core engineering focus
+- Angular — enterprise application architecture, Signals, RxJS, routing, state, performance, testing and Nx
+- React — React 19, component architecture, hooks, TypeScript, Redux Toolkit, Vite, performance and testing
+- React Native — cross-platform mobile architecture, Expo, navigation, Reanimated, device debugging and production delivery
+- Frontend Architecture — application boundaries, design systems, Nx monorepos, microfrontends, Module Federation, state and delivery architecture
+- Terraform & Azure — Infrastructure as Code, reusable modules, state management, CI/CD, GitHub Actions and infrastructure security
 
 ## Development
-- Frontend & Mobile: React, Angular, Vue.js, Next.js, SolidJS, React Native, TypeScript
+- Frontend & Mobile: React, Angular, Vue.js, Next.js, SolidJS, React Native, TypeScript, Ionic
 - Backend & APIs: Node.js, NestJS, Express, GraphQL
-- Infra & Tooling: AWS, Firebase, Docker, GitHub Actions
+- Architecture & Tooling: Nx, monorepos, microfrontends, Module Federation, design systems, Vite
+- Infra & Delivery: Terraform, Azure, AWS, Firebase, Docker, GitHub Actions
 
 ## Recent engagement
 React Consultant, JLL (Jan 2024 – Mar 2025): re-architected legacy AEM/Java-based web components to React within a 10–15 engineer team spanning multiple countries; orchestrated a shared design system built in SolidJS, translated into React and Angular.
@@ -19,15 +27,34 @@ React Consultant, JLL (Jan 2024 – Mar 2025): re-architected legacy AEM/Java-ba
 - Giftiicon — e-commerce gifting app (React Native, Node.js)
 
 ## Training
-- React & NestJS Intermediate Track — 40-hour curriculum, API-first sequencing
-- GenAI-Powered .NET Application Development — core-concepts reference course (prompt engineering, Azure OpenAI, RAG, Semantic Kernel, AutoGen, MCP, agent architecture)
-- Enterprise clients: IBM, Amazon, Walmart, SAP, Dell — cohorts of 20–50 engineers (5+ years' experience each), with repeat engagements from returning clients
+- Practical corporate technology training across Angular, React, React Native, Node.js, TypeScript and Nx
+- Enterprise engineering upskilling, stack migration and custom curriculum design
+- Enterprise clients: IBM, Amazon, Walmart, SAP, Dell — cohorts of 20–50 engineers, with repeat engagements from returning clients
+
+## Consulting
+- Frontend architecture and application modernization
+- Full-stack web and mobile engineering
+- Nx monorepo and platform architecture
+- Stack migration and technical proof of concepts
+- React Native mobile engineering
+- Terraform and Infrastructure as Code delivery
+- Engineering enablement and technical mentoring
+
+## Portfolio pages
+- Portfolio home: https://mdmoin7.github.io/portfolio/
+- Training: https://mdmoin7.github.io/portfolio/training/
+- Consulting: https://mdmoin7.github.io/portfolio/consulting/
+- Angular engineering: https://mdmoin7.github.io/portfolio/engineering/angular/
+- React engineering: https://mdmoin7.github.io/portfolio/engineering/react/
+- React Native engineering: https://mdmoin7.github.io/portfolio/engineering/react-native/
+- Terraform & Azure engineering: https://mdmoin7.github.io/portfolio/engineering/terraform/
+- Frontend architecture: https://mdmoin7.github.io/portfolio/engineering/frontend-architecture/
 
 ## Links
-- Portfolio: https://mdmoin7.github.io/portfolio
+- Portfolio: https://mdmoin7.github.io/portfolio/
 - LinkedIn: https://www.linkedin.com/in/mohammadmoin/
 - GitHub: https://github.com/mdmoin7
 - Email: mohammad.nicoll@gmail.com
 
 ## Availability
-Open to full-time remote roles as a web/mobile application developer, and to corporate training engagements.
+Open to full-time remote web/mobile application engineering roles and selected corporate training and consulting engagements.
