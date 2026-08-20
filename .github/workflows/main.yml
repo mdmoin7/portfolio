@@ -26,70 +26,11 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install minifier
-        run: pip install htmlmin
+      - name: Install build tools
+        run: python -m pip install --disable-pip-version-check --no-cache-dir htmlmin rcssmin rjsmin
 
-      - name: Build static site
-        run: |
-          python3 - << 'PYEOF'
-          import htmlmin
-          import os
-          import re
-
-          with open('index.html', 'r', encoding='utf-8') as f:
-              html = f.read()
-
-          def minify_css(css):
-              css = re.sub(r'/\*.*?\*/', '', css, flags=re.DOTALL)
-              css = re.sub(r'\s*{\s*', '{', css)
-              css = re.sub(r'\s*}\s*', '}', css)
-              css = re.sub(r'\s*:\s*', ':', css)
-              css = re.sub(r'\s*;\s*', ';', css)
-              css = re.sub(r'\s*,\s*', ',', css)
-              css = re.sub(r'\n+', '', css)
-              css = re.sub(r'  +', ' ', css)
-              return css.strip()
-
-          def minify_js(js):
-              js = re.sub(r'//[^\n]*', '', js)
-              js = re.sub(r'\n\s*\n', '\n', js)
-              js = re.sub(r'  +', ' ', js)
-              return js.strip()
-
-          html = re.sub(
-              r'(<style[^>]*>)(.*?)(</style>)',
-              lambda m: m.group(1) + minify_css(m.group(2)) + m.group(3),
-              html,
-              flags=re.DOTALL
-          )
-          html = re.sub(
-              r'(<script(?![^>]*src)[^>]*>)(.*?)(</script>)',
-              lambda m: m.group(1) + minify_js(m.group(2)) + m.group(3),
-              html,
-              flags=re.DOTALL
-          )
-          minified = htmlmin.minify(
-              html,
-              remove_comments=True,
-              remove_empty_space=True,
-              reduce_boolean_attributes=False,
-              remove_optional_attribute_quotes=False,
-              keep_pre=True
-          )
-
-          os.makedirs('dist', exist_ok=True)
-          with open('dist/index.html', 'w', encoding='utf-8') as f:
-              f.write(minified)
-          PYEOF
-
-          # Publish all static site content, including nested authority pages.
-          cp -r assets dist/assets
-          for path in training consulting engineering; do
-            if [ -d "$path" ]; then cp -r "$path" "dist/$path"; fi
-          done
-          for file in robots.txt sitemap.xml llms.txt index-old.html CNAME; do
-            if [ -f "$file" ]; then cp "$file" "dist/$file"; fi
-          done
+      - name: Build and minify static site
+        run: python scripts/build.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v6
