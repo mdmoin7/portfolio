@@ -1,1162 +1,26 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mohammad Moin — Full Stack Developer &amp; Corporate Trainer</title>
-    <meta
-      name="description"
-      content="Mohammad Moin is a Senior Full Stack Engineer and Corporate Trainer specializing in Angular, React, React Native, Vue.js, Node.js, TypeScript, Nx monorepos, Terraform and frontend architecture."
-    />
-    <meta name="author" content="Mohammad Moin" />
-    <meta
-      name="robots"
-      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
-    />
-    <link rel="canonical" href="https://mdmoin7.github.io/portfolio/" />
-    <meta name="theme-color" content="#0B2545" />
-    <meta property="og:type" content="profile" />
-    <meta property="og:site_name" content="Mohammad Moin" />
-    <meta property="profile:first_name" content="Mohammad" />
-    <meta property="profile:last_name" content="Moin" />
-    <meta
-      property="og:title"
-      content="Mohammad Moin — Full Stack Developer &amp; Corporate Trainer"
-    />
-    <meta
-      property="og:description"
-      content="14+ years building JavaScript web and mobile applications, designing frontend architecture and delivering corporate technology training."
-    />
-    <meta
-      property="og:image"
-      content="https://mdmoin7.github.io/portfolio/assets/profile.webp"
-    />
-    <meta property="og:url" content="https://mdmoin7.github.io/portfolio/" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Mohammad Moin — Full Stack Developer &amp; Corporate Trainer"
-    />
-    <meta
-      name="twitter:description"
-      content="Senior Full Stack Engineer and Corporate Trainer specializing in Angular, React, React Native, Terraform and frontend architecture."
-    />
-    <meta
-      name="twitter:image"
-      content="https://mdmoin7.github.io/portfolio/assets/profile.webp"
-    />
-    <link
-      rel="icon"
-      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B2545'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='17' fill='%231D4ED8' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      :root {
-        --bg: #fff;
-        --surface: #f7f9fc;
-        --line: #e3e8f0;
-        --ink: #0f1b2d;
-        --muted: #54627a;
-        --navy: #0b2545;
-        --blue: #1d4ed8;
-        --blue-soft: #eaf1ff;
-        --blue-deep: #0f3d8c;
-        --display: "Playfair Display", Georgia, "Times New Roman", serif;
-        --body:
-          "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        --mono: "SFMono-Regular", Consolas, monospace;
-      }
-      * {
-        box-sizing: border-box;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-      body {
-        margin: 0;
-        background: var(--bg);
-        color: var(--ink);
-        font-family: var(--body);
-        line-height: 1.65;
-        -webkit-font-smoothing: antialiased;
-      }
-      a {
-        color: inherit;
-      }
-      .wrap {
-        max-width: 1080px;
-        margin: auto;
-        padding: 0 32px;
-      }
-      @media (max-width: 480px) {
-        .wrap {
-          padding: 0 20px;
-        }
-      }
-      nav {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        background: rgba(255, 255, 255, 0.94);
-        backdrop-filter: blur(8px);
-        border-bottom: 1px solid var(--line);
-      }
-      nav .wrap {
-        height: 70px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      .brand {
-        font: 600 19px var(--display);
-        color: var(--navy);
-        text-decoration: none;
-      }
-      .navlinks {
-        display: flex;
-        gap: 28px;
-        font-size: 14px;
-        color: var(--muted);
-      }
-      .navlinks a {
-        text-decoration: none;
-      }
-      .navlinks a:hover {
-        color: var(--blue);
-      }
-      .nav-toggle {
-        display: none;
-      }
-      @media (max-width: 680px) {
-        .navlinks {
-          display: none;
-        }
-        .nav-toggle {
-          display: block;
-          background: #fff;
-          border: 1px solid var(--line);
-          border-radius: 7px;
-          padding: 8px 12px;
-        }
-        .navlinks.open {
-          display: flex;
-          position: absolute;
-          top: 70px;
-          left: 0;
-          right: 0;
-          background: #fff;
-          flex-direction: column;
-          padding: 12px 20px;
-          border-bottom: 1px solid var(--line);
-          gap: 0;
-        }
-        .navlinks.open a {
-          padding: 12px;
-        }
-      }
-      header.hero {
-        padding: 68px 0 58px;
-        background: #fff;
-        border-bottom: 1px solid var(--line);
-      }
-      .hero-grid {
-        display: grid;
-        grid-template-columns: minmax(0, 1.1fr) minmax(360px, 0.9fr);
-        gap: 54px;
-        align-items: center;
-      }
-      .hero-grid > div:first-child {
-        min-width: 0;
-      }
-      .eyebrow,
-      .kicker,
-      .tag,
-      .stack-label {
-        font: 600 11px var(--mono);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--blue);
-      }
-      h1 {
-        font: 600 clamp(34px, 4vw, 46px)/1.2 var(--display);
-        color: var(--navy);
-        margin: 14px 0 18px;
-        max-width: 700px;
-        letter-spacing: -0.015em;
-      }
-      h1 .accent {
-        color: var(--blue);
-      }
-      .lede {
-        font-size: 17px;
-        line-height: 1.7;
-        color: var(--muted);
-        max-width: 620px;
-        margin: 0 0 28px;
-      }
-      .hero-cta {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-      }
-      .btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        padding: 11px 17px;
-        border-radius: 8px;
-        text-decoration: none;
-        font-size: 13.5px;
-        font-weight: 600;
-      }
-      .btn-primary {
-        background: var(--blue);
-        color: #fff;
-      }
-      .btn-ghost {
-        background: #fff;
-        color: var(--navy);
-        border: 1px solid var(--line);
-      }
-      .btn:hover {
-        transform: translateY(-1px);
-      }
-      header.hero {
-        position: relative;
-        overflow: hidden;
-      }
-      .hero-bg {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-        background-image: radial-gradient(circle, #d7e3fb 1px, transparent 1px);
-        background-size: 26px 26px;
-        -webkit-mask-image: radial-gradient(
-          ellipse 620px 420px at 78% 8%,
-          #000 40%,
-          transparent 78%
-        );
-        mask-image: radial-gradient(
-          ellipse 620px 420px at 78% 8%,
-          #000 40%,
-          transparent 78%
-        );
-      }
-      .hero-bg:after {
-        content: "";
-        position: absolute;
-        width: 460px;
-        height: 460px;
-        border-radius: 50%;
-        right: -160px;
-        top: -200px;
-        background: radial-gradient(
-          circle,
-          rgba(29, 78, 216, 0.16),
-          rgba(29, 78, 216, 0) 70%
-        );
-      }
-      .hero-grid {
-        position: relative;
-        z-index: 1;
-      }
-      .eyebrow-pill {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font: 600 11.5px var(--mono);
-        letter-spacing: 0.04em;
-        color: var(--blue-deep);
-        background: var(--blue-soft);
-        border: 1px solid #d6e4ff;
-        border-radius: 999px;
-        padding: 7px 14px 7px 10px;
-        margin-bottom: 16px;
-      }
-      .status-dot {
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #22a35a;
-        flex: none;
-        animation: pulseDot 2.2s ease-in-out infinite;
-      }
-      @keyframes pulseDot {
-        0%,
-        100% {
-          box-shadow: 0 0 0 0 rgba(34, 163, 90, 0.45);
-        }
-        50% {
-          box-shadow: 0 0 0 5px rgba(34, 163, 90, 0);
-        }
-      }
-      .role-rotate {
-        color: var(--navy);
-        transition: opacity 0.35s ease;
-      }
-      .role-rotate.fading {
-        opacity: 0;
-      }
-      .hero-fade {
-        opacity: 0;
-        transform: translateY(10px);
-        animation: heroFadeUp 0.6s ease forwards;
-      }
-      .hero-photo {
-        width: 138px;
-        height: 138px;
-        border-radius: 50%;
-        object-fit: cover;
-        object-position: center;
-        border: 4px solid #fff;
-        box-shadow:
-          0 0 0 1px rgba(29, 78, 216, 0.12),
-          0 16px 34px -14px rgba(11, 37, 69, 0.48);
-        margin: 0 0 18px;
-        display: block;
-        position: relative;
-        background: var(--blue-soft);
-      }
-
-      .hero-photo:after {
-        content: "";
-        position: absolute;
-        inset: -9px;
-        border-radius: 50%;
-        border: 1px solid rgba(29, 78, 216, 0.14);
-        pointer-events: none;
-      }
-      .exp-card .tag.consult {
-        color: #9a5b1f;
-      }
-      .exp-card .tag.train {
-        color: #3d4759;
-      }
-      .tag.consult {
-        color: #9a5b1f;
-      }
-      .tag.train {
-        color: #3d4759;
-      }
-      @keyframes heroFadeUp {
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .hero-visual {
-        position: relative;
-        border: 1px solid var(--line);
-        border-radius: 20px;
-        background: #fbfcfe;
-        box-shadow: 0 22px 50px -38px rgba(11, 37, 69, 0.38);
-        overflow: hidden;
-        padding: 22px;
-      }
-      .hero-visual:before {
-        content: "";
-        position: absolute;
-        width: 220px;
-        height: 220px;
-        border-radius: 50%;
-        background: var(--blue-soft);
-        right: -100px;
-        top: -100px;
-      }
-      .visual-kicker {
-        position: relative;
-        z-index: 1;
-        font: 600 10px var(--mono);
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-        color: var(--blue);
-        margin-bottom: 14px;
-      }
-      .visual-projects {
-        position: relative;
-        z-index: 1;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-      }
-      .visual-project {
-        background: #fff;
-        border: 1px solid var(--line);
-        border-radius: 11px;
-        padding: 14px;
-        min-height: 122px;
-      }
-      .visual-project strong {
-        display: block;
-        font: 600 18px var(--display);
-        color: var(--navy);
-        margin-bottom: 5px;
-      }
-      .visual-project p {
-        font-size: 11.5px;
-        line-height: 1.45;
-        color: var(--muted);
-        margin: 0 0 11px;
-      }
-      .visual-tech {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-      }
-      .visual-tech span {
-        font: 9.5px var(--mono);
-        color: var(--blue-deep);
-        background: var(--blue-soft);
-        padding: 4px 6px;
-        border-radius: 4px;
-      }
-      .visual-divider {
-        position: relative;
-        z-index: 1;
-        height: 1px;
-        background: var(--line);
-        margin: 16px 0;
-      }
-      .visual-focus {
-        position: relative;
-        z-index: 1;
-      }
-      .visual-focus-label {
-        font: 600 10px var(--mono);
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--muted);
-        margin-bottom: 8px;
-      }
-      .visual-focus-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 7px;
-      }
-      .visual-focus-list span {
-        font-size: 10.5px;
-        color: var(--navy);
-        border: 1px solid #dbe4f1;
-        border-radius: 6px;
-        padding: 6px 8px;
-        background: #fff;
-      }
-      .visual-footer {
-        position: relative;
-        z-index: 1;
-        margin-top: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 12px;
-        font-size: 10.5px;
-        color: var(--muted);
-      }
-      .visual-footer strong {
-        color: var(--blue);
-      }
-      .hero-visual.terminal {
-        background: #0b1c36;
-        padding: 0;
-      }
-      .hero-visual.terminal:before {
-        display: none;
-      }
-      .term-bar {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        padding: 13px 16px;
-        background: #0f2544;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
-      .term-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        display: inline-block;
-      }
-      .term-dot.r {
-        background: #ff5f57;
-      }
-      .term-dot.y {
-        background: #febc2e;
-      }
-      .term-dot.g {
-        background: #28c840;
-      }
-      .term-title {
-        margin-left: 8px;
-        font: 11.5px var(--mono);
-        color: rgba(255, 255, 255, 0.5);
-      }
-      .term-body {
-        position: relative;
-        z-index: 1;
-        padding: 20px 18px 22px;
-        font: 12.5px/1.85 var(--mono);
-        color: #c9d6ec;
-      }
-      .term-body p {
-        margin: 0;
-      }
-      .term-body .prompt {
-        color: #5fb0ff;
-        font-weight: 700;
-        margin-right: 6px;
-      }
-      .term-body .out {
-        color: #e7edf8;
-      }
-      .term-body .out.muted {
-        color: #8496b8;
-      }
-      .term-body .blank {
-        margin-top: 12px;
-      }
-      .cursor {
-        display: inline-block;
-        background: #5fb0ff;
-        width: 7px;
-        height: 13px;
-        vertical-align: -2px;
-        animation: blinkCursor 1s step-end infinite;
-      }
-      @keyframes blinkCursor {
-        50% {
-          opacity: 0;
-        }
-      }
-      @media (max-width: 800px) {
-        .hero-bg {
-          -webkit-mask-image: radial-gradient(
-            ellipse 420px 300px at 60% 4%,
-            #000 40%,
-            transparent 78%
-          );
-          mask-image: radial-gradient(
-            ellipse 420px 300px at 60% 4%,
-            #000 40%,
-            transparent 78%
-          );
-        }
-      }
-      .metrics {
-        padding: 10px 32px 60px;
-      }
-      .metric-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 1px;
-        background: var(--line);
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        overflow: hidden;
-      }
-      .metric {
-        background: #fff;
-        padding: 27px 22px;
-      }
-      .metric .num {
-        font: 600 34px var(--display);
-        color: var(--navy);
-      }
-      .metric .lbl {
-        font-size: 12px;
-        color: var(--muted);
-        margin-top: 4px;
-      }
-      .clients {
-        padding: 0 32px 70px;
-      }
-      .clients-label {
-        font: 11px var(--mono);
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--muted);
-      }
-      .client-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .client-pill {
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 8px 14px;
-        color: var(--muted);
-        font-size: 13px;
-      }
-      section {
-        padding: 70px 0;
-        border-top: 1px solid var(--line);
-      }
-      .section-head {
-        margin-bottom: 32px;
-      }
-      h2 {
-        font: 600 30px var(--display);
-        color: var(--navy);
-        margin: 7px 0 0;
-      }
-      .pillars {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-      }
-      .pillar-card {
-        border: 1px solid var(--line);
-        border-radius: 14px;
-        background: var(--surface);
-        padding: 30px;
-      }
-      .pillar-card h3,
-      .project-card h3,
-      .exp-card h3 {
-        font: 600 21px var(--display);
-        color: var(--navy);
-        margin: 10px 0;
-      }
-      .pillar-card p,
-      .project-card p,
-      .exp-card p,
-      .about-copy p {
-        font-size: 14.5px;
-        color: var(--muted);
-      }
-      .pillar-list {
-        padding-left: 20px;
-        color: var(--muted);
-        font-size: 13.5px;
-      }
-      .pillar-list li {
-        margin: 7px 0;
-      }
-      .about-grid {
-        display: grid;
-        grid-template-columns: 1.35fr 0.65fr;
-        gap: 55px;
-      }
-      .about-copy strong {
-        color: var(--ink);
-      }
-      .pull-card {
-        background: var(--blue-soft);
-        border: 1px solid #d6e4ff;
-        border-radius: 14px;
-        padding: 28px;
-      }
-      .pull-card p {
-        font: italic 19px/1.5 var(--display);
-        color: var(--navy);
-        margin: 0;
-      }
-      .stack-group {
-        margin-bottom: 48px;
-      }
-      .stack-subhead {
-        font: 600 18px var(--display);
-        color: var(--navy);
-        margin-bottom: 20px;
-      }
-      .stack-block {
-        margin-bottom: 28px;
-      }
-      .badges {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 9px;
-      }
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        border: 1px solid var(--line);
-        background: #fff;
-        border-radius: 8px;
-        padding: 8px 13px;
-        font-size: 13px;
-        color: var(--ink);
-      }
-      .badge.lead {
-        border-color: #c7d9ff;
-        background: var(--blue-soft);
-      }
-      .badge.train {
-        border-color: #dde2e9;
-      }
-      .badge .dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: #9daec9;
-      }
-      .badge.lead .dot {
-        background: var(--blue);
-      }
-      .badge.train .dot {
-        background: #6b7588;
-      }
-      .core-stack {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 10px;
-        margin-top: 24px;
-      }
-      .core-stack a {
-        display: block;
-        text-decoration: none;
-        border: 1px solid var(--line);
-        border-radius: 11px;
-        background: #fff;
-        padding: 17px 14px;
-        transition:
-          transform 0.15s ease,
-          border-color 0.15s ease,
-          box-shadow 0.15s ease;
-      }
-      .core-stack a:hover {
-        transform: translateY(-2px);
-        border-color: #c7d9ff;
-        box-shadow: 0 10px 24px -20px rgba(11, 37, 69, 0.45);
-      }
-      .core-stack strong {
-        display: block;
-        font: 600 17px var(--display);
-        color: var(--navy);
-      }
-      .core-stack span {
-        display: block;
-        margin-top: 4px;
-        font-size: 11px;
-        line-height: 1.4;
-        color: var(--muted);
-      }
-      .stack-note {
-        margin-top: 16px;
-        color: var(--muted);
-        font-size: 13px;
-        max-width: 760px;
-      }
-      .project-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 18px;
-      }
-      .project-card {
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        background: var(--surface);
-        padding: 26px;
-        display: flex;
-        flex-direction: column;
-      }
-      .project-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 7px;
-        margin: 10px 0 16px;
-      }
-      .project-tech {
-        font: 11px var(--mono);
-        background: var(--blue-soft);
-        color: var(--blue-deep);
-        padding: 4px 8px;
-        border-radius: 5px;
-      }
-      .project-link {
-        margin-top: auto;
-        color: var(--blue);
-        font-size: 13px;
-        font-weight: 600;
-        text-decoration: none;
-      }
-      .exp-grid {
-        display: grid;
-        gap: 18px;
-      }
-      .exp-card {
-        display: grid;
-        grid-template-columns: 150px 1fr;
-        gap: 25px;
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        padding: 25px;
-      }
-      .when {
-        font: 12px var(--mono);
-        color: var(--blue);
-      }
-      .training-link {
-        display: inline-block;
-        margin-top: 18px;
-        color: var(--blue);
-        font-weight: 600;
-        text-decoration: none;
-      }
-      .contact-card {
-        background: var(--navy);
-        color: #fff;
-        border-radius: 18px;
-        padding: 45px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 25px;
-      }
-      .contact-card h2 {
-        color: #fff;
-      }
-      .contact-card p {
-        color: rgba(255, 255, 255, 0.72);
-        max-width: 500px;
-      }
-      .contact-card .btn-primary {
-        background: #fff;
-        color: var(--navy);
-      }
-      .links {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        margin-top: 16px;
-      }
-      .links a {
-        font-size: 13px;
-        text-decoration: none;
-        color: #fff;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        padding: 7px 12px;
-        border-radius: 7px;
-      }
-      footer {
-        padding: 25px 0 50px;
-        color: var(--muted);
-        font-size: 12px;
-        text-align: center;
-      }
-
-      .hero-grid > div:first-child {
-        position: relative;
-      }
-
-      .hero-grid > div:first-child::before {
-        content: "";
-        position: absolute;
-        width: 220px;
-        height: 220px;
-        left: -70px;
-        top: -55px;
-        border-radius: 50%;
-        background: radial-gradient(
-          circle,
-          rgba(29, 78, 216, 0.08),
-          rgba(29, 78, 216, 0) 70%
-        );
-        pointer-events: none;
-        z-index: -1;
-      }
-
-      .btn,
-      .core-stack a,
-      .pillar-card,
-      .project-card,
-      .exp-card,
-      .metric {
-        transition:
-          transform 0.2s ease,
-          box-shadow 0.2s ease,
-          border-color 0.2s ease;
-      }
-
-      .btn-primary {
-        box-shadow: 0 8px 20px -14px rgba(29, 78, 216, 0.8);
-      }
-
-      .btn-primary:hover {
-        box-shadow: 0 12px 26px -15px rgba(29, 78, 216, 0.9);
-      }
-
-      .pillar-card:hover,
-      .project-card:hover,
-      .exp-card:hover {
-        transform: translateY(-2px);
-        border-color: #d3def0;
-        box-shadow: 0 16px 32px -26px rgba(11, 37, 69, 0.45);
-      }
-
-      .metric:hover {
-        box-shadow: inset 0 -2px 0 var(--blue);
-      }
-
-      @media (max-width: 560px) {
-        .hero-photo {
-          width: 112px;
-          height: 112px;
-          margin-bottom: 16px;
-        }
-      }
-
-      .hero-side-stack {
-        display: grid;
-        gap: 12px;
-        margin-top: 12px;
-      }
-
-      .hero-highlights {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-      }
-
-      .hero-highlight {
-        border: 1px solid rgba(29, 78, 216, 0.14);
-        background: rgba(255, 255, 255, 0.92);
-        border-radius: 10px;
-        padding: 11px 10px;
-        min-height: 62px;
-        box-shadow: 0 10px 24px -24px rgba(11, 37, 69, 0.55);
-      }
-
-      .hero-highlight strong {
-        display: block;
-        font: 600 13px/1.2 var(--display);
-        color: var(--navy);
-        margin-bottom: 3px;
-      }
-
-      .hero-highlight span {
-        display: block;
-        font-size: 9.5px;
-        line-height: 1.35;
-        color: var(--muted);
-      }
-
-      .hero-highlight .marker {
-        display: block;
-        width: 22px;
-        height: 2px;
-        background: var(--blue);
-        margin-bottom: 7px;
-        border-radius: 2px;
-      }
-
-      .section-signal {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 7px;
-        margin-top: 14px;
-      }
-
-      .section-signal span {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        padding: 5px 8px;
-        border: 1px solid var(--line);
-        border-radius: 6px;
-        background: #fff;
-        color: var(--muted);
-        font: 9.5px var(--mono);
-        letter-spacing: 0.02em;
-      }
-
-      .section-signal span::before {
-        content: "";
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: var(--blue);
-        flex: none;
-      }
-
-      .client-pill {
-        position: relative;
-        overflow: hidden;
-      }
-
-      .client-pill::before {
-        content: "";
-        display: inline-block;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: var(--blue);
-        margin-right: 6px;
-        vertical-align: middle;
-      }
-
-      .pillar-card,
-      .project-card,
-      .exp-card {
-        position: relative;
-        overflow: hidden;
-      }
-
-      .pillar-card::before,
-      .project-card::before,
-      .exp-card::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 3px;
-        height: 100%;
-        background: linear-gradient(
-          to bottom,
-          rgba(29, 78, 216, 0.75),
-          rgba(29, 78, 216, 0.08)
-        );
-      }
-
-      .highlight-label {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 5px 8px;
-        border-radius: 6px;
-        background: var(--blue-soft);
-        color: var(--blue-deep);
-        font: 600 9.5px var(--mono);
-        letter-spacing: 0.03em;
-        text-transform: uppercase;
-        margin-bottom: 3px;
-      }
-
-      .highlight-label::before {
-        content: "";
-        width: 5px;
-        height: 5px;
-        border-radius: 50%;
-        background: var(--blue);
-      }
-
-      .project-card .highlight-label {
-        margin-bottom: 4px;
-      }
-
-      .exp-card .highlight-label {
-        margin-bottom: 5px;
-      }
-
-      @media (max-width: 800px) {
-        .hero-highlights {
-          grid-template-columns: repeat(2, 1fr);
-        }
-      }
-
-      @media (max-width: 560px) {
-        .hero-highlights {
-          grid-template-columns: 1fr 1fr;
-        }
-      }
-
-      @media (max-width: 900px) {
-        .core-stack {
-          grid-template-columns: repeat(3, 1fr);
-        }
-      }
-      @media (max-width: 800px) {
-        header.hero {
-          padding: 58px 0 48px;
-        }
-        .hero-grid,
-        .about-grid,
-        .pillars,
-        .project-grid {
-          grid-template-columns: 1fr;
-        }
-        .hero-grid {
-          gap: 34px;
-        }
-        .hero-visual {
-          max-width: 560px;
-          margin: auto;
-        }
-        .metric-grid {
-          grid-template-columns: repeat(2, 1fr);
-        }
-        .contact-card {
-          padding: 32px;
-          display: block;
-        }
-      }
-      @media (max-width: 560px) {
-        h1 {
-          font-size: 34px;
-        }
-        .lede {
-          font-size: 16px;
-        }
-        .hero-visual {
-          padding: 18px;
-          border-radius: 16px;
-        }
-        .visual-projects {
-          grid-template-columns: 1fr;
-        }
-        .visual-project {
-          min-height: 0;
-        }
-        .core-stack {
-          grid-template-columns: 1fr 1fr;
-        }
-        .metric-grid {
-          grid-template-columns: 1fr;
-        }
-        .exp-card {
-          grid-template-columns: 1fr;
-          gap: 8px;
-        }
-      }
-
-      .client-pill-more {
-        background: var(--blue-soft);
-        border-color: rgba(29, 78, 216, 0.18);
-        color: var(--blue-deep);
-        font-weight: 700;
-        letter-spacing: 0.01em;
-      }
-
-      .section-note {
-        display: flex;
-        align-items: center;
-        gap: 9px;
-        margin-top: 8px;
-        flex-wrap: wrap;
-      }
-
-      .section-note > span {
-        color: var(--muted);
-        font: 600 9.5px var(--mono);
-        letter-spacing: 0.025em;
-        text-transform: uppercase;
-      }
-
-      .section-note .section-more {
-        color: var(--blue-deep);
-        padding-left: 9px;
-        border-left: 1px solid var(--line);
-      }
-
-      @media (max-width: 700px) {
-        .section-note .section-more {
-          padding-left: 0;
-          border-left: 0;
-        }
-      }
-    </style>
-    <script type="application/ld+json">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mohammad Moin — Full Stack Developer & Corporate Trainer</title>
+  <meta name="description" content="Mohammad Moin is a Senior Full Stack Engineer and Corporate Trainer specializing in Angular, React, React Native, Vue.js, Node.js, TypeScript, Nx monorepos, Terraform and frontend architecture." />
+  <meta name="author" content="Mohammad Moin" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <link rel="canonical" href="https://mdmoin7.github.io/portfolio/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230B2545'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='17' fill='%231D4ED8' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mohammad Moin — Full Stack Developer & Corporate Trainer" />
+  <meta property="og:description" content="Mohammad Moin is a Senior Full Stack Engineer and Corporate Trainer specializing in Angular, React, React Native, Vue.js, Node.js, TypeScript, Nx monorepos, Terraform and frontend architecture." />
+  <meta property="og:url" content="https://mdmoin7.github.io/portfolio/" />
+  <meta property="og:site_name" content="Mohammad Moin" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Mohammad Moin — Full Stack Developer & Corporate Trainer" />
+  <meta name="twitter:description" content="Mohammad Moin is a Senior Full Stack Engineer and Corporate Trainer specializing in Angular, React, React Native, Vue.js, Node.js, TypeScript, Nx monorepos, Terraform and frontend architecture." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+  <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@graph": [
@@ -1237,584 +101,1277 @@
         ]
       }
     </script>
-  </head>
-  <body>
-    <nav>
-      <div class="wrap">
-        <a class="brand" href="#top">Mohammad Moin</a>
-        <div class="navlinks" id="navlinks">
-          <a href="#pillars">What I Do</a><a href="#about">About</a
-          ><a href="#stack">Stack</a><a href="#projects">Projects</a
-          ><a href="#experience">Experience</a><a href="#contact">Contact</a>
-        </div>
-        <button
-          class="nav-toggle"
-          id="navToggle"
-          aria-label="Toggle navigation"
-        >
-          ☰
-        </button>
-      </div>
-    </nav>
-    <header class="hero" id="top">
-      <div class="hero-bg" aria-hidden="true"></div>
-      <div class="wrap hero-grid">
+
+  <style>
+    :root{
+      --navy:#14233f;--navy-2:#1e3154;--blue:#2454d8;--blue-deep:#173eae;
+      --blue-soft:#eef3ff;--ink:#24324a;--muted:#66738a;--line:#e3e8f1;
+      --surface:#f7f9fc;--paper:#fff;--display:"Playfair Display",Georgia,serif;
+      --body:"Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;--radius:15px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:#fff;color:var(--ink);font-family:var(--body);line-height:1.65}
+    a{color:inherit}
+    .wrap{width:min(1390px,calc(100% - 48px));margin:auto}
+    nav{height:70px;position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);
+      border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+    nav .wrap{height:100%;display:flex;align-items:center;gap:32px}
+    .brand{text-decoration:none;min-width:245px}
+    .brand strong{display:block;font:600 21px/1 var(--display);color:var(--navy)}
+    .brand span{display:block;margin-top:4px;font-size:10px;color:var(--muted);font-weight:700}
+    .navlinks{display:flex;align-items:center;justify-content:center;gap:27px;flex:1}
+    .navlinks a{text-decoration:none;font-size:12px;font-weight:800;color:#4e5d75;position:relative}
+    .nav-actions{display:flex;gap:10px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;border-radius:8px;
+      padding:10px 14px;font-size:12px;font-weight:800;border:1px solid transparent;transition:.2s ease}
+    .btn-primary{background:var(--blue);color:#fff;box-shadow:0 10px 22px -17px var(--blue)}
+    .btn-outline{background:#fff;color:var(--blue);border-color:#bfcff0}
+    .btn:hover{transform:translateY(-1px)}
+    .nav-toggle{display:none;border:0;background:transparent;font-size:22px}
+
+    .hero{position:relative;overflow:hidden;padding:42px 0 40px;border-bottom:1px solid var(--line);
+      background:linear-gradient(135deg,#fbfcff 0%,#fff 60%,#f7f9ff 100%)}
+    .hero::before{content:"";position:absolute;width:470px;height:470px;left:-280px;top:-180px;border-radius:50%;
+      border:1px solid rgba(36,84,216,.08);box-shadow:0 0 0 38px rgba(36,84,216,.025),0 0 0 78px rgba(36,84,216,.015)}
+    .hero-grid{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(430px,.94fr);gap:58px;align-items:center;position:relative}
+    .identity{display:grid;grid-template-columns:190px minmax(0,1fr);gap:32px;align-items:center}
+    .hero-photo{width:176px;height:176px;border-radius:50%;object-fit:cover;object-position:50% 50%;border:5px solid #fff;
+      box-shadow:0 0 0 2px rgba(36,84,216,.22),0 0 0 9px rgba(36,84,216,.06),0 24px 50px -25px rgba(20,35,63,.5)}
+    .eyebrow{display:inline-flex;align-items:center;gap:7px;color:var(--blue-deep);font:800 10px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+    .status{width:6px;height:6px;border-radius:50%;background:#2454d8}
+    h1{font:600 clamp(43px,4.6vw,66px)/1.04 var(--display);letter-spacing:-.035em;color:var(--navy);margin:14px 0 16px}
+    h1 .accent{color:var(--blue)}
+    .lede{font-size:16px;color:var(--muted);max-width:620px;margin:0}
+    .hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+    .proofs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0 0}
+    .proof{display:flex;align-items:center;gap:9px}
+    .proof-icon{width:31px;height:31px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;font-size:13px}
+    .proof strong{display:block;font:600 20px/1 var(--display);color:var(--navy)}
+    .proof span{display:block;color:var(--muted);font-size:10.5px;margin-top:2px}
+
+    .hero-right{min-width:0}
+
+    /* Terminal: intentionally independent from the page typography */
+    .terminal {
+      position: relative;
+      background: #0d1117;
+      color: #d8dee9;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow:
+        0 24px 50px -34px rgba(13,17,23,.85),
+        0 8px 18px -14px rgba(20,35,63,.35);
+    }
+
+    .term-bar {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 0 12px;
+      background: #161b22;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .term-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+
+    .term-dot.r { background: #ff5f57; }
+    .term-dot.y { background: #febc2e; }
+    .term-dot.g { background: #28c840; }
+
+    .term-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font: 11px/1 var(--mono);
+      color: #8b949e;
+      white-space: nowrap;
+    }
+
+    .term-body {
+      min-height: 176px;
+      padding: 17px 19px 18px;
+      background:
+        linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px);
+      background-size: 100% 22px;
+      font: 12px/1.72 var(--mono);
+      letter-spacing: 0;
+    }
+
+    .term-body p {
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .term-body .out { color: #f0f6fc; }
+    .term-body .muted { color: #8b949e; }
+
+    .prompt {
+      color: #58a6ff;
+      font-weight: 700;
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 7px;
+      height: 14px;
+      margin-left: 2px;
+      background: #d8dee9;
+      vertical-align: -2px;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .focus-card{margin-top:12px;border:1px solid #cfdcf4;border-radius:13px;background:#fff;padding:14px 17px;
+      box-shadow:0 18px 40px -38px rgba(20,35,63,.65)}
+    .focus-title{font:800 10px var(--mono);letter-spacing:.1em;color:var(--blue);text-transform:uppercase;margin-bottom:5px}
+    .focus-row{display:grid;grid-template-columns:repeat(2,1fr)}
+    .focus-item{display:grid;grid-template-columns:29px 1fr;gap:9px;align-items:center;padding:9px 5px;border-top:1px solid var(--line)}
+    .focus-item:nth-child(-n+2){border-top:0}
+    .focus-icon{width:29px;height:29px;border-radius:8px;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center}
+    .focus-item strong{display:block;font:600 15px var(--display);color:var(--navy)}
+    .focus-item span{display:block;font-size:10.5px;color:var(--muted)}
+
+    .do-strip{border-bottom:1px solid var(--line);background:#fff}
+    .do-strip .wrap{padding:11px 0 12px}
+    .do-label{text-align:center;font:800 9px var(--mono);letter-spacing:.12em;color:var(--blue);text-transform:uppercase;margin-bottom:8px}
+    .do-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+    .do-item{border:1px solid var(--line);border-radius:8px;padding:9px 16px;display:grid;grid-template-columns:27px 1fr;gap:8px;align-items:center;background:linear-gradient(#fff,#fbfcff)}
+    .do-icon{color:var(--blue);font-size:17px;text-align:center}
+    .do-item strong{display:block;font-size:12px;color:var(--navy)}.do-item span{display:block;font-size:10.5px;color:var(--muted)}
+
+    section{padding:45px 0;border-bottom:1px solid var(--line)}
+    .section-head{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;margin-bottom:17px}
+    .section-head::after{content:"";height:1px;background:var(--line);margin-left:4px;grid-column:2}
+    .kicker{font:800 10px var(--mono);letter-spacing:.1em;color:var(--blue);white-space:nowrap;text-transform:uppercase}
+    h2{grid-column:1 / span 2;grid-row:2;margin:0;font:600 29px/1.15 var(--display);color:var(--navy);letter-spacing:-.02em}
+    .section-note{grid-column:3;grid-row:1 / span 2;display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+    .section-note span{padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:#fff;color:#59677d;font:700 10px var(--mono)}
+    .section-note .section-more{color:var(--blue-deep);border-color:#bfd0f1;background:var(--blue-soft)}
+    .section-signal{grid-column:3;grid-row:1 / span 2;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+    .section-signal span{padding:5px 8px;border:1px solid var(--line);border-radius:6px;background:#fff;color:#59677d;font:700 10px var(--mono)}
+
+    #pillars{background:#fbfcff}
+    .pillar-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:11px}
+    .pillar-card{position:relative;min-height:150px;padding:17px;border:1px solid var(--line);border-radius:13px;background:#fff;
+      box-shadow:0 15px 32px -34px rgba(20,35,63,.7);overflow:hidden;transition:.2s ease}
+    .pillar-card:hover{transform:translateY(-2px);border-color:#cbd8ed;box-shadow:0 20px 35px -30px rgba(36,84,216,.35)}
+    .pillar-icon{width:34px;height:34px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:grid;place-items:center;margin-bottom:11px}
+    .pillar-card h3{font:600 17px var(--display);color:var(--navy);margin:0 0 6px}
+    .pillar-card p{font-size:11px;color:var(--muted);line-height:1.5;margin:0}
+    .mini-label{display:block;margin-top:12px;color:#687790;font:700 8px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+    .mini-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
+    .mini-tags span{padding:4px 6px;border-radius:5px;background:var(--blue-soft);color:var(--blue-deep);font-size:9px}
+    .mini-tags .more{font-weight:800}
+
+    #projects{background:#fff}
+    .project-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+    .project-card{display:grid;grid-template-columns:130px 1fr;gap:14px;padding:10px;border:1px solid var(--line);border-radius:13px;background:#fff;
+      box-shadow:0 14px 32px -34px rgba(20,35,63,.7);transition:.2s ease;min-height:145px}
+    .project-card:hover{transform:translateY(-2px);border-color:#cbd8ed}
+    .project-visual{border-radius:9px;min-height:122px;background:linear-gradient(145deg,#edf3ff,#f7f9fc);border:1px solid #dbe4f3;display:grid;place-items:center;overflow:hidden;position:relative}
+    .mock-dashboard{width:88%;height:72%;border-radius:5px;background:#fff;border:1px solid #d6dfed;box-shadow:0 8px 16px -12px rgba(20,35,63,.4);padding:6px}
+    .mock-top{height:7px;width:55%;background:#dce7fb;border-radius:2px;margin-bottom:7px}
+    .mock-line{height:4px;background:#e8edf5;border-radius:2px;margin:5px 0}
+    .mock-chart{height:35px;margin-top:7px;background:linear-gradient(170deg,transparent 45%,#d9e5fb 46%,#d9e5fb 50%,transparent 51%),linear-gradient(180deg,#f5f8ff,#fff);border-radius:3px}
+    .mock-shop{width:76%;height:72%;background:#fff;border:1px solid #d6dfed;border-radius:5px;padding:6px}
+    .shop-row{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:7px}
+    .shop-row i{height:28px;background:#eef3fa;border-radius:3px}
+    .consult-visual{font:700 10px var(--mono);color:var(--blue);text-align:center;padding:10px}
+    .project-card .tag{display:inline-block;margin-bottom:5px;padding:4px 6px;border-radius:5px;background:var(--blue-soft);color:var(--blue-deep);font:800 8px var(--mono);text-transform:uppercase}
+    .project-card h3{font:600 21px var(--display);margin:0 0 6px;color:var(--navy)}
+    .project-card p{font-size:11px;line-height:1.5;color:var(--muted);margin:0}
+    .project-meta{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+    .project-tech{padding:4px 6px;border-radius:5px;background:#f3f6fa;color:#58677d;font-size:9px;font-weight:800}
+    .project-link{display:inline-block;margin-top:8px;color:var(--blue);font-size:10px;font-weight:800;text-decoration:none}
+
+    #about{background:#f8faff}
+    .about-grid{display:grid;grid-template-columns:1.4fr .7fr;gap:45px;align-items:center}
+    .about-copy p{font-size:13px;color:var(--muted);line-height:1.75}
+    .pull-card{position:relative;padding:25px;border:1px solid #d5e0f2;border-radius:13px;background:linear-gradient(135deg,#f1f5ff,#fff);box-shadow:0 20px 38px -35px rgba(20,35,63,.65)}
+    .pull-card p{font:600 19px/1.45 var(--display);color:var(--navy);margin:10px 0 0}
+    .pull-card::before{content:"“";position:absolute;left:15px;top:-8px;font:600 65px/1 var(--display);color:rgba(36,84,216,.13)}
+
+    #stack{background:#fff}
+    .stack-note{font-size:14px;color:var(--muted);max-width:820px;margin:0 0 22px}
+    .core-stack{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}
+    .core-stack a{padding:14px;border:1px solid var(--line);border-radius:10px;text-decoration:none;background:#fff}
+    .core-stack strong{display:block;font:600 16px var(--display);color:var(--navy)}
+    .core-stack span{display:block;margin-top:4px;color:var(--muted);font-size:10px;line-height:1.4}
+    .stack-group{margin-top:27px}
+    .stack-subhead{font:600 21px var(--display);color:var(--navy);margin-bottom:9px}
+    .stack-block{padding:12px 0;border-top:1px solid var(--line)}
+    .stack-label{font:800 10px var(--mono);letter-spacing:.07em;color:#748199;text-transform:uppercase;margin-bottom:7px}
+    .badges{display:flex;gap:5px;flex-wrap:wrap}
+    .badge{padding:5px 7px;border-radius:5px;border:1px solid #dce4ef;background:#fff;color:#56657c;font-size:9.5px}
+    .badge.lead{background:var(--blue-soft);border-color:#d4e0fa;color:var(--blue-deep)}
+
+    #experience{background:#fbfcff}
+    .exp-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .exp-card{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:18px;border:1px solid var(--line);border-radius:11px;background:#fff}
+    .when{font:800 10px var(--mono);color:#748199}
+    .exp-card .tag{display:inline-block;padding:4px 6px;border-radius:5px;background:var(--blue-soft);color:var(--blue-deep);font:800 8px var(--mono)}
+    .exp-card h3{font:600 19px var(--display);color:var(--navy);margin:9px 0 5px}
+    .exp-card p{font-size:10.5px;line-height:1.6;color:var(--muted);margin:0}
+
+    .clients{padding:28px 0 36px}
+    .clients-label{font:800 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#64738b;margin:0 0 10px}
+    .client-row{display:flex;gap:8px;flex-wrap:wrap}
+    .client-pill{padding:8px 12px;border:1px solid #dce4ef;border-radius:9px;background:#fff;color:#59677d;font:600 14px var(--display)}
+    .client-pill::before{content:"•";color:var(--blue);margin-right:7px}
+    .client-pill-more{background:var(--blue-soft);border-color:#c7d6f1;color:var(--blue-deep);font-weight:800}
+
+    footer{padding:48px 0 30px;background:#f6f8fb}
+    .contact-card{display:flex;justify-content:space-between;align-items:center;gap:30px;padding:28px;border:1px solid #d7e1ef;border-radius:16px;background:#fff}
+    .contact-card h2{margin:0;font:600 31px var(--display);color:var(--navy)}
+    .contact-card p{max-width:720px;color:var(--muted);font-size:12px}
+    .links{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+    .links a{color:var(--blue);font-size:11px;font-weight:800;text-decoration:none}
+    footer>p{text-align:center;color:#8b96a7;font-size:9px;margin:22px 0 0}
+
+    @media(max-width:1100px){
+      .wrap{width:min(100% - 34px,1390px)}
+      .hero-grid{grid-template-columns:1fr 1fr;gap:30px}
+      .identity{grid-template-columns:1fr;gap:16px}
+      .hero-photo{width:136px;height:136px}
+      .pillar-grid{grid-template-columns:repeat(3,1fr)}
+      .core-stack{grid-template-columns:repeat(3,1fr)}
+    }
+    @media(max-width:800px){
+      nav .wrap{justify-content:space-between}
+      .navlinks,.nav-actions{display:none}
+      .nav-toggle{display:block}
+      .hero-grid,.about-grid{grid-template-columns:1fr}
+      .identity{grid-template-columns:140px 1fr;gap:24px;align-items:center}
+      .hero-grid{gap:28px}
+      .proofs{grid-template-columns:repeat(2,1fr)}
+      .do-grid{grid-template-columns:repeat(2,1fr)}
+      .pillar-grid,.project-grid{grid-template-columns:1fr}
+      .project-card{grid-template-columns:110px 1fr}
+      .core-stack{grid-template-columns:repeat(2,1fr)}
+      .exp-grid{grid-template-columns:1fr}
+      .section-head{grid-template-columns:1fr}
+      h2{grid-column:1;grid-row:auto}
+      .section-note,.section-signal{grid-column:1;grid-row:auto;justify-content:flex-start}
+      .section-head::after{display:none}
+      .contact-card{flex-direction:column;align-items:flex-start}
+    }
+    @media(max-width:560px){
+      .wrap{width:calc(100% - 28px)}
+      .identity{grid-template-columns:1fr;justify-items:center;text-align:left}
+      .hero-photo{width:126px;height:126px}
+      h1{font-size:41px}
+      .proofs,.focus-row,.do-grid,.core-stack{grid-template-columns:1fr 1fr}
+      .project-card{grid-template-columns:1fr}
+      .project-visual{min-height:105px}
+      .exp-card{grid-template-columns:1fr}
+      section{padding:36px 0}
+      .nav-toggle{font-size:20px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+    }
+  
+    .do-strip {
+      padding: 13px 0 14px;
+      background: #fff;
+    }
+
+    .do-strip .wrap {
+      padding: 0;
+    }
+
+    .do-label {
+      margin-bottom: 9px;
+    }
+
+    section[id],
+    footer[id] {
+      scroll-margin-top: 88px;
+    }
+
+    .do-strip {
+      scroll-margin-top: 88px;
+    }
+
+    footer > .wrap > p {
+      margin: 12px 0 0;
+      padding-top: 10px;
+      border-top: 1px solid #e7ebf2;
+      text-align: right;
+      font-size: 8px;
+      line-height: 1.3;
+      color: #929cad;
+    }
+
+    .navlinks a.active {
+      color: var(--blue);
+    }
+
+    .navlinks a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2px;
+      bottom: -10px;
+      background: var(--blue);
+      border-radius: 2px;
+    }
+
+    footer {
+      padding: 38px 0 22px;
+      background: #f6f8fb;
+    }
+
+    .contact-card {
+      padding: 25px 28px;
+      border-radius: 14px;
+      align-items: center;
+    }
+
+    .contact-card h2 {
+      font-size: 28px;
+      line-height: 1.15;
+    }
+
+    .contact-card p {
+      margin: 8px 0 0;
+      font-size: 11.5px;
+      line-height: 1.55;
+    }
+
+    .links {
+      gap: 13px;
+      margin-top: 10px;
+    }
+
+    .links a {
+      font-size: 10px;
+    }
+
+    footer > .wrap > p {
+      margin: 14px 0 0;
+      padding-top: 11px;
+      border-top: 1px solid #e1e6ef;
+      text-align: center;
+      font-size: 10px;
+      line-height: 1.4;
+      color: #7d899c;
+      letter-spacing: .01em;
+    }
+
+    @media (max-width: 800px) {
+      .contact-card {
+        padding: 23px;
+      }
+    }
+
+    .proof-icon svg,
+    .focus-icon svg,
+    .do-icon svg,
+    .pillar-icon svg {
+      width: 17px;
+      height: 17px;
+      display: block;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .proof-icon svg { width: 16px; height: 16px; }
+    .do-icon svg { width: 18px; height: 18px; }
+    .pillar-icon svg { width: 18px; height: 18px; }
+
+    .experience-timeline {
+      position: relative;
+      max-width: 1080px;
+      margin: 8px auto 0;
+      padding: 8px 0;
+    }
+
+    .experience-timeline::before {
+      content: "";
+      position: absolute;
+      top: 16px;
+      bottom: 16px;
+      left: 142px;
+      width: 2px;
+      background: linear-gradient(to bottom, transparent, #cbd7ea 5%, #cbd7ea 95%, transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 116px 52px minmax(0, 1fr);
+      align-items: start;
+      min-height: 132px;
+    }
+
+    .timeline-date {
+      min-width: 0;
+      padding: 16px 16px 0 0;
+      text-align: right;
+      color: #64748b;
+      font: 800 10px/1.4 var(--mono);
+      letter-spacing: .01em;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .timeline-marker {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      padding-top: 15px;
+    }
+
+    .timeline-marker span {
+      width: 13px;
+      height: 13px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--blue);
+      box-shadow: 0 0 0 4px var(--blue-soft);
+    }
+
+    .timeline-item:first-child .timeline-marker span {
+      background: var(--blue);
+    }
+
+    .timeline-card {
+      min-width: 0;
+      margin: 0 0 16px;
+      padding: 18px 22px;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      background: #fff;
+      box-shadow: 0 14px 30px -32px rgba(20,35,63,.65);
+      transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    }
+
+    .timeline-card:hover {
+      transform: translateX(3px);
+      border-color: #cad7ec;
+      box-shadow: 0 18px 34px -30px rgba(36,84,216,.3);
+    }
+
+    .timeline-card h3 {
+      font: 600 19px/1.25 var(--display);
+      color: var(--navy);
+      margin: 8px 0 5px;
+    }
+
+    .timeline-card p {
+      margin: 0;
+      font-size: 12px;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    .timeline-card .tag {
+      display: inline-block;
+      padding: 4px 7px;
+      border-radius: 5px;
+      background: var(--blue-soft);
+      color: var(--blue-deep);
+      font: 800 8px/1 var(--mono);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 800px) {
+      .experience-timeline {
+        padding-left: 0;
+      }
+
+      .experience-timeline::before {
+        left: 10px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 28px minmax(0, 1fr);
+        min-height: 0;
+      }
+
+      .timeline-marker {
+        grid-column: 1;
+        grid-row: 1 / span 2;
+        justify-content: flex-start;
+        padding-top: 20px;
+      }
+
+      .timeline-date {
+        grid-column: 2;
+        grid-row: 1;
+        padding: 10px 0 0;
+        text-align: left;
+        font-size: 10px;
+      }
+
+      .timeline-card {
+        grid-column: 2;
+        grid-row: 2;
+        width: 100%;
+        margin: 6px 0 18px;
+        padding: 16px 18px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .timeline-card h3 {
+        font-size: 18px;
+      }
+
+      .timeline-card p {
+        font-size: 11.5px;
+      }
+    }
+
+    /* Readability pass */
+    body {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .navlinks a {
+      font-size: 12px;
+    }
+
+    .kicker,
+    .do-label,
+    .section-note,
+    .tag,
+    .timeline-date,
+    .links a {
+      font-size: 10px;
+    }
+
+    .section-note {
+      line-height: 1.45;
+    }
+
+    .section-head .section-note span {
+      font-size: 11px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .proof-label {
+      font-size: 11px;
+    }
+
+    .proof-value {
+      font-size: 18px;
+    }
+
+    .focus-item p,
+    .do-item p,
+    .pillar-card p,
+    .project-card p,
+    .about-copy p,
+    .experience-timeline .timeline-card p {
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    .focus-item h3,
+    .do-item h3 {
+      font-size: 16px;
+    }
+
+    .pillar-card h3,
+    .project-card h3 {
+      font-size: 20px;
+    }
+
+    .stack-list,
+    .stack-list li {
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .contact-card p {
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
+
+    footer > .wrap > p {
+      font-size: 10.5px;
+      line-height: 1.45;
+    }
+
+    /* Timeline identity refinement */
+    .experience-timeline {
+      max-width: 1160px;
+      margin: 10px auto 0;
+      padding: 8px 0;
+    }
+
+    .experience-timeline::before {
+      left: 158px;
+      width: 2px;
+    }
+
+    .timeline-item {
+      grid-template-columns: 132px 54px minmax(0, 1fr);
+      min-height: 138px;
+    }
+
+    .timeline-date {
+      padding: 17px 18px 0 0;
+      font-size: 10px;
+      line-height: 1.5;
+      white-space: nowrap;
+      overflow: visible;
+    }
+
+    .timeline-date span {
+      display: block;
+    }
+
+    .timeline-date span + span::before {
+      content: "";
+      display: block;
+      height: 4px;
+    }
+
+    .timeline-marker {
+      padding-top: 16px;
+    }
+
+    .timeline-marker span {
+      width: 14px;
+      height: 14px;
+    }
+
+    .timeline-card {
+      margin-bottom: 17px;
+      padding: 19px 23px;
+    }
+
+    .timeline-card h3 {
+      font-size: 20px;
+      line-height: 1.28;
+      margin: 8px 0 7px;
+    }
+
+    .timeline-card p {
+      font-size: 12px;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 800px) {
+      .experience-timeline::before {
+        left: 10px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 28px minmax(0, 1fr);
+        min-height: 0;
+      }
+
+      .timeline-date {
+        padding: 10px 0 0;
+        font-size: 10px;
+        white-space: nowrap;
+      }
+
+      .timeline-date span {
+        display: inline;
+      }
+
+      .timeline-date span + span::before {
+        content: " — ";
+        display: inline;
+        height: auto;
+        line-height: inherit;
+        margin: 0;
+        font-size: inherit;
+        opacity: 1;
+      }
+    }
+
+    /* Final timeline date/rail separation */
+    .experience-timeline::before {
+      left: 166px;
+    }
+
+    .timeline-item {
+      grid-template-columns: 142px 58px minmax(0, 1fr);
+    }
+
+    .timeline-date {
+      padding-right: 28px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .timeline-date span {
+      display: block;
+    }
+
+    .timeline-marker {
+      justify-content: center;
+    }
+
+    @media (max-width: 800px) {
+      .experience-timeline::before {
+        left: 10px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 28px minmax(0, 1fr);
+      }
+
+      .timeline-date {
+        padding-right: 0;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      .timeline-date span {
+        display: inline;
+      }
+
+      .timeline-date span + span::before {
+        content: " — ";
+        display: inline;
+        height: auto;
+        margin: 0;
+        font-size: inherit;
+        opacity: 1;
+      }
+    }
+
+    /* Global typography baseline */
+    html { font-size: 12px; }
+    body { font-size: 12px; line-height: 1.6; }
+
+    .navlinks a,
+    .btn { font-size: 12px; }
+
+    .lede,
+    .hero p { font-size: 12px; line-height: 1.65; }
+
+    .proof strong { font-size: 20px; }
+    .proof span { font-size: 10px; }
+
+    .focus-item strong,
+    .do-item strong { font-size: 12px; }
+
+    .focus-item span,
+    .do-item span { font-size: 10px; }
+
+    .pillar-card h3 { font-size: 16px; }
+    .pillar-card p,
+    .project-card p,
+    .about-copy p,
+    .timeline-card p,
+    .stack-note,
+    .contact-card p { font-size: 14px; line-height: 1.6; }
+
+    .project-card h3 { font-size: 19px; }
+    .stack-subhead { font-size: 20px; }
+    .badge,
+    .mini-tags span { font-size: 12px; }
+    .timeline-card h3 { font-size: 19px; }
+    footer > .wrap > p { font-size: 10px; }
+
+    /* Project card footer alignment
+       Keeps technology metadata and the project action anchored to the
+       bottom of every card regardless of description length. */
+    .project-card > div:last-child {
+      position: relative;
+      min-width: 0;
+      min-height: 122px;
+      padding-bottom: 44px;
+    }
+
+    .project-meta {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 24px;
+      margin-top: 0;
+      min-height: 20px;
+      align-items: flex-end;
+    }
+
+    .project-link {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      margin-top: 0;
+      line-height: 18px;
+    }
+
+    @media (max-width: 800px) {
+      .project-card > div:last-child {
+        min-height: 122px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .project-card > div:last-child {
+        min-height: 150px;
+      }
+    }
+
+    /* Hero role shuffle — restored from the earlier portfolio interaction */
+    .role-rotate {
+      display: inline-block;
+      color: var(--navy);
+      transition: opacity .35s ease;
+      min-width: 11ch;
+    }
+
+    .role-rotate.fading {
+      opacity: 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .role-rotate {
+        transition: none;
+      }
+    }
+
+    /* Timeline: date + marker as one visual unit */
+    .experience-timeline::before {
+      left: 166px;
+    }
+
+    .timeline-item {
+      grid-template-columns: 176px minmax(0, 1fr);
+      column-gap: 24px;
+      min-height: 138px;
+    }
+
+    .timeline-date {
+      position: relative;
+      min-width: 0;
+      padding: 15px 42px 0 0;
+      text-align: right;
+      font-size: 10px;
+      line-height: 1.45;
+      white-space: nowrap;
+      z-index: 2;
+    }
+
+    .timeline-date::after {
+      content: "";
+      position: absolute;
+      right: -7px;
+      top: 16px;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #fff;
+      border: 3px solid var(--blue);
+      box-shadow: 0 0 0 4px var(--blue-soft);
+      box-sizing: border-box;
+    }
+
+    .timeline-item:first-child .timeline-date::after {
+      background: var(--blue);
+    }
+
+    .timeline-marker {
+      display: none;
+    }
+
+    .timeline-card {
+      min-width: 0;
+      margin-bottom: 17px;
+    }
+
+    @media (max-width: 800px) {
+      .experience-timeline::before {
+        left: 10px;
+      }
+
+      .timeline-item {
+        grid-template-columns: 28px minmax(0, 1fr);
+        column-gap: 0;
+        min-height: 0;
+      }
+
+      .timeline-date {
+        grid-column: 2;
+        grid-row: 1;
+        padding: 10px 0 0;
+        text-align: left;
+        white-space: nowrap;
+      }
+
+      .timeline-date::after {
+        left: -24px;
+        right: auto;
+        top: 15px;
+      }
+
+      .timeline-marker {
+        display: none;
+      }
+
+      .timeline-card {
+        grid-column: 2;
+        grid-row: 2;
+        margin: 6px 0 18px;
+      }
+    }
+</style>
+</head>
+
+<body>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><strong>Mohammad Moin</strong><span>Full Stack Developer &amp; Corporate Trainer</span></a>
+    <div class="navlinks" id="navlinks">
+      <a href="#about">01. About</a><a href="#what-i-do">02. What I Do</a><a href="#stack">03. Pillars</a>
+      <a href="#projects">04. Projects</a><a href="#experience">05. Experience</a><a href="#contact">06. Contact</a>
+    </div>
+    <div class="nav-actions">
+      <a class="btn btn-outline" href="assets/resume.pdf" target="_blank" rel="noopener">▱ Training Profile</a>
+      <a class="btn btn-primary" href="assets/Mohammad Moin-Consultant.pdf" target="_blank" rel="noopener">▣ Consultant Profile</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">☰</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="identity">
+        <img class="hero-photo" src="assets/profile.webp" width="164" height="164" alt="Mohammad Moin" />
         <div>
-          <img
-            src="assets/profile.webp"
-            alt="Mohammad Moin"
-            class="hero-photo hero-fade"
-            width="138"
-            height="138"
-            style="animation-delay: 0s"
-          />
-          <p class="eyebrow-pill hero-fade" style="animation-delay: 0.05s">
-            <span class="status-dot"></span>Open to remote roles ·
-            <span class="role-rotate" id="roleRotate"
-              >Web &amp; Mobile Engineer</span
-            >
-          </p>
-          <h1 class="hero-fade" style="animation-delay: 0.15s">
-            I build JavaScript-powered products —
-            <span class="accent"
-              >and train the engineers who'll build the next ones.</span
-            >
-          </h1>
-          <p class="lede hero-fade" style="animation-delay: 0.25s">
-            14+ years across two disciplines: shipping production web and mobile
-            apps with Angular, React, Vue and Node — and designing corporate
-            training programs that move individuals and teams onto modern stacks
-            with confidence.
-          </p>
-          <div class="hero-cta hero-fade" style="animation-delay: 0.35s">
-            <a
-              class="btn btn-primary"
-              href="https://www.linkedin.com/in/mohammadmoin/"
-              target="_blank"
-              rel="noopener"
-              >View LinkedIn</a
-            ><a
-              class="btn btn-ghost"
-              href="assets/resume.pdf"
-              target="_blank"
-              rel="noopener"
-              >↓ Training Profile</a
-            ><a
-              class="btn btn-ghost"
-              href="assets/Mohammad Moin-Consultant.pdf"
-              target="_blank"
-              rel="noopener"
-              >↓ Consultant Profile</a
-            >
-          </div>
-        </div>
-        <div>
-          <div
-            class="hero-visual terminal hero-fade"
-            style="animation-delay: 0.3s"
-          >
-            <div class="term-bar">
-              <span class="term-dot r"></span><span class="term-dot y"></span
-              ><span class="term-dot g"></span
-              ><span class="term-title">whoami.sh</span>
-            </div>
-            <div class="term-body">
-              <p><span class="prompt">$</span>whoami</p>
-              <p class="out">
-                &gt; Mohammad Moin — Web &amp; Mobile Engineer, Corporate
-                Trainer
-              </p>
-              <p class="out muted">&gt; Remote · Bengaluru, IST (UTC+5:30)</p>
-              <p class="blank">
-                <span class="prompt">$</span>currently --status
-              </p>
-              <p class="out">
-                &gt; Building AquaTrack — React + Firebase billing platform
-              </p>
-              <p class="out">
-                &gt; Teaching React &amp; NestJS — 40h intermediate track
-              </p>
-              <p class="out muted">
-                &gt; Trained at IBM · Amazon · Walmart · SAP · Dell
-              </p>
-              <p class="blank">
-                <span class="prompt">$</span><span class="cursor"></span>
-              </p>
-            </div>
-          </div>
-          <div class="hero-side-stack">
-            <div
-              class="hero-highlights"
-              aria-label="Key engineering focus areas"
-            >
-              <div class="hero-highlight">
-                <span class="marker"></span>
-                <strong>Architecture</strong>
-                <span>Scalable frontend systems</span>
-              </div>
-              <div class="hero-highlight">
-                <span class="marker"></span>
-                <strong>Enterprise</strong>
-                <span>Production engineering</span>
-              </div>
-              <div class="hero-highlight">
-                <span class="marker"></span>
-                <strong>Mobile</strong>
-                <span>React Native &amp; Ionic</span>
-              </div>
-              <div class="hero-highlight">
-                <span class="marker"></span>
-                <strong>Infrastructure</strong>
-                <span>Terraform &amp; Azure</span>
-              </div>
-            </div>
+          <div class="eyebrow"><span class="status"></span> Senior Full Stack Engineer · <span class="role-rotate" id="roleRotate">Web &amp; Mobile Engineer</span></div>
+          <h1>I build scalable <span class="accent">software</span><br/>and develop <span class="accent">people.</span></h1>
+          <p class="lede">14+ years engineering web, mobile and enterprise applications. I also help individuals and organizations upskill through practical, industry-relevant training.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#projects">↗ View My Work</a>
+            <a class="btn btn-outline" href="assets/resume.pdf" target="_blank" rel="noopener">▱ Download CV</a>
           </div>
         </div>
       </div>
-    </header>
-    <script>
-      (function () {
-        var roles = [
-          "Web & Mobile Engineer",
-          "Corporate Trainer",
-          "Remote Consultant",
-        ];
-        var i = 0;
-        var el = document.getElementById("roleRotate");
-        if (!el) return;
-        setInterval(function () {
-          el.classList.add("fading");
-          setTimeout(function () {
-            i = (i + 1) % roles.length;
-            el.textContent = roles[i];
-            el.classList.remove("fading");
-          }, 350);
-        }, 2600);
-      })();
-    </script>
-    <div class="metrics wrap">
-      <div class="metric-grid">
-        <div class="metric">
-          <div class="num">14+</div>
-          <div class="lbl">Years in software engineering</div>
+      <div class="proofs" aria-label="Professional highlights">
+        <div class="proof"><div class="proof-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3"></circle><circle cx="17" cy="9" r="2.5"></circle><path d="M3.5 19c.5-3.2 2.4-5 5.5-5s5 1.8 5.5 5"></path><path d="M14.5 14.5c2.8-.2 4.8 1.3 5.2 4"></path></svg></div><div><strong>15,000+</strong><span>Engineers Trained</span></div></div>
+        <div class="proof"><div class="proof-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4h10v17M14 8h6v13"></path><path d="M7 8h4M7 12h4M7 16h4M17 12h1M17 16h1M2 21h20"></path></svg></div><div><strong>350+</strong><span>Training Sessions</span></div></div>
+        <div class="proof"><div class="proof-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M7 3v4M17 3v4M3 10h18M8 14h3M13 14h3M8 17h3"></path></svg></div><div><strong>14+</strong><span>Years Experience</span></div></div>
+        <div class="proof"><div class="proof-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"></path></svg></div><div><strong>30+</strong><span>Technologies</span></div></div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="terminal">
+        <div class="term-bar"><span class="term-dot r"></span><span class="term-dot y"></span><span class="term-dot g"></span><span class="term-title">~/moin-terminal</span></div>
+        <div class="term-body">
+          <p><span class="prompt">moin@portfolio:~$</span> Architecting scalable systems</p>
+          <p><span class="prompt">moin@portfolio:~$</span> Leading engineering teams</p>
+          <p><span class="prompt">moin@portfolio:~$</span> Delivering enterprise solutions</p>
+          <p><span class="prompt">moin@portfolio:~$</span> Mentoring developers</p>
+          <p class="blank">&nbsp;</p>
+          <p class="out"><span class="prompt">moin@portfolio:~$</span> Building products. Empowering people.</p>
+          <p class="out"><span class="prompt">moin@portfolio:~$</span> Always learning.</p>
+          <p><span class="prompt">moin@portfolio:~$</span> <span class="cursor"></span></p>
         </div>
-        <div class="metric">
-          <div class="num">15,000+</div>
-          <div class="lbl">Engineers trained</div>
-        </div>
-        <div class="metric">
-          <div class="num">350+</div>
-          <div class="lbl">Training sessions delivered</div>
-        </div>
-        <div class="metric">
-          <div class="num">10+</div>
-          <div class="lbl">Stacks taught end-to-end</div>
+      </div>
+      <div class="focus-card">
+        <div class="focus-title">Key Focus Areas</div>
+        <div class="focus-row">
+          <div class="focus-item"><div class="focus-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"></rect><rect x="3" y="16" width="6" height="5" rx="1"></rect><rect x="15" y="16" width="6" height="5" rx="1"></rect><path d="M12 8v4M6 16v-3h12v3"></path></svg></div><div><strong>Architecture</strong><span>Scalable frontend systems</span></div></div>
+          <div class="focus-item"><div class="focus-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4h10v17M14 8h6v13M7 8h4M7 12h4M7 16h4M17 12h1M17 16h1M2 21h20"></path></svg></div><div><strong>Enterprise</strong><span>Production-grade engineering</span></div></div>
+          <div class="focus-item"><div class="focus-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"></rect><path d="M10 5h4M11 18.5h2"></path></svg></div><div><strong>Mobile</strong><span>React Native &amp; Ionic apps</span></div></div>
+          <div class="focus-item"><div class="focus-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 19h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.3 9.6 4.7 4.7 0 0 0 7.5 19Z"></path></svg></div><div><strong>Infrastructure</strong><span>Terraform &amp; Azure cloud</span></div></div>
         </div>
       </div>
     </div>
-    <div class="clients wrap">
-      <p class="clients-label">Engineers &amp; teams trained at</p>
-      <div class="client-row">
-        <span class="client-pill">IBM</span
-        ><span class="client-pill">Amazon</span
-        ><span class="client-pill">Walmart</span
-        ><span class="client-pill">SAP</span
-        ><span class="client-pill">Dell</span>
-        <span
-          class="client-pill client-pill-more"
-          aria-label="And many more organisations"
-          >+ Many more</span
-        >
-      </div>
+  </div>
+</header>
+
+<section class="do-strip" id="what-i-do" aria-labelledby="what-i-do-title">
+  <div class="wrap">
+    <div class="do-label" id="what-i-do-title">02 — What I Do</div>
+    <div class="do-grid">
+      <div class="do-item"><div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7l1-8Z"></path></svg></div><div><strong>Production Delivery</strong><span>Ship features that matter</span></div></div>
+      <div class="do-item"><div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5 9-5Z"></path><path d="m3 12 9 5 9-5M3 16l9 5 9-5"></path></svg></div><div><strong>Frontend Architecture</strong><span>Scalable, maintainable, modern</span></div></div>
+      <div class="do-item"><div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 5l-4 14"></path></svg></div><div><strong>Full Stack Engineering</strong><span>Web, mobile &amp; backend</span></div></div>
+      <div class="do-item"><div class="do-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7 12 3l9 4-9 4-9-4Z"></path><path d="M7 10v5c2.5 2 7.5 2 10 0v-5M21 7v7"></path></svg></div><div><strong>Corporate Enablement</strong><span>Upskill individuals &amp; teams</span></div></div>
     </div>
-    <section id="pillars">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="kicker">01 — What I Do</span>
-          <h2>Engineering and technology upskilling</h2>
-          <div
-            class="section-note"
-            aria-label="Selected engineering capabilities"
-          >
-            <span>Selected capabilities</span>
-            <span class="section-more">+ More across the stack</span>
-          </div>
-        </div>
-        <div class="pillars">
-          <article class="pillar-card">
-            <div class="tag">Development</div>
-            <h3>Web &amp; mobile apps, end to end</h3>
-            <p>
-              Designing and shipping production applications across the
-              JavaScript ecosystem — from customer-facing web apps to
-              cross-platform mobile, backed by solid architecture and CI.
-            </p>
-            <ul class="pillar-list">
-              <li>Web apps with Angular, React and Vue</li>
-              <li>Cross-platform mobile with React Native &amp; Ionic</li>
-              <li>Node/NestJS APIs and full-stack delivery</li>
-              <li>Monorepo architecture, CI/CD and code quality tooling</li>
-            </ul>
-          </article>
-          <article class="pillar-card">
-            <div class="tag train">Training</div>
-            <h3>Upskilling, for people and companies</h3>
-            <p>
-              Designing and delivering structured learning programs that move
-              individuals and corporate teams onto modern technology stacks —
-              built on real production experience.
-            </p>
-            <ul class="pillar-list">
-              <li>Stack-migration curricula such as Vue → Angular</li>
-              <li>Enterprise backend-to-frontend upskilling</li>
-              <li>
-                Corporate workshops on frameworks, tooling &amp; architecture
-              </li>
-              <li>1:1 and cohort-based mentoring</li>
-            </ul>
-            <a class="training-link" href="training/"
-              >Explore training programs →</a
-            >
-          </article>
-        </div>
+  </div>
+</section>
+
+<section id="stack">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">03 — Core Engineering Pillars</div>
+      <h2>Technology expertise and architecture focus</h2>
+      <div class="section-note"><span>5 core pillars</span><span>Enterprise stacks</span><span>Architecture-led</span><span>Hands-on training</span><span class="section-more">+ More across the stack</span></div>
+    </div>
+    <p class="stack-note">Five core areas anchor the engineering portfolio. Each has a dedicated authority page covering the technology, architecture patterns, delivery practices and related training or consulting work.</p>
+    <div class="pillar-grid">
+      <article class="pillar-card"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"></rect><rect x="3" y="16" width="6" height="5" rx="1"></rect><rect x="15" y="16" width="6" height="5" rx="1"></rect><path d="M12 8v4M6 16v-3h12v3"></path></svg></div><h3>Frontend Engineering</h3><p>Component-driven UI with performance and scalability.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>React</span><span>Angular</span><span>Vue.js</span><span class="more">+ More</span></div></article>
+      <article class="pillar-card"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"></rect><path d="M10 5h4M11 18.5h2"></path></svg></div><h3>Mobile Development</h3><p>Cross-platform mobile apps with native performance.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>React Native</span><span>Ionic</span><span>Expo</span><span class="more">+ More</span></div></article>
+      <article class="pillar-card"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V4h10v17M14 8h6v13M7 8h4M7 12h4M7 16h4M17 12h1M17 16h1M2 21h20"></path></svg></div><h3>Backend Engineering</h3><p>Robust APIs, microservices and secure integrations.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>Node.js</span><span>Express</span><span>NestJS</span><span class="more">+ More</span></div></article>
+      <article class="pillar-card"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.5 19h10a4 4 0 0 0 .5-7.97A6 6 0 0 0 6.3 9.6 4.7 4.7 0 0 0 7.5 19Z"></path></svg></div><h3>DevOps &amp; Cloud</h3><p>Infrastructure as code, CI/CD and cloud automation.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>Terraform</span><span>Azure</span><span>Docker</span><span class="more">+ More</span></div></article>
+      <article class="pillar-card"><div class="pillar-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1"></rect><rect x="3" y="16" width="6" height="5" rx="1"></rect><rect x="15" y="16" width="6" height="5" rx="1"></rect><path d="M12 8v4M6 16v-3h12v3"></path></svg></div><h3>Architecture &amp; Design</h3><p>System design, patterns and scalable architecture.</p><span class="mini-label">Technologies</span><div class="mini-tags"><span>Nx</span><span>DDD</span><span>Design Patterns</span><span class="more">+ More</span></div></article>
+    </div>
+
+    <div class="stack-group">
+      <div class="stack-subhead">Broader development stack</div>
+      <div class="stack-block"><div class="stack-label">Frontend &amp; Mobile</div><div class="badges">
+        <span class="badge lead">Angular</span><span class="badge lead">React &amp; Redux Toolkit</span><span class="badge">Vue.js</span><span class="badge">Next.js</span><span class="badge lead">React Native</span><span class="badge">Ionic</span><span class="badge">Stencil.js</span><span class="badge lead">TypeScript</span>
+      </div></div>
+      <div class="stack-block"><div class="stack-label">Backend &amp; APIs</div><div class="badges">
+        <span class="badge lead">Node.js</span><span class="badge">NestJS</span><span class="badge">Express</span><span class="badge">GraphQL</span><span class="badge">PHP / Laravel</span><span class="badge">Python / Django</span>
+      </div></div>
+      <div class="stack-block"><div class="stack-label">Data, Infra &amp; Tooling</div><div class="badges">
+        <span class="badge">MongoDB</span><span class="badge">PostgreSQL</span><span class="badge">AWS</span><span class="badge">Azure</span><span class="badge">Terraform</span><span class="badge">Docker</span><span class="badge">Nx Monorepo</span><span class="badge">Webpack 5 / esbuild</span><span class="badge">GitHub Actions</span>
+      </div></div>
+    </div>
+
+    <div class="stack-group">
+      <div class="stack-subhead">Training focus — upskilling individuals &amp; corporates</div>
+      <div class="stack-block"><div class="stack-label">Programs &amp; formats</div><div class="badges">
+        <span class="badge lead">Stack migration curricula</span><span class="badge lead">Backend → Frontend upskilling</span><span class="badge">Corporate workshops</span><span class="badge">1:1 mentoring</span><span class="badge">Cohort-based training</span><span class="badge client-pill-more">+ Many More</span>
+      </div></div>
+      <div class="stack-block"><div class="stack-label">Subjects taught</div><div class="badges">
+        <span class="badge lead">Angular internals</span><span class="badge">React &amp; React Native</span><span class="badge">Terraform &amp; Azure</span><span class="badge">Vue → Angular migration</span><span class="badge">TypeScript fundamentals</span><span class="badge">Nx &amp; monorepo architecture</span><span class="badge">Code quality &amp; CI/CD</span><span class="badge client-pill-more">+ Many More</span>
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">04 — Selected Projects</div>
+      <h2>Products and engineering work</h2>
+      <div class="section-note"><span>Featured builds</span><span>React</span><span>Firebase</span><span>Production patterns</span><span class="section-more">+ More projects &amp; engagements</span></div>
+    </div>
+    <div class="project-grid">
+      <article class="project-card">
+        <div class="project-visual"><div class="mock-dashboard"><div class="mock-top"></div><div class="mock-line"></div><div class="mock-line"></div><div class="mock-chart"></div></div></div>
+        <div><span class="tag">Featured Build</span><h3>AquaTrack</h3><p>Water consumption tracking platform for residential society operations, covering readings, monthly analytics, billing configuration, reporting and administrative workflows.</p><div class="project-meta"><span class="project-tech">React</span><span class="project-tech">Firebase</span><span class="project-tech">Tailwind</span><span class="project-tech">Charts</span></div><a class="project-link" href="https://github.com/mdmoin7/AquaTrack" target="_blank" rel="noopener">View source on GitHub →</a></div>
+      </article>
+      <article class="project-card">
+        <div class="project-visual"><div class="mock-shop"><div class="mock-top"></div><div class="shop-row"><i></i><i></i><i></i></div><div class="shop-row"><i></i><i></i><i></i></div></div></div>
+        <div><span class="tag">Selected Engineering Work</span><h3>E-commerce Platform</h3><p>Modern e-commerce application architecture covering product data, cart state, authentication and responsive application UI using a contemporary React stack.</p><div class="project-meta"><span class="project-tech">React</span><span class="project-tech">Redux Toolkit</span><span class="project-tech">Firebase</span><span class="project-tech">Vite</span></div><a class="project-link" href="https://github.com/mdmoin7" target="_blank" rel="noopener">View GitHub profile →</a></div>
+      </article>
+      <article class="project-card">
+        <div class="project-visual"><div class="consult-visual">ARCHITECTURE<br/>CONSULTING<br/><strong>DELIVERY · TEAMS · SYSTEMS</strong></div></div>
+        <div><span class="tag">Long-term Practice</span><h3>Freelance Consulting</h3><p>Full-stack web and mobile delivery for clients end to end — architecture, build and deployment — working remotely and asynchronously with distributed teams.</p><div class="project-meta"><span class="project-tech">Architecture</span><span class="project-tech">Consulting</span><span class="project-tech">Delivery</span><span class="project-tech">Training</span></div><a class="project-link" href="consulting/">View consulting profile →</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">01 — About</div>
+      <h2>Building and teaching</h2>
+      <div class="section-signal"><span>Build</span><span>Teach</span><span>Mentor</span><span>Modernize</span></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-copy">
+        <p>I work at the intersection of <strong>building</strong> and <strong>teaching</strong>. As a full stack engineer, I design and ship web and mobile applications across the JavaScript ecosystem — Angular, React, Vue, Node, React Native — leading delivery from architecture through production.</p>
+        <p>As a freelance corporate trainer, I take that same production experience and turn it into structured upskilling programs — helping individuals and engineering teams move onto modern stacks they haven't worked in before. Recent work includes guiding Java/backend engineers into frontend roles, and migrating Vue teams onto Angular through contrastive, hands-on curricula.</p>
       </div>
-    </section>
-    <section id="about">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="kicker">02 — About</span>
-          <h2>Building and teaching</h2>
-          <div class="section-signal" aria-label="Professional focus">
-            <span>Build</span><span>Teach</span><span>Mentor</span
-            ><span>Modernize</span>
-          </div>
+      <aside class="pull-card"><p>“The goal of training isn't a slide deck — it's an engineer who can ship in the new stack without me in the room.”</p></aside>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="kicker">05 — Experience</div>
+      <h2>Engineering, consulting and training</h2>
+      <div class="section-note"><span>14+ years</span><span>Consulting</span><span>Training</span><span>Distributed teams</span><span class="section-more">+ More experience</span></div>
+    </div>
+    <div class="experience-timeline" aria-label="Professional experience timeline">
+      <article class="timeline-item">
+        <div class="timeline-marker" aria-hidden="true"><span></span></div>
+        <div class="timeline-date"><span>2014</span><span>Present</span></div>
+        <div class="timeline-card">
+          <span class="tag">Consulting</span>
+          <h3>Independent Consultant — Web &amp; Mobile Development</h3>
+          <p>Full-stack web and mobile delivery for clients end to end — architecture, build, and deployment — working remotely and asynchronously with distributed teams.</p>
         </div>
-        <div class="about-grid">
-          <div class="about-copy">
-            <p>
-              I work at the intersection of <strong>building</strong> and
-              <strong>teaching</strong>. As a full stack engineer, I design and
-              ship web and mobile applications across the JavaScript ecosystem —
-              Angular, React, Vue, Node, React Native — leading delivery from
-              architecture through production.
-            </p>
-            <p>
-              As a freelance corporate trainer, I take that same production
-              experience and turn it into structured upskilling programs —
-              helping individuals and engineering teams move onto modern stacks
-              they haven't worked in before. Recent work includes guiding
-              Java/backend engineers into frontend roles, and migrating Vue
-              teams onto Angular through contrastive, hands-on curricula.
-            </p>
-          </div>
-          <aside class="pull-card">
-            <p>
-              “The goal of training isn't a slide deck — it's an engineer who
-              can ship in the new stack without me in the room.”
-            </p>
-          </aside>
+      </article>
+      <article class="timeline-item">
+        <div class="timeline-marker" aria-hidden="true"><span></span></div>
+        <div class="timeline-date"><span>Jan 2024</span><span>Mar 2025</span></div>
+        <div class="timeline-card">
+          <span class="tag">Engineering</span>
+          <h3>React Consultant — JLL</h3>
+          <p>Re-architected legacy AEM/Java-based web components to React within a 10–15 engineer team spanning multiple countries. Led Java/AEM ↔ React integration across globally distributed teams and orchestrated a shared design system built in SolidJS, translated into React, Angular, and other framework components.</p>
         </div>
+      </article>
+      <article class="timeline-item">
+        <div class="timeline-marker" aria-hidden="true"><span></span></div>
+        <div class="timeline-date"><span>2014</span><span>Present</span></div>
+        <div class="timeline-card">
+          <span class="tag">Training</span>
+          <h3>Freelance Corporate Trainer</h3>
+          <p>Designing and delivering upskilling programs — Angular, React, Vue, Node, TypeScript — for enterprise engineering teams at IBM, Amazon, Walmart, SAP, and Dell. Cohorts of 20–50 engineers, each with 5+ years' experience, with repeat engagements from returning clients.</p>
+        </div>
+      </article>
+      <article class="timeline-item">
+        <div class="timeline-marker" aria-hidden="true"><span></span></div>
+        <div class="timeline-date"><span>2012</span><span>2014</span></div>
+        <div class="timeline-card">
+          <span class="tag">Training</span>
+          <h3>Technical Trainer — Training Institutes</h3>
+          <p>Delivered technical training on web development fundamentals to early-career engineers.</p>
+        </div>
+      </article>
+    </div></div>
+  </div>
+</section>
+
+<div class="clients">
+  <div class="wrap">
+    <p class="clients-label">Engineers &amp; teams trained at</p>
+    <div class="client-row"><span class="client-pill">IBM</span><span class="client-pill">Amazon</span><span class="client-pill">Walmart</span><span class="client-pill">SAP</span><span class="client-pill">Dell</span><span class="client-pill client-pill-more">+ Many more</span></div>
+  </div>
+</div>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-card">
+      <div>
+        <h2>Need an app built, or a team trained?</h2>
+        <p>Open to full-stack web/mobile development engagements and corporate training programs — stack migrations, upskilling and curriculum design.</p>
+        <div class="links"><a href="https://www.linkedin.com/in/mohammadmoin/" target="_blank" rel="noopener">LinkedIn</a><a href="mailto:mohammad.nicoll@gmail.com">Email</a><a href="training/">Training</a><a href="consulting/">Consulting</a></div>
       </div>
-    </section>
-    <section id="stack">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="kicker">03 — Core Engineering Pillars</span>
-          <h2>Technology expertise and architecture focus</h2>
-          <div class="section-signal" aria-label="Core expertise">
-            <span>5 core pillars</span><span>Enterprise stacks</span
-            ><span>Architecture-led</span><span>Hands-on training</span>
-          </div>
-        </div>
-        <p class="stack-note">
-          Five core areas anchor the engineering portfolio. Each has a dedicated
-          authority page covering the technology, architecture patterns,
-          delivery practices and related training or consulting work.
-        </p>
-        <div class="core-stack">
-          <a href="engineering/angular/"
-            ><strong>Angular</strong
-            ><span
-              >Enterprise application development &amp; architecture</span
-            ></a
-          ><a href="engineering/react/"
-            ><strong>React</strong
-            ><span
-              >Application architecture &amp; modern React development</span
-            ></a
-          ><a href="engineering/react-native/"
-            ><strong>React Native</strong
-            ><span>Cross-platform mobile engineering</span></a
-          ><a href="engineering/terraform/"
-            ><strong>Terraform</strong
-            ><span>Azure infrastructure &amp; Infrastructure as Code</span></a
-          ><a href="engineering/frontend-architecture/"
-            ><strong>Frontend Architecture</strong
-            ><span>Scalable systems, Nx, microfrontends &amp; delivery</span></a
-          >
-        </div>
-        <div class="stack-group" style="margin-top: 42px">
-          <div class="stack-subhead">Broader development stack</div>
-          <div class="stack-block">
-            <div class="stack-label">Frontend &amp; Mobile</div>
-            <div class="badges">
-              <span class="badge lead"><span class="dot"></span>Angular</span
-              ><span class="badge lead"
-                ><span class="dot"></span>React &amp; Redux Toolkit</span
-              ><span class="badge"><span class="dot"></span>Vue.js</span
-              ><span class="badge"><span class="dot"></span>Next.js</span
-              ><span class="badge lead"
-                ><span class="dot"></span>React Native</span
-              ><span class="badge"><span class="dot"></span>Ionic</span
-              ><span class="badge"><span class="dot"></span>Stencil.js</span
-              ><span class="badge lead"
-                ><span class="dot"></span>TypeScript</span
-              >
-            </div>
-          </div>
-          <div class="stack-block">
-            <div class="stack-label">Backend &amp; APIs</div>
-            <div class="badges">
-              <span class="badge lead"><span class="dot"></span>Node.js</span
-              ><span class="badge"><span class="dot"></span>NestJS</span
-              ><span class="badge"><span class="dot"></span>Express</span
-              ><span class="badge"><span class="dot"></span>GraphQL</span
-              ><span class="badge"><span class="dot"></span>PHP / Laravel</span
-              ><span class="badge"
-                ><span class="dot"></span>Python / Django</span
-              >
-            </div>
-          </div>
-          <div class="stack-block">
-            <div class="stack-label">Data, Infra &amp; Tooling</div>
-            <div class="badges">
-              <span class="badge"><span class="dot"></span>MongoDB</span
-              ><span class="badge"><span class="dot"></span>PostgreSQL</span
-              ><span class="badge"><span class="dot"></span>AWS</span
-              ><span class="badge"><span class="dot"></span>Azure</span
-              ><span class="badge"><span class="dot"></span>Terraform</span
-              ><span class="badge"><span class="dot"></span>Docker</span
-              ><span class="badge"><span class="dot"></span>Nx Monorepo</span
-              ><span class="badge"
-                ><span class="dot"></span>Webpack 5 / esbuild</span
-              ><span class="badge"
-                ><span class="dot"></span>GitHub Actions</span
-              >
-            </div>
-          </div>
-        </div>
-        <div class="stack-group">
-          <div class="stack-subhead">
-            Training focus — upskilling individuals &amp; corporates
-          </div>
-          <div class="stack-block">
-            <div class="stack-label">Programs &amp; formats</div>
-            <div class="badges">
-              <span class="badge train lead"
-                ><span class="dot"></span>Stack migration curricula</span
-              ><span class="badge train lead"
-                ><span class="dot"></span>Backend → Frontend upskilling</span
-              ><span class="badge train"
-                ><span class="dot"></span>Corporate workshops</span
-              ><span class="badge train"
-                ><span class="dot"></span>1:1 mentoring</span
-              ><span class="badge train"
-                ><span class="dot"></span>Cohort-based training</span
-              >
-            </div>
-          </div>
-          <div class="stack-block">
-            <div class="stack-label">Subjects taught</div>
-            <div class="badges">
-              <span class="badge train lead"
-                ><span class="dot"></span>Angular internals</span
-              ><span class="badge train"
-                ><span class="dot"></span>React &amp; React Native</span
-              ><span class="badge train"
-                ><span class="dot"></span>Terraform &amp; Azure</span
-              ><span class="badge train"
-                ><span class="dot"></span>Vue → Angular migration</span
-              ><span class="badge train"
-                ><span class="dot"></span>TypeScript fundamentals</span
-              ><span class="badge train"
-                ><span class="dot"></span>Nx &amp; monorepo architecture</span
-              ><span class="badge train"
-                ><span class="dot"></span>Code quality &amp; CI/CD</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="projects">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="kicker">04 — Selected Projects</span>
-          <h2>Products and engineering work</h2>
-          <div class="section-note" aria-label="Selected projects">
-            <span>Selected work</span>
-            <span class="section-more">+ More projects &amp; engagements</span>
-          </div>
-        </div>
-        <div class="project-grid">
-          <article class="project-card">
-            <div class="tag">React · Firebase</div>
-            <h3>AquaTrack</h3>
-            <p>
-              Water consumption tracking platform for residential society
-              operations, covering readings, monthly analytics, billing
-              configuration, reporting and administrative workflows.
-            </p>
-            <div class="project-meta">
-              <span class="project-tech">React</span
-              ><span class="project-tech">Firebase</span
-              ><span class="project-tech">Firestore</span
-              ><span class="project-tech">Tailwind</span
-              ><span class="project-tech">Recharts</span>
-            </div>
-            <a
-              class="project-link"
-              href="https://github.com/mdmoin7/AquaTrack"
-              target="_blank"
-              rel="noopener"
-              >View source on GitHub →</a
-            >
-          </article>
-          <article class="project-card">
-            <div class="tag">React · TypeScript</div>
-            <h3>E-commerce Application</h3>
-            <p>
-              Modern e-commerce application architecture covering product data,
-              cart state, authentication and responsive application UI using a
-              contemporary React stack.
-            </p>
-            <div class="project-meta">
-              <span class="project-tech">React</span
-              ><span class="project-tech">TypeScript</span
-              ><span class="project-tech">Redux Toolkit</span
-              ><span class="project-tech">Vite</span>
-            </div>
-            <a
-              class="project-link"
-              href="https://github.com/mdmoin7"
-              target="_blank"
-              rel="noopener"
-              >View GitHub profile →</a
-            >
-          </article>
-        </div>
-      </div>
-    </section>
-    <section id="experience">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="kicker">05 — Experience</span>
-          <h2>Engineering, consulting and training</h2>
-          <div class="section-signal" aria-label="Experience focus">
-            <span>14+ years</span><span>Consulting</span><span>Training</span
-            ><span>Distributed teams</span>
-          </div>
-        </div>
-        <div class="exp-grid">
-          <article class="exp-card">
-            <div class="when">2014 – Present</div>
-            <div>
-              <div class="tag consult">Consulting</div>
-              <h3>Independent Consultant — Web &amp; Mobile Development</h3>
-              <p>
-                Full-stack web and mobile delivery for clients end to end —
-                architecture, build, and deployment — working remotely and
-                asynchronously with distributed teams.
-              </p>
-            </div>
-          </article>
-          <article class="exp-card">
-            <div class="when">Jan 2024 – Mar 2025</div>
-            <div>
-              <div class="tag">Engineering</div>
-              <h3>React Consultant — JLL</h3>
-              <p>
-                Re-architected legacy AEM/Java-based web components to React
-                within a 10–15 engineer team spanning multiple countries. Led
-                Java/AEM ↔ React integration across globally distributed teams
-                and orchestrated a shared design system built in SolidJS,
-                translated into React, Angular, and other framework components.
-              </p>
-            </div>
-          </article>
-          <article class="exp-card">
-            <div class="when">2014 – Present</div>
-            <div>
-              <div class="tag train">Training</div>
-              <h3>Freelance Corporate Trainer</h3>
-              <p>
-                Designing and delivering upskilling programs — Angular, React,
-                Vue, Node, TypeScript — for enterprise engineering teams at IBM,
-                Amazon, Walmart, SAP, and Dell. Cohorts of 20–50 engineers, each
-                with 5+ years' experience, with repeat engagements from
-                returning clients.
-              </p>
-            </div>
-          </article>
-          <article class="exp-card">
-            <div class="when">2012 – 2014</div>
-            <div>
-              <div class="tag train">Training</div>
-              <h3>Technical Trainer — Training Institutes</h3>
-              <p>
-                Delivered technical training on web development fundamentals to
-                early-career engineers.
-              </p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-    <footer id="contact">
-      <div class="wrap">
-        <div class="contact-card">
-          <div>
-            <h2>Need an app built, or a team trained?</h2>
-            <p>
-              Open to full-stack web/mobile development engagements and
-              corporate training programs — stack migrations, upskilling and
-              curriculum design.
-            </p>
-            <div class="links">
-              <a
-                href="https://www.linkedin.com/in/mohammadmoin/"
-                target="_blank"
-                rel="noopener"
-                >LinkedIn</a
-              ><a href="mailto:mohammad.nicoll@gmail.com">Email</a
-              ><a href="training/">Training</a
-              ><a href="consulting/">Consulting</a>
-            </div>
-          </div>
-          <a class="btn btn-primary" href="mailto:mohammad.nicoll@gmail.com"
-            >Contact me</a
-          >
-        </div>
-        <p>
-          © 2026 Mohammad Moin — Senior Full Stack Engineer &amp; Corporate
-          Trainer
-        </p>
-      </div>
-    </footer>
-    <script>
-      const b = document.getElementById("navToggle"),
-        n = document.getElementById("navlinks");
-      b &&
-        b.addEventListener("click", () => {
-          n.classList.toggle("open");
-          b.setAttribute("aria-expanded", n.classList.contains("open"));
-        });
-      n &&
-        n
-          .querySelectorAll("a")
-          .forEach((a) =>
-            a.addEventListener("click", () => n.classList.remove("open")),
-          );
-    </script>
-  </body>
+      <a class="btn btn-primary" href="mailto:mohammad.nicoll@gmail.com">Contact me</a>
+    </div>
+    <p>© 2026 Mohammad Moin — Senior Full Stack Engineer &amp; Corporate Trainer</p>
+  </div>
+</footer>
+
+
+<script>
+(function () {
+  var roles = [
+    "Web & Mobile Engineer",
+    "Corporate Trainer",
+    "Remote Consultant"
+  ];
+
+  var i = 0;
+  var el = document.getElementById("roleRotate");
+  if (!el || roles.length < 2) return;
+
+  var reduceMotion = window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (reduceMotion) return;
+
+  window.setInterval(function () {
+    el.classList.add("fading");
+
+    window.setTimeout(function () {
+      i = (i + 1) % roles.length;
+      el.textContent = roles[i];
+      el.classList.remove("fading");
+    }, 350);
+  }, 2600);
+})();
+</script>
+
+<script>
+
+  (function () {
+    var links = Array.prototype.slice.call(document.querySelectorAll(".navlinks a"));
+    var targets = links.map(function (link) {
+      return document.querySelector(link.getAttribute("href"));
+    }).filter(Boolean);
+
+    function setActive() {
+      var header = document.querySelector("nav");
+      var offset = (header ? header.offsetHeight : 70) + 28;
+      var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      var active = targets[0];
+
+      targets.forEach(function (target) {
+        if (target.offsetTop <= scrollY + offset) {
+          active = target;
+        }
+      });
+
+      links.forEach(function (link) {
+        var target = document.querySelector(link.getAttribute("href"));
+        link.classList.toggle("active", target === active);
+      });
+    }
+
+    links.forEach(function (link) {
+      link.addEventListener("click", function () {
+        links.forEach(function (item) { item.classList.remove("active"); });
+        link.classList.add("active");
+      });
+    });
+
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        setActive();
+        ticking = false;
+      });
+    }, { passive: true });
+
+    window.addEventListener("resize", setActive);
+    setActive();
+  })();
+</script>
+<script>
+(function () {
+  var b = document.getElementById("navToggle");
+  var n = document.getElementById("navlinks");
+  if (!b || !n) return;
+  b.addEventListener("click", function () {
+    n.classList.toggle("open");
+    if (n.classList.contains("open")) {
+      n.style.display = "flex";
+      n.style.position = "absolute";
+      n.style.left = "14px";
+      n.style.right = "14px";
+      n.style.top = "62px";
+      n.style.flexDirection = "column";
+      n.style.alignItems = "stretch";
+      n.style.padding = "15px";
+      n.style.background = "#fff";
+      n.style.border = "1px solid #e3e8f1";
+      n.style.borderRadius = "10px";
+      n.style.boxShadow = "0 20px 40px -28px rgba(20,35,63,.5)";
+    } else {
+      n.style.display = "";
+    }
+  });
+})();
+</script>
+</body>
 </html>
