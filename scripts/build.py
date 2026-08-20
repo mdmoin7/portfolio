@@ -60,6 +60,12 @@ def rewrite_cdn_assets():
             path.write_text(updated, encoding="utf-8")
             rewritten += 1
 
+    # Do not duplicate CDN-served assets in the GitHub Pages artifact.
+    for local_path in CDN_ASSETS:
+        deployed_asset = DIST / local_path
+        if deployed_asset.exists():
+            deployed_asset.unlink()
+
     print(f"CDN asset rewrite: {rewritten} HTML pages")
 
 
