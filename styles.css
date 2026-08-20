@@ -209,7 +209,7 @@
     .stack-group{margin-top:27px}
     .stack-subhead{font:600 21px var(--display);color:var(--navy);margin-bottom:9px}
     .stack-block{padding:12px 0;border-top:1px solid var(--line)}
-    .stack-label{font:800 8px var(--mono);letter-spacing:.07em;color:#748199;text-transform:uppercase;margin-bottom:7px}
+    .stack-label{font:800 10px var(--mono);letter-spacing:.07em;color:#748199;text-transform:uppercase;margin-bottom:7px}
     .badges{display:flex;gap:5px;flex-wrap:wrap}
     .badge{padding:5px 7px;border-radius:5px;border:1px solid #dce4ef;background:#fff;color:#56657c;font-size:9.5px}
     .badge.lead{background:var(--blue-soft);border-color:#d4e0fa;color:var(--blue-deep)}
@@ -223,7 +223,7 @@
     .exp-card p{font-size:10.5px;line-height:1.6;color:var(--muted);margin:0}
 
     .clients{padding:28px 0 36px}
-    .clients-label{font:800 9px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#64738b;margin:0 0 10px}
+    .clients-label{font:800 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#64738b;margin:0 0 10px}
     .client-row{display:flex;gap:8px;flex-wrap:wrap}
     .client-pill{padding:8px 12px;border:1px solid #dce4ef;border-radius:9px;background:#fff;color:#59677d;font:600 14px var(--display)}
     .client-pill::before{content:"•";color:var(--blue);margin-right:7px}
