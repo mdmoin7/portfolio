@@ -49,16 +49,29 @@ def rewrite_cdn_assets():
     Source HTML remains unchanged so local development, previews and future
     asset replacement remain straightforward. Every generated HTML page is
     processed, including nested authority pages and the preserved old page.
+
+    Important: a CDN URL already contains the local asset path as its suffix.
+    Only replace the local path when the target CDN URL is not already present;
+    otherwise repeated builds would produce a nested URL such as:
+    https://cdn.jsdelivr.net/.../https://cdn.jsdelivr.net/...
     """
     rewritten = 0
+    skipped = 0
+
     for path in DIST.rglob("*.html"):
         source = path.read_text(encoding="utf-8")
         updated = source
+
         for local_path, cdn_url in CDN_ASSETS.items():
-            updated = updated.replace(local_path, cdn_url)
+            if cdn_url in updated:
+                skipped += 1
+                continue
+            if local_path in updated:
+                updated = updated.replace(local_path, cdn_url)
+                rewritten += 1
+
         if updated != source:
             path.write_text(updated, encoding="utf-8")
-            rewritten += 1
 
     # Do not duplicate CDN-served assets in the GitHub Pages artifact.
     for local_path in CDN_ASSETS:
@@ -66,7 +79,7 @@ def rewrite_cdn_assets():
         if deployed_asset.exists():
             deployed_asset.unlink()
 
-    print(f"CDN asset rewrite: {rewritten} HTML pages")
+    print(f"CDN asset rewrite: {rewritten} HTML pages updated, {skipped} already using CDN")
 
 
 def minify_assets():
@@ -112,6 +125,14 @@ def validate():
     html_files = list(DIST.rglob("*.html"))
     if not html_files:
         raise SystemExit("Build failed; no HTML pages found.")
+
+    # Prevent the exact regression that caused the broken profile image:
+    # CDN URLs must never contain another CDN URL as their path.
+    for path in html_files:
+        content = path.read_text(encoding="utf-8")
+        for cdn_url in CDN_ASSETS.values():
+            if f"{cdn_url}/https://" in content:
+                raise SystemExit(f"Build failed; nested CDN URL found in {path.relative_to(DIST)}")
 
     print(f"Built {len(html_files)} HTML pages")
     print(f"CSS: {(DIST / 'styles.css').stat().st_size:,} bytes")
