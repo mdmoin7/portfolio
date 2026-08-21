@@ -1,18 +1,23 @@
 # Mohammad Moin
 
-> Independent Consultant and Corporate Trainer, based in Bengaluru, India (IST, UTC+5:30). 14+ years of production engineering underpins both practices: hands-on client delivery in React, Angular, Vue and Node.js, and enterprise technical upskilling for teams at IBM, Amazon, Walmart, SAP, and Dell. Remote-based, open to cross-timezone teams.
+> Mohammad Moin is an independent software engineering consultant and corporate technology trainer based in Bengaluru, India (IST, UTC+5:30). He works at the intersection of building and teaching: delivering production web and mobile applications while designing practical technical upskilling programs for engineering teams.
 
 ## Who this is
-Mohammad Moin works at the intersection of building and teaching. As an independent consultant, he delivers production web and mobile applications end to end — architecture through deployment. As a corporate trainer, he designs and runs technical upskilling programs for enterprise engineering teams, and has trained 15,000+ engineers across 350+ sessions.
+Mohammad Moin combines hands-on production engineering with enterprise technical training. His primary professional areas are frontend architecture, Angular, React, React Native, Terraform/Azure, full-stack application engineering and corporate technology training.
+
+Profile: https://mdmoin7.github.io/portfolio/about/
 
 ## Consulting
-- Full-stack web and mobile delivery for clients, working remotely and asynchronously with distributed teams
+- Independent software engineering consulting for web, mobile and enterprise applications
+- Frontend architecture, application modernization, scalable application development and engineering enablement
 - Recent engagement: React Consultant, JLL (Jan 2024 – Mar 2025) — re-architected legacy AEM/Java web components to React within a 10-15 engineer team spanning multiple countries; orchestrated a shared SolidJS design system translated into React and Angular
 - See: https://mdmoin7.github.io/portfolio/consulting/
 
 ## Training
-- Enterprise upskilling for cohorts of 20-50 engineers, each with 5+ years' experience, with repeat engagements from returning clients
-- Clients: IBM, Amazon, Walmart, SAP, Dell
+- Corporate technology training and enterprise engineering upskilling
+- Practical programs for cohorts of 20-50 engineers, with repeat engagements from returning clients
+- Clients include IBM, Amazon, Walmart, SAP and Dell
+- 15,000+ engineers trained across 350+ sessions
 - Curricula authored: React & NestJS Intermediate Track (40h, API-first), Angular Intermediate Track (40h + optional Day 6 on NgRx/micro-frontends), React JS Development Track (40h, capstone-based), GenAI-Powered .NET Application Development (reference course)
 - See: https://mdmoin7.github.io/portfolio/training/
 
@@ -27,11 +32,20 @@ Mohammad Moin works at the intersection of building and teaching. As an independ
 - AquaTrack — water consumption and billing platform deployed for a residential society (React, TypeScript, Firebase)
 - E-commerce application — React, Redux Toolkit, Firebase, Vite
 
-## Links
+## Professional identity
+- Name: Mohammad Moin
+- Primary role: Independent Software Engineering Consultant & Corporate Technology Trainer
+- Location: Bengaluru, India
+- Timezone: IST (UTC+5:30)
+- Work model: Remote-first, open to cross-timezone teams
+- Primary expertise: Frontend Architecture, Angular, React, React Native, Terraform/Azure, Corporate Technology Training
+
+## Professional profiles
 - Portfolio: https://mdmoin7.github.io/portfolio/
+- About: https://mdmoin7.github.io/portfolio/about/
 - LinkedIn: https://www.linkedin.com/in/mohammadmoin/
 - GitHub: https://github.com/mdmoin7
 - Email: mohammad.nicoll@gmail.com
 
 ## Availability
-Open to independent consulting engagements and corporate training engagements, remote-first with flexible overlap into US/EU hours.
+Open to independent consulting engagements and corporate technology training engagements, remote-first with flexible overlap into US/EU hours.
