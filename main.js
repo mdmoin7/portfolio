@@ -1,4 +1,12 @@
 (function () {
+  var about = document.getElementById("about");
+  var whatI = document.getElementById("what-i-do");
+  if (about && whatI && about.parentNode === whatI.parentNode) {
+    whatI.parentNode.insertBefore(about, whatI);
+  }
+})();
+
+(function () {
   var roles = [
     "Corporate Trainer",
     "Web & Mobile Engineer",
