@@ -1,3 +1,517 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>React Engineering & Application Architecture — Mohammad Moin</title><meta name="description" content="React engineering expertise by Mohammad Moin covering React 19, component architecture, hooks, TypeScript, Redux Toolkit, performance, testing, Vite and scalable enterprise application development."><meta name="author" content="Mohammad Moin"><meta name="robots" content="index, follow"><link rel="canonical" href="https://mdmoin7.github.io/portfolio/engineering/react/"><meta property="og:type" content="article"><meta property="og:title" content="React Engineering & Application Architecture — Mohammad Moin"><meta property="og:description" content="React architecture, modern React development, TypeScript, state management, performance and enterprise application engineering."><meta property="og:url" content="https://mdmoin7.github.io/portfolio/engineering/react/"><meta property="og:site_name" content="Mohammad Moin"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet"><script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://mdmoin7.github.io/portfolio/#person","name":"Mohammad Moin","url":"https://mdmoin7.github.io/portfolio/","sameAs":["https://github.com/mdmoin7","https://www.linkedin.com/in/mohammadmoin/"],"jobTitle":"Senior Full Stack Engineer & Corporate Trainer"},{"@type":"WebPage","@id":"https://mdmoin7.github.io/portfolio/engineering/react/#webpage","url":"https://mdmoin7.github.io/portfolio/engineering/react/","name":"React Engineering & Application Architecture — Mohammad Moin","about":{"@id":"https://mdmoin7.github.io/portfolio/#person"},"keywords":["React","React 19","React architecture","TypeScript","Redux Toolkit","Vite","React performance","React testing"]}]}</script><style>
-:root{--navy:#14233f;--blue:#2454d8;--blue-deep:#173eae;--blue-soft:#eef3ff;--ink:#24324a;--muted:#66738a;--line:#e3e8f1;--surface:#f7f9fc;--display:"Playfair Display",Georgia,serif;--body:"Nunito",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace}*{box-sizing:border-box}body{margin:0;color:var(--ink);font:12px/1.6 var(--body)}a{color:inherit}.wrap{width:min(1390px,calc(100% - 48px));margin:auto}.site-nav{height:70px;position:sticky;top:0;z-index:20;background:rgba(255,255,255,.95);border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.site-nav .wrap{height:100%;display:flex;align-items:center;gap:28px}.brand{text-decoration:none;min-width:205px}.brand strong{display:block;font:600 20px/1 var(--display);color:var(--navy)}.brand span{display:block;margin-top:3px;color:var(--muted);font-size:9px;font-weight:800}.navlinks{display:flex;justify-content:center;gap:24px;flex:1}.navlinks a{font-weight:800;text-decoration:none;color:#4e5d75}.navlinks a:hover,.navlinks a.active{color:var(--blue)}.nav-cta{padding:9px 13px;border-radius:8px;background:var(--blue);color:#fff;text-decoration:none;font-weight:800}.hero{padding:60px 0 52px;background:linear-gradient(135deg,#fbfcff,#f7f9ff);border-bottom:1px solid var(--line)}.eyebrow,.kicker{font:800 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--blue)}.eyebrow{display:flex;gap:8px;align-items:center}.eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue)}h1{margin:16px 0 14px;font:600 clamp(39px,5vw,62px)/1.06 var(--display);letter-spacing:-.035em;color:var(--navy);max-width:920px}.hero p{max-width:800px;color:var(--muted);font-size:15px;line-height:1.7}.links{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.btn{display:inline-flex;padding:10px 14px;border-radius:8px;text-decoration:none;font-weight:800;border:1px solid transparent}.primary{background:var(--blue);color:#fff}.secondary{background:#fff;border-color:#cbd7eb;color:var(--navy)}section{padding:48px 0;border-bottom:1px solid var(--line)}h2{margin:0 0 10px;font:600 29px/1.15 var(--display);color:var(--navy)}.kicker{display:block;margin-bottom:8px}.intro{max-width:810px;margin:0;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:22px}.card{padding:19px;border:1px solid var(--line);border-radius:11px;background:linear-gradient(#fff,#fbfcff)}.card h3{margin:0 0 6px;font:600 19px/1.25 var(--display);color:var(--navy)}.card p{margin:0;color:var(--muted);font-size:12px}.topics{display:flex;flex-wrap:wrap;gap:6px;margin-top:15px}.topic{padding:5px 8px;border-radius:5px;background:var(--blue-soft);color:var(--blue-deep);font:800 9px var(--mono)}.callout{margin-top:22px;padding:18px;border-left:3px solid var(--blue);background:var(--surface)}.callout strong{font:600 17px var(--display);color:var(--navy)}.callout p{margin:4px 0 0;color:var(--muted)}.next{display:flex;flex-wrap:wrap;gap:8px}.next a{padding:8px 11px;border:1px solid var(--line);border-radius:7px;text-decoration:none;background:#fff;font-weight:800;color:var(--navy)}.next a:hover{color:var(--blue)}footer{padding:26px 0 18px;border-top:1px solid var(--line);color:#8994a7;font:9px/1.5 var(--mono)}.footer-row{display:flex;justify-content:space-between;gap:20px}.footer-row a{text-decoration:none}@media(max-width:800px){.navlinks{display:none}.site-nav .wrap{justify-content:space-between}.wrap{width:min(100% - 36px,1390px)}.grid{grid-template-columns:1fr}h1{font-size:40px}.footer-row{display:grid;gap:5px}}
-</style></head><body><nav class="site-nav"><div class="wrap"><a class="brand" href="../../"><strong>Mohammad Moin</strong><span>Full Stack Engineer · Corporate Trainer</span></a><div class="navlinks"><a href="../../">Home</a><a href="../../training/">Training</a><a href="../../consulting/">Consulting</a><a href="../angular/">Angular</a><a class="active" href="./">React</a></div><a class="nav-cta" href="mailto:mohammad.nicoll@gmail.com?subject=React%20Enquiry">Let's talk</a></div></nav><header class="hero"><div class="wrap"><div class="eyebrow">03 · Engineering · React</div><h1>React engineering for maintainable, scalable applications.</h1><p>Mohammad Moin works with React to build production web applications with a strong emphasis on component architecture, TypeScript, state management, performance, testing and maintainable engineering practices. The focus extends beyond individual components to the architecture of the application around them.</p><div class="links"><a class="btn primary" href="../../training/">Training</a><a class="btn secondary" href="../../consulting/">Consulting</a><a class="btn secondary" href="../../">View Portfolio</a></div></div></header><main><section><div class="wrap"><span class="kicker">React expertise</span><h2>Modern React from components to application architecture</h2><p class="intro">Effective React engineering is about keeping UI composition, state, data flow and application boundaries understandable as the product and team grow.</p><div class="grid"><article class="card"><h3>Component Architecture</h3><p>Functional components, hooks, composition, reusable UI patterns and clear feature boundaries for maintainable React applications.</p></article><article class="card"><h3>React 19 &amp; Modern Patterns</h3><p>Current React development practices with modern rendering, hooks, component patterns and a focus on predictable application behavior.</p></article><article class="card"><h3>TypeScript &amp; State</h3><p>Strongly typed application models, Redux Toolkit and structured state management for predictable data flow and scalable feature development.</p></article><article class="card"><h3>Performance &amp; Quality</h3><p>Rendering behavior, memoization where appropriate, code splitting, bundle awareness, testing and engineering practices that support production applications.</p></article></div></div></section><section><div class="wrap"><span class="kicker">Enterprise focus</span><h2>React in larger engineering environments</h2><p class="intro">For enterprise React applications, architecture needs to support multiple teams, evolving features and long-lived codebases.</p><div class="topics"><span class="topic">Functional Components</span><span class="topic">Hooks</span><span class="topic">React 19</span><span class="topic">TypeScript</span><span class="topic">Redux Toolkit</span><span class="topic">Vite</span><span class="topic">Feature Architecture</span><span class="topic">API Integration</span><span class="topic">Code Splitting</span><span class="topic">Performance</span><span class="topic">Testing</span><span class="topic">Design Systems</span><span class="topic">Nx Monorepos</span><span class="topic">CI/CD</span></div><div class="callout"><strong>React + architecture</strong><p>The goal is not to introduce abstraction for its own sake. A good React architecture makes ownership, state boundaries, reusable components and feature delivery clear enough for teams to evolve the application without accumulating unnecessary complexity.</p></div></div></section><section><div class="wrap"><span class="kicker">Training &amp; consulting</span><h2>Apply the expertise</h2><div class="grid"><article class="card"><h3>React Training</h3><p>Hands-on programs covering React development, TypeScript, state management, architecture, performance and production engineering practices.</p><div class="links"><a class="btn secondary" href="../../training/">Explore training →</a></div></article><article class="card"><h3>Frontend Architecture Consulting</h3><p>Architecture guidance for React applications, modularization, monorepos, modernization and engineering enablement.</p><div class="links"><a class="btn secondary" href="../../consulting/">Explore consulting →</a></div></article></div></div></section><section><div class="wrap"><span class="kicker">Explore related expertise</span><h2>Core engineering topics</h2><div class="next"><a href="../angular/">Angular</a><a href="../react-native/">React Native</a><a href="../terraform/">Terraform</a><a href="../frontend-architecture/">Frontend Architecture</a></div></div></section></main><footer><div class="wrap footer-row"><span>© 2026 Mohammad Moin</span><span>React Engineering &amp; Application Architecture</span><span><a href="../../">Portfolio</a> · <a href="https://www.linkedin.com/in/mohammadmoin/" target="_blank" rel="noopener">LinkedIn</a></span></div></footer></body></html>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>React Engineering & Application Architecture — Mohammad Moin</title>
+    <meta
+      name="description"
+      content="React engineering expertise by Mohammad Moin covering React 19, component architecture, hooks, TypeScript, Redux Toolkit, performance, testing, Vite and scalable enterprise application development."
+    />
+    <meta name="author" content="Mohammad Moin" />
+    <meta name="robots" content="index, follow" />
+    <link
+      rel="canonical"
+      href="https://mdmoin7.github.io/portfolio/engineering/react/"
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:title"
+      content="React Engineering & Application Architecture — Mohammad Moin"
+    />
+    <meta
+      property="og:description"
+      content="React architecture, modern React development, TypeScript, state management, performance and enterprise application engineering."
+    />
+    <meta
+      property="og:url"
+      content="https://mdmoin7.github.io/portfolio/engineering/react/"
+    />
+    <meta property="og:site_name" content="Mohammad Moin" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://mdmoin7.github.io/portfolio/#person",
+            "name": "Mohammad Moin",
+            "url": "https://mdmoin7.github.io/portfolio/",
+            "sameAs": [
+              "https://github.com/mdmoin7",
+              "https://www.linkedin.com/in/mohammadmoin/"
+            ],
+            "jobTitle": "Independent Consultant & Corporate Trainer"
+          },
+          {
+            "@type": "WebPage",
+            "@id": "https://mdmoin7.github.io/portfolio/engineering/react/#webpage",
+            "url": "https://mdmoin7.github.io/portfolio/engineering/react/",
+            "name": "React Engineering & Application Architecture — Mohammad Moin",
+            "about": { "@id": "https://mdmoin7.github.io/portfolio/#person" },
+            "keywords": [
+              "React",
+              "React 19",
+              "React architecture",
+              "TypeScript",
+              "Redux Toolkit",
+              "Vite",
+              "React performance",
+              "React testing"
+            ]
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        --navy: #14233f;
+        --blue: #2454d8;
+        --blue-deep: #173eae;
+        --blue-soft: #eef3ff;
+        --ink: #24324a;
+        --muted: #66738a;
+        --line: #e3e8f1;
+        --surface: #f7f9fc;
+        --display: "Playfair Display", Georgia, serif;
+        --body:
+          "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font: 12px/1.6 var(--body);
+      }
+      a {
+        color: inherit;
+      }
+      .wrap {
+        width: min(1390px, calc(100% - 48px));
+        margin: auto;
+      }
+      .site-nav {
+        height: 70px;
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(14px);
+      }
+      .site-nav .wrap {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        gap: 28px;
+      }
+      .brand {
+        text-decoration: none;
+        min-width: 205px;
+      }
+      .brand strong {
+        display: block;
+        font: 600 20px/1 var(--display);
+        color: var(--navy);
+      }
+      .brand span {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-size: 9px;
+        font-weight: 800;
+      }
+      .navlinks {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        flex: 1;
+      }
+      .navlinks a {
+        font-weight: 800;
+        text-decoration: none;
+        color: #4e5d75;
+      }
+      .navlinks a:hover,
+      .navlinks a.active {
+        color: var(--blue);
+      }
+      .nav-cta {
+        padding: 9px 13px;
+        border-radius: 8px;
+        background: var(--blue);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 800;
+      }
+      .hero {
+        padding: 60px 0 52px;
+        background: linear-gradient(135deg, #fbfcff, #f7f9ff);
+        border-bottom: 1px solid var(--line);
+      }
+      .eyebrow,
+      .kicker {
+        font: 800 10px/1 var(--mono);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--blue);
+      }
+      .eyebrow {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .eyebrow:before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--blue);
+      }
+      h1 {
+        margin: 16px 0 14px;
+        font: 600 clamp(39px, 5vw, 62px)/1.06 var(--display);
+        letter-spacing: -0.035em;
+        color: var(--navy);
+        max-width: 920px;
+      }
+      .hero p {
+        max-width: 800px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.7;
+      }
+      .links {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+      .btn {
+        display: inline-flex;
+        padding: 10px 14px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 800;
+        border: 1px solid transparent;
+      }
+      .primary {
+        background: var(--blue);
+        color: #fff;
+      }
+      .secondary {
+        background: #fff;
+        border-color: #cbd7eb;
+        color: var(--navy);
+      }
+      section {
+        padding: 48px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      h2 {
+        margin: 0 0 10px;
+        font: 600 29px/1.15 var(--display);
+        color: var(--navy);
+      }
+      .kicker {
+        display: block;
+        margin-bottom: 8px;
+      }
+      .intro {
+        max-width: 810px;
+        margin: 0;
+        color: var(--muted);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 22px;
+      }
+      .card {
+        padding: 19px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: linear-gradient(#fff, #fbfcff);
+      }
+      .card h3 {
+        margin: 0 0 6px;
+        font: 600 19px/1.25 var(--display);
+        color: var(--navy);
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .topics {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 15px;
+      }
+      .topic {
+        padding: 5px 8px;
+        border-radius: 5px;
+        background: var(--blue-soft);
+        color: var(--blue-deep);
+        font: 800 9px var(--mono);
+      }
+      .callout {
+        margin-top: 22px;
+        padding: 18px;
+        border-left: 3px solid var(--blue);
+        background: var(--surface);
+      }
+      .callout strong {
+        font: 600 17px var(--display);
+        color: var(--navy);
+      }
+      .callout p {
+        margin: 4px 0 0;
+        color: var(--muted);
+      }
+      .next {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .next a {
+        padding: 8px 11px;
+        border: 1px solid var(--line);
+        border-radius: 7px;
+        text-decoration: none;
+        background: #fff;
+        font-weight: 800;
+        color: var(--navy);
+      }
+      .next a:hover {
+        color: var(--blue);
+      }
+      footer {
+        padding: 26px 0 18px;
+        border-top: 1px solid var(--line);
+        color: #8994a7;
+        font: 9px/1.5 var(--mono);
+      }
+      .footer-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+      .footer-row a {
+        text-decoration: none;
+      }
+      @media (max-width: 800px) {
+        .navlinks {
+          display: none;
+        }
+        .site-nav .wrap {
+          justify-content: space-between;
+        }
+        .wrap {
+          width: min(100% - 36px, 1390px);
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+        h1 {
+          font-size: 40px;
+        }
+        .footer-row {
+          display: grid;
+          gap: 5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site-nav">
+      <div class="wrap">
+        <a class="brand" href="../../"
+          ><strong>Mohammad Moin</strong
+          ><span>Independent Consultant & Corporate Trainer</span></a
+        >
+        <div class="navlinks">
+          <a href="../../">Home</a><a href="../../training/">Training</a
+          ><a href="../../consulting/">Consulting</a
+          ><a href="../angular/">Angular</a
+          ><a class="active" href="./">React</a>
+        </div>
+        <a
+          class="nav-cta"
+          href="mailto:mohammad.nicoll@gmail.com?subject=React%20Enquiry"
+          >Let's talk</a
+        >
+      </div>
+    </nav>
+    <header class="hero">
+      <div class="wrap">
+        <div class="eyebrow">03 · Engineering · React</div>
+        <h1>React engineering for maintainable, scalable applications.</h1>
+        <p>
+          Mohammad Moin works with React to build production web applications
+          with a strong emphasis on component architecture, TypeScript, state
+          management, performance, testing and maintainable engineering
+          practices. The focus extends beyond individual components to the
+          architecture of the application around them.
+        </p>
+        <div class="links">
+          <a class="btn primary" href="../../training/">Training</a
+          ><a class="btn secondary" href="../../consulting/">Consulting</a
+          ><a class="btn secondary" href="../../">View Portfolio</a>
+        </div>
+      </div>
+    </header>
+    <main>
+      <section>
+        <div class="wrap">
+          <span class="kicker">React expertise</span>
+          <h2>Modern React from components to application architecture</h2>
+          <p class="intro">
+            Effective React engineering is about keeping UI composition, state,
+            data flow and application boundaries understandable as the product
+            and team grow.
+          </p>
+          <div class="grid">
+            <article class="card">
+              <h3>Component Architecture</h3>
+              <p>
+                Functional components, hooks, composition, reusable UI patterns
+                and clear feature boundaries for maintainable React
+                applications.
+              </p>
+            </article>
+            <article class="card">
+              <h3>React 19 &amp; Modern Patterns</h3>
+              <p>
+                Current React development practices with modern rendering,
+                hooks, component patterns and a focus on predictable application
+                behavior.
+              </p>
+            </article>
+            <article class="card">
+              <h3>TypeScript &amp; State</h3>
+              <p>
+                Strongly typed application models, Redux Toolkit and structured
+                state management for predictable data flow and scalable feature
+                development.
+              </p>
+            </article>
+            <article class="card">
+              <h3>Performance &amp; Quality</h3>
+              <p>
+                Rendering behavior, memoization where appropriate, code
+                splitting, bundle awareness, testing and engineering practices
+                that support production applications.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="wrap">
+          <span class="kicker">Enterprise focus</span>
+          <h2>React in larger engineering environments</h2>
+          <p class="intro">
+            For enterprise React applications, architecture needs to support
+            multiple teams, evolving features and long-lived codebases.
+          </p>
+          <div class="topics">
+            <span class="topic">Functional Components</span
+            ><span class="topic">Hooks</span><span class="topic">React 19</span
+            ><span class="topic">TypeScript</span
+            ><span class="topic">Redux Toolkit</span
+            ><span class="topic">Vite</span
+            ><span class="topic">Feature Architecture</span
+            ><span class="topic">API Integration</span
+            ><span class="topic">Code Splitting</span
+            ><span class="topic">Performance</span
+            ><span class="topic">Testing</span
+            ><span class="topic">Design Systems</span
+            ><span class="topic">Nx Monorepos</span
+            ><span class="topic">CI/CD</span>
+          </div>
+          <div class="callout">
+            <strong>React + architecture</strong>
+            <p>
+              The goal is not to introduce abstraction for its own sake. A good
+              React architecture makes ownership, state boundaries, reusable
+              components and feature delivery clear enough for teams to evolve
+              the application without accumulating unnecessary complexity.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="wrap">
+          <span class="kicker">Training &amp; consulting</span>
+          <h2>Apply the expertise</h2>
+          <div class="grid">
+            <article class="card">
+              <h3>React Training</h3>
+              <p>
+                Hands-on programs covering React development, TypeScript, state
+                management, architecture, performance and production engineering
+                practices.
+              </p>
+              <div class="links">
+                <a class="btn secondary" href="../../training/"
+                  >Explore training →</a
+                >
+              </div>
+            </article>
+            <article class="card">
+              <h3>Frontend Architecture Consulting</h3>
+              <p>
+                Architecture guidance for React applications, modularization,
+                monorepos, modernization and engineering enablement.
+              </p>
+              <div class="links">
+                <a class="btn secondary" href="../../consulting/"
+                  >Explore consulting →</a
+                >
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="wrap">
+          <span class="kicker">Explore related expertise</span>
+          <h2>Core engineering topics</h2>
+          <div class="next">
+            <a href="../angular/">Angular</a
+            ><a href="../react-native/">React Native</a
+            ><a href="../terraform/">Terraform</a
+            ><a href="../frontend-architecture/">Frontend Architecture</a>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="wrap footer-row">
+        <span>© 2026 Mohammad Moin</span
+        ><span>React Engineering &amp; Application Architecture</span
+        ><span
+          ><a href="../../">Portfolio</a> ·
+          <a
+            href="https://www.linkedin.com/in/mohammadmoin/"
+            target="_blank"
+            rel="noopener"
+            >LinkedIn</a
+          ></span
+        >
+      </div>
+    </footer>
+  </body>
+</html>
