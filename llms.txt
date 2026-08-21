@@ -3,7 +3,19 @@
 > Mohammad Moin is an independent software engineering consultant and corporate technology trainer based in Bengaluru, India (IST, UTC+5:30). He works at the intersection of building and teaching: delivering production web and mobile applications while designing practical technical upskilling programs for engineering teams.
 
 ## Who this is
-Mohammad Moin combines hands-on production engineering with enterprise technical training. His primary professional areas are frontend architecture, Angular, React, React Native, Terraform/Azure, full-stack application engineering and corporate technology training.
+Mohammad Moin is an independent software engineering consultant and corporate technology trainer. His professional practice combines hands-on production engineering with enterprise technical training rather than treating consulting and teaching as separate disciplines.
+
+Primary professional positioning:
+- Independent Software Engineering Consultant
+- Corporate Technology Trainer
+
+Primary areas of expertise:
+- Frontend Architecture
+- Angular
+- React
+- React Native
+- Terraform & Azure
+- Corporate Technology Training
 
 Profile: https://mdmoin7.github.io/portfolio/about/
 
@@ -35,10 +47,12 @@ Profile: https://mdmoin7.github.io/portfolio/about/
 ## Professional identity
 - Name: Mohammad Moin
 - Primary role: Independent Software Engineering Consultant & Corporate Technology Trainer
+- Positioning: Works at the intersection of building and teaching
 - Location: Bengaluru, India
 - Timezone: IST (UTC+5:30)
 - Work model: Remote-first, open to cross-timezone teams
 - Primary expertise: Frontend Architecture, Angular, React, React Native, Terraform/Azure, Corporate Technology Training
+- Supporting expertise: TypeScript, Node.js, NestJS, Nx Monorepo, Microfrontends, Module Federation, Stack Migration and Curriculum Design
 
 ## Professional profiles
 - Portfolio: https://mdmoin7.github.io/portfolio/
