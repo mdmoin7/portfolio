@@ -7,6 +7,28 @@
 })();
 
 (function () {
+  var about = document.getElementById("about");
+  if (!about || about.querySelector('[data-profile-link="about"]')) return;
+
+  var wrapper = document.createElement("div");
+  wrapper.className = "about-page-link";
+  wrapper.style.marginTop = "18px";
+
+  var link = document.createElement("a");
+  link.className = "btn btn-outline";
+  link.href = "./about/";
+  link.textContent = "About Mohammad Moin →";
+  link.setAttribute("data-profile-link", "about");
+  link.setAttribute(
+    "aria-label",
+    "Learn more about Mohammad Moin and his professional background",
+  );
+
+  wrapper.appendChild(link);
+  about.appendChild(wrapper);
+})();
+
+(function () {
   var roles = [
     "Corporate Trainer",
     "Web & Mobile Engineer",
@@ -88,6 +110,7 @@
   window.addEventListener("resize", setActive);
   setActive();
 })();
+
 (function () {
   var b = document.getElementById("navToggle");
   var n = document.getElementById("navlinks");
