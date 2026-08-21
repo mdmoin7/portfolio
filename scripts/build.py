@@ -7,7 +7,7 @@ import rjsmin
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 
-COPY_DIRS = ["assets", "training", "consulting", "engineering"]
+COPY_DIRS = ["assets", "about", "training", "consulting", "engineering"]
 COPY_FILES = [
     "robots.txt",
     "sitemap.xml",
@@ -117,6 +117,7 @@ def validate():
         DIST / "index.html",
         DIST / "styles.css",
         DIST / "main.js",
+        DIST / "about" / "index.html",
     ]
     missing = [str(p.relative_to(DIST)) for p in required if not p.exists()]
     if missing:
