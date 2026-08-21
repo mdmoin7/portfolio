@@ -1,8 +1,8 @@
 (function () {
   var roles = [
-    "Web & Mobile Engineer",
     "Corporate Trainer",
-    "Remote Consultant",
+    "Web & Mobile Engineer",
+    "Curriculum Designer",
   ];
 
   var i = 0;

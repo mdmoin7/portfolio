@@ -1,54 +1,31 @@
 # Mohammad Moin
 
-> Senior Full Stack Engineer, Web & Mobile Application Developer and corporate trainer with 14+ years across React, Angular, Vue, React Native, Node.js, TypeScript, frontend architecture and Infrastructure as Code. Based in Bengaluru, India (IST, UTC+5:30), open to remote and cross-timezone teams.
+> Independent Consultant and Corporate Trainer, based in Bengaluru, India (IST, UTC+5:30). 14+ years of production engineering underpins both practices: hands-on client delivery in React, Angular, Vue and Node.js, and enterprise technical upskilling for teams at IBM, Amazon, Walmart, SAP, and Dell. Remote-based, open to cross-timezone teams.
 
-## About
-Mohammad Moin works at the intersection of building and teaching. As a developer, he designs and ships production web and mobile applications end to end — architecture through deployment. As a freelance corporate trainer, he designs practical engineering upskilling programs for corporate teams.
+## Who this is
+Mohammad Moin works at the intersection of building and teaching. As an independent consultant, he delivers production web and mobile applications end to end — architecture through deployment. As a corporate trainer, he designs and runs technical upskilling programs for enterprise engineering teams, and has trained 15,000+ engineers across 350+ sessions.
 
-## Core engineering focus
-- Angular — enterprise application architecture, Signals, RxJS, routing, state, performance, testing and Nx
-- React — React 19, component architecture, hooks, TypeScript, Redux Toolkit, Vite, performance and testing
-- React Native — cross-platform mobile architecture, Expo, navigation, Reanimated, device debugging and production delivery
-- Frontend Architecture — application boundaries, design systems, Nx monorepos, microfrontends, Module Federation, state and delivery architecture
-- Terraform & Azure — Infrastructure as Code, reusable modules, state management, CI/CD, GitHub Actions and infrastructure security
+## Consulting
+- Full-stack web and mobile delivery for clients, working remotely and asynchronously with distributed teams
+- Recent engagement: React Consultant, JLL (Jan 2024 – Mar 2025) — re-architected legacy AEM/Java web components to React within a 10-15 engineer team spanning multiple countries; orchestrated a shared SolidJS design system translated into React and Angular
+- See: https://mdmoin7.github.io/portfolio/consulting/
 
-## Development
-- Frontend & Mobile: React, Angular, Vue.js, Next.js, SolidJS, React Native, TypeScript, Ionic
-- Backend & APIs: Node.js, NestJS, Express, GraphQL
-- Architecture & Tooling: Nx, monorepos, microfrontends, Module Federation, design systems, Vite
-- Infra & Delivery: Terraform, Azure, AWS, Firebase, Docker, GitHub Actions
+## Training
+- Enterprise upskilling for cohorts of 20-50 engineers, each with 5+ years' experience, with repeat engagements from returning clients
+- Clients: IBM, Amazon, Walmart, SAP, Dell
+- Curricula authored: React & NestJS Intermediate Track (40h, API-first), Angular Intermediate Track (40h + optional Day 6 on NgRx/micro-frontends), React JS Development Track (40h, capstone-based), GenAI-Powered .NET Application Development (reference course)
+- See: https://mdmoin7.github.io/portfolio/training/
 
-## Recent engagement
-React Consultant, JLL (Jan 2024 – Mar 2025): re-architected legacy AEM/Java-based web components to React within a 10–15 engineer team spanning multiple countries; orchestrated a shared design system built in SolidJS, translated into React and Angular.
+## Core engineering pillars
+- Frontend Architecture — https://mdmoin7.github.io/portfolio/engineering/frontend-architecture/
+- Angular — https://mdmoin7.github.io/portfolio/engineering/angular/
+- React — https://mdmoin7.github.io/portfolio/engineering/react/
+- React Native — https://mdmoin7.github.io/portfolio/engineering/react-native/
+- Terraform & Azure — https://mdmoin7.github.io/portfolio/engineering/terraform/
 
 ## Selected projects
 - AquaTrack — water consumption and billing platform deployed for a residential society (React, TypeScript, Firebase)
-- Freelance Billing & Taxation Tool — independent invoicing/billing system handling Indian GST and statutory compliance
-- Giftiicon — e-commerce gifting app (React Native, Node.js)
-
-## Training
-- Practical corporate technology training across Angular, React, React Native, Node.js, TypeScript and Nx
-- Enterprise engineering upskilling, stack migration and custom curriculum design
-- Enterprise clients: IBM, Amazon, Walmart, SAP, Dell — cohorts of 20–50 engineers, with repeat engagements from returning clients
-
-## Consulting
-- Frontend architecture and application modernization
-- Full-stack web and mobile engineering
-- Nx monorepo and platform architecture
-- Stack migration and technical proof of concepts
-- React Native mobile engineering
-- Terraform and Infrastructure as Code delivery
-- Engineering enablement and technical mentoring
-
-## Portfolio pages
-- Portfolio home: https://mdmoin7.github.io/portfolio/
-- Training: https://mdmoin7.github.io/portfolio/training/
-- Consulting: https://mdmoin7.github.io/portfolio/consulting/
-- Angular engineering: https://mdmoin7.github.io/portfolio/engineering/angular/
-- React engineering: https://mdmoin7.github.io/portfolio/engineering/react/
-- React Native engineering: https://mdmoin7.github.io/portfolio/engineering/react-native/
-- Terraform & Azure engineering: https://mdmoin7.github.io/portfolio/engineering/terraform/
-- Frontend architecture: https://mdmoin7.github.io/portfolio/engineering/frontend-architecture/
+- E-commerce application — React, Redux Toolkit, Firebase, Vite
 
 ## Links
 - Portfolio: https://mdmoin7.github.io/portfolio/
@@ -57,4 +34,4 @@ React Consultant, JLL (Jan 2024 – Mar 2025): re-architected legacy AEM/Java-ba
 - Email: mohammad.nicoll@gmail.com
 
 ## Availability
-Open to full-time remote web/mobile application engineering roles and selected corporate training and consulting engagements.
+Open to independent consulting engagements and corporate training engagements, remote-first with flexible overlap into US/EU hours.
