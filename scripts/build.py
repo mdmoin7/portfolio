@@ -14,10 +14,9 @@ COPY_FILES = [
     "llms.txt",
     "index-old.html",
     "CNAME",
+    "favicon.svg",
 ]
 
-# Immutable CDN asset URLs keep source files local and maintainable while
-# allowing the deployed site to serve image assets from jsDelivr's edge cache.
 CDN_ASSETS = {
     "assets/profile.webp": "https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@b4e402c3adbefe8714c71c5917299d758f86ee9a/assets/profile.webp",
 }
@@ -43,18 +42,22 @@ def copy_site():
     shutil.copy2(ROOT / "main.js", DIST / "main.js")
 
 
+def inject_favicon():
+    """Add the favicon link to every deployed HTML page if it is absent."""
+    marker = '<link rel="icon" href="/portfolio/favicon.svg" type="image/svg+xml" />'
+
+    for path in DIST.rglob("*.html"):
+        source = path.read_text(encoding="utf-8")
+        if 'rel="icon"' in source:
+            continue
+
+        updated = source.replace("</head>", f"  {marker}\n  </head>", 1)
+        if updated != source:
+            path.write_text(updated, encoding="utf-8")
+
+
 def rewrite_cdn_assets():
-    """Rewrite local asset references in deployed HTML to CDN URLs.
-
-    Source HTML remains unchanged so local development, previews and future
-    asset replacement remain straightforward. Every generated HTML page is
-    processed, including nested authority pages and the preserved old page.
-
-    Important: a CDN URL already contains the local asset path as its suffix.
-    Only replace the local path when the target CDN URL is not already present;
-    otherwise repeated builds would produce a nested URL such as:
-    https://cdn.jsdelivr.net/.../https://cdn.jsdelivr.net/...
-    """
+    """Rewrite local asset references in deployed HTML to CDN URLs."""
     rewritten = 0
     skipped = 0
 
@@ -73,7 +76,6 @@ def rewrite_cdn_assets():
         if updated != source:
             path.write_text(updated, encoding="utf-8")
 
-    # Do not duplicate CDN-served assets in the GitHub Pages artifact.
     for local_path in CDN_ASSETS:
         deployed_asset = DIST / local_path
         if deployed_asset.exists():
@@ -117,6 +119,7 @@ def validate():
         DIST / "index.html",
         DIST / "styles.css",
         DIST / "main.js",
+        DIST / "favicon.svg",
         DIST / "about" / "index.html",
     ]
     missing = [str(p.relative_to(DIST)) for p in required if not p.exists()]
@@ -127,13 +130,13 @@ def validate():
     if not html_files:
         raise SystemExit("Build failed; no HTML pages found.")
 
-    # Prevent the exact regression that caused the broken profile image:
-    # CDN URLs must never contain another CDN URL as their path.
     for path in html_files:
         content = path.read_text(encoding="utf-8")
         for cdn_url in CDN_ASSETS.values():
             if f"{cdn_url}/https://" in content:
                 raise SystemExit(f"Build failed; nested CDN URL found in {path.relative_to(DIST)}")
+        if '<link rel="icon" href="/portfolio/favicon.svg" type="image/svg+xml" />' not in content:
+            raise SystemExit(f"Build failed; favicon missing in {path.relative_to(DIST)}")
 
     print(f"Built {len(html_files)} HTML pages")
     print(f"CSS: {(DIST / 'styles.css').stat().st_size:,} bytes")
@@ -142,6 +145,7 @@ def validate():
 
 if __name__ == "__main__":
     copy_site()
+    inject_favicon()
     rewrite_cdn_assets()
     minify_assets()
     minify_html()
