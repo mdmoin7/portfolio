@@ -1,5 +1,6 @@
 from pathlib import Path
 import json
+import re
 import shutil
 import htmlmin
 import rcssmin
@@ -9,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 SITE_URL = "https://mdmoin7.github.io/portfolio/"
 PERSON_ID = f"{SITE_URL}#person"
-PROFILE_IMAGE = "https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@0af5af5c2408db3fa26d969f554fb5cb6841b7e1/assets/profile.webp"
+PROFILE_IMAGE = "https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@main/assets/profile.webp"
 
 COPY_DIRS = ["assets", "about", "training", "consulting", "engineering"]
 COPY_FILES = ["robots.txt", "sitemap.xml", "llms.txt", "index-old.html", "CNAME", "favicon.svg"]
@@ -91,13 +92,17 @@ def inject_identity_seo():
 
 
 def rewrite_cdn_assets():
-    old_cdn = "https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@b4e402c3adbefe8714c71c5917299d758f86ee9a/assets/profile.webp"
+    """Normalize profile image URLs without ever creating a nested CDN URL."""
+    cdn = PROFILE_IMAGE
+    absolute_pattern = re.compile(r"https://cdn\.jsdelivr\.net/gh/mdmoin7/portfolio@[^\"'\s)]+/assets/profile\.webp")
     for path in DIST.rglob("*.html"):
         source = path.read_text(encoding="utf-8")
-        updated = source.replace(old_cdn, PROFILE_IMAGE).replace("assets/profile.webp", PROFILE_IMAGE)
-        updated = updated.replace(f'src="{PROFILE_IMAGE}"', f'src="{PROFILE_IMAGE}" onerror="this.onerror=null;this.src=\'/portfolio/assets/profile.webp\'"')
+        updated = absolute_pattern.sub(cdn, source)
+        updated = updated.replace("assets/profile.webp", cdn)
+        # The previous replacement can turn a normalized CDN URL into a nested URL;
+        # normalize once more from the resulting absolute URL back to the canonical value.
+        updated = absolute_pattern.sub(cdn, updated)
         if updated != source: path.write_text(updated, encoding="utf-8")
-    # Keep the local asset as a browser fallback even though the primary image is served by CDN.
 
 
 def minify_assets():
@@ -119,11 +124,11 @@ def validate():
     if missing: raise SystemExit(f"Build failed; missing: {', '.join(missing)}")
     html_files = list(DIST.rglob("*.html"))
     if not html_files: raise SystemExit("Build failed; no HTML pages found.")
+    nested_pattern = re.compile(r"https://cdn\.jsdelivr\.net/gh/mdmoin7/portfolio@[^\"'\s]+/https://")
     for path in html_files:
         content = path.read_text(encoding="utf-8")
         if 'rel="icon"' not in content or '/portfolio/favicon.svg' not in content: raise SystemExit(f"Build failed; favicon missing in {path.relative_to(DIST)}")
-        if old := "https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@b4e402c3adbefe8714c71c5917299d758f86ee9a/assets/profile.webp" in content: raise SystemExit(f"Build failed; stale profile CDN URL in {path.relative_to(DIST)}")
-        if f"{PROFILE_IMAGE}/https://" in content: raise SystemExit(f"Build failed; nested CDN URL found in {path.relative_to(DIST)}")
+        if nested_pattern.search(content): raise SystemExit(f"Build failed; nested CDN URL found in {path.relative_to(DIST)}")
         key = page_key(path)
         if key in PAGE_SEO:
             if 'name="author" content="Mohammad Moin"' not in content: raise SystemExit(f"Build failed; author metadata missing in {path.relative_to(DIST)}")
