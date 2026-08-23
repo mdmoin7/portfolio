@@ -47,6 +47,32 @@ RELATED = {
     "engineering/terraform": [("Consulting", "../../consulting/"), ("Engineering", "../frontend-architecture/"), ("About Mohammad Moin", "../../about/")],
 }
 
+AUTHORITY = {
+    "training": {
+        "title": "About Mohammad Moin's corporate training practice",
+        "body": "Mohammad Moin delivers corporate technology training and engineering-team upskilling programs grounded in production software engineering. Training is designed for practical adoption: guided theory is combined with implementation exercises, proof-of-concept work, architecture discussions, debugging, performance analysis and code-quality practices.",
+        "facts": [
+            "15,000+ engineers trained across 350+ sessions",
+            "Typical cohorts of 20–50 engineers",
+            "Repeat engagements with returning corporate clients",
+            "Curricula spanning React, Angular, Node.js, React Native, TypeScript, Nx and modern engineering practices",
+        ],
+        "proof": "Training clients represented in the professional portfolio include IBM, Amazon, Walmart, SAP and Dell.",
+    },
+    "consulting": {
+        "title": "About Mohammad Moin's consulting practice",
+        "body": "Mohammad Moin works as an independent software engineering consultant on architecture, modernization and production delivery problems across web, mobile and enterprise applications. Engagements can begin with an architecture review or proof of concept and extend through implementation, migration planning, delivery support and engineering enablement.",
+        "facts": [
+            "Frontend architecture across Angular and React",
+            "Full-stack web and mobile application engineering",
+            "Nx monorepos, shared libraries and platform architecture",
+            "Stack migration, technical POCs and modernization",
+            "Engineering mentoring, debugging and delivery enablement",
+        ],
+        "proof": "A recent consulting engagement with JLL involved re-architecting legacy AEM/Java web components to React within a 10–15 engineer team spanning multiple countries, including work around a shared SolidJS design system translated into React and Angular.",
+    },
+}
+
 
 def copy_site():
     if DIST.exists(): shutil.rmtree(DIST)
@@ -99,6 +125,19 @@ def inject_identity_seo():
         additions = f'''\n    <meta name="author" content="Mohammad Moin">\n    <meta name="keywords" content="{', '.join(keywords)}">\n    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">\n    <meta property="og:type" content="{'profile' if key == 'about' else 'website'}">\n    <meta property="og:title" content="{title}">\n    <meta property="og:description" content="{description}">\n    <meta property="og:url" content="{canonical}">\n    <meta property="og:site_name" content="Mohammad Moin">\n    <meta property="og:image" content="{PROFILE_IMAGE}">\n    <meta name="twitter:card" content="summary_large_image">\n    <meta name="twitter:title" content="{title}">\n    <meta name="twitter:description" content="{description}">\n    <meta name="twitter:image" content="{PROFILE_IMAGE}">\n    <script type="application/ld+json">\n{schema}\n    </script>\n'''
         if 'application/ld+json' not in source or PERSON_ID not in source:
             source = source.replace("</head>", additions + "</head>", 1)
+        path.write_text(source, encoding="utf-8")
+
+
+def inject_authority_content():
+    """Add concise, factual authority context to the training and consulting pages."""
+    for key, data in AUTHORITY.items():
+        path = DIST / key / "index.html"
+        if not path.exists(): continue
+        source = path.read_text(encoding="utf-8")
+        if 'data-authority-content="true"' in source: continue
+        facts = "".join(f"<li>{fact}</li>" for fact in data["facts"])
+        block = f'''\n<section class="authority-section" data-authority-content="true" aria-labelledby="authority-title">\n  <div class="wrap">\n    <span class="kicker">Professional context</span>\n    <h2 id="authority-title">{data["title"]}</h2>\n    <p class="intro">{data["body"]}</p>\n    <ul class="authority-facts">{facts}</ul>\n    <p class="authority-proof"><strong>Selected proof:</strong> {data["proof"]}</p>\n  </div>\n</section>\n'''
+        source = source.replace("</main>", block + "</main>", 1)
         path.write_text(source, encoding="utf-8")
 
 
@@ -159,6 +198,7 @@ def validate():
             if 'name="author" content="Mohammad Moin"' not in content: raise SystemExit(f"Build failed; author metadata missing in {path.relative_to(DIST)}")
             if 'application/ld+json' not in content or PERSON_ID not in content: raise SystemExit(f"Build failed; identity schema missing in {path.relative_to(DIST)}")
         if key in RELATED and 'data-related-links="true"' not in content: raise SystemExit(f"Build failed; related links missing in {path.relative_to(DIST)}")
+        if key in AUTHORITY and 'data-authority-content="true"' not in content: raise SystemExit(f"Build failed; authority content missing in {path.relative_to(DIST)}")
     print(f"Built {len(html_files)} HTML pages")
 
 
@@ -166,6 +206,7 @@ if __name__ == "__main__":
     copy_site()
     inject_favicon()
     inject_identity_seo()
+    inject_authority_content()
     inject_related_links()
     rewrite_cdn_assets()
     minify_assets()
