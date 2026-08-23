@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 import shutil
 import htmlmin
 import rcssmin
@@ -19,6 +20,96 @@ COPY_FILES = [
 
 CDN_ASSETS = {
     "assets/profile.webp": "https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@b4e402c3adbefe8714c71c5917299d758f86ee9a/assets/profile.webp",
+}
+
+SITE_URL = "https://mdmoin7.github.io/portfolio/"
+PERSON_ID = f"{SITE_URL}#person"
+PROFILE_IMAGE = CDN_ASSETS["assets/profile.webp"]
+PERSON = {
+    "@type": "Person",
+    "@id": PERSON_ID,
+    "name": "Mohammad Moin",
+    "url": SITE_URL,
+    "image": PROFILE_IMAGE,
+    "sameAs": [
+        "https://github.com/mdmoin7",
+        "https://www.linkedin.com/in/mohammadmoin/",
+    ],
+    "jobTitle": "Independent Software Engineering Consultant & Corporate Technology Trainer",
+    "description": "Mohammad Moin is an independent software engineering consultant and corporate technology trainer based in Bengaluru, India, combining production engineering, frontend architecture and practical enterprise technology training.",
+    "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Bengaluru",
+        "addressCountry": "IN",
+    },
+    "knowsAbout": [
+        "Frontend Architecture",
+        "Angular",
+        "React",
+        "React Native",
+        "Terraform",
+        "Microsoft Azure",
+        "Corporate Technology Training",
+        "TypeScript",
+        "Node.js",
+        "NestJS",
+        "Nx Monorepo",
+        "Microfrontends",
+        "Module Federation",
+        "Stack Migration",
+        "Curriculum Design",
+    ],
+}
+
+PAGE_SEO = {
+    "about": {
+        "title": "About Mohammad Moin — Independent Software Engineering Consultant & Corporate Technology Trainer",
+        "description": "Professional profile of Mohammad Moin, an independent software engineering consultant and corporate technology trainer based in Bengaluru, India, specializing in frontend architecture, Angular, React, React Native and Terraform/Azure.",
+        "keywords": ["Mohammad Moin", "software engineering consultant", "corporate technology trainer", "frontend architect", "Angular consultant", "React consultant", "React Native", "Terraform Azure"],
+        "kind": "ProfilePage",
+    },
+    "training": {
+        "title": "Corporate Technology Training — Mohammad Moin | React, Angular, Node.js & Modern Engineering",
+        "description": "Corporate technology training by Mohammad Moin for engineering teams and organizations, covering React, Angular, React Native, Node.js, TypeScript, architecture, modern JavaScript stacks and practical upskilling programs.",
+        "keywords": ["Mohammad Moin trainer", "corporate technology training", "React training", "Angular training", "Node.js training", "React Native training", "TypeScript training", "engineering team upskilling"],
+        "kind": "TrainingPage",
+    },
+    "consulting": {
+        "title": "Software Engineering Consulting — Mohammad Moin | Architecture, Modernization & Delivery",
+        "description": "Independent software engineering consulting by Mohammad Moin covering frontend architecture, full-stack web and mobile development, modernization, Nx monorepos, stack migration, technical delivery and engineering mentoring.",
+        "keywords": ["Mohammad Moin consultant", "software engineering consulting", "frontend architecture consultant", "React consultant", "Angular consultant", "stack migration", "Nx monorepo", "engineering modernization"],
+        "kind": "ConsultingPage",
+    },
+    "engineering/react": {
+        "title": "React Engineering & Application Architecture — Mohammad Moin",
+        "description": "React engineering and application architecture expertise by Mohammad Moin, covering React 19, TypeScript, component architecture, hooks, Redux Toolkit, Vite, performance, testing and scalable enterprise applications.",
+        "keywords": ["Mohammad Moin React", "React 19", "React architecture", "React consultant", "TypeScript", "Redux Toolkit", "Vite", "React performance", "React testing"],
+        "kind": "EngineeringPage",
+    },
+    "engineering/angular": {
+        "title": "Angular Engineering & Application Architecture — Mohammad Moin",
+        "description": "Angular engineering expertise by Mohammad Moin covering modern Angular, standalone components, Signals, application architecture, performance, testing, state management and enterprise frontend development.",
+        "keywords": ["Mohammad Moin Angular", "Angular consultant", "Angular architecture", "Angular Signals", "standalone components", "enterprise Angular", "Angular performance", "Angular training"],
+        "kind": "EngineeringPage",
+    },
+    "engineering/react-native": {
+        "title": "React Native Engineering & Mobile Application Development — Mohammad Moin",
+        "description": "React Native engineering expertise by Mohammad Moin covering cross-platform mobile architecture, React Native, Expo, TypeScript, native integration, performance and production mobile application delivery.",
+        "keywords": ["Mohammad Moin React Native", "React Native consultant", "React Native architecture", "Expo", "mobile application development", "cross-platform mobile", "React Native performance"],
+        "kind": "EngineeringPage",
+    },
+    "engineering/frontend-architecture": {
+        "title": "Frontend Architecture & Scalable UI Systems — Mohammad Moin",
+        "description": "Frontend architecture expertise by Mohammad Moin covering scalable UI systems, design systems, microfrontends, Module Federation, Nx monorepos, state management, performance and enterprise application architecture.",
+        "keywords": ["Mohammad Moin frontend architect", "frontend architecture", "microfrontends", "Module Federation", "Nx monorepo", "design systems", "enterprise frontend architecture", "scalable UI systems"],
+        "kind": "EngineeringPage",
+    },
+    "engineering/terraform": {
+        "title": "Terraform & Azure Infrastructure Engineering — Mohammad Moin",
+        "description": "Terraform and Azure infrastructure engineering expertise by Mohammad Moin covering infrastructure as code, Azure architecture, reusable Terraform modules, remote state, CI/CD and cloud engineering practices.",
+        "keywords": ["Mohammad Moin Terraform", "Terraform consultant", "Azure infrastructure", "Infrastructure as Code", "Terraform modules", "Azure architecture", "Terraform CI/CD", "cloud engineering"],
+        "kind": "EngineeringPage",
+    },
 }
 
 
@@ -42,6 +133,11 @@ def copy_site():
     shutil.copy2(ROOT / "main.js", DIST / "main.js")
 
 
+def page_key(path):
+    relative = path.relative_to(DIST).parent.as_posix()
+    return relative if relative != "." else ""
+
+
 def inject_favicon():
     """Add the favicon link to every deployed HTML page if it is absent."""
     marker = '<link rel="icon" href="/portfolio/favicon.svg" type="image/svg+xml" />'
@@ -54,6 +150,30 @@ def inject_favicon():
         updated = source.replace("</head>", f"  {marker}\n  </head>", 1)
         if updated != source:
             path.write_text(updated, encoding="utf-8")
+
+
+def inject_identity_seo():
+    """Add consistent person/entity, social metadata and page semantics to inner pages."""
+    for path in DIST.rglob("*.html"):
+        key = page_key(path)
+        config = PAGE_SEO.get(key)
+        if not config:
+            continue
+
+        source = path.read_text(encoding="utf-8")
+        canonical = f"{SITE_URL}{key}/"
+        title = config["title"]
+        description = config["description"]
+        keywords = ", ".join(config["keywords"])
+        og_type = "profile" if key == "about" else "website"
+
+        additions = f'''\n    <meta name="author" content="Mohammad Moin" />\n    <meta name="keywords" content="{keywords}" />\n    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />\n    <meta property="og:type" content="{og_type}" />\n    <meta property="og:title" content="{title}" />\n    <meta property="og:description" content="{description}" />\n    <meta property="og:url" content="{canonical}" />\n    <meta property="og:site_name" content="Mohammad Moin" />\n    <meta property="og:image" content="{PROFILE_IMAGE}" />\n    <meta name="twitter:card" content="summary_large_image" />\n    <meta name="twitter:title" content="{title}" />\n    <meta name="twitter:description" content="{description}" />\n    <meta name="twitter:image" content="{PROFILE_IMAGE}" />\n    <script type="application/ld+json">\n{json.dumps({\n    "@context": "https://schema.org",\n    "@graph": [\n        PERSON,\n        {\n            "@type": ["WebPage", "ProfilePage"] if key == "about" else ["WebPage"],\n            "@id": f"{canonical}#webpage",\n            "url": canonical,\n            "name": title,\n            "description": description,\n            "author": {"@id": PERSON_ID},\n            "about": {"@id": PERSON_ID},\n            "mainEntity": {"@id": PERSON_ID},\n            "keywords": config["keywords"],\n            "inLanguage": "en",\n        },\n        {\n            "@type": "BreadcrumbList",\n            "@id": f"{canonical}#breadcrumb",\n            "itemListElement": [\n                {"@type": "ListItem", "position": 1, "name": "Mohammad Moin", "item": SITE_URL},\n                {"@type": "ListItem", "position": 2, "name": title.split(" — ")[0], "item": canonical},\n            ],\n        },\n    ]\n}, ensure_ascii=False, indent=2)}\n    </script>\n'''
+
+        marker = '<meta name="author" content="Mohammad Moin" />'
+        if marker not in source:
+            source = source.replace("</head>", additions + "  </head>", 1)
+
+        path.write_text(source, encoding="utf-8")
 
 
 def rewrite_cdn_assets():
@@ -138,6 +258,13 @@ def validate():
         if '<link rel="icon" href="/portfolio/favicon.svg" type="image/svg+xml" />' not in content:
             raise SystemExit(f"Build failed; favicon missing in {path.relative_to(DIST)}")
 
+        key = page_key(path)
+        if key in PAGE_SEO:
+            if 'name="author" content="Mohammad Moin"' not in content:
+                raise SystemExit(f"Build failed; author metadata missing in {path.relative_to(DIST)}")
+            if 'application/ld+json' not in content or PERSON_ID not in content:
+                raise SystemExit(f"Build failed; identity schema missing in {path.relative_to(DIST)}")
+
     print(f"Built {len(html_files)} HTML pages")
     print(f"CSS: {(DIST / 'styles.css').stat().st_size:,} bytes")
     print(f"JS:  {(DIST / 'main.js').stat().st_size:,} bytes")
@@ -146,6 +273,7 @@ def validate():
 if __name__ == "__main__":
     copy_site()
     inject_favicon()
+    inject_identity_seo()
     rewrite_cdn_assets()
     minify_assets()
     minify_html()
