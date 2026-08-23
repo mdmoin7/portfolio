@@ -36,6 +36,17 @@ PAGE_SEO = {
     "engineering/terraform": ("Terraform & Azure Infrastructure Engineering — Mohammad Moin", "Terraform and Azure infrastructure engineering expertise by Mohammad Moin covering infrastructure as code, Azure architecture, reusable Terraform modules, remote state, CI/CD and cloud engineering practices.", ["Mohammad Moin Terraform", "Terraform consultant", "Azure infrastructure", "Infrastructure as Code", "Terraform modules", "Azure architecture", "Terraform CI/CD", "cloud engineering"]),
 }
 
+RELATED = {
+    "about": [("Consulting", "consulting/"), ("Corporate Training", "training/"), ("Engineering", "engineering/frontend-architecture/")],
+    "training": [("Engineering", "engineering/"), ("Consulting", "consulting/"), ("About Mohammad Moin", "about/")],
+    "consulting": [("Frontend Architecture", "engineering/frontend-architecture/"), ("Engineering", "engineering/"), ("Corporate Training", "training/"), ("About Mohammad Moin", "about/")],
+    "engineering/react": [("Frontend Architecture", "../frontend-architecture/"), ("Corporate Training", "../../training/"), ("Consulting", "../../consulting/"), ("About Mohammad Moin", "../../about/")],
+    "engineering/angular": [("Frontend Architecture", "../frontend-architecture/"), ("Corporate Training", "../../training/"), ("Consulting", "../../consulting/"), ("About Mohammad Moin", "../../about/")],
+    "engineering/react-native": [("Frontend Architecture", "../frontend-architecture/"), ("Corporate Training", "../../training/"), ("Consulting", "../../consulting/"), ("About Mohammad Moin", "../../about/")],
+    "engineering/frontend-architecture": [("React Engineering", "../react/"), ("Angular Engineering", "../angular/"), ("Consulting", "../../consulting/"), ("About Mohammad Moin", "../../about/")],
+    "engineering/terraform": [("Consulting", "../../consulting/"), ("Engineering", "../"), ("About Mohammad Moin", "../../about/")],
+}
+
 
 def copy_site():
     if DIST.exists(): shutil.rmtree(DIST)
@@ -91,16 +102,30 @@ def inject_identity_seo():
         path.write_text(source, encoding="utf-8")
 
 
+def inject_related_links():
+    """Add a compact, visible semantic navigation block to inner pages."""
+    for path in DIST.rglob("*.html"):
+        key = page_key(path)
+        links = RELATED.get(key)
+        if not links: continue
+        source = path.read_text(encoding="utf-8")
+        if 'data-related-links="true"' in source: continue
+        items = " ".join(f'<a href="{href}">{label}</a>' for label, href in links)
+        block = f'''\n<section class="related-pages" data-related-links="true" aria-labelledby="related-pages-title">\n  <h2 id="related-pages-title">Explore more from Mohammad Moin</h2>\n  <p>Related engineering, consulting and training work:</p>\n  <nav aria-label="Related pages">{items}</nav>\n</section>\n'''
+        source = source.replace("</main>", block + "</main>", 1)
+        if "</main>" not in source:
+            source = source.replace("</body>", block + "</body>", 1)
+        path.write_text(source, encoding="utf-8")
+
+
 def rewrite_cdn_assets():
-    """Normalize profile image URLs without ever creating a nested CDN URL."""
     cdn = PROFILE_IMAGE
     absolute_pattern = re.compile(r"https://cdn\.jsdelivr\.net/gh/mdmoin7/portfolio@[^\"'\s)]+/assets/profile\.webp")
     for path in DIST.rglob("*.html"):
         source = path.read_text(encoding="utf-8")
         updated = absolute_pattern.sub(cdn, source)
-        updated = updated.replace("assets/profile.webp", cdn)
-        # The previous replacement can turn a normalized CDN URL into a nested URL;
-        # normalize once more from the resulting absolute URL back to the canonical value.
+        if re.search(r'(?<![A-Za-z0-9_:/.-])assets/profile\.webp', updated):
+            updated = re.sub(r'(?<![A-Za-z0-9_:/.-])assets/profile\.webp', cdn, updated)
         updated = absolute_pattern.sub(cdn, updated)
         if updated != source: path.write_text(updated, encoding="utf-8")
 
@@ -133,6 +158,7 @@ def validate():
         if key in PAGE_SEO:
             if 'name="author" content="Mohammad Moin"' not in content: raise SystemExit(f"Build failed; author metadata missing in {path.relative_to(DIST)}")
             if 'application/ld+json' not in content or PERSON_ID not in content: raise SystemExit(f"Build failed; identity schema missing in {path.relative_to(DIST)}")
+        if key in RELATED and 'data-related-links="true"' not in content: raise SystemExit(f"Build failed; related links missing in {path.relative_to(DIST)}")
     print(f"Built {len(html_files)} HTML pages")
 
 
@@ -140,6 +166,7 @@ if __name__ == "__main__":
     copy_site()
     inject_favicon()
     inject_identity_seo()
+    inject_related_links()
     rewrite_cdn_assets()
     minify_assets()
     minify_html()
