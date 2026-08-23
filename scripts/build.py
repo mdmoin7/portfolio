@@ -139,12 +139,12 @@ def page_key(path):
 
 
 def inject_favicon():
-    """Add the favicon link to every deployed HTML page if it is absent."""
+    """Add the canonical favicon link to every deployed HTML page."""
     marker = '<link rel="icon" href="/portfolio/favicon.svg" type="image/svg+xml" />'
 
     for path in DIST.rglob("*.html"):
         source = path.read_text(encoding="utf-8")
-        if 'rel="icon"' in source:
+        if 'rel="icon"' in source and '/portfolio/favicon.svg' in source:
             continue
 
         updated = source.replace("</head>", f"  {marker}\n  </head>", 1)
@@ -167,7 +167,7 @@ def inject_identity_seo():
         keywords = ", ".join(config["keywords"])
         og_type = "profile" if key == "about" else "website"
 
-        additions = f'''\n    <meta name="author" content="Mohammad Moin" />\n    <meta name="keywords" content="{keywords}" />\n    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />\n    <meta property="og:type" content="{og_type}" />\n    <meta property="og:title" content="{title}" />\n    <meta property="og:description" content="{description}" />\n    <meta property="og:url" content="{canonical}" />\n    <meta property="og:site_name" content="Mohammad Moin" />\n    <meta property="og:image" content="{PROFILE_IMAGE}" />\n    <meta name="twitter:card" content="summary_large_image" />\n    <meta name="twitter:title" content="{title}" />\n    <meta name="twitter:description" content="{description}" />\n    <meta name="twitter:image" content="{PROFILE_IMAGE}" />\n    <script type="application/ld+json">\n{json.dumps({\n    "@context": "https://schema.org",\n    "@graph": [\n        PERSON,\n        {\n            "@type": ["WebPage", "ProfilePage"] if key == "about" else ["WebPage"],\n            "@id": f"{canonical}#webpage",\n            "url": canonical,\n            "name": title,\n            "description": description,\n            "author": {"@id": PERSON_ID},\n            "about": {"@id": PERSON_ID},\n            "mainEntity": {"@id": PERSON_ID},\n            "keywords": config["keywords"],\n            "inLanguage": "en",\n        },\n        {\n            "@type": "BreadcrumbList",\n            "@id": f"{canonical}#breadcrumb",\n            "itemListElement": [\n                {"@type": "ListItem", "position": 1, "name": "Mohammad Moin", "item": SITE_URL},\n                {"@type": "ListItem", "position": 2, "name": title.split(" — ")[0], "item": canonical},\n            ],\n        },\n    ]\n}, ensure_ascii=False, indent=2)}\n    </script>\n'''
+        additions = f'''\n    <meta name="author" content="Mohammad Moin" />\n    <meta name="keywords" content="{keywords}" />\n    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />\n    <meta property="og:type" content="{og_type}" />\n    <meta property="og:title" content="{title}" />\n    <meta property="og:description" content="{description}" />\n    <meta property="og:url" content="{canonical}" />\n    <meta property="og:site_name" content="Mohammad Moin" />\n    <meta property="og:image" content="{PROFILE_IMAGE}" />\n    <meta name="twitter:card" content="summary_large_image" />\n    <meta name="twitter:title" content="{title}" />\n    <meta name="twitter:description" content="{description}" />\n    <meta name="twitter:image" content="{PROFILE_IMAGE}" />\n    <script type="application/ld+json">\n{json.dumps({\n    "@context": "https://schema.org",\n    "@graph": [\n        PERSON,\n        {\n            "@type": ["WebPage", "ProfilePage"] if key == "about" else ["WebPage"],\n            "@id": f"{canonical}#webpage",\n            "url": canonical,\n            "name": title,\n            "description": description,\n            "author": {"@id": PERSON_ID},\n            "about": {"@id": PERSON_ID},\n            "mainEntity": {"@id": PERSON_ID},\n            "keywords": config["keywords"],\n            "inLanguage": "en",\n        },\n        {\n            "@type": "BreadcrumbList",\n            "@id": f"{canonical}#breadcrumb",\n            "itemListElement": [\n                {"@type": "ListItem", "position": 1, "name": "Mohammad Moin", "item": SITE_URL},\n                {"@type": "ListItem", "position": 2, "name": title.split(" — ")[0], "item": canonical},\n            ]\n        },\n    ]\n}, ensure_ascii=False, indent=2)}\n    </script>\n'''
 
         marker = '<meta name="author" content="Mohammad Moin" />'
         if marker not in source:
@@ -255,7 +255,7 @@ def validate():
         for cdn_url in CDN_ASSETS.values():
             if f"{cdn_url}/https://" in content:
                 raise SystemExit(f"Build failed; nested CDN URL found in {path.relative_to(DIST)}")
-        if '<link rel="icon" href="/portfolio/favicon.svg" type="image/svg+xml" />' not in content:
+        if 'rel="icon"' not in content or '/portfolio/favicon.svg' not in content:
             raise SystemExit(f"Build failed; favicon missing in {path.relative_to(DIST)}")
 
         key = page_key(path)
