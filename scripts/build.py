@@ -38,13 +38,13 @@ PAGE_SEO = {
 
 RELATED = {
     "about": [("Consulting", "consulting/"), ("Corporate Training", "training/"), ("Engineering", "engineering/frontend-architecture/")],
-    "training": [("Engineering", "engineering/"), ("Consulting", "consulting/"), ("About Mohammad Moin", "about/")],
-    "consulting": [("Frontend Architecture", "engineering/frontend-architecture/"), ("Engineering", "engineering/"), ("Corporate Training", "training/"), ("About Mohammad Moin", "about/")],
+    "training": [("Frontend Architecture", "../engineering/frontend-architecture/"), ("Consulting", "../consulting/"), ("About Mohammad Moin", "../about/")],
+    "consulting": [("Frontend Architecture", "../engineering/frontend-architecture/"), ("Engineering", "../engineering/frontend-architecture/"), ("Corporate Training", "../training/"), ("About Mohammad Moin", "../about/")],
     "engineering/react": [("Frontend Architecture", "../frontend-architecture/"), ("Corporate Training", "../../training/"), ("Consulting", "../../consulting/"), ("About Mohammad Moin", "../../about/")],
     "engineering/angular": [("Frontend Architecture", "../frontend-architecture/"), ("Corporate Training", "../../training/"), ("Consulting", "../../consulting/"), ("About Mohammad Moin", "../../about/")],
     "engineering/react-native": [("Frontend Architecture", "../frontend-architecture/"), ("Corporate Training", "../../training/"), ("Consulting", "../../consulting/"), ("About Mohammad Moin", "../../about/")],
     "engineering/frontend-architecture": [("React Engineering", "../react/"), ("Angular Engineering", "../angular/"), ("Consulting", "../../consulting/"), ("About Mohammad Moin", "../../about/")],
-    "engineering/terraform": [("Consulting", "../../consulting/"), ("Engineering", "../"), ("About Mohammad Moin", "../../about/")],
+    "engineering/terraform": [("Consulting", "../../consulting/"), ("Engineering", "../frontend-architecture/"), ("About Mohammad Moin", "../../about/")],
 }
 
 
