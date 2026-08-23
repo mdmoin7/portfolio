@@ -73,6 +73,26 @@ AUTHORITY = {
     },
 }
 
+AUTHORITY_CSS = """
+.authority-section{padding:28px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(135deg,#f8faff,#fff)}
+.authority-section .wrap{max-width:1160px}
+.authority-section .kicker{display:inline-flex;margin-bottom:8px}
+.authority-section h2{display:block;margin:0 0 10px;font:600 24px/1.2 var(--display);color:var(--navy);letter-spacing:-.015em}
+.authority-section .intro{max-width:900px;margin:0;color:var(--muted);font-size:13px;line-height:1.7}
+.authority-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 18px;margin:17px 0 0;padding:0;list-style:none}
+.authority-facts li{position:relative;padding:9px 11px 9px 25px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);font-size:11px;line-height:1.5}
+.authority-facts li::before{content:"";position:absolute;left:11px;top:15px;width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px var(--blue-soft)}
+.authority-proof{margin:14px 0 0;padding:11px 13px;border-left:2px solid var(--blue);background:rgba(238,243,255,.55);color:var(--muted);font-size:11px;line-height:1.6}
+.authority-proof strong{color:var(--navy);font-weight:800}
+.related-pages{max-width:1160px;margin:0 auto;padding:24px 0 6px}
+.related-pages h2{display:block;margin:0 0 5px;font:600 21px/1.25 var(--display);color:var(--navy)}
+.related-pages p{margin:0 0 11px;color:var(--muted);font-size:11px}
+.related-pages nav{height:auto;position:static;display:flex;flex-wrap:wrap;gap:7px;background:transparent;border:0;backdrop-filter:none}
+.related-pages nav a{display:inline-flex;align-items:center;padding:7px 10px;border:1px solid #cfdcf1;border-radius:7px;background:var(--blue-soft);color:var(--blue-deep);text-decoration:none;font:800 10px/1.2 var(--mono)}
+.related-pages nav a:hover{border-color:#aebfe0;background:#e7eeff}
+@media(max-width:800px){.authority-section{padding:24px 0}.authority-section h2{font-size:21px}.authority-section .intro{font-size:12px}.authority-facts{grid-template-columns:1fr}.related-pages{padding-top:20px}.related-pages h2{font-size:19px}}
+"""
+
 
 def copy_site():
     if DIST.exists(): shutil.rmtree(DIST)
@@ -157,6 +177,18 @@ def inject_related_links():
         path.write_text(source, encoding="utf-8")
 
 
+def inject_authority_styles():
+    """Keep injected authority/related content visually native to the existing UI."""
+    style = f"<style id=\"authority-content-styles\">{AUTHORITY_CSS}</style>"
+    for path in DIST.rglob("*.html"):
+        key = page_key(path)
+        if key not in AUTHORITY and key not in RELATED: continue
+        source = path.read_text(encoding="utf-8")
+        if 'id="authority-content-styles"' in source: continue
+        source = source.replace("</head>", style + "</head>", 1)
+        path.write_text(source, encoding="utf-8")
+
+
 def rewrite_cdn_assets():
     cdn = PROFILE_IMAGE
     absolute_pattern = re.compile(r"https://cdn\.jsdelivr\.net/gh/mdmoin7/portfolio@[^\"'\s)]+/assets/profile\.webp")
@@ -208,6 +240,7 @@ if __name__ == "__main__":
     inject_identity_seo()
     inject_authority_content()
     inject_related_links()
+    inject_authority_styles()
     rewrite_cdn_assets()
     minify_assets()
     minify_html()
