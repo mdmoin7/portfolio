@@ -6,7 +6,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "build": "pip3 install --disable-pip-version-check htmlmin rcssmin rjsmin && python3 scripts/build.py"
+    "build": "pip3 install --break-system-packages --disable-pip-version-check htmlmin rcssmin rjsmin && python3 scripts/build.py"
   },
   "dependencies": {
     "resend": "^6.24.0"
