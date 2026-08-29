@@ -5,10 +5,12 @@ import shutil
 import htmlmin
 import rcssmin
 import rjsmin
+import os
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
-SITE_URL = "https://mdmoin7.github.io/portfolio/"
+# SITE_URL = "https://mdmoin7.github.io/portfolio/"
+SITE_URL = os.environ.get("SITE_URL", "https://mdmoin7.github.io/portfolio/").rstrip("/") + "/"
 PERSON_ID = f"{SITE_URL}#person"
 PROFILE_IMAGE = "https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@main/assets/profile.webp"
 
