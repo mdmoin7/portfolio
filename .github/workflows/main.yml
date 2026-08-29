@@ -44,8 +44,8 @@ jobs:
           tag = '<script src="contact-entry.js"></script>'
           if tag not in html:
               html, count = re.subn(
-                  r'(<script[^>]+src=["\']main\\.js["\'][^>]*></script>)',
-                  tag + r'\\1',
+                  r'(<script[^>]+src=["\']main\.js["\'][^>]*></script>)',
+                  tag + r'\1',
                   html,
                   count=1,
                   flags=re.IGNORECASE,
