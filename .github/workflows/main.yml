@@ -32,6 +32,29 @@ jobs:
       - name: Build and minify static site
         run: python scripts/build.py
 
+      - name: Add contact entry point to deployed homepage
+        run: |
+          cp contact-entry.js dist/contact-entry.js
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path("dist/index.html")
+          html = path.read_text(encoding="utf-8")
+          tag = '<script src="contact-entry.js"></script>'
+          if tag not in html:
+              html, count = re.subn(
+                  r'(<script[^>]+src=["\']main\\.js["\'][^>]*></script>)',
+                  tag + r'\\1',
+                  html,
+                  count=1,
+                  flags=re.IGNORECASE,
+              )
+              if count != 1:
+                  raise SystemExit("Could not locate main.js script tag in dist/index.html")
+              path.write_text(html, encoding="utf-8")
+          PY
+
       - name: Setup Pages
         uses: actions/configure-pages@v6
 
