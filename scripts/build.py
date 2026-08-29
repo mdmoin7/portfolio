@@ -26,6 +26,21 @@ PERSON = {
 }
 
 PAGE_SEO = {
+    "": (
+        "Mohammad Moin — Independent Software Engineering Consultant & Corporate Trainer",
+        "Mohammad Moin is an independent software engineering consultant and corporate technology trainer based in Bengaluru, India, specializing in frontend architecture, Angular, React, React Native and Terraform/Azure, with freelance consulting and corporate training engagements.",
+        [
+            "Mohammad Moin",
+            "software engineering consultant",
+            "corporate technology trainer",
+            "frontend architect",
+            "Angular consultant",
+            "React consultant",
+            "React Native",
+            "Terraform Azure",
+            "frontend architecture",
+        ],
+    ),
     "about": ("About Mohammad Moin — Independent Software Engineering Consultant & Corporate Technology Trainer", "Professional profile of Mohammad Moin, an independent software engineering consultant and corporate technology trainer based in Bengaluru, India, specializing in frontend architecture, Angular, React, React Native and Terraform/Azure.", ["Mohammad Moin", "software engineering consultant", "corporate technology trainer", "frontend architect", "Angular consultant", "React consultant", "React Native", "Terraform Azure"]),
     "training": ("Corporate Technology Training — Mohammad Moin | React, Angular, Node.js & Modern Engineering", "Corporate technology training by Mohammad Moin for engineering teams and organizations, covering React, Angular, React Native, Node.js, TypeScript, architecture, modern JavaScript stacks and practical upskilling programs.", ["Mohammad Moin trainer", "corporate technology training", "React training", "Angular training", "Node.js training", "React Native training", "TypeScript training", "engineering team upskilling"]),
     "consulting": ("Software Engineering Consulting — Mohammad Moin | Architecture, Modernization & Delivery", "Independent software engineering consulting by Mohammad Moin covering frontend architecture, full-stack web and mobile development, modernization, Nx monorepos, stack migration, technical delivery and engineering mentoring.", ["Mohammad Moin consultant", "software engineering consulting", "frontend architecture consultant", "React consultant", "Angular consultant", "stack migration", "Nx monorepo", "engineering modernization"]),
@@ -135,16 +150,44 @@ def build_schema(key, title, description, keywords, canonical):
 
 
 def inject_identity_seo():
+    generated_marker = '<!-- portfolio-generated-identity-seo -->'
+    generated_pattern = re.compile(
+        r'\s*<!-- portfolio-generated-identity-seo -->.*?<!-- /portfolio-generated-identity-seo -->\s*',
+        re.DOTALL,
+    )
+
     for path in DIST.rglob("*.html"):
         key = page_key(path)
-        if key not in PAGE_SEO: continue
+        if key not in PAGE_SEO:
+            continue
+
         title, description, keywords = PAGE_SEO[key]
         source = path.read_text(encoding="utf-8")
         canonical = f"{SITE_URL}{key}/"
         schema = build_schema(key, title, description, keywords, canonical)
-        additions = f'''\n    <meta name="author" content="Mohammad Moin">\n    <meta name="keywords" content="{', '.join(keywords)}">\n    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">\n    <meta property="og:type" content="{'profile' if key == 'about' else 'website'}">\n    <meta property="og:title" content="{title}">\n    <meta property="og:description" content="{description}">\n    <meta property="og:url" content="{canonical}">\n    <meta property="og:site_name" content="Mohammad Moin">\n    <meta property="og:image" content="{PROFILE_IMAGE}">\n    <meta name="twitter:card" content="summary_large_image">\n    <meta name="twitter:title" content="{title}">\n    <meta name="twitter:description" content="{description}">\n    <meta name="twitter:image" content="{PROFILE_IMAGE}">\n    <script type="application/ld+json">\n{schema}\n    </script>\n'''
-        if 'application/ld+json' not in source or PERSON_ID not in source:
-            source = source.replace("</head>", additions + "</head>", 1)
+
+        additions = f'''{generated_marker}
+    <link rel="canonical" href="{canonical}">
+    <meta name="author" content="Mohammad Moin">
+    <meta name="keywords" content="{', '.join(keywords)}">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta property="og:type" content="{'profile' if key == 'about' else 'website'}">
+    <meta property="og:title" content="{title}">
+    <meta property="og:description" content="{description}">
+    <meta property="og:url" content="{canonical}">
+    <meta property="og:site_name" content="Mohammad Moin">
+    <meta property="og:image" content="{PROFILE_IMAGE}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{title}">
+    <meta name="twitter:description" content="{description}">
+    <meta name="twitter:image" content="{PROFILE_IMAGE}">
+    <script type="application/ld+json">
+{schema}
+    </script>
+<!-- /portfolio-generated-identity-seo -->'''
+
+        source = generated_pattern.sub("", source)
+        source = source.replace("</head>", additions + "\n</head>", 1)
         path.write_text(source, encoding="utf-8")
 
 
@@ -226,9 +269,15 @@ def validate():
         if 'rel="icon"' not in content or '/portfolio/favicon.svg' not in content: raise SystemExit(f"Build failed; favicon missing in {path.relative_to(DIST)}")
         if nested_pattern.search(content): raise SystemExit(f"Build failed; nested CDN URL found in {path.relative_to(DIST)}")
         key = page_key(path)
-        if key in PAGE_SEO:
-            if 'name="author" content="Mohammad Moin"' not in content: raise SystemExit(f"Build failed; author metadata missing in {path.relative_to(DIST)}")
-            if 'application/ld+json' not in content or PERSON_ID not in content: raise SystemExit(f"Build failed; identity schema missing in {path.relative_to(DIST)}")
+        if key not in PAGE_SEO:
+            raise SystemExit(f"Build failed; PAGE_SEO entry missing for {path.relative_to(DIST)}")
+        canonical = f"{SITE_URL}{key}/"
+        if 'name="author" content="Mohammad Moin"' not in content:
+            raise SystemExit(f"Build failed; author metadata missing in {path.relative_to(DIST)}")
+        if f'<link rel="canonical" href="{canonical}">' not in content:
+            raise SystemExit(f"Build failed; canonical metadata missing in {path.relative_to(DIST)}")
+        if 'application/ld+json' not in content or PERSON_ID not in content:
+            raise SystemExit(f"Build failed; identity schema missing in {path.relative_to(DIST)}")
         if key in RELATED and 'data-related-links="true"' not in content: raise SystemExit(f"Build failed; related links missing in {path.relative_to(DIST)}")
         if key in AUTHORITY and 'data-authority-content="true"' not in content: raise SystemExit(f"Build failed; authority content missing in {path.relative_to(DIST)}")
     print(f"Built {len(html_files)} HTML pages")
