@@ -22,8 +22,7 @@
       nav.appendChild(link);
     }
 
-    // Use the intentional whitespace below Key Focus Areas for a compact
-    // conversion CTA without duplicating the hero's technology messaging.
+    // Place the conversion actions directly beneath Key Focus Areas.
     var focusCard = document.querySelector(".hero-right .focus-card");
     if (focusCard && !document.getElementById("heroContactCta")) {
       var cta = document.createElement("div");
@@ -33,8 +32,8 @@
 
       var style = document.createElement("style");
       style.textContent = `
-        .hero-contact-cta{display:flex;justify-content:flex-end;align-items:center;gap:10px;margin-top:14px}
-        .hero-contact-cta .btn{white-space:nowrap}
+        .hero-contact-cta{display:flex;justify-content:flex-end;align-items:center;gap:12px;margin:16px 0 0;width:100%}
+        .hero-contact-cta .btn{white-space:nowrap;min-height:42px}
         .hero-contact-cta .btn-primary{box-shadow:0 8px 18px -12px rgba(29,78,216,.7)}
         .hero-contact-cta .btn:focus-visible{outline:3px solid rgba(29,78,216,.22);outline-offset:3px}
         @media(max-width:900px){.hero-contact-cta{justify-content:flex-start}}
