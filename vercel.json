@@ -5,7 +5,7 @@
   "trailingSlash": true,
   "functions": {
     "api/contact.js": {
-      "runtime": "nodejs24.x"
+      "runtime": "nodejs20.x"
     }
   }
 }
