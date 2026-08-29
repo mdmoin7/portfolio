@@ -11,8 +11,7 @@
     link.id = "navContactLink";
     link.href = "#contact";
     link.textContent = "Contact";
-    link.setAttribute("aria-label", "Contact Mohammad Moin");
-    link.setAttribute("aria-haspopup", "dialog");
+    link.setAttribute("aria-label", "Go to contact section");
     link.className = "nav-contact-link";
 
     var style = document.createElement("style");
@@ -22,10 +21,13 @@
     `;
     document.head.appendChild(style);
 
-    link.addEventListener("click", function (event) {
-      event.preventDefault();
-      // Reuse the single, accessible contact modal implementation.
-      footerCta.click();
+    // Keep the top-level Contact action as a conventional in-page navigation
+    // target. The full contact form remains available from the contact section
+    // and its existing CTA, including the mailto fallback.
+    link.addEventListener("click", function () {
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, "", "#contact");
+      }
     });
 
     nav.appendChild(link);
