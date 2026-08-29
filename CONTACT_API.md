@@ -14,7 +14,9 @@ Resend
 Mohammad Moin inbox
 ```
 
-Resend's Node SDK supports sending through `resend.emails.send()`. The API also supports idempotency keys, which this implementation uses when the browser supplies a request ID. urlResend Node.js guidehttps://resend.com/nodejs
+Resend's Node SDK supports sending through `resend.emails.send()`. The API also supports idempotency keys, which this implementation uses when the browser supplies a request ID.
+
+Official Resend Node.js guide: https://resend.com/nodejs
 
 ## Deploy the API
 
@@ -26,7 +28,9 @@ Set these Vercel environment variables for Production:
 - `RESEND_FROM_EMAIL` — for example `Mohammad Moin <contact@your-verified-domain.com>`.
 - `CONTACT_TO_EMAIL` — the inbox that should receive portfolio enquiries.
 
-The sending domain must be verified in Resend before using a custom `from` address. urlResendhttps://resend.com/
+The sending domain must be verified in Resend before using a custom `from` address.
+
+Resend dashboard: https://resend.com/
 
 ## Frontend API URL
 
