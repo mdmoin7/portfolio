@@ -87,7 +87,11 @@
 
   var API_URL = window.PORTFOLIO_CONTACT_API || "https://portfolio-contact-api.vercel.app/api/contact";
   var FALLBACK_EMAIL = "mohammad.nicoll@gmail.com";
+  var TURNSTILE_SITE_KEY = window.PORTFOLIO_TURNSTILE_SITE_KEY || "";
   var previousFocus = null;
+  var formStartedAt = 0;
+  var turnstileToken = "";
+  var turnstileWidgetId = null;
 
   var style = document.createElement("style");
   style.textContent = `
@@ -110,10 +114,13 @@
     .contact-error{min-height:17px;color:#b42318;font-size:11px;line-height:1.4}
     .contact-actions{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
     .contact-status{flex:1;min-width:220px;font-size:13px;color:#59677d}
-    .contact-status.success{color:#18794e}.contact-status.error{color:#b42318}
+    .contact-status.success{color:#18794e}.contact-status.error{color:#b42318}.contact-status.warning{color:#8a5a00}
     .contact-fallback{display:none;margin-top:16px;padding:14px;border:1px solid #ead7b0;border-radius:10px;background:#fffaf0;color:#5d4a25;font-size:13px;line-height:1.55}
     .contact-fallback.show{display:block}
     .contact-fallback a{font-weight:700;color:#1d4ed8}
+    .contact-direct{width:100%;font-size:12px;color:#59677d}.contact-direct a{color:#1d4ed8;font-weight:700}
+    .contact-security{width:100%;font-size:11px;color:#7b8798;margin-top:2px}
+    .contact-turnstile{width:100%;min-height:0;margin-top:4px}
     .contact-hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
     body.contact-modal-open{overflow:hidden}
     @media(max-width:700px){.contact-modal{padding:12px}.contact-dialog{padding:22px;border-radius:13px}.contact-grid{grid-template-columns:1fr}.contact-field.full{grid-column:auto}.contact-status{min-width:100%}}
@@ -158,11 +165,15 @@
             <label for="contactCompany">Company</label>
             <input id="contactCompany" name="company" tabindex="-1" autocomplete="off" />
           </div>
+          <div class="contact-turnstile" id="contactTurnstile" aria-label="Spam protection"></div>
         </div>
         <div class="contact-actions">
           <button class="btn btn-primary" type="submit" id="contactSubmit">Send message</button>
+          <button class="btn btn-outline" type="button" id="contactMailto">Open email app</button>
           <button class="btn btn-outline" type="button" id="contactCancel">Cancel</button>
           <span class="contact-status" id="contactStatus" role="status" aria-live="polite"></span>
+          <span class="contact-direct">Prefer direct email? <a id="contactDirectEmail" href="mailto:mohammad.nicoll@gmail.com">mohammad.nicoll@gmail.com</a></span>
+          <span class="contact-security">Protected with layered anti-spam checks. Direct email is always available.</span>
         </div>
         <div class="contact-fallback" id="contactFallback" role="alert">
           The online email service is temporarily unavailable. Your message has <strong>not</strong> been sent yet. You can still send it directly using your email application:
@@ -175,11 +186,13 @@
 
   var form = document.getElementById("portfolioContactForm");
   var submit = document.getElementById("contactSubmit");
+  var mailtoButton = document.getElementById("contactMailto");
   var cancel = document.getElementById("contactCancel");
   var close = document.getElementById("contactClose");
   var status = document.getElementById("contactStatus");
   var fallback = document.getElementById("contactFallback");
   var fallbackLink = document.getElementById("contactFallbackLink");
+  var turnstileContainer = document.getElementById("contactTurnstile");
   var dialog = modal.querySelector(".contact-dialog");
   var fields = {
     name: document.getElementById("contactName"),
@@ -226,7 +239,22 @@
 
   function makeMailto(payload) {
     var body = ["Name: " + payload.name, "Email: " + payload.email, "", payload.message].join("\n");
-    return "mailto:" + FALLBACK_EMAIL + "?subject=" + encodeURIComponent(payload.subject) + "&body=" + encodeURIComponent(body);
+    return "mailto:" + FALLBACK_EMAIL + "?subject=" + encodeURIComponent(payload.subject || "Portfolio enquiry") + "&body=" + encodeURIComponent(body);
+  }
+
+  function getCurrentPayload() {
+    var data = new FormData(form);
+    return {
+      name: String(data.get("name") || "").trim(),
+      email: String(data.get("email") || "").trim(),
+      subject: String(data.get("subject") || "").trim(),
+      message: String(data.get("message") || "").trim(),
+      company: String(data.get("company") || "").trim(),
+    };
+  }
+
+  function openMailto(payload) {
+    window.location.href = makeMailto(payload);
   }
 
   function showFallback(payload, reason) {
@@ -236,12 +264,51 @@
     status.className = "contact-status error";
   }
 
+  function loadTurnstile() {
+    if (!TURNSTILE_SITE_KEY) {
+      turnstileContainer.style.display = "none";
+      return;
+    }
+    if (window.turnstile) {
+      renderTurnstile();
+      return;
+    }
+    var script = document.createElement("script");
+    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+    script.async = true;
+    script.defer = true;
+    script.onload = renderTurnstile;
+    script.onerror = function () {
+      status.textContent = "Spam protection could not be loaded. You can still use the email app option.";
+      status.className = "contact-status warning";
+    };
+    document.head.appendChild(script);
+  }
+
+  function renderTurnstile() {
+    if (!window.turnstile || !TURNSTILE_SITE_KEY || turnstileWidgetId !== null) return;
+    turnstileWidgetId = window.turnstile.render(turnstileContainer, {
+      sitekey: TURNSTILE_SITE_KEY,
+      theme: "light",
+      callback: function (token) { turnstileToken = token || ""; },
+      "expired-callback": function () { turnstileToken = ""; },
+      "error-callback": function () { turnstileToken = ""; },
+    });
+  }
+
+  function resetTurnstile() {
+    turnstileToken = "";
+    if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
+  }
+
   function openForm(event) {
     if (event) event.preventDefault();
     previousFocus = document.activeElement;
+    formStartedAt = Date.now();
     modal.classList.add("open");
     document.body.classList.add("contact-modal-open");
     footerCta.setAttribute("aria-expanded", "true");
+    loadTurnstile();
     setTimeout(function () { fields.name.focus(); }, 0);
   }
 
@@ -265,6 +332,7 @@
   footerCta.setAttribute("aria-haspopup", "dialog");
   footerCta.setAttribute("aria-expanded", "false");
   footerCta.addEventListener("click", openForm);
+  mailtoButton.addEventListener("click", function () { openMailto(getCurrentPayload()); });
   cancel.addEventListener("click", closeForm);
   close.addEventListener("click", closeForm);
   modal.addEventListener("click", function (event) { if (event.target === modal) closeForm(); });
@@ -294,10 +362,13 @@
       message: String(data.get("message") || "").trim(),
       company: String(data.get("company") || "").trim(),
       requestId: window.crypto && window.crypto.randomUUID ? window.crypto.randomUUID() : String(Date.now()) + "-" + Math.random(),
+      formStartedAt: formStartedAt,
+      turnstileToken: turnstileToken,
     };
 
     if (payload.company) return;
     submit.disabled = true;
+    mailtoButton.disabled = true;
     cancel.disabled = true;
     close.disabled = true;
     submit.textContent = "Sending…";
@@ -321,6 +392,8 @@
       if (!response.ok) throw new Error(result.error || "Unable to send your message");
       form.reset();
       Object.keys(fields).forEach(function (field) { setError(field, ""); });
+      resetTurnstile();
+      formStartedAt = 0;
       status.textContent = "Thanks — your message has been sent. I'll get back to you soon.";
       status.className = "contact-status success";
     } catch (error) {
@@ -331,6 +404,7 @@
     } finally {
       window.clearTimeout(timeout);
       submit.disabled = false;
+      mailtoButton.disabled = false;
       cancel.disabled = false;
       close.disabled = false;
       submit.textContent = "Send message";
