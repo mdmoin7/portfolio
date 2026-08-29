@@ -1,3 +1,8 @@
+// Contact experience feature flag.
+// false = conventional mailto links
+// true  = contact modal + API/Turnstile
+var CONTACT_MODAL_ENABLED = false;
+
 (function () {
   var about = document.getElementById("about");
   var whatI = document.getElementById("what-i-do");
@@ -80,6 +85,10 @@
   });
 })();
 
+/* Contact modal implementation is retained below and activated only when
+   CONTACT_MODAL_ENABLED is true. Conventional mailto links remain available
+   when the flag is false. */
+if (CONTACT_MODAL_ENABLED) {
 (function () {
   var footerCta = document.querySelector(".footer-cta-link");
   var footer = document.getElementById("contact");
@@ -141,47 +150,17 @@
       </div>
       <form id="portfolioContactForm" novalidate>
         <div class="contact-grid">
-          <div class="contact-field">
-            <label for="contactName">Name <span aria-hidden="true">*</span></label>
-            <input id="contactName" name="name" autocomplete="name" maxlength="100" required aria-required="true" aria-describedby="contactNameError" />
-            <span class="contact-error" id="contactNameError" role="alert"></span>
-          </div>
-          <div class="contact-field">
-            <label for="contactEmail">Email <span aria-hidden="true">*</span></label>
-            <input id="contactEmail" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required aria-required="true" aria-describedby="contactEmailError" />
-            <span class="contact-error" id="contactEmailError" role="alert"></span>
-          </div>
-          <div class="contact-field full">
-            <label for="contactSubject">Subject <span aria-hidden="true">*</span></label>
-            <input id="contactSubject" name="subject" autocomplete="off" maxlength="160" required aria-required="true" aria-describedby="contactSubjectError" />
-            <span class="contact-error" id="contactSubjectError" role="alert"></span>
-          </div>
-          <div class="contact-field full">
-            <label for="contactMessage">Message <span aria-hidden="true">*</span></label>
-            <textarea id="contactMessage" name="message" minlength="10" maxlength="5000" required aria-required="true" aria-describedby="contactMessageError"></textarea>
-            <span class="contact-error" id="contactMessageError" role="alert"></span>
-          </div>
-          <div class="contact-hp" aria-hidden="true">
-            <label for="contactCompany">Company</label>
-            <input id="contactCompany" name="company" tabindex="-1" autocomplete="off" />
-          </div>
+          <div class="contact-field"><label for="contactName">Name <span aria-hidden="true">*</span></label><input id="contactName" name="name" autocomplete="name" maxlength="100" required aria-required="true" aria-describedby="contactNameError" /><span class="contact-error" id="contactNameError" role="alert"></span></div>
+          <div class="contact-field"><label for="contactEmail">Email <span aria-hidden="true">*</span></label><input id="contactEmail" name="email" type="email" inputmode="email" autocomplete="email" maxlength="254" required aria-required="true" aria-describedby="contactEmailError" /><span class="contact-error" id="contactEmailError" role="alert"></span></div>
+          <div class="contact-field full"><label for="contactSubject">Subject <span aria-hidden="true">*</span></label><input id="contactSubject" name="subject" autocomplete="off" maxlength="160" required aria-required="true" aria-describedby="contactSubjectError" /><span class="contact-error" id="contactSubjectError" role="alert"></span></div>
+          <div class="contact-field full"><label for="contactMessage">Message <span aria-hidden="true">*</span></label><textarea id="contactMessage" name="message" minlength="10" maxlength="5000" required aria-required="true" aria-describedby="contactMessageError"></textarea><span class="contact-error" id="contactMessageError" role="alert"></span></div>
+          <div class="contact-hp" aria-hidden="true"><label for="contactCompany">Company</label><input id="contactCompany" name="company" tabindex="-1" autocomplete="off" /></div>
           <div class="contact-turnstile" id="contactTurnstile" aria-label="Spam protection"></div>
         </div>
-        <div class="contact-actions">
-          <button class="btn btn-primary" type="submit" id="contactSubmit">Send message</button>
-          <button class="btn btn-outline" type="button" id="contactMailto">Open email app</button>
-          <button class="btn btn-outline" type="button" id="contactCancel">Cancel</button>
-          <span class="contact-status" id="contactStatus" role="status" aria-live="polite"></span>
-          <span class="contact-direct">Prefer direct email? <a id="contactDirectEmail" href="mailto:mohammad.nicoll@gmail.com">mohammad.nicoll@gmail.com</a></span>
-          <span class="contact-security">Protected with layered anti-spam checks. Direct email is always available.</span>
-        </div>
-        <div class="contact-fallback" id="contactFallback" role="alert">
-          The online email service is temporarily unavailable. Your message has <strong>not</strong> been sent yet. You can still send it directly using your email application:
-          <a id="contactFallbackLink" href="mailto:mohammad.nicoll@gmail.com">Open email</a>.
-        </div>
+        <div class="contact-actions"><button class="btn btn-primary" type="submit" id="contactSubmit">Send message</button><button class="btn btn-outline" type="button" id="contactMailto">Open email app</button><button class="btn btn-outline" type="button" id="contactCancel">Cancel</button><span class="contact-status" id="contactStatus" role="status" aria-live="polite"></span><span class="contact-direct">Prefer direct email? <a id="contactDirectEmail" href="mailto:mohammad.nicoll@gmail.com">mohammad.nicoll@gmail.com</a></span><span class="contact-security">Protected with layered anti-spam checks. Direct email is always available.</span></div>
+        <div class="contact-fallback" id="contactFallback" role="alert">The online email service is temporarily unavailable. Your message has <strong>not</strong> been sent yet. You can still send it directly using your email application: <a id="contactFallbackLink" href="mailto:mohammad.nicoll@gmail.com">Open email</a>.</div>
       </form>
-    </div>
-  `;
+    </div>`;
   document.body.appendChild(modal);
 
   var form = document.getElementById("portfolioContactForm");
@@ -194,220 +173,23 @@
   var fallbackLink = document.getElementById("contactFallbackLink");
   var turnstileContainer = document.getElementById("contactTurnstile");
   var dialog = modal.querySelector(".contact-dialog");
-  var fields = {
-    name: document.getElementById("contactName"),
-    email: document.getElementById("contactEmail"),
-    subject: document.getElementById("contactSubject"),
-    message: document.getElementById("contactMessage"),
-  };
-  var errors = {
-    name: document.getElementById("contactNameError"),
-    email: document.getElementById("contactEmailError"),
-    subject: document.getElementById("contactSubjectError"),
-    message: document.getElementById("contactMessageError"),
-  };
+  var fields = { name: document.getElementById("contactName"), email: document.getElementById("contactEmail"), subject: document.getElementById("contactSubject"), message: document.getElementById("contactMessage") };
+  var errors = { name: document.getElementById("contactNameError"), email: document.getElementById("contactEmailError"), subject: document.getElementById("contactSubjectError"), message: document.getElementById("contactMessageError") };
 
-  function setError(field, message) {
-    fields[field].setAttribute("aria-invalid", message ? "true" : "false");
-    errors[field].textContent = message || "";
-  }
-
-  function validateField(field) {
-    var value = fields[field].value.trim();
-    var message = "";
-    if (!value) message = "This field is required.";
-    else if (field === "name" && (value.length < 2 || !/[A-Za-zÀ-ÿ]/.test(value))) message = "Enter your name.";
-    else if (field === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) message = "Enter a valid email address.";
-    else if (field === "subject" && value.length < 3) message = "Enter a short subject.";
-    else if (field === "message" && value.length < 10) message = "Message should be at least 10 characters.";
-    else if (field === "message" && value.length > 5000) message = "Message is too long.";
-    setError(field, message);
-    return !message;
-  }
-
-  Object.keys(fields).forEach(function (field) {
-    fields[field].addEventListener("blur", function () { validateField(field); });
-    fields[field].addEventListener("input", function () {
-      if (fields[field].getAttribute("aria-invalid") === "true") validateField(field);
-      if (status.classList.contains("error")) {
-        status.textContent = "";
-        status.className = "contact-status";
-      }
-      fallback.classList.remove("show");
-    });
-  });
-
-  function makeMailto(payload) {
-    var body = ["Name: " + payload.name, "Email: " + payload.email, "", payload.message].join("\n");
-    return "mailto:" + FALLBACK_EMAIL + "?subject=" + encodeURIComponent(payload.subject || "Portfolio enquiry") + "&body=" + encodeURIComponent(body);
-  }
-
-  function getCurrentPayload() {
-    var data = new FormData(form);
-    return {
-      name: String(data.get("name") || "").trim(),
-      email: String(data.get("email") || "").trim(),
-      subject: String(data.get("subject") || "").trim(),
-      message: String(data.get("message") || "").trim(),
-      company: String(data.get("company") || "").trim(),
-    };
-  }
-
-  function openMailto(payload) {
-    window.location.href = makeMailto(payload);
-  }
-
-  function showFallback(payload, reason) {
-    fallbackLink.href = makeMailto(payload);
-    fallback.classList.add("show");
-    status.textContent = reason || "Online sending is unavailable.";
-    status.className = "contact-status error";
-  }
-
-  function loadTurnstile() {
-    if (!TURNSTILE_SITE_KEY) {
-      turnstileContainer.style.display = "none";
-      return;
-    }
-    if (window.turnstile) {
-      renderTurnstile();
-      return;
-    }
-    var script = document.createElement("script");
-    script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-    script.async = true;
-    script.defer = true;
-    script.onload = renderTurnstile;
-    script.onerror = function () {
-      status.textContent = "Spam protection could not be loaded. You can still use the email app option.";
-      status.className = "contact-status warning";
-    };
-    document.head.appendChild(script);
-  }
-
-  function renderTurnstile() {
-    if (!window.turnstile || !TURNSTILE_SITE_KEY || turnstileWidgetId !== null) return;
-    turnstileWidgetId = window.turnstile.render(turnstileContainer, {
-      sitekey: TURNSTILE_SITE_KEY,
-      theme: "light",
-      callback: function (token) { turnstileToken = token || ""; },
-      "expired-callback": function () { turnstileToken = ""; },
-      "error-callback": function () { turnstileToken = ""; },
-    });
-  }
-
-  function resetTurnstile() {
-    turnstileToken = "";
-    if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId);
-  }
-
-  function openForm(event) {
-    if (event) event.preventDefault();
-    previousFocus = document.activeElement;
-    formStartedAt = Date.now();
-    modal.classList.add("open");
-    document.body.classList.add("contact-modal-open");
-    footerCta.setAttribute("aria-expanded", "true");
-    loadTurnstile();
-    setTimeout(function () { fields.name.focus(); }, 0);
-  }
-
-  function closeForm() {
-    modal.classList.remove("open");
-    document.body.classList.remove("contact-modal-open");
-    footerCta.setAttribute("aria-expanded", "false");
-    if (previousFocus && typeof previousFocus.focus === "function") previousFocus.focus();
-  }
-
-  function trapFocus(event) {
-    if (!modal.classList.contains("open") || event.key !== "Tab") return;
-    var focusable = Array.prototype.slice.call(dialog.querySelectorAll("button:not([disabled]), input:not([disabled]), textarea:not([disabled]), a[href]"));
-    if (!focusable.length) return;
-    var first = focusable[0];
-    var last = focusable[focusable.length - 1];
-    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
-    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
-  }
-
-  footerCta.setAttribute("aria-haspopup", "dialog");
-  footerCta.setAttribute("aria-expanded", "false");
-  footerCta.addEventListener("click", openForm);
-  mailtoButton.addEventListener("click", function () { openMailto(getCurrentPayload()); });
-  cancel.addEventListener("click", closeForm);
-  close.addEventListener("click", closeForm);
-  modal.addEventListener("click", function (event) { if (event.target === modal) closeForm(); });
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape" && modal.classList.contains("open")) closeForm();
-    trapFocus(event);
-  });
-
-  form.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    status.textContent = "";
-    status.className = "contact-status";
-    fallback.classList.remove("show");
-
-    var valid = Object.keys(fields).map(validateField).every(Boolean);
-    if (!valid) {
-      var firstInvalid = Object.keys(fields).map(function (key) { return fields[key]; }).find(function (field) { return field.getAttribute("aria-invalid") === "true"; });
-      if (firstInvalid) firstInvalid.focus();
-      return;
-    }
-
-    var data = new FormData(form);
-    var payload = {
-      name: String(data.get("name") || "").trim(),
-      email: String(data.get("email") || "").trim(),
-      subject: String(data.get("subject") || "").trim(),
-      message: String(data.get("message") || "").trim(),
-      company: String(data.get("company") || "").trim(),
-      requestId: window.crypto && window.crypto.randomUUID ? window.crypto.randomUUID() : String(Date.now()) + "-" + Math.random(),
-      formStartedAt: formStartedAt,
-      turnstileToken: turnstileToken,
-    };
-
-    if (payload.company) return;
-    submit.disabled = true;
-    mailtoButton.disabled = true;
-    cancel.disabled = true;
-    close.disabled = true;
-    submit.textContent = "Sending…";
-    status.textContent = "Sending your message…";
-
-    var timedOut = false;
-    var controller = window.AbortController ? new AbortController() : null;
-    var timeout = window.setTimeout(function () {
-      timedOut = true;
-      if (controller) controller.abort();
-    }, 10000);
-
-    try {
-      var response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-        signal: controller ? controller.signal : undefined,
-      });
-      var result = await response.json().catch(function () { return {}; });
-      if (!response.ok) throw new Error(result.error || "Unable to send your message");
-      form.reset();
-      Object.keys(fields).forEach(function (field) { setError(field, ""); });
-      resetTurnstile();
-      formStartedAt = 0;
-      status.textContent = "Thanks — your message has been sent. I'll get back to you soon.";
-      status.className = "contact-status success";
-    } catch (error) {
-      var reason = timedOut || (error && error.name === "AbortError")
-        ? "The email service did not respond in time."
-        : "The online email service is temporarily unavailable.";
-      showFallback(payload, reason);
-    } finally {
-      window.clearTimeout(timeout);
-      submit.disabled = false;
-      mailtoButton.disabled = false;
-      cancel.disabled = false;
-      close.disabled = false;
-      submit.textContent = "Send message";
-    }
-  });
+  function setError(field, message) { fields[field].setAttribute("aria-invalid", message ? "true" : "false"); errors[field].textContent = message || ""; }
+  function validateField(field) { var value = fields[field].value.trim(); var message = ""; if (!value) message = "This field is required."; else if (field === "name" && (value.length < 2 || !/[A-Za-zÀ-ÿ]/.test(value))) message = "Enter your name."; else if (field === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value)) message = "Enter a valid email address."; else if (field === "subject" && value.length < 3) message = "Enter a short subject."; else if (field === "message" && value.length < 10) message = "Message should be at least 10 characters."; else if (field === "message" && value.length > 5000) message = "Message is too long."; setError(field, message); return !message; }
+  Object.keys(fields).forEach(function (field) { fields[field].addEventListener("blur", function () { validateField(field); }); fields[field].addEventListener("input", function () { if (fields[field].getAttribute("aria-invalid") === "true") validateField(field); }); });
+  function makeMailto(payload) { var body = ["Name: " + payload.name, "Email: " + payload.email, "", payload.message].join("\n"); return "mailto:" + FALLBACK_EMAIL + "?subject=" + encodeURIComponent(payload.subject || "Portfolio enquiry") + "&body=" + encodeURIComponent(body); }
+  function getCurrentPayload() { var data = new FormData(form); return { name: String(data.get("name") || "").trim(), email: String(data.get("email") || "").trim(), subject: String(data.get("subject") || "").trim(), message: String(data.get("message") || "").trim(), company: String(data.get("company") || "").trim() }; }
+  function openMailto(payload) { window.location.href = makeMailto(payload); }
+  function showFallback(payload, reason) { fallbackLink.href = makeMailto(payload); fallback.classList.add("show"); status.textContent = reason || "Online sending is unavailable."; status.className = "contact-status error"; }
+  function loadTurnstile() { if (!TURNSTILE_SITE_KEY) { turnstileContainer.style.display = "none"; return; } if (window.turnstile) { renderTurnstile(); return; } var script = document.createElement("script"); script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"; script.async = true; script.defer = true; script.onload = renderTurnstile; script.onerror = function () { status.textContent = "Spam protection could not be loaded. You can still use the email app option."; status.className = "contact-status warning"; }; document.head.appendChild(script); }
+  function renderTurnstile() { if (!window.turnstile || !TURNSTILE_SITE_KEY || turnstileWidgetId !== null) return; turnstileWidgetId = window.turnstile.render(turnstileContainer, { sitekey: TURNSTILE_SITE_KEY, theme: "light", callback: function (token) { turnstileToken = token || ""; }, "expired-callback": function () { turnstileToken = ""; }, "error-callback": function () { turnstileToken = ""; } }); }
+  function resetTurnstile() { turnstileToken = ""; if (window.turnstile && turnstileWidgetId !== null) window.turnstile.reset(turnstileWidgetId); }
+  function openForm(event) { if (event) event.preventDefault(); previousFocus = document.activeElement; formStartedAt = Date.now(); modal.classList.add("open"); document.body.classList.add("contact-modal-open"); footerCta.setAttribute("aria-expanded", "true"); loadTurnstile(); setTimeout(function () { fields.name.focus(); }, 0); }
+  function closeForm() { modal.classList.remove("open"); document.body.classList.remove("contact-modal-open"); footerCta.setAttribute("aria-expanded", "false"); if (previousFocus && typeof previousFocus.focus === "function") previousFocus.focus(); }
+  function trapFocus(event) { if (!modal.classList.contains("open") || event.key !== "Tab") return; var focusable = Array.prototype.slice.call(dialog.querySelectorAll("button:not([disabled]), input:not([disabled]), textarea:not([disabled]), a[href]")); if (!focusable.length) return; var first = focusable[0]; var last = focusable[focusable.length - 1]; if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); } else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); } }
+  footerCta.setAttribute("aria-haspopup", "dialog"); footerCta.setAttribute("aria-expanded", "false"); footerCta.addEventListener("click", openForm); mailtoButton.addEventListener("click", function () { openMailto(getCurrentPayload()); }); cancel.addEventListener("click", closeForm); close.addEventListener("click", closeForm); modal.addEventListener("click", function (event) { if (event.target === modal) closeForm(); }); document.addEventListener("keydown", function (event) { if (event.key === "Escape" && modal.classList.contains("open")) closeForm(); trapFocus(event); });
+  form.addEventListener("submit", async function (event) { event.preventDefault(); status.textContent = ""; status.className = "contact-status"; fallback.classList.remove("show"); var valid = Object.keys(fields).map(validateField).every(Boolean); if (!valid) { var firstInvalid = Object.keys(fields).map(function (key) { return fields[key]; }).find(function (field) { return field.getAttribute("aria-invalid") === "true"; }); if (firstInvalid) firstInvalid.focus(); return; } var data = new FormData(form); var payload = { name: String(data.get("name") || "").trim(), email: String(data.get("email") || "").trim(), subject: String(data.get("subject") || "").trim(), message: String(data.get("message") || "").trim(), company: String(data.get("company") || "").trim(), requestId: window.crypto && window.crypto.randomUUID ? window.crypto.randomUUID() : String(Date.now()) + "-" + Math.random(), formStartedAt: formStartedAt, turnstileToken: turnstileToken }; if (payload.company) return; submit.disabled = true; mailtoButton.disabled = true; cancel.disabled = true; close.disabled = true; submit.textContent = "Sending…"; status.textContent = "Sending your message…"; var timedOut = false; var controller = window.AbortController ? new AbortController() : null; var timeout = window.setTimeout(function () { timedOut = true; if (controller) controller.abort(); }, 10000); try { var response = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload), signal: controller ? controller.signal : undefined }); var result = await response.json().catch(function () { return {}; }); if (!response.ok) throw new Error(result.error || "Unable to send your message"); form.reset(); Object.keys(fields).forEach(function (field) { setError(field, ""); }); resetTurnstile(); formStartedAt = 0; status.textContent = "Thanks — your message has been sent. I'll get back to you soon."; status.className = "contact-status success"; } catch (error) { var reason = timedOut || (error && error.name === "AbortError") ? "The email service did not respond in time." : "The online email service is temporarily unavailable."; showFallback(payload, reason); } finally { window.clearTimeout(timeout); submit.disabled = false; mailtoButton.disabled = false; cancel.disabled = false; close.disabled = false; submit.textContent = "Send message"; } });
 })();
+}
