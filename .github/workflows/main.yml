@@ -40,6 +40,7 @@ jobs:
       - name: Ensure contact entry point is deployed
         run: |
           cp contact-entry.js dist/contact-entry.js
+          cp mobile-nav.js dist/mobile-nav.js
           python - <<'PY'
           from pathlib import Path
           import re
@@ -48,14 +49,19 @@ jobs:
           html = path.read_text(encoding="utf-8")
 
           # The source homepage may already contain the script. If it does not,
-          # inject it before </body>. Do not depend on the exact main.js tag,
-          # because HTML minification can change attribute formatting.
-          if not re.search(r'<script[^>]+src=["\'](?:\./)?contact-entry\.js["\'][^>]*></script>', html, re.IGNORECASE):
-              tag = '<script src="./contact-entry.js" defer></script>'
-              html, count = re.subn(r'</body>', tag + '\n</body>', html, count=1, flags=re.IGNORECASE)
-              if count != 1:
-                  raise SystemExit("Could not locate </body> in dist/index.html")
-              path.write_text(html, encoding="utf-8")
+          # inject both standalone runtime scripts before </body>.
+          scripts = [
+              '<script src="./contact-entry.js" defer></script>',
+              '<script src="./mobile-nav.js" defer></script>',
+          ]
+          for tag in scripts:
+              src = re.search(r'src=["\']([^"\']+)["\']', tag, re.IGNORECASE).group(1)
+              pattern = r'<script[^>]+src=["\']' + re.escape(src) + r'["\'][^>]*></script>'
+              if not re.search(pattern, html, re.IGNORECASE):
+                  html, count = re.subn(r'</body>', tag + '\n</body>', html, count=1, flags=re.IGNORECASE)
+                  if count != 1:
+                      raise SystemExit("Could not locate </body> in dist/index.html")
+          path.write_text(html, encoding="utf-8")
           PY
 
       - name: Setup Pages
