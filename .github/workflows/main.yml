@@ -32,6 +32,11 @@ jobs:
       - name: Build and minify static site
         run: python scripts/build.py
 
+      - name: Include standalone contact card
+        run: |
+          rm -rf dist/contact
+          cp -R contact dist/contact
+
       - name: Ensure contact entry point is deployed
         run: |
           cp contact-entry.js dist/contact-entry.js
