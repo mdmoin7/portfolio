@@ -3,24 +3,11 @@
   window.PORTFOLIO_TURNSTILE_SITE_KEY = "0x4AAAAAAEg2aQvvyDorRSXR";
 
   function init() {
-    var nav = document.getElementById("navlinks");
     var footerCta = document.querySelector(".footer-cta-link");
-    if (!nav || !footerCta) return;
+    if (!footerCta) return;
 
-    if (!document.getElementById("navContactLink")) {
-      var link = document.createElement("a");
-      link.id = "navContactLink";
-      link.href = "#contact";
-      link.textContent = "Contact";
-      link.setAttribute("aria-label", "Go to contact section");
-      link.className = "nav-contact-link";
-      link.addEventListener("click", function () {
-        if (window.history && window.history.replaceState) {
-          window.history.replaceState(null, "", "#contact");
-        }
-      });
-      nav.appendChild(link);
-    }
+    // Contact remains the primary homepage section. The dedicated QR/card
+    // experience is exposed separately as "Connect" in the main navigation.
 
     // Place the conversion actions directly beneath Key Focus Areas.
     var focusCard = document.querySelector(".hero-right .focus-card");
