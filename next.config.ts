@@ -2,13 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "cdn.jsdelivr.net",
-        pathname: "/gh/mdmoin7/portfolio/**",
-      },
-    ],
+    remotePatterns: [new URL("https://cdn.jsdelivr.net/gh/mdmoin7/**")],
   },
 };
 

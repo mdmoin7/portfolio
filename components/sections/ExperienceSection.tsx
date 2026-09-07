@@ -18,7 +18,7 @@ export function ExperienceSection() {
   const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="experience" className="border-b border-line bg-surface py-16">
+    <section id="experience" className="border-b border-line bg-white py-16">
       <div className="wrap">
         <SectionHeading
           kicker={experience.kicker}
@@ -28,7 +28,7 @@ export function ExperienceSection() {
         <div ref={containerRef} className="relative">
           <motion.div
             style={{ scaleY: lineScale }}
-            className="absolute bottom-0 left-[18px] top-0 hidden w-px origin-top bg-blue/30 md:block"
+            className="absolute bottom-0 left-[18px] top-0 hidden w-px origin-top bg-gradient-to-b from-blue via-blue-glow to-gold md:block"
           />
           <StaggerContainer className="space-y-6">
             {experience.items.map((item) => (
@@ -43,15 +43,18 @@ export function ExperienceSection() {
                     <span className="block text-navy">{item.period[0]}</span>
                     <span className="block">{item.period[1]}</span>
                   </div>
-                  <div className="rounded-[var(--radius-card)] border border-line bg-white p-5">
-                    <span className="rounded-full border border-line bg-blue-soft px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.08em] text-blue-deep">
+                  <motion.div
+                    whileHover={{ x: 4 }}
+                    className="glass-card p-5"
+                  >
+                    <span className="rounded-full border border-blue/15 bg-blue-soft px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.08em] text-blue-deep">
                       {item.tag}
                     </span>
                     <h3 className="mt-3 font-display text-xl font-semibold text-navy">
                       {item.title}
                     </h3>
                     <p className="mt-2 text-sm text-muted">{item.description}</p>
-                  </div>
+                  </motion.div>
                 </article>
               </StaggerItem>
             ))}

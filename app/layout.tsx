@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Nunito, Playfair_Display } from "next/font/google";
+import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import { getJsonLd, siteMetadata, SITE_URL, PROFILE_IMAGE } from "@/lib/seo";
 import "./globals.css";
 
-const nunito = Nunito({
+const inter = Inter({
   subsets: ["latin"],
-  variable: "--font-body",
-  display: "swap",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-display",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -59,7 +54,7 @@ export default function RootLayout({
   const jsonLd = getJsonLd();
 
   return (
-    <html lang="en" className={`${nunito.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${GeistSans.variable} ${inter.variable}`}>
       <body>
         <script
           type="application/ld+json"

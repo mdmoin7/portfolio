@@ -34,19 +34,19 @@ function ProjectVisual({ type }: { type: "dashboard" | "shop" | "consulting" }) 
   }
 
   return (
-    <div className="flex h-full min-h-[180px] items-center justify-center rounded-xl border border-line bg-navy p-6 text-center font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-blue-soft">
+    <div className="flex h-full min-h-[180px] items-center justify-center rounded-xl border border-navy bg-navy p-6 text-center font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-blue-soft">
       Architecture
       <br />
       Consulting
       <br />
-      <strong className="mt-2 block text-white">Delivery · Teams · Systems</strong>
+      <strong className="mt-2 block text-gold">Delivery · Teams · Systems</strong>
     </div>
   );
 }
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="border-b border-line bg-white py-16">
+    <section id="projects" className="border-b border-line bg-surface py-16">
       <div className="wrap">
         <SectionHeading
           kicker={projects.kicker}
@@ -57,8 +57,8 @@ export function ProjectsSection() {
           {projects.items.map((project) => (
             <StaggerItem key={project.title}>
               <motion.article
-                whileHover={{ y: -6 }}
-                className="grid h-full gap-5 rounded-[var(--radius-card)] border border-line bg-surface p-5 lg:grid-cols-[0.95fr_1.05fr]"
+                whileHover={{ y: -8 }}
+                className="glass-card grid h-full gap-5 p-5 lg:grid-cols-[0.95fr_1.05fr]"
               >
                 <motion.div
                   animate={{ y: [0, -6, 0] }}
@@ -67,7 +67,7 @@ export function ProjectsSection() {
                   <ProjectVisual type={project.visual} />
                 </motion.div>
                 <div>
-                  <span className="rounded-full border border-line bg-white px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.08em] text-blue-deep">
+                  <span className="rounded-full border border-blue/15 bg-blue-soft px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.08em] text-blue-deep">
                     {project.tag}
                   </span>
                   <h3 className="mt-3 font-display text-2xl font-semibold text-navy">
@@ -94,7 +94,7 @@ export function ProjectsSection() {
                     href={project.link.href}
                     target={project.link.external ? "_blank" : undefined}
                     rel={project.link.external ? "noopener noreferrer" : undefined}
-                    className="mt-4 inline-flex text-sm font-extrabold text-blue no-underline hover:underline"
+                    className="mt-4 inline-flex text-sm font-semibold text-blue no-underline hover:underline"
                   >
                     {project.link.label}
                   </a>

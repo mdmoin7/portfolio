@@ -16,8 +16,8 @@ export function WhatIDoSection() {
             <StaggerItem key={item.title}>
               <motion.a
                 href={item.href}
-                whileHover={{ y: -4, rotateX: 2, rotateY: -2 }}
-                className="group block rounded-[var(--radius-card)] border border-line bg-surface p-5 no-underline shadow-[0_18px_40px_-34px_rgba(20,35,63,0.35)] transition hover:border-blue/25 hover:bg-white"
+                whileHover={{ y: -6, rotateX: 2, rotateY: -2 }}
+                className="glass-card group block p-5 no-underline transition hover:border-blue/25"
                 style={{ transformStyle: "preserve-3d" }}
               >
                 <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-blue-soft text-lg text-blue transition group-hover:scale-110">

@@ -1,17 +1,16 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { about } from "@/lib/content";
-import { Button, FadeIn, SectionHeading } from "@/components/ui/primitives";
+import { MagneticButton } from "@/components/motion/MagneticButton";
+import { LineReveal } from "@/components/motion/TextReveal";
+import { SectionHeading, FadeIn } from "@/components/ui/primitives";
 
 export function AboutSection() {
   return (
-    <section id="about" className="border-b border-line bg-white py-16">
+    <section id="about" className="border-b border-line bg-surface py-16">
       <div className="wrap">
-        <SectionHeading
-          kicker={about.kicker}
-          title={about.title}
-          notes={about.signals}
-        />
+        <SectionHeading kicker={about.kicker} title={about.title} notes={about.signals} />
         <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <FadeIn>
             <div className="space-y-4 text-sm text-muted">
@@ -34,18 +33,22 @@ export function AboutSection() {
                   )}
                 </p>
               ))}
-              <Button href={about.cta.href} variant="outline">
+              <MagneticButton href={about.cta.href} variant="outline">
                 {about.cta.label}
-              </Button>
+              </MagneticButton>
             </div>
           </FadeIn>
-          <FadeIn delay={0.12}>
-            <aside className="rounded-[var(--radius-card)] border border-line bg-[linear-gradient(135deg,#f8faff,#fff)] p-6 shadow-[0_18px_40px_-34px_rgba(20,35,63,0.25)]">
-              <p className="font-display text-[clamp(22px,2.4vw,30px)] font-semibold leading-snug text-navy">
+          <LineReveal delay={0.12}>
+            <aside className="glass-card relative overflow-hidden p-6">
+              <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gold/20 blur-2xl" />
+              <p className="relative font-display text-[clamp(22px,2.4vw,30px)] font-semibold leading-snug text-navy">
                 “{about.quote}”
               </p>
+              <span className="mt-4 block text-[10px] font-bold uppercase tracking-[0.12em] text-gold">
+                Training philosophy
+              </span>
             </aside>
-          </FadeIn>
+          </LineReveal>
         </div>
       </div>
     </section>

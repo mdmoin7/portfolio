@@ -2,53 +2,8 @@
 
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-
-type ButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children"> & {
-  variant?: "primary" | "outline" | "ghost";
-  href?: string;
-  external?: boolean;
-  children: React.ReactNode;
-};
-
-export function Button({
-  className,
-  variant = "primary",
-  href,
-  external,
-  children,
-  type = "button",
-  ...props
-}: ButtonProps) {
-  const classes = cn(
-    "inline-flex items-center justify-center gap-2 rounded-lg border px-3.5 py-2.5 text-xs font-extrabold transition duration-200 hover:-translate-y-0.5",
-    variant === "primary" &&
-      "border-transparent bg-blue text-white shadow-[0_10px_22px_-17px_var(--color-blue)]",
-    variant === "outline" &&
-      "border-[#bfcff0] bg-white text-blue hover:border-blue/30",
-    variant === "ghost" && "border-transparent bg-transparent text-white/90 hover:bg-white/10",
-    className,
-  );
-
-  if (href) {
-    return (
-      <motion.a
-        whileTap={{ scale: 0.98 }}
-        className={classes}
-        href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noopener noreferrer" : undefined}
-      >
-        {children}
-      </motion.a>
-    );
-  }
-
-  return (
-    <button type={type} className={classes} {...props}>
-      {children}
-    </button>
-  );
-}
+import { TextReveal } from "@/components/motion/TextReveal";
+import { LineReveal } from "@/components/motion/TextReveal";
 
 export function SectionHeading({
   kicker,
@@ -63,22 +18,30 @@ export function SectionHeading({
 }) {
   return (
     <div className={cn("mb-8", className)}>
-      <div className="kicker mb-3">{kicker}</div>
-      <h2 className="section-title">{title}</h2>
+      <LineReveal>
+        <div className="kicker mb-3">{kicker}</div>
+      </LineReveal>
+      <TextReveal as="h2" text={title} className="section-title" />
       {notes?.length ? (
-        <div className="mt-4 flex flex-wrap gap-2">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.45 }}
+          className="mt-4 flex flex-wrap gap-2"
+        >
           {notes.map((note) => (
             <span
               key={note}
               className={cn(
                 "rounded-full border border-line bg-surface px-3 py-1 text-[10px] font-bold text-muted",
-                note.startsWith("+") && "text-blue-deep",
+                note.startsWith("+") && "border-gold/30 bg-gold-soft/40 text-blue-deep",
               )}
             >
               {note}
             </span>
           ))}
-        </div>
+        </motion.div>
       ) : null}
     </div>
   );

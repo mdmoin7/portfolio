@@ -1,7 +1,5 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { IntroOverlay } from "@/components/hero/IntroOverlay";
 import { HeroSection } from "@/components/hero/HeroSection";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -13,12 +11,8 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { WhatIDoSection } from "@/components/sections/WhatIDoSection";
 
 export default function HomePage() {
-  const [introDismissed, setIntroDismissed] = useState(false);
-  const dismissIntro = useCallback(() => setIntroDismissed(true), []);
-
   return (
     <>
-      {!introDismissed ? <IntroOverlay onDismiss={dismissIntro} /> : null}
       <Navbar />
       <main>
         <HeroSection />

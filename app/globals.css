@@ -1,21 +1,25 @@
 @import "tailwindcss";
 
 @theme {
+  /* Midnight Executive + blue/gold accents */
   --color-navy: #0a1628;
-  --color-navy-2: #1e3154;
+  --color-navy-2: #101d35;
   --color-blue: #2454d8;
   --color-blue-deep: #173eae;
   --color-blue-soft: #eef3ff;
-  --color-ink: #24324a;
+  --color-blue-glow: #58a6ff;
+  --color-gold: #c9a227;
+  --color-gold-soft: #f5edcf;
+  --color-ink: #1a2332;
   --color-muted: #66738a;
   --color-line: #e3e8f1;
   --color-surface: #f7f9fc;
   --color-paper: #ffffff;
-  --color-hero-dark: #0d1117;
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "Nunito", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  --radius-card: 15px;
+  --color-hero-dark: #050b16;
+  --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --radius-card: 16px;
 }
 
 @layer base {
@@ -30,7 +34,7 @@
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--color-blue) 18%, white);
+    background: color-mix(in srgb, var(--color-blue) 20%, white);
   }
 }
 
@@ -40,38 +44,86 @@
   }
 
   .kicker {
-    @apply inline-flex font-mono text-[10px] font-extrabold uppercase tracking-[0.08em] text-blue-deep;
+    @apply inline-flex font-mono text-[10px] font-extrabold uppercase tracking-[0.12em] text-blue-deep;
     font-family: var(--font-mono);
   }
 
   .section-title {
-    @apply font-display text-[clamp(28px,3vw,42px)] font-semibold leading-[1.08] tracking-[-0.025em] text-navy;
+    @apply font-display text-[clamp(28px,3vw,44px)] font-semibold leading-[1.08] tracking-[-0.03em] text-navy;
     font-family: var(--font-display);
   }
 
   .glass-nav {
-    @apply border-b border-line bg-white/80 backdrop-blur-xl;
+    @apply border-b border-line bg-white/85 backdrop-blur-xl;
   }
 
-  .card-surface {
-    @apply rounded-[var(--radius-card)] border border-line bg-white shadow-[0_18px_40px_-32px_rgba(20,35,63,0.35)];
+  .glass-card {
+    @apply rounded-[var(--radius-card)] border border-white/60 bg-white/70 shadow-[0_20px_50px_-36px_rgba(10,22,40,0.35)] backdrop-blur-md;
+  }
+
+  .glass-card-dark {
+    @apply rounded-[var(--radius-card)] border border-white/10 bg-white/[0.04] shadow-[0_24px_60px_-40px_rgba(0,0,0,0.65)] backdrop-blur-xl;
   }
 
   .hero-gradient {
     background:
-      radial-gradient(circle at 20% 20%, rgba(36, 84, 216, 0.18), transparent 35%),
-      radial-gradient(circle at 80% 0%, rgba(36, 84, 216, 0.12), transparent 30%),
-      linear-gradient(135deg, #050b16 0%, #0a1628 45%, #101d35 100%);
+      radial-gradient(ellipse 80% 60% at 15% 10%, rgba(36, 84, 216, 0.22), transparent 55%),
+      radial-gradient(ellipse 60% 50% at 85% 0%, rgba(201, 162, 39, 0.12), transparent 50%),
+      radial-gradient(ellipse 50% 40% at 50% 100%, rgba(88, 166, 255, 0.08), transparent 60%),
+      linear-gradient(160deg, #050b16 0%, #0a1628 42%, #101d35 100%);
   }
 
-  .text-gradient {
-    @apply bg-gradient-to-r from-white via-blue-soft to-blue bg-clip-text text-transparent;
+  .accent-gradient-text {
+    @apply bg-gradient-to-r from-blue via-blue-glow to-gold bg-clip-text text-transparent;
+  }
+
+  .gold-accent {
+    @apply text-gold;
+  }
+
+  .aurora-blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(80px);
+    opacity: 0.55;
+    animation: aurora-drift 18s ease-in-out infinite;
+  }
+
+  .marquee-track {
+    animation: marquee-scroll 28s linear infinite;
+  }
+}
+
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(4%, -6%) scale(1.06);
+  }
+  66% {
+    transform: translate(-5%, 4%) scale(0.94);
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .aurora-blob,
+  .marquee-track {
+    animation: none !important;
   }
 
   *,

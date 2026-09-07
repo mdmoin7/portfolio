@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 
 export function PillarsSection() {
   return (
-    <section id="stack" className="border-b border-line bg-surface py-16">
+    <section id="stack" className="border-b border-line bg-white py-16">
       <div className="wrap">
         <SectionHeading
           kicker={pillars.kicker}
@@ -27,7 +27,7 @@ export function PillarsSection() {
             <StaggerItem key={card.title}>
               <a
                 href={card.href}
-                className="block h-full rounded-[var(--radius-card)] border border-line bg-white p-5 no-underline transition hover:-translate-y-1 hover:border-blue/25 hover:shadow-[0_18px_40px_-30px_rgba(20,35,63,0.35)]"
+                className="glass-card block h-full p-5 no-underline transition hover:-translate-y-1 hover:border-blue/25"
               >
                 <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-blue-soft text-blue">
                   ◈
@@ -55,7 +55,7 @@ export function PillarsSection() {
         <div className="mt-12 space-y-8">
           {pillars.stackGroups.map((group) => (
             <FadeIn key={group.title}>
-              <div className="rounded-[var(--radius-card)] border border-line bg-white p-6">
+              <div className="glass-card p-6">
                 <div className="mb-5 font-display text-xl font-semibold text-navy">
                   {group.title}
                 </div>
@@ -72,7 +72,7 @@ export function PillarsSection() {
                             className={cn(
                               "rounded-full border border-line bg-surface px-3 py-1.5 text-[11px] font-bold text-muted",
                               badge.lead && "border-blue/20 bg-blue-soft text-blue-deep",
-                              badge.more && "text-blue-deep",
+                              badge.more && "border-gold/25 bg-gold-soft/50 text-blue-deep",
                             )}
                           >
                             {badge.label}
