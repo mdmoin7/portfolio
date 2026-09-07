@@ -9,7 +9,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint . --max-warnings 0",
     "build:static": "pip3 install --break-system-packages --disable-pip-version-check htmlmin rcssmin rjsmin && python3 scripts/build.py"
   },
   "dependencies": {

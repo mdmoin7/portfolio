@@ -17,16 +17,10 @@ export function useReducedMotion() {
 }
 
 export function useIntroDismissed() {
-  const [dismissed, setDismissed] = useState(true);
-
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduced) {
-      setDismissed(true);
-      return;
-    }
-    setDismissed(false);
-  }, []);
+  const [dismissed, setDismissed] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
 
   return { dismissed, dismiss: () => setDismissed(true) };
 }

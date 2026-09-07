@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { SITE_URL } from "@/lib/seo";
 
 const vcard = [
@@ -72,12 +73,12 @@ export function ContactCard() {
                 >
                   ＋ Save My Details
                 </button>
-                <a
+                <Link
                   href="/"
                   className="inline-flex items-center rounded-lg border border-line bg-white px-4 py-2.5 text-[13px] font-bold text-navy no-underline"
                 >
                   View Portfolio
-                </a>
+                </Link>
               </div>
             </div>
 

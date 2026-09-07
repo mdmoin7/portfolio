@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { MagneticButton } from "@/components/motion/MagneticButton";
@@ -17,14 +18,14 @@ export function SubpageNav({ active }: { active: SubpageNavId }) {
           className="pointer-events-none absolute inset-x-0 bottom-0 h-0.5 bg-gradient-to-r from-transparent via-blue/45 to-transparent"
         />
         <div className="wrap flex h-[70px] items-center gap-6 lg:gap-8">
-          <a href="/" className="min-w-[200px] shrink-0 no-underline lg:min-w-[245px]">
+          <Link href="/" className="min-w-[200px] shrink-0 no-underline lg:min-w-[245px]">
             <strong className="block font-display text-[20px] font-semibold leading-none tracking-[-0.02em] text-navy lg:text-[21px]">
               Mohammad Moin
             </strong>
             <span className="mt-1 block text-[10px] font-bold text-muted">
               Independent Consultant &amp; Corporate Trainer
             </span>
-          </a>
+          </Link>
 
           <div
             className={cn(
@@ -37,7 +38,7 @@ export function SubpageNav({ active }: { active: SubpageNavId }) {
             {subpageNavLinks.map((link) => {
               const isActive = link.id === active;
               return (
-                <a
+                <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
@@ -51,7 +52,7 @@ export function SubpageNav({ active }: { active: SubpageNavId }) {
                   {isActive ? (
                     <span className="absolute -bottom-1 left-0 h-0.5 w-full rounded-full bg-blue" />
                   ) : null}
-                </a>
+                </Link>
               );
             })}
           </div>

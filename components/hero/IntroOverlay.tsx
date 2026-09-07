@@ -12,10 +12,7 @@ export function IntroOverlay({ onDismiss }: { onDismiss: () => void }) {
   const name = "Mohammad Moin";
 
   useEffect(() => {
-    if (reducedMotion) {
-      setVisible(false);
-      onDismiss();
-    }
+    if (reducedMotion) onDismiss();
   }, [reducedMotion, onDismiss]);
 
   useEffect(() => {

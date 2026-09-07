@@ -27,8 +27,8 @@ function CountUp({ value, suffix = "", play }: { value: number; suffix?: string;
   useEffect(() => {
     if (!shouldRun) return;
     if (reducedMotion) {
-      setDisplay(value);
-      return;
+      const frame = requestAnimationFrame(() => setDisplay(value));
+      return () => cancelAnimationFrame(frame);
     }
     let frame = 0;
     const start = performance.now();

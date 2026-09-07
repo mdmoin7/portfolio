@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
@@ -8,19 +8,19 @@ import { useReducedMotion } from "@/lib/motion";
 
 const pillarColors = ["#2454d8", "#58a6ff", "#7aa2ff", "#173eae", "#4f7dff"];
 
+function createParticlePositions(count: number) {
+  const arr = new Float32Array(count * 3);
+  for (let i = 0; i < count; i += 1) {
+    arr[i * 3] = (Math.random() - 0.5) * 14;
+    arr[i * 3 + 1] = (Math.random() - 0.5) * 10;
+    arr[i * 3 + 2] = (Math.random() - 0.5) * 10;
+  }
+  return arr;
+}
+
 function Particles({ count = 800 }: { count?: number }) {
   const ref = useRef<THREE.Points>(null);
-  const positions = useRef<Float32Array>(
-    (() => {
-      const arr = new Float32Array(count * 3);
-      for (let i = 0; i < count; i += 1) {
-        arr[i * 3] = (Math.random() - 0.5) * 14;
-        arr[i * 3 + 1] = (Math.random() - 0.5) * 10;
-        arr[i * 3 + 2] = (Math.random() - 0.5) * 10;
-      }
-      return arr;
-    })(),
-  );
+  const [positions] = useState(() => createParticlePositions(count));
 
   useFrame((state) => {
     if (!ref.current) return;
@@ -29,7 +29,7 @@ function Particles({ count = 800 }: { count?: number }) {
   });
 
   return (
-    <Points ref={ref} positions={positions.current} stride={3} frustumCulled={false}>
+    <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
         color="#7aa2ff"
@@ -140,23 +140,20 @@ function TerminalFallback() {
   );
 }
 
+function supportsWebGL() {
+  if (typeof window === "undefined") return false;
+  try {
+    const canvas = document.createElement("canvas");
+    return !!canvas.getContext("webgl");
+  } catch {
+    return false;
+  }
+}
+
 export function Scene3D() {
   const reducedMotion = useReducedMotion();
   const mouse = useRef({ x: 0, y: 0 });
-  const [canRenderWebGL, setCanRenderWebGL] = useState(false);
-
-  useEffect(() => {
-    if (reducedMotion) {
-      setCanRenderWebGL(false);
-      return;
-    }
-    try {
-      const canvas = document.createElement("canvas");
-      setCanRenderWebGL(!!canvas.getContext("webgl"));
-    } catch {
-      setCanRenderWebGL(false);
-    }
-  }, [reducedMotion]);
+  const canRenderWebGL = !reducedMotion && supportsWebGL();
 
   if (!canRenderWebGL) {
     return <TerminalFallback />;

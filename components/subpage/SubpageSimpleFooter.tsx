@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function SubpageSimpleFooter({ note }: { note?: string }) {
   return (
     <footer className="border-t border-line bg-white py-5">
@@ -5,9 +7,9 @@ export function SubpageSimpleFooter({ note }: { note?: string }) {
         <span>© 2026 Mohammad Moin</span>
         {note ? <span className="text-center sm:flex-1">{note}</span> : <span className="hidden sm:block sm:flex-1" />}
         <span className="text-center sm:text-right">
-          <a href="/" className="text-muted no-underline transition hover:text-blue">
+          <Link href="/" className="text-muted no-underline transition hover:text-blue">
             Portfolio
-          </a>
+          </Link>
           {" · "}
           <a
             href="https://www.linkedin.com/in/mohammadmoin/"

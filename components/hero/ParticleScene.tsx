@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Points, PointMaterial } from "@react-three/drei";
 import * as THREE from "three";
@@ -34,7 +34,7 @@ function ParticleShell({
   speed?: number;
 }) {
   const ref = useRef<THREE.Points>(null);
-  const positions = useRef(createSpherePositions(count, radius));
+  const [positions] = useState(() => createSpherePositions(count, radius));
 
   useFrame((state) => {
     if (!ref.current) return;
@@ -45,7 +45,7 @@ function ParticleShell({
   });
 
   return (
-    <Points ref={ref} positions={positions.current} stride={3} frustumCulled={false}>
+    <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
         color={color}
