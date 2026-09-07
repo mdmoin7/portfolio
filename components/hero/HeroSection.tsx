@@ -56,11 +56,11 @@ function HeroMockup() {
           </p>
         ))}
         <p className="text-white/90">
-          <span className="font-bold text-gold">✦</span> Building products. Teaching engineers.
+          <span className="font-bold text-blue">✦</span> Building products. Teaching engineers.
         </p>
       </div>
-      <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-blue/20 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-10 -left-6 h-28 w-28 rounded-full bg-gold/15 blur-3xl" />
+      <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/[0.06] blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-10 -left-6 h-28 w-28 rounded-full bg-blue/10 blur-3xl" />
     </div>
   );
 }
@@ -121,7 +121,7 @@ export function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -6 }}
                 transition={{ duration: 0.3 }}
-                className="font-semibold text-blue-glow"
+                className="font-semibold text-white/80"
               >
                 {roles[roleIndex]}
               </motion.span>
@@ -142,14 +142,14 @@ export function HeroSection() {
                 transition={{ delay: 0.65, duration: 0.5 }}
                 className="relative mx-auto md:mx-0"
               >
-                <div className="absolute inset-0 rounded-full bg-blue/25 blur-2xl" />
+                <div className="absolute inset-0 rounded-full bg-white/[0.08] blur-2xl" />
                 <Image
                   src={hero.profileImage}
                   alt={hero.profileAlt}
                   width={164}
                   height={164}
                   priority
-                  className="relative h-40 w-40 rounded-full border-[4px] border-white/20 object-cover shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_24px_50px_-25px_rgba(0,0,0,0.55)]"
+                  className="relative h-40 w-40 rounded-full border-[3px] border-white/25 object-cover shadow-[0_24px_50px_-25px_rgba(0,0,0,0.8)]"
                 />
               </motion.div>
 
@@ -201,7 +201,7 @@ export function HeroSection() {
                   whileHover={{ y: -3 }}
                   className="glass-card-dark flex items-center gap-3 px-4 py-3"
                 >
-                  <div className="grid h-9 w-9 place-items-center rounded-full bg-blue/20 text-xs font-bold text-blue-glow">
+                  <div className="grid h-9 w-9 place-items-center rounded-full border border-white/10 bg-white/5 text-xs font-bold text-white/70">
                     {index === 3 ? "◆" : "★"}
                   </div>
                   <div>
@@ -223,7 +223,7 @@ export function HeroSection() {
           >
             <HeroMockup />
             <div className="glass-card-dark p-5">
-              <div className="mb-4 text-[10px] font-bold uppercase tracking-[0.12em] text-gold">
+              <div className="mb-4 text-[10px] font-bold uppercase tracking-[0.14em] text-white/45">
                 Key Focus Areas
               </div>
               <div className="grid gap-3 sm:grid-cols-2">
@@ -236,7 +236,7 @@ export function HeroSection() {
                     transition={{ delay: 0.08 * index, duration: 0.4 }}
                     className="flex items-start gap-3"
                   >
-                    <div className="mt-0.5 grid h-9 w-9 place-items-center rounded-xl border border-white/10 bg-white/5 text-xs font-bold text-blue-glow">
+                    <div className="mt-0.5 grid h-9 w-9 place-items-center rounded-xl border border-white/10 bg-white/5 text-xs font-bold text-white/60">
                       {index + 1}
                     </div>
                     <div>

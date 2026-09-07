@@ -14,7 +14,7 @@ export function ClientsSection() {
           </p>
         </LineReveal>
         <Marquee items={clients.names.filter((n) => !n.startsWith("+"))} />
-        <p className="mt-4 text-center text-xs font-semibold text-blue-deep">+ Many more</p>
+        <p className="mt-4 text-center text-xs font-semibold text-muted">+ Many more</p>
       </div>
     </section>
   );

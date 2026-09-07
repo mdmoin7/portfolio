@@ -14,31 +14,25 @@ export function AuroraBackground({
       aria-hidden="true"
       className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}
     >
+      {/* Monochrome atmosphere — gray luminance only, single blue whisper */}
       <div
-        className="aurora-blob left-[-10%] top-[-15%] h-[420px] w-[420px] bg-blue/40"
+        className="aurora-blob left-[-8%] top-[-12%] h-[400px] w-[400px] bg-white/10"
         style={{ animationDelay: "0s" }}
       />
       <div
-        className="aurora-blob right-[-5%] top-[5%] h-[360px] w-[360px] bg-blue-glow/25"
-        style={{ animationDelay: "-6s" }}
+        className="aurora-blob right-[-6%] top-[8%] h-[320px] w-[320px] bg-white/[0.06]"
+        style={{ animationDelay: "-8s" }}
       />
       <div
-        className="aurora-blob bottom-[-10%] left-[30%] h-[300px] w-[300px] bg-gold/20"
-        style={{ animationDelay: "-12s" }}
+        className="aurora-blob bottom-[-8%] left-[40%] h-[260px] w-[260px] bg-blue/15"
+        style={{ animationDelay: "-14s" }}
       />
       {variant === "footer" ? (
-        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(247,249,252,0.95),transparent_60%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_top,rgba(250,250,250,0.98),transparent_65%)]" />
       ) : (
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(5,11,22,0.35),transparent_55%)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,0,0,0.5),transparent_55%)]" />
       )}
-      <div
-        className="absolute inset-0 opacity-[0.04]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.8) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.8) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-        }}
-      />
+      <div className="mono-grid absolute inset-0 opacity-80" />
     </div>
   );
 }

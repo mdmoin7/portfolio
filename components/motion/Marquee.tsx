@@ -19,7 +19,7 @@ export function Marquee({
         {track.map((item, index) => (
           <span
             key={`${item}-${index}`}
-            className="whitespace-nowrap rounded-full border border-line bg-surface px-5 py-2.5 text-sm font-semibold text-navy"
+            className="whitespace-nowrap rounded-full border border-line bg-white px-5 py-2.5 text-sm font-semibold text-navy"
           >
             {item}
           </span>

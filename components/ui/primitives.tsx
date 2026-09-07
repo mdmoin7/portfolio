@@ -35,7 +35,7 @@ export function SectionHeading({
               key={note}
               className={cn(
                 "rounded-full border border-line bg-surface px-3 py-1 text-[10px] font-bold text-muted",
-                note.startsWith("+") && "border-gold/30 bg-gold-soft/40 text-blue-deep",
+                note.startsWith("+") && "border-navy/15 bg-surface text-navy",
               )}
             >
               {note}

@@ -27,7 +27,7 @@ export function Footer() {
       <motion.div style={{ y, opacity }} className="wrap relative">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 font-mono text-[10px] font-extrabold uppercase tracking-[0.12em] text-blue-deep">
+            <div className="mb-4 inline-flex items-center gap-2 font-mono text-[10px] font-extrabold uppercase tracking-[0.14em] text-muted">
               <span className="h-1.5 w-1.5 rounded-full bg-blue" />
               {footer.eyebrow}
             </div>
@@ -54,7 +54,7 @@ export function Footer() {
                   href={link.href}
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
-                  className="glass-card rounded-lg px-3 py-2 text-xs font-semibold text-blue-deep no-underline transition hover:border-blue/30"
+                  className="glass-card rounded-lg px-3 py-2 text-xs font-semibold text-navy no-underline transition hover:border-navy/20"
                 >
                   {link.label}
                 </a>

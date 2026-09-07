@@ -15,7 +15,7 @@ function ProjectVisual({ type }: { type: "dashboard" | "shop" | "consulting" }) 
         <div className="mb-3 h-3 rounded bg-white" />
         <div className="mb-2 h-2 rounded bg-white/80" />
         <div className="mb-4 h-2 w-2/3 rounded bg-white/80" />
-        <div className="h-24 rounded-lg bg-[linear-gradient(135deg,#2454d8,#7aa2ff)] opacity-80" />
+        <div className="h-24 rounded-lg bg-[linear-gradient(135deg,#171717,#404040)] opacity-90" />
       </div>
     );
   }
@@ -34,12 +34,12 @@ function ProjectVisual({ type }: { type: "dashboard" | "shop" | "consulting" }) 
   }
 
   return (
-    <div className="flex h-full min-h-[180px] items-center justify-center rounded-xl border border-navy bg-navy p-6 text-center font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-blue-soft">
+    <div className="flex h-full min-h-[180px] items-center justify-center rounded-xl border border-navy bg-navy p-6 text-center font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-white/70">
       Architecture
       <br />
       Consulting
       <br />
-      <strong className="mt-2 block text-gold">Delivery · Teams · Systems</strong>
+      <strong className="mt-2 block text-blue">Delivery · Teams · Systems</strong>
     </div>
   );
 }

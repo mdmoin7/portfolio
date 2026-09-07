@@ -28,7 +28,7 @@ export function ExperienceSection() {
         <div ref={containerRef} className="relative">
           <motion.div
             style={{ scaleY: lineScale }}
-            className="absolute bottom-0 left-[18px] top-0 hidden w-px origin-top bg-gradient-to-b from-blue via-blue-glow to-gold md:block"
+            className="absolute bottom-0 left-[18px] top-0 hidden w-px origin-top bg-line md:block"
           />
           <StaggerContainer className="space-y-6">
             {experience.items.map((item) => (

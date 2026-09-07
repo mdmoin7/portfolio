@@ -17,10 +17,10 @@ export function WhatIDoSection() {
               <motion.a
                 href={item.href}
                 whileHover={{ y: -6, rotateX: 2, rotateY: -2 }}
-                className="glass-card group block p-5 no-underline transition hover:border-blue/25"
+                className="glass-card group block p-5 no-underline transition hover:border-navy/20"
                 style={{ transformStyle: "preserve-3d" }}
               >
-                <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-blue-soft text-lg text-blue transition group-hover:scale-110">
+                <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl border border-line bg-surface text-lg text-navy transition group-hover:border-blue group-hover:text-blue">
                   {icons[index]}
                 </div>
                 <strong className="block text-base text-navy">{item.title}</strong>

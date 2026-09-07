@@ -27,9 +27,9 @@ export function PillarsSection() {
             <StaggerItem key={card.title}>
               <a
                 href={card.href}
-                className="glass-card block h-full p-5 no-underline transition hover:-translate-y-1 hover:border-blue/25"
+                className="glass-card block h-full p-5 no-underline transition hover:-translate-y-1 hover:border-navy/20"
               >
-                <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-blue-soft text-blue">
+                <div className="mb-4 grid h-11 w-11 place-items-center rounded-xl border border-line bg-surface text-navy">
                   ◈
                 </div>
                 <h3 className="font-display text-lg font-semibold text-navy">{card.title}</h3>
@@ -72,7 +72,7 @@ export function PillarsSection() {
                             className={cn(
                               "rounded-full border border-line bg-surface px-3 py-1.5 text-[11px] font-bold text-muted",
                               badge.lead && "border-blue/20 bg-blue-soft text-blue-deep",
-                              badge.more && "border-gold/25 bg-gold-soft/50 text-blue-deep",
+                              badge.more && "border-navy/10 bg-surface text-navy",
                             )}
                           >
                             {badge.label}
