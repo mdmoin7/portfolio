@@ -21,13 +21,13 @@ export function Navbar() {
     const onScroll = () => {
       const offset = 96;
       const scrollY = window.scrollY;
-      let current = sections[0]?.href ?? "#top";
+      let current = sections[0]?.href ?? "#what-i-do";
       sections.forEach((section) => {
         const top = section.el?.getBoundingClientRect().top ?? 0;
         if (top + window.scrollY - offset <= scrollY) current = section.href;
       });
       setActive(current);
-      setOnHero(scrollY < window.innerHeight * 0.75);
+      setOnHero(scrollY < window.innerHeight * 0.72);
     };
 
     onScroll();
@@ -43,65 +43,85 @@ export function Navbar() {
     <header className="sticky top-0 z-50">
       <nav
         className={cn(
-          "relative border-b backdrop-blur-xl transition-colors duration-300",
+          "relative border-b backdrop-blur-xl transition-[background-color,border-color,box-shadow] duration-500",
           onHero
-            ? "border-white/10 bg-[rgba(5,11,22,0.55)]"
-            : "glass-nav border-line bg-white/85",
+            ? "border-white/10 bg-[rgba(10,22,40,0.78)] shadow-[0_8px_32px_-20px_rgba(0,0,0,0.45)]"
+            : "border-line bg-[rgba(255,255,255,0.9)] shadow-[0_8px_30px_-24px_rgba(10,22,40,0.12)]",
         )}
       >
         <motion.div
-          className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-gradient-to-r from-blue via-blue-glow to-gold"
+          className="absolute inset-x-0 bottom-0 h-[2px] origin-left bg-gradient-to-r from-blue via-blue-glow to-gold"
           style={{ scaleX }}
         />
-        <div className="wrap flex h-[70px] items-center gap-8">
-          <a href="#top" className="min-w-[245px] no-underline">
+        <div className="wrap flex h-[70px] items-center gap-6 lg:gap-8">
+          <a href="#top" className="min-w-[200px] shrink-0 no-underline lg:min-w-[245px]">
             <strong
               className={cn(
-                "block font-display text-[21px] font-semibold leading-none",
+                "block font-display text-[20px] font-semibold leading-none tracking-[-0.02em] lg:text-[21px]",
                 onHero ? "text-white" : "text-navy",
               )}
             >
               Mohammad Moin
             </strong>
-            <span className={cn("mt-1 block text-[10px] font-bold", onHero ? "text-white/55" : "text-muted")}>
+            <span
+              className={cn(
+                "mt-1 block text-[10px] font-bold",
+                onHero ? "text-white/50" : "text-muted",
+              )}
+            >
               Independent Consultant &amp; Corporate Trainer
             </span>
           </a>
 
           <div
             className={cn(
-              "hidden flex-1 items-center justify-center gap-7 lg:flex",
+              "hidden flex-1 items-center justify-center gap-6 lg:flex lg:gap-7",
               open &&
-                "absolute left-3.5 right-3.5 top-[62px] flex flex-col rounded-[10px] border border-line bg-white p-4 shadow-[0_20px_40px_-28px_rgba(20,35,63,0.5)] lg:static lg:flex-row lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none",
+                "absolute left-3.5 right-3.5 top-[62px] z-50 flex flex-col rounded-xl border border-line bg-white p-4 shadow-[0_20px_40px_-28px_rgba(10,22,40,0.35)] lg:static lg:flex-row lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none",
             )}
+            id="navlinks"
           >
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => {
-                  setActive(link.href);
-                  setOpen(false);
-                }}
-                className={cn(
-                  "text-xs font-semibold no-underline transition",
-                  onHero ? "text-white/65 hover:text-white" : "text-[#4e5d75] hover:text-blue",
-                  active === link.href && (onHero ? "text-white" : "text-blue"),
-                )}
-              >
-                {link.label}
-              </a>
-            ))}
+            {navLinks.map((link) => {
+              const isActive = active === link.href;
+              return (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => {
+                    setActive(link.href);
+                    setOpen(false);
+                  }}
+                  className={cn(
+                    "relative py-1 text-xs font-extrabold no-underline transition-colors duration-200",
+                    onHero && !open && "text-white/60 hover:text-white",
+                    !onHero && !open && "text-[#4e5d75] hover:text-blue",
+                    open && "text-[#4e5d75] hover:text-blue",
+                    isActive && onHero && !open && "text-white",
+                    isActive && (!onHero || open) && "text-blue",
+                  )}
+                >
+                  {link.label}
+                  {isActive ? (
+                    <span
+                      className={cn(
+                        "absolute -bottom-1 left-0 h-0.5 w-full rounded-full",
+                        onHero && !open ? "bg-gold" : "bg-blue",
+                      )}
+                    />
+                  ) : null}
+                </a>
+              );
+            })}
           </div>
 
-          <div className="hidden items-center gap-2.5 md:flex">
+          <div className="hidden shrink-0 items-center gap-2 md:flex">
             {navActions.map((action) => (
               <MagneticButton
                 key={action.label}
                 href={action.href}
                 external={action.external}
                 variant={action.primary ? "primary" : onHero ? "glass" : "outline"}
-                className="px-3.5 py-2 text-xs"
+                className="px-3.5 py-2 text-[11px]"
               >
                 {action.label}
               </MagneticButton>
@@ -111,8 +131,10 @@ export function Navbar() {
           <button
             type="button"
             className={cn(
-              "ml-auto flex h-10 w-10 items-center justify-center rounded-lg border lg:hidden",
-              onHero ? "border-white/15 bg-white/5 text-white" : "border-line bg-white text-navy",
+              "ml-auto flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border transition-colors lg:hidden",
+              onHero
+                ? "border-white/15 bg-white/5 text-white hover:bg-white/10"
+                : "border-line bg-white text-navy hover:border-blue/20 hover:bg-blue-soft",
             )}
             aria-label="Toggle navigation"
             aria-expanded={open}

@@ -246,9 +246,9 @@ export const clients = {
 
 export const footer = {
   eyebrow: "Let's work together",
-  title: "Ready to build, modernize, or upskill your team?",
-  cta: { href: "mailto:mohammad.nicoll@gmail.com", label: "Start a conversation" },
-  note: "Independent consulting and corporate training — grounded in fourteen years of production engineering across web, mobile, and cloud.",
+  title: "Have a project, a team, or a technical challenge?",
+  cta: { href: "mailto:mohammad.nicoll@gmail.com", label: "Get in touch" },
+  note: "Independent consulting for web & mobile delivery, and corporate technology training — grounded in 14+ years of production engineering.",
   links: [
     { href: "/training/", label: "Training" },
     { href: "/consulting/", label: "Consulting" },
@@ -258,9 +258,13 @@ export const footer = {
   location: {
     label: "Based in",
     city: "Bengaluru, India",
-    note: "Available for remote engagements worldwide",
+    note: "Available for remote engagements",
   },
-  bottom: ["© 2026 Mohammad Moin", "Consultant · Trainer · Engineer", "Built with intention."],
+  bottom: [
+    "© 2026 Mohammad Moin",
+    "Independent Consultant · Corporate Trainer",
+    "Built with intention.",
+  ],
 };
 
 export const navActions = [
