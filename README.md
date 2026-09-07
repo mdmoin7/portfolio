@@ -34,7 +34,7 @@ Production deploys from the **`vercel-deploy`** branch to **[mohammadmoin.vercel
 
 ### One-time Vercel setup
 
-The live site currently serves the **legacy static build from `main`** (`outputDirectory: dist`). Production must deploy from **`vercel-deploy`**, which runs `next build`.
+The live site deploys the **Next.js App Router build** from `vercel-deploy` (`next build`). Vercel Git integration deploys on push; GitHub Actions can also deploy via the prebuilt CLI flow when secrets are configured.
 
 1. Import or open the existing project at [vercel.com/new](https://vercel.com/new) for `mdmoin7/portfolio`.
 2. **Settings → Git → Production Branch** → set to **`vercel-deploy`** (not `main`).
@@ -53,11 +53,11 @@ The live site currently serves the **legacy static build from `main`** (`outputD
 
 7. Add GitHub Actions secrets (Repository → Settings → Secrets → Actions):
 
-| Secret | Source |
-|--------|--------|
-| `VERCEL_TOKEN` | [vercel.com/account/tokens](https://vercel.com/account/tokens) |
-| `VERCEL_ORG_ID` | `.vercel/project.json` after `vercel link`, or Vercel project settings |
-| `VERCEL_PROJECT_ID` | `.vercel/project.json` after `vercel link`, or Vercel project settings |
+| Secret | Value / source |
+|--------|----------------|
+| `VERCEL_TOKEN` | Create at [vercel.com/account/tokens](https://vercel.com/account/tokens) |
+| `VERCEL_ORG_ID` | `team_WCgso2oOdgLJ3wW413Ar54Z1` (from `vercel link`) |
+| `VERCEL_PROJECT_ID` | `prj_VbGtIxIpdFABBcadyFTrIcWdMIh2` (from `vercel link`) |
 
 After linking locally, copy IDs from `.vercel/project.json`:
 
