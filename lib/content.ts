@@ -58,25 +58,21 @@ export const whatIDo = {
       title: "Consulting Engagements",
       description:
         "End-to-end web and mobile delivery — architecture through deployment — for distributed teams.",
-      span: "2" as const,
     },
     {
       href: "/engineering/frontend-architecture/",
       title: "Architecture Advisory",
       description: "Scalable frontend systems, design systems, and modernization roadmaps.",
-      span: "1" as const,
     },
     {
       href: "/training/",
       title: "Corporate Training",
       description: "Enterprise upskilling programs for cohorts of 20–50 experienced engineers.",
-      span: "1" as const,
     },
     {
       href: "/training/",
       title: "Curriculum Design",
       description: "Custom tracks across React, Angular, NestJS, TypeScript, and GenAI/.NET.",
-      span: "2" as const,
     },
   ],
 };
@@ -236,6 +232,11 @@ export const about = {
   ],
   quote:
     "The measure of good training isn't the slide deck — it's the engineer who ships confidently in the new stack.",
+  highlights: [
+    { value: "14+", label: "Years in production" },
+    { value: "15k+", label: "Engineers trained" },
+    { value: "350+", label: "Sessions delivered" },
+  ],
   cta: { href: "/about/", label: "Full professional profile →" },
 };
 

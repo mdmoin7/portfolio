@@ -26,7 +26,23 @@ npm run build
 npm start
 ```
 
-## Environment variables (Vercel)
+## Deployment
+
+### Vercel (`vercel-deploy` branch)
+
+Production deployments run from the **`vercel-deploy`** branch.
+
+1. **Connect the repo in Vercel** (if not already linked): Import `mdmoin7/portfolio` from GitHub.
+2. **Set the production branch**: Project → Settings → Git → **Production Branch** → `vercel-deploy`.
+3. **Add GitHub secrets** (Settings → Secrets and variables → Actions) for the CI deploy job:
+   - `VERCEL_TOKEN` — [Vercel account token](https://vercel.com/account/tokens)
+   - `VERCEL_ORG_ID` — team/personal ID from `.vercel/project.json` after linking locally, or from Vercel project settings
+   - `VERCEL_PROJECT_ID` — project ID from `.vercel/project.json` or Vercel project settings
+4. **Optional**: set repository variable `NEXT_PUBLIC_SITE_URL` to your production URL.
+
+Every push to `vercel-deploy` runs **`.github/workflows/vercel-deploy.yml`** (lint → build → deploy). Vercel Git integration also deploys when the project is linked to that branch.
+
+Environment variables for the contact API:
 
 | Variable | Description |
 |----------|-------------|
@@ -36,11 +52,9 @@ npm start
 | `TURNSTILE_SECRET_KEY` | Optional Cloudflare Turnstile secret |
 | `NEXT_PUBLIC_SITE_URL` | Public site URL (e.g. `https://your-domain.vercel.app`) |
 
-## Deployment
+### Legacy static build (GitHub Pages)
 
-The Next.js app deploys to **Vercel**. Static authority subpages (`/about/`, `/consulting/`, `/training/`, `/engineering/*`, `/contact/`) are served from `public/`.
-
-Legacy static build (GitHub Pages):
+Static authority subpages in the repo root are used only by the legacy GitHub Pages pipeline on `main`:
 
 ```bash
 npm run build:static
@@ -48,4 +62,6 @@ npm run build:static
 
 ## Branch workflow
 
-The creative redesign lives on `feature/creative-redesign` for review before merging to `main`.
+- **`vercel-deploy`** — Vercel production branch (Next.js app + inner pages)
+- **`feature/creative-redesign`** — creative redesign work in review
+- **`main`** — legacy GitHub Pages static site

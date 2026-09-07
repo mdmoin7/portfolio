@@ -1,5 +1,10 @@
 {
   "framework": "nextjs",
   "cleanUrls": true,
-  "trailingSlash": true
+  "trailingSlash": true,
+  "git": {
+    "deploymentEnabled": {
+      "vercel-deploy": true
+    }
+  }
 }

@@ -7,14 +7,17 @@ import { FadeIn } from "@/components/ui/primitives";
 
 export function ClientsSection() {
   return (
-    <SectionReveal className="bg-surface py-14">
+    <SectionReveal className="section-bg-muted py-16 md:py-20">
       <div className="wrap">
         <FadeIn>
-          <p className="mb-5 text-center text-[11px] font-extrabold uppercase tracking-[0.14em] text-muted">
+          <p className="mb-2 text-center font-mono text-[10px] font-extrabold uppercase tracking-[0.16em] text-blue-deep">
+            Trusted by
+          </p>
+          <p className="mb-8 text-center font-display text-[clamp(22px,2.5vw,32px)] font-semibold text-navy">
             {clients.label}
           </p>
         </FadeIn>
-        <Marquee items={[...clients.names, "+ Many more"]} />
+        <Marquee items={[...clients.names, "+ Many more"]} fade="muted" />
       </div>
     </SectionReveal>
   );
