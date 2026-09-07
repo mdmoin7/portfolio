@@ -72,9 +72,9 @@ See [`.env.example`](.env.example) for a starter template.
 
 The site exposes dynamic [`/sitemap.xml`](https://mohammadmoin.vercel.app/sitemap.xml) and [`/robots.txt`](https://mohammadmoin.vercel.app/robots.txt) for the Vercel domain.
 
-Verification uses the HTML file already in the repo:
+Verification uses the HTML file in `public/googleb3a4c134ed2bd9fd.html`. `cleanUrls` is disabled in `vercel.json` so Vercel serves the `.html` path without stripping the extension.
 
-`public/googleb3a4c134ed2bd9fd.html` → [https://mohammadmoin.vercel.app/googleb3a4c134ed2bd9fd.html](https://mohammadmoin.vercel.app/googleb3a4c134ed2bd9fd.html)
+Live URL: [https://mohammadmoin.vercel.app/googleb3a4c134ed2bd9fd.html](https://mohammadmoin.vercel.app/googleb3a4c134ed2bd9fd.html)
 
 ### 1. Add the property
 

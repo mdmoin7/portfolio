@@ -3,7 +3,7 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "installCommand": "npm ci",
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": true,
   "git": {
     "deploymentEnabled": {
