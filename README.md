@@ -1,74 +1,93 @@
 # Mohammad Moin — Portfolio
 
-Personal portfolio site for Mohammad Moin — Independent Software Engineering Consultant & Corporate Technology Trainer.
+Personal site for **Mohammad Moin** — Independent Software Engineering Consultant & Corporate Technology Trainer.
 
-**Production:** [https://mohammadmoin.vercel.app](https://mohammadmoin.vercel.app)
+**Live:** [mohammadmoin.vercel.app](https://mohammadmoin.vercel.app)
 
-## Stack
+## Overview
 
-- **Next.js 16** (App Router)
-- **React Three Fiber** + **Three.js** for the interactive hero scene
-- **Framer Motion** for intro, scroll, and section animations
-- **Tailwind CSS v4** for styling
-- **Resend** for the contact API
+Next.js portfolio with a cinematic homepage (3D intro gate, aurora hero, scroll-driven motion) and a shared subpage system for consulting, training, and engineering content.
 
-## Development
+| Area | Routes |
+|------|--------|
+| Homepage | `/` |
+| Services | `/about/`, `/training/`, `/consulting/`, `/contact/` |
+| Engineering | `/engineering/react/`, `/engineering/angular/`, `/engineering/react-native/`, `/engineering/frontend-architecture/`, `/engineering/terraform/` |
+| API | `/api/contact` |
+
+Static assets (CV, consultant profile PDFs) live under `public/assets/`.
+
+## Tech stack
+
+| Layer | Tools |
+|-------|-------|
+| Framework | Next.js 16 (App Router), React 19, TypeScript |
+| Styling | Tailwind CSS v4, Geist |
+| Motion | Framer Motion, Lenis smooth scroll |
+| 3D | React Three Fiber, Three.js, Drei |
+| Contact | Resend API, optional Cloudflare Turnstile |
+
+## Project structure
+
+```
+app/                 App Router pages and API routes
+components/          Homepage sections, hero/3D, subpage UI
+lib/                 Site content, SEO helpers, subpage data
+lib/subpages/        Typed content for inner pages
+public/              Favicon, robots, sitemap, PDFs
+vercel.json          Vercel project config (Next.js, branch deploy rules)
+```
+
+## Local development
+
+**Requirements:** Node.js 20+
 
 ```bash
 npm install
+cp .env.example .env.local   # optional; contact API needs Resend vars
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Production build
-
 ```bash
-npm run build
-npm start
+npm run lint      # ESLint (flat config)
+npm run build     # production build
+npm start         # serve production build locally
 ```
 
-## Deployment (Vercel)
+## Environment variables
 
-Production deploys from the **`vercel-deploy`** branch to **[mohammadmoin.vercel.app](https://mohammadmoin.vercel.app)**.
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `NEXT_PUBLIC_SITE_URL` | Yes (prod) | Canonical site URL — `https://mohammadmoin.vercel.app` |
+| `RESEND_API_KEY` | For contact | Resend API key |
+| `RESEND_FROM_EMAIL` | For contact | Verified sender address |
+| `CONTACT_TO_EMAIL` | For contact | Inbox for form submissions |
+| `TURNSTILE_SECRET_KEY` | No | Cloudflare Turnstile secret |
 
-### One-time Vercel setup
+See [`.env.example`](.env.example) for a starter template.
 
-The live site deploys the **Next.js App Router build** from `vercel-deploy` (`next build`). **Vercel Git integration** deploys on every push to that branch.
+## Deployment
 
-1. Import or open the existing project at [vercel.com/new](https://vercel.com/new) for `mdmoin7/portfolio`.
-2. **Settings → Git → Production Branch** → set to **`vercel-deploy`** (not `main`).
-3. **Settings → General → Framework Preset** → confirm **Next.js** (not “Other”).
-4. Confirm **Build Command** is `npm run build` and **Output Directory** is empty (Next.js default).
-5. Confirm the production domain is `mohammadmoin.vercel.app` (Project → Settings → Domains).
-6. Add environment variables in Vercel:
+Production deploys from **`vercel-deploy`** to [mohammadmoin.vercel.app](https://mohammadmoin.vercel.app) via **Vercel Git integration**. Pushes to that branch trigger a production build (`next build`). Deploys from `main` are disabled in `vercel.json`.
 
-| Variable | Value / description |
-|----------|---------------------|
-| `NEXT_PUBLIC_SITE_URL` | `https://mohammadmoin.vercel.app` |
-| `RESEND_API_KEY` | Resend API key |
-| `RESEND_FROM_EMAIL` | Verified sender address |
-| `CONTACT_TO_EMAIL` | Inbox for contact form submissions |
-| `TURNSTILE_SECRET_KEY` | Optional Cloudflare Turnstile secret |
-
-Copy `.env.example` to `.env.local` for local development:
+Before pushing:
 
 ```bash
-cp .env.example .env.local
+npm run lint && npm run build
 ```
 
-### Deploys
+<details>
+<summary>One-time Vercel setup</summary>
 
-Every push to **`vercel-deploy`** triggers a Vercel production deploy via Git integration. `vercel.json` disables automatic deploys from `main`.
+1. Import `mdmoin7/portfolio` at [vercel.com/new](https://vercel.com/new).
+2. **Settings → Git → Production Branch** → `vercel-deploy`.
+3. **Settings → General** → Framework: **Next.js**, build command `npm run build`, output directory empty.
+4. **Settings → Domains** → confirm `mohammadmoin.vercel.app`.
+5. Add the environment variables above under **Settings → Environment Variables**.
 
-Validate locally before pushing:
-
-```bash
-npm run lint
-npm run build
-```
-
-### Local Vercel CLI
+Local CLI (optional):
 
 ```bash
 npm i -g vercel
@@ -77,16 +96,22 @@ vercel link
 vercel pull
 ```
 
-## Branch workflow
+</details>
 
-- **`vercel-deploy`** — production branch (Vercel Git deploys)
-- **`feature/creative-redesign`** — redesign work in review
-- **`main`** — source history only (no GitHub Pages deploy)
+## Branches
+
+| Branch | Purpose |
+|--------|---------|
+| `vercel-deploy` | Production — Vercel deploys on push |
+| `main` | Default branch; no Vercel production deploy |
+| `feature/*` | Design experiments and palette variants |
 
 ## Legacy static build
 
-The old GitHub Pages static pipeline has been removed. To build static HTML locally:
+The original GitHub Pages static site (`dist/` via Python minification) is deprecated. It can still be built locally for reference:
 
 ```bash
 npm run build:static
 ```
+
+The live site runs the Next.js App Router build only.
