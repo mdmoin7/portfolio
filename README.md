@@ -65,7 +65,6 @@ npm start         # serve production build locally
 | `RESEND_FROM_EMAIL` | For contact | Verified sender address |
 | `CONTACT_TO_EMAIL` | For contact | Inbox for form submissions |
 | `TURNSTILE_SECRET_KEY` | No | Cloudflare Turnstile secret |
-| `GOOGLE_SITE_VERIFICATION` | For Search Console | Verification code from Google (HTML tag method) |
 
 See [`.env.example`](.env.example) for a starter template.
 
@@ -73,23 +72,21 @@ See [`.env.example`](.env.example) for a starter template.
 
 The site exposes dynamic [`/sitemap.xml`](https://mohammadmoin.vercel.app/sitemap.xml) and [`/robots.txt`](https://mohammadmoin.vercel.app/robots.txt) for the Vercel domain.
 
+Verification uses the HTML file already in the repo:
+
+`public/googleb3a4c134ed2bd9fd.html` → [https://mohammadmoin.vercel.app/googleb3a4c134ed2bd9fd.html](https://mohammadmoin.vercel.app/googleb3a4c134ed2bd9fd.html)
+
 ### 1. Add the property
 
 1. Open [Google Search Console](https://search.google.com/search-console).
 2. **Add property** → choose **URL prefix**.
 3. Enter `https://mohammadmoin.vercel.app`.
 
-### 2. Verify ownership (HTML tag)
+### 2. Verify ownership (HTML file)
 
-1. Pick **HTML tag** verification.
-2. Copy only the `content` value from the meta tag Google gives you, for example:
-   `google-site-verification=abc123...` → use `abc123...`
-3. Add it in Vercel → **Settings → Environment Variables**:
-   - Name: `GOOGLE_SITE_VERIFICATION`
-   - Value: the copied code
-   - Environment: Production
-4. Redeploy (push to `vercel-deploy` or redeploy from the Vercel dashboard).
-5. Return to Search Console and click **Verify**.
+1. Pick **HTML file** verification.
+2. Google expects the file `googleb3a4c134ed2bd9fd.html` — it is already deployed from `public/`.
+3. Confirm the live URL returns the verification string, then click **Verify** in Search Console.
 
 ### 3. Submit the sitemap
 

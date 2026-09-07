@@ -46,13 +46,6 @@ export const metadata: Metadata = {
     images: [PROFILE_IMAGE],
   },
   icons: { icon: "/favicon.svg" },
-  ...(process.env.GOOGLE_SITE_VERIFICATION
-    ? {
-        verification: {
-          google: process.env.GOOGLE_SITE_VERIFICATION,
-        },
-      }
-    : {}),
 };
 
 export default function RootLayout({
