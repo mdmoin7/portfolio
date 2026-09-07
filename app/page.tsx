@@ -21,7 +21,7 @@ export default function HomePage() {
       {!entered ? <IntroGate3D onEnter={onEnter} /> : null}
       <Navbar />
       <main>
-        <HeroSection />
+        <HeroSection play={entered} />
         <WhatIDoSection />
         <ProjectsSection />
         <PillarsSection />

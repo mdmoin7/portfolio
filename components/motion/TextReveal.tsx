@@ -10,16 +10,20 @@ export function TextReveal({
   className,
   as: Tag = "h2",
   delay = 0,
+  play = false,
 }: {
   text: string;
   className?: string;
   as?: "h1" | "h2" | "h3" | "p" | "span";
   delay?: number;
+  /** When true, animates immediately instead of waiting for scroll into view */
+  play?: boolean;
 }) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const reducedMotion = useReducedMotion();
   const words = text.split(" ");
+  const shouldAnimate = play || inView;
 
   if (reducedMotion) {
     return (
@@ -36,7 +40,7 @@ export function TextReveal({
           key={`${word}-${index}`}
           initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
           animate={
-            inView
+            shouldAnimate
               ? { opacity: 1, y: 0, filter: "blur(0px)" }
               : { opacity: 0, y: 18, filter: "blur(8px)" }
           }
