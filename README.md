@@ -34,15 +34,7 @@ Production deployments run from the **`vercel-deploy`** branch.
 
 1. **Connect the repo in Vercel** (if not already linked): Import `mdmoin7/portfolio` from GitHub.
 2. **Set the production branch**: Project → Settings → Git → **Production Branch** → `vercel-deploy`.
-3. **Add GitHub secrets** (Settings → Secrets and variables → Actions) for the CI deploy job:
-   - `VERCEL_TOKEN` — [Vercel account token](https://vercel.com/account/tokens)
-   - `VERCEL_ORG_ID` — team/personal ID from `.vercel/project.json` after linking locally, or from Vercel project settings
-   - `VERCEL_PROJECT_ID` — project ID from `.vercel/project.json` or Vercel project settings
-4. **Optional**: set repository variable `NEXT_PUBLIC_SITE_URL` to your production URL.
-
-Every push to `vercel-deploy` runs **`.github/workflows/vercel-deploy.yml`** (lint → build → deploy). Vercel Git integration also deploys when the project is linked to that branch.
-
-Environment variables for the contact API:
+3. **Add env vars in Vercel** (Project → Settings → Environment Variables) for the contact API:
 
 | Variable | Description |
 |----------|-------------|
@@ -51,6 +43,10 @@ Environment variables for the contact API:
 | `CONTACT_TO_EMAIL` | Inbox for contact form submissions |
 | `TURNSTILE_SECRET_KEY` | Optional Cloudflare Turnstile secret |
 | `NEXT_PUBLIC_SITE_URL` | Public site URL (e.g. `https://your-domain.vercel.app`) |
+
+4. **Optional**: set repository variable `NEXT_PUBLIC_SITE_URL` in GitHub for the CI build step.
+
+Every push to `vercel-deploy` runs **`.github/workflows/vercel-deploy.yml`** (lint + build). When the repo is linked in Vercel with production branch `vercel-deploy`, Vercel also builds and deploys automatically on each push.
 
 ### Legacy static build (GitHub Pages)
 
