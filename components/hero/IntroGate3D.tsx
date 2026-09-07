@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { IntroRoundPortrait } from "@/components/hero/IntroRoundPortrait";
+import { IntroThemeVectors } from "@/components/hero/IntroThemeVectors";
 import { BlurText } from "@/components/motion/BlurText";
 import { AuroraBackground } from "@/components/motion/AuroraBackground";
 import { CinematicOverlay } from "@/components/motion/CinematicOverlay";
@@ -77,6 +78,7 @@ export function IntroGate3D({ onEnter }: { onEnter: () => void }) {
           aria-label="Portfolio introduction"
         >
           <ParticleScene className="absolute inset-0" intensity="intro" />
+          <IntroThemeVectors />
           <AuroraBackground variant="hero" className="opacity-60" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(5,11,22,0.68)_74%)]" />
           <CinematicOverlay letterbox grain vignette sweep />
