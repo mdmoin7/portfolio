@@ -1,0 +1,22 @@
+# Legacy GitHub Pages static site (repo root)
+index.html
+about/
+training/
+consulting/
+contact/
+engineering/
+styles.css
+main.js
+mobile-nav.js
+contact-entry.js
+dist/
+scripts/build.py
+sitemap.xml
+
+# Legacy static HTML mirrored under public/ (App Router replaces these)
+public/about/
+public/training/
+public/consulting/
+public/contact/index.html
+public/engineering/
+public/subpage-theme.css

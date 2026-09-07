@@ -34,10 +34,14 @@ Production deploys from the **`vercel-deploy`** branch to **[mohammadmoin.vercel
 
 ### One-time Vercel setup
 
-1. Import `mdmoin7/portfolio` at [vercel.com/new](https://vercel.com/new).
-2. Set **Production Branch** to `vercel-deploy` (Project → Settings → Git).
-3. Confirm the production domain is `mohammadmoin.vercel.app` (Project → Settings → Domains).
-4. Add environment variables in Vercel:
+The live site currently serves the **legacy static build from `main`** (`outputDirectory: dist`). Production must deploy from **`vercel-deploy`**, which runs `next build`.
+
+1. Import or open the existing project at [vercel.com/new](https://vercel.com/new) for `mdmoin7/portfolio`.
+2. **Settings → Git → Production Branch** → set to **`vercel-deploy`** (not `main`).
+3. **Settings → General → Framework Preset** → confirm **Next.js** (not “Other”).
+4. Confirm **Build Command** is `npm run build` and **Output Directory** is empty (Next.js default).
+5. Confirm the production domain is `mohammadmoin.vercel.app` (Project → Settings → Domains).
+6. Add environment variables in Vercel:
 
 | Variable | Value / description |
 |----------|---------------------|
@@ -47,13 +51,28 @@ Production deploys from the **`vercel-deploy`** branch to **[mohammadmoin.vercel
 | `CONTACT_TO_EMAIL` | Inbox for contact form submissions |
 | `TURNSTILE_SECRET_KEY` | Optional Cloudflare Turnstile secret |
 
-5. Add GitHub Actions secrets (Repository → Settings → Secrets → Actions):
+7. Add GitHub Actions secrets (Repository → Settings → Secrets → Actions):
 
 | Secret | Source |
 |--------|--------|
 | `VERCEL_TOKEN` | [vercel.com/account/tokens](https://vercel.com/account/tokens) |
 | `VERCEL_ORG_ID` | `.vercel/project.json` after `vercel link`, or Vercel project settings |
 | `VERCEL_PROJECT_ID` | `.vercel/project.json` after `vercel link`, or Vercel project settings |
+
+After linking locally, copy IDs from `.vercel/project.json`:
+
+```bash
+npm i -g vercel
+vercel login
+vercel link
+cat .vercel/project.json
+```
+
+Copy `.env.example` to `.env.local` for local development:
+
+```bash
+cp .env.example .env.local
+```
 
 ### CI/CD
 
