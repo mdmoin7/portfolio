@@ -3,64 +3,51 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { experience } from "@/lib/content";
-import {
-  SectionHeading,
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/ui/primitives";
+import { SectionReveal } from "@/components/motion/SectionReveal";
+import { TextReveal } from "@/components/motion/TextReveal";
+import { BentoCell, BentoGrid } from "@/components/ui/BentoGrid";
+import { FadeIn } from "@/components/ui/primitives";
 
 export function ExperienceSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start 80%", "end 20%"],
+    target: timelineRef,
+    offset: ["start 80%", "end 30%"],
   });
   const lineScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
 
   return (
-    <section id="experience" className="border-b border-line bg-white py-16">
+    <SectionReveal id="experience" className="border-b border-line bg-surface">
       <div className="wrap">
-        <SectionHeading
-          kicker={experience.kicker}
-          title={experience.title}
-          notes={experience.notes}
-        />
-        <div ref={containerRef} className="relative">
+        <FadeIn>
+          <div className="kicker mb-3">{experience.kicker}</div>
+          <TextReveal as="h2" text={experience.title} className="section-title max-w-3xl" />
+          <p className="mt-4 max-w-2xl text-muted">{experience.subtitle}</p>
+        </FadeIn>
+
+        <div ref={timelineRef} className="relative mt-10">
           <motion.div
             style={{ scaleY: lineScale }}
-            className="absolute bottom-0 left-[18px] top-0 hidden w-px origin-top bg-gradient-to-b from-blue via-blue-glow to-gold md:block"
+            className="absolute bottom-0 left-4 top-0 hidden w-px origin-top bg-gradient-to-b from-blue via-blue-glow to-gold md:block"
           />
-          <StaggerContainer className="space-y-6">
-            {experience.items.map((item) => (
-              <StaggerItem key={item.title}>
-                <article className="grid gap-4 md:grid-cols-[36px_120px_minmax(0,1fr)] md:items-start">
-                  <div className="hidden md:flex md:justify-center">
-                    <span className="relative z-10 mt-2 grid h-4 w-4 place-items-center rounded-full border-2 border-blue bg-white">
-                      <span className="h-1.5 w-1.5 rounded-full bg-blue" />
-                    </span>
-                  </div>
-                  <div className="font-mono text-[11px] font-extrabold uppercase tracking-[0.08em] text-muted">
-                    <span className="block text-navy">{item.period[0]}</span>
-                    <span className="block">{item.period[1]}</span>
-                  </div>
-                  <motion.div
-                    whileHover={{ x: 4 }}
-                    className="glass-card p-5"
-                  >
-                    <span className="rounded-full border border-blue/15 bg-blue-soft px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.08em] text-blue-deep">
-                      {item.tag}
-                    </span>
-                    <h3 className="mt-3 font-display text-xl font-semibold text-navy">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-muted">{item.description}</p>
-                  </motion.div>
-                </article>
-              </StaggerItem>
+          <BentoGrid className="md:grid-cols-2">
+            {experience.items.map((item, index) => (
+              <BentoCell key={item.title} span={index === 1 ? "2" : "1"}>
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="rounded-full border border-blue/15 bg-blue-soft px-3 py-1 text-[10px] font-extrabold uppercase tracking-[0.08em] text-blue-deep">
+                    {item.tag}
+                  </span>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-[0.08em] text-muted">
+                    {item.period[0]} — {item.period[1]}
+                  </span>
+                </div>
+                <h3 className="mt-4 font-display text-xl font-semibold text-navy">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{item.description}</p>
+              </BentoCell>
             ))}
-          </StaggerContainer>
+          </BentoGrid>
         </div>
       </div>
-    </section>
+    </SectionReveal>
   );
 }

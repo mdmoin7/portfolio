@@ -1,5 +1,7 @@
 "use client";
 
+import { useCallback, useState } from "react";
+import { IntroGate3D } from "@/components/hero/IntroGate3D";
 import { HeroSection } from "@/components/hero/HeroSection";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -11,16 +13,20 @@ import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { WhatIDoSection } from "@/components/sections/WhatIDoSection";
 
 export default function HomePage() {
+  const [entered, setEntered] = useState(false);
+  const onEnter = useCallback(() => setEntered(true), []);
+
   return (
     <>
+      {!entered ? <IntroGate3D onEnter={onEnter} /> : null}
       <Navbar />
       <main>
         <HeroSection />
-        <AboutSection />
         <WhatIDoSection />
-        <PillarsSection />
         <ProjectsSection />
+        <PillarsSection />
         <ExperienceSection />
+        <AboutSection />
         <ClientsSection />
       </main>
       <Footer />

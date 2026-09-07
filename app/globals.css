@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
 @theme {
-  /* Midnight Executive + blue/gold accents */
   --color-navy: #0a1628;
   --color-navy-2: #101d35;
   --color-blue: #2454d8;
@@ -16,15 +15,24 @@
   --color-surface: #f7f9fc;
   --color-paper: #ffffff;
   --color-hero-dark: #050b16;
-  --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-playfair), Georgia, serif;
+  --font-body: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
   --radius-card: 16px;
 }
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
   }
 
   body {
@@ -45,12 +53,10 @@
 
   .kicker {
     @apply inline-flex font-mono text-[10px] font-extrabold uppercase tracking-[0.12em] text-blue-deep;
-    font-family: var(--font-mono);
   }
 
   .section-title {
-    @apply font-display text-[clamp(28px,3vw,44px)] font-semibold leading-[1.08] tracking-[-0.03em] text-navy;
-    font-family: var(--font-display);
+    @apply font-display text-[clamp(28px,3.2vw,46px)] font-semibold leading-[1.06] tracking-[-0.03em] text-navy;
   }
 
   .glass-nav {
@@ -58,7 +64,7 @@
   }
 
   .glass-card {
-    @apply rounded-[var(--radius-card)] border border-white/60 bg-white/70 shadow-[0_20px_50px_-36px_rgba(10,22,40,0.35)] backdrop-blur-md;
+    @apply rounded-[var(--radius-card)] border border-line bg-white/80 shadow-[0_20px_50px_-36px_rgba(10,22,40,0.3)] backdrop-blur-sm;
   }
 
   .glass-card-dark {
@@ -77,33 +83,12 @@
     @apply bg-gradient-to-r from-blue via-blue-glow to-gold bg-clip-text text-transparent;
   }
 
-  .gold-accent {
-    @apply text-gold;
-  }
-
-  .aurora-blob {
-    position: absolute;
-    border-radius: 9999px;
-    filter: blur(80px);
-    opacity: 0.55;
-    animation: aurora-drift 18s ease-in-out infinite;
+  .section-shell {
+    @apply relative overflow-hidden py-20 md:py-24;
   }
 
   .marquee-track {
     animation: marquee-scroll 28s linear infinite;
-  }
-}
-
-@keyframes aurora-drift {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(4%, -6%) scale(1.06);
-  }
-  66% {
-    transform: translate(-5%, 4%) scale(0.94);
   }
 }
 
@@ -117,11 +102,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  .aurora-blob,
   .marquee-track {
     animation: none !important;
   }

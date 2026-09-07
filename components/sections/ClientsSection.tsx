@@ -2,20 +2,20 @@
 
 import { clients } from "@/lib/content";
 import { Marquee } from "@/components/motion/Marquee";
-import { LineReveal } from "@/components/motion/TextReveal";
+import { SectionReveal } from "@/components/motion/SectionReveal";
+import { FadeIn } from "@/components/ui/primitives";
 
 export function ClientsSection() {
   return (
-    <section className="border-b border-line bg-white py-12">
+    <SectionReveal className="bg-surface py-14">
       <div className="wrap">
-        <LineReveal>
-          <p className="mb-5 text-center text-[11px] font-extrabold uppercase tracking-[0.12em] text-muted">
+        <FadeIn>
+          <p className="mb-5 text-center text-[11px] font-extrabold uppercase tracking-[0.14em] text-muted">
             {clients.label}
           </p>
-        </LineReveal>
-        <Marquee items={clients.names.filter((n) => !n.startsWith("+"))} />
-        <p className="mt-4 text-center text-xs font-semibold text-blue-deep">+ Many more</p>
+        </FadeIn>
+        <Marquee items={[...clients.names, "+ Many more"]} />
       </div>
-    </section>
+    </SectionReveal>
   );
 }
