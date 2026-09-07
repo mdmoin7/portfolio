@@ -40,11 +40,11 @@ export function AboutSection() {
           </FadeIn>
           <LineReveal delay={0.12}>
             <aside className="glass-card relative overflow-hidden p-6">
-              <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-gold/20 blur-2xl" />
+              <div className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-cyan/25 blur-2xl" />
               <p className="relative font-display text-[clamp(22px,2.4vw,30px)] font-semibold leading-snug text-navy">
                 “{about.quote}”
               </p>
-              <span className="mt-4 block text-[10px] font-bold uppercase tracking-[0.12em] text-gold">
+              <span className="mt-4 block text-[10px] font-bold uppercase tracking-[0.12em] text-cyan">
                 Training philosophy
               </span>
             </aside>

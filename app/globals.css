@@ -1,21 +1,23 @@
 @import "tailwindcss";
 
 @theme {
-  /* Midnight Executive + blue/gold accents */
-  --color-navy: #0a1628;
-  --color-navy-2: #101d35;
-  --color-blue: #2454d8;
-  --color-blue-deep: #173eae;
-  --color-blue-soft: #eef3ff;
-  --color-blue-glow: #58a6ff;
-  --color-gold: #c9a227;
-  --color-gold-soft: #f5edcf;
-  --color-ink: #1a2332;
-  --color-muted: #66738a;
-  --color-line: #e3e8f1;
-  --color-surface: #f7f9fc;
+  /* Obsidian Aurora — near-black + violet/cyan cinematic accents */
+  --color-navy: #08080f;
+  --color-navy-2: #101018;
+  --color-blue: #8b5cf6;
+  --color-blue-deep: #7c3aed;
+  --color-blue-soft: #ede9fe;
+  --color-blue-glow: #22d3ee;
+  --color-gold: #22d3ee;
+  --color-gold-soft: #cffafe;
+  --color-violet: #a855f7;
+  --color-cyan: #22d3ee;
+  --color-ink: #18181b;
+  --color-muted: #71717a;
+  --color-line: #e4e4e7;
+  --color-surface: #f8f7ff;
   --color-paper: #ffffff;
-  --color-hero-dark: #050b16;
+  --color-hero-dark: #030308;
   --font-display: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
@@ -34,7 +36,7 @@
   }
 
   ::selection {
-    background: color-mix(in srgb, var(--color-blue) 20%, white);
+    background: color-mix(in srgb, var(--color-violet) 24%, white);
   }
 }
 
@@ -58,35 +60,35 @@
   }
 
   .glass-card {
-    @apply rounded-[var(--radius-card)] border border-white/60 bg-white/70 shadow-[0_20px_50px_-36px_rgba(10,22,40,0.35)] backdrop-blur-md;
+    @apply rounded-[var(--radius-card)] border border-violet/10 bg-white/75 shadow-[0_20px_50px_-36px_rgba(88,28,135,0.18)] backdrop-blur-md;
   }
 
   .glass-card-dark {
-    @apply rounded-[var(--radius-card)] border border-white/10 bg-white/[0.04] shadow-[0_24px_60px_-40px_rgba(0,0,0,0.65)] backdrop-blur-xl;
+    @apply rounded-[var(--radius-card)] border border-white/10 bg-white/[0.04] shadow-[0_24px_60px_-40px_rgba(0,0,0,0.72)] backdrop-blur-xl;
   }
 
   .hero-gradient {
     background:
-      radial-gradient(ellipse 80% 60% at 15% 10%, rgba(36, 84, 216, 0.22), transparent 55%),
-      radial-gradient(ellipse 60% 50% at 85% 0%, rgba(201, 162, 39, 0.12), transparent 50%),
-      radial-gradient(ellipse 50% 40% at 50% 100%, rgba(88, 166, 255, 0.08), transparent 60%),
-      linear-gradient(160deg, #050b16 0%, #0a1628 42%, #101d35 100%);
+      radial-gradient(ellipse 85% 65% at 12% 8%, rgba(139, 92, 246, 0.28), transparent 55%),
+      radial-gradient(ellipse 70% 55% at 88% 2%, rgba(34, 211, 238, 0.18), transparent 52%),
+      radial-gradient(ellipse 55% 45% at 55% 100%, rgba(168, 85, 247, 0.14), transparent 58%),
+      linear-gradient(165deg, #030308 0%, #08080f 40%, #101018 100%);
   }
 
   .accent-gradient-text {
-    @apply bg-gradient-to-r from-blue via-blue-glow to-gold bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-violet via-cyan to-blue bg-clip-text text-transparent;
   }
 
   .gold-accent {
-    @apply text-gold;
+    @apply text-cyan;
   }
 
   .aurora-blob {
     position: absolute;
     border-radius: 9999px;
-    filter: blur(80px);
-    opacity: 0.55;
-    animation: aurora-drift 18s ease-in-out infinite;
+    filter: blur(88px);
+    opacity: 0.6;
+    animation: aurora-drift 16s ease-in-out infinite;
   }
 
   .marquee-track {
@@ -100,10 +102,10 @@
     transform: translate(0, 0) scale(1);
   }
   33% {
-    transform: translate(4%, -6%) scale(1.06);
+    transform: translate(5%, -7%) scale(1.08);
   }
   66% {
-    transform: translate(-5%, 4%) scale(0.94);
+    transform: translate(-6%, 5%) scale(0.92);
   }
 }
 

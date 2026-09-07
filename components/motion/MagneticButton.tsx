@@ -36,11 +36,11 @@ export function MagneticButton({
 
   const variants = {
     primary:
-      "border border-blue/30 bg-blue text-white shadow-[0_16px_40px_-20px_rgba(36,84,216,0.85)] hover:bg-blue-deep",
+      "border border-violet/35 bg-gradient-to-r from-violet to-blue-deep text-white shadow-[0_16px_40px_-18px_rgba(139,92,246,0.75)] hover:from-violet hover:to-violet",
     glass:
-      "border border-white/20 bg-white/10 text-white backdrop-blur-md hover:border-white/35 hover:bg-white/15",
+      "border border-cyan/25 bg-white/8 text-white backdrop-blur-md hover:border-cyan/40 hover:bg-cyan/10",
     outline:
-      "border border-line bg-white text-navy hover:border-blue/30 hover:bg-blue-soft",
+      "border border-line bg-white text-navy hover:border-violet/30 hover:bg-blue-soft",
   };
 
   return (

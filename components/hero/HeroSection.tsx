@@ -56,11 +56,11 @@ function HeroMockup() {
           </p>
         ))}
         <p className="text-white/90">
-          <span className="font-bold text-gold">✦</span> Building products. Teaching engineers.
+          <span className="font-bold text-cyan">✦</span> Building products. Teaching engineers.
         </p>
       </div>
-      <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-blue/20 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-10 -left-6 h-28 w-28 rounded-full bg-gold/15 blur-3xl" />
+      <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-violet/25 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-10 -left-6 h-28 w-28 rounded-full bg-cyan/20 blur-3xl" />
     </div>
   );
 }
@@ -142,7 +142,7 @@ export function HeroSection() {
                 transition={{ delay: 0.65, duration: 0.5 }}
                 className="relative mx-auto md:mx-0"
               >
-                <div className="absolute inset-0 rounded-full bg-blue/25 blur-2xl" />
+                <div className="absolute inset-0 rounded-full bg-violet/30 blur-2xl" />
                 <Image
                   src={hero.profileImage}
                   alt={hero.profileAlt}
@@ -223,7 +223,7 @@ export function HeroSection() {
           >
             <HeroMockup />
             <div className="glass-card-dark p-5">
-              <div className="mb-4 text-[10px] font-bold uppercase tracking-[0.12em] text-gold">
+              <div className="mb-4 text-[10px] font-bold uppercase tracking-[0.12em] text-cyan">
                 Key Focus Areas
               </div>
               <div className="grid gap-3 sm:grid-cols-2">

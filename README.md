@@ -46,6 +46,15 @@ Legacy static build (GitHub Pages):
 npm run build:static
 ```
 
-## Branch workflow
+## Design branches (compare side-by-side)
 
-The creative redesign lives on `feature/creative-redesign` for review before merging to `main`.
+| Branch | Palette | Vibe |
+|--------|---------|------|
+| `feature/creative-redesign` | Midnight Executive — navy + electric blue + gold | Consultant/trustworthy, editorial hybrid |
+| `feature/palette-aurora` | Obsidian Aurora — near-black + violet/cyan | Cinematic 21st.dev, high contrast |
+
+```bash
+git checkout feature/creative-redesign && npm run dev   # Midnight Executive
+git checkout feature/palette-aurora && npm run dev      # Obsidian Aurora
+```
+

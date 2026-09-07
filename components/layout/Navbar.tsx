@@ -45,12 +45,12 @@ export function Navbar() {
         className={cn(
           "relative border-b backdrop-blur-xl transition-colors duration-300",
           onHero
-            ? "border-white/10 bg-[rgba(5,11,22,0.55)]"
+            ? "border-white/10 bg-[rgba(3,3,8,0.58)]"
             : "glass-nav border-line bg-white/85",
         )}
       >
         <motion.div
-          className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-gradient-to-r from-blue via-blue-glow to-gold"
+          className="absolute inset-x-0 bottom-0 h-0.5 origin-left bg-gradient-to-r from-violet via-cyan to-blue"
           style={{ scaleX }}
         />
         <div className="wrap flex h-[70px] items-center gap-8">

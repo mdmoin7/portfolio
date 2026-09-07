@@ -15,7 +15,7 @@ function ProjectVisual({ type }: { type: "dashboard" | "shop" | "consulting" }) 
         <div className="mb-3 h-3 rounded bg-white" />
         <div className="mb-2 h-2 rounded bg-white/80" />
         <div className="mb-4 h-2 w-2/3 rounded bg-white/80" />
-        <div className="h-24 rounded-lg bg-[linear-gradient(135deg,#2454d8,#7aa2ff)] opacity-80" />
+        <div className="h-24 rounded-lg bg-[linear-gradient(135deg,#8b5cf6,#22d3ee)] opacity-85" />
       </div>
     );
   }
@@ -39,7 +39,7 @@ function ProjectVisual({ type }: { type: "dashboard" | "shop" | "consulting" }) 
       <br />
       Consulting
       <br />
-      <strong className="mt-2 block text-gold">Delivery · Teams · Systems</strong>
+      <strong className="mt-2 block text-cyan">Delivery · Teams · Systems</strong>
     </div>
   );
 }
