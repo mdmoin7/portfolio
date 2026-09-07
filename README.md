@@ -34,7 +34,7 @@ Production deploys from the **`vercel-deploy`** branch to **[mohammadmoin.vercel
 
 ### One-time Vercel setup
 
-The live site deploys the **Next.js App Router build** from `vercel-deploy` (`next build`). Vercel Git integration deploys on push; GitHub Actions can also deploy via the prebuilt CLI flow when secrets are configured.
+The live site deploys the **Next.js App Router build** from `vercel-deploy` (`next build`). **Vercel Git integration** deploys on every push to that branch.
 
 1. Import or open the existing project at [vercel.com/new](https://vercel.com/new) for `mdmoin7/portfolio`.
 2. **Settings → Git → Production Branch** → set to **`vercel-deploy`** (not `main`).
@@ -51,37 +51,22 @@ The live site deploys the **Next.js App Router build** from `vercel-deploy` (`ne
 | `CONTACT_TO_EMAIL` | Inbox for contact form submissions |
 | `TURNSTILE_SECRET_KEY` | Optional Cloudflare Turnstile secret |
 
-7. Add GitHub Actions secrets (Repository → Settings → Secrets → Actions):
-
-| Secret | Value / source |
-|--------|----------------|
-| `VERCEL_TOKEN` | Create at [vercel.com/account/tokens](https://vercel.com/account/tokens) |
-| `VERCEL_ORG_ID` | `team_WCgso2oOdgLJ3wW413Ar54Z1` (from `vercel link`) |
-| `VERCEL_PROJECT_ID` | `prj_VbGtIxIpdFABBcadyFTrIcWdMIh2` (from `vercel link`) |
-
-After linking locally, copy IDs from `.vercel/project.json`:
-
-```bash
-npm i -g vercel
-vercel login
-vercel link
-cat .vercel/project.json
-```
-
 Copy `.env.example` to `.env.local` for local development:
 
 ```bash
 cp .env.example .env.local
 ```
 
-### CI/CD
+### Deploys
 
-Every push to `vercel-deploy` runs [`.github/workflows/vercel-deploy.yml`](.github/workflows/vercel-deploy.yml):
+Every push to **`vercel-deploy`** triggers a Vercel production deploy via Git integration. `vercel.json` disables automatic deploys from `main`.
 
-1. **Lint & build** — validates the Next.js app
-2. **Deploy** — `vercel pull` → `vercel build --prod` → `vercel deploy --prebuilt --prod`
+Validate locally before pushing:
 
-`vercel.json` disables automatic deploys from `main`; only `vercel-deploy` triggers production.
+```bash
+npm run lint
+npm run build
+```
 
 ### Local Vercel CLI
 
@@ -94,7 +79,7 @@ vercel pull
 
 ## Branch workflow
 
-- **`vercel-deploy`** — production branch (Vercel + GitHub Actions)
+- **`vercel-deploy`** — production branch (Vercel Git deploys)
 - **`feature/creative-redesign`** — redesign work in review
 - **`main`** — source history only (no GitHub Pages deploy)
 
