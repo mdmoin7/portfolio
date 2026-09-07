@@ -2,7 +2,8 @@ import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
 const ALLOWED_ORIGINS = [
-  "https://mdmoin7.github.io",
+  "https://mohammadmoin.vercel.app",
+  "http://localhost:3000",
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, ""),
 ].filter(Boolean) as string[];
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";

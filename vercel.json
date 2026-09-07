@@ -4,7 +4,8 @@
   "trailingSlash": true,
   "git": {
     "deploymentEnabled": {
-      "vercel-deploy": true
+      "vercel-deploy": true,
+      "main": false
     }
   }
 }

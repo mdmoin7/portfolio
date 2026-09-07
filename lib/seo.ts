@@ -1,5 +1,5 @@
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://mdmoin7.github.io/portfolio";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://mohammadmoin.vercel.app";
 
 export const PROFILE_IMAGE =
   "https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@b4e402c3adbefe8714c71c5917299d758f86ee9a/assets/profile.webp";

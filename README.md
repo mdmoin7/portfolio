@@ -2,6 +2,8 @@
 
 Personal portfolio site for Mohammad Moin — Independent Software Engineering Consultant & Corporate Technology Trainer.
 
+**Production:** [https://mohammadmoin.vercel.app](https://mohammadmoin.vercel.app)
+
 ## Stack
 
 - **Next.js 16** (App Router)
@@ -26,38 +28,61 @@ npm run build
 npm start
 ```
 
-## Deployment
+## Deployment (Vercel)
 
-### Vercel (`vercel-deploy` branch)
+Production deploys from the **`vercel-deploy`** branch to **[mohammadmoin.vercel.app](https://mohammadmoin.vercel.app)**.
 
-Production deployments run from the **`vercel-deploy`** branch.
+### One-time Vercel setup
 
-1. **Connect the repo in Vercel** (if not already linked): Import `mdmoin7/portfolio` from GitHub.
-2. **Set the production branch**: Project → Settings → Git → **Production Branch** → `vercel-deploy`.
-3. **Add env vars in Vercel** (Project → Settings → Environment Variables) for the contact API:
+1. Import `mdmoin7/portfolio` at [vercel.com/new](https://vercel.com/new).
+2. Set **Production Branch** to `vercel-deploy` (Project → Settings → Git).
+3. Confirm the production domain is `mohammadmoin.vercel.app` (Project → Settings → Domains).
+4. Add environment variables in Vercel:
 
-| Variable | Description |
-|----------|-------------|
+| Variable | Value / description |
+|----------|---------------------|
+| `NEXT_PUBLIC_SITE_URL` | `https://mohammadmoin.vercel.app` |
 | `RESEND_API_KEY` | Resend API key |
 | `RESEND_FROM_EMAIL` | Verified sender address |
 | `CONTACT_TO_EMAIL` | Inbox for contact form submissions |
 | `TURNSTILE_SECRET_KEY` | Optional Cloudflare Turnstile secret |
-| `NEXT_PUBLIC_SITE_URL` | Public site URL (e.g. `https://your-domain.vercel.app`) |
 
-4. **Optional**: set repository variable `NEXT_PUBLIC_SITE_URL` in GitHub for the CI build step.
+5. Add GitHub Actions secrets (Repository → Settings → Secrets → Actions):
 
-Every push to `vercel-deploy` runs **`.github/workflows/vercel-deploy.yml`** (lint + build). When the repo is linked in Vercel with production branch `vercel-deploy`, Vercel also builds and deploys automatically on each push.
+| Secret | Source |
+|--------|--------|
+| `VERCEL_TOKEN` | [vercel.com/account/tokens](https://vercel.com/account/tokens) |
+| `VERCEL_ORG_ID` | `.vercel/project.json` after `vercel link`, or Vercel project settings |
+| `VERCEL_PROJECT_ID` | `.vercel/project.json` after `vercel link`, or Vercel project settings |
 
-### Legacy static build (GitHub Pages)
+### CI/CD
 
-Static authority subpages in the repo root are used only by the legacy GitHub Pages pipeline on `main`:
+Every push to `vercel-deploy` runs [`.github/workflows/vercel-deploy.yml`](.github/workflows/vercel-deploy.yml):
+
+1. **Lint & build** — validates the Next.js app
+2. **Deploy** — `vercel pull` → `vercel build --prod` → `vercel deploy --prebuilt --prod`
+
+`vercel.json` disables automatic deploys from `main`; only `vercel-deploy` triggers production.
+
+### Local Vercel CLI
 
 ```bash
-npm run build:static
+npm i -g vercel
+vercel login
+vercel link
+vercel pull
 ```
 
 ## Branch workflow
 
-- **`vercel-deploy`** — Vercel production branch (Next.js app + inner pages)
-- **`feature/creative-redesign`** — creative redesign work in review
-- **`main`** — legacy GitHub Pages static site
+- **`vercel-deploy`** — production branch (Vercel + GitHub Actions)
+- **`feature/creative-redesign`** — redesign work in review
+- **`main`** — source history only (no GitHub Pages deploy)
+
+## Legacy static build
+
+The old GitHub Pages static pipeline has been removed. To build static HTML locally:
+
+```bash
+npm run build:static
+```

@@ -1,5 +1,7 @@
 "use client";
 
+import { SITE_URL } from "@/lib/seo";
+
 const vcard = [
   "BEGIN:VCARD",
   "VERSION:3.0",
@@ -9,7 +11,7 @@ const vcard = [
   "TEL;TYPE=CELL:+919886145843",
   "EMAIL;TYPE=INTERNET:mohammad.nicoll@gmail.com",
   "NOTE:Corporate Technology Trainer & Consultant",
-  "URL:https://mdmoin7.github.io/portfolio/",
+  `URL:${SITE_URL}/`,
   "URL;type=LinkedIn:https://www.linkedin.com/in/mohammadmoin/",
   "URL;type=GitHub:https://github.com/mdmoin7",
   "END:VCARD",
@@ -122,7 +124,7 @@ export function ContactCard() {
         </section>
 
         <footer className="px-7 pb-7 text-center text-[11px] text-muted md:px-10">
-          Mohammad Moin · mdmoin7.github.io/portfolio
+          Mohammad Moin · mohammadmoin.vercel.app
         </footer>
       </main>
     </div>
