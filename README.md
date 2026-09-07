@@ -1,25 +1,51 @@
 # Mohammad Moin — Portfolio
 
-Personal portfolio site, auto-deployed to GitHub Pages via GitHub Actions on every push to `main`.
+Personal portfolio site for Mohammad Moin — Independent Software Engineering Consultant & Corporate Technology Trainer.
 
-## One-time setup (do this once per repo)
+## Stack
 
-1. Push this repo's contents to GitHub (root must contain `index.html` and `.github/workflows/deploy.yml`, exactly as in this folder).
-2. In your repo: **Settings → Pages → Build and deployment → Source** → select **"GitHub Actions"** (not "Deploy from a branch").
-3. Push to `main`. The workflow runs automatically and deploys.
-4. Your site goes live at: `https://<your-username>.github.io/<repo-name>/`
-   - If the repo is named `<your-username>.github.io`, it's served at `https://<your-username>.github.io/` instead.
+- **Next.js 16** (App Router)
+- **React Three Fiber** + **Three.js** for the interactive hero scene
+- **Framer Motion** for intro, scroll, and section animations
+- **Tailwind CSS v4** for styling
+- **Resend** for the contact API
 
-## After setup
-
-Every push to `main` automatically rebuilds and redeploys the site — no manual steps needed.
-
-## Local preview
-
-Just open `index.html` directly in a browser, or run a quick local server:
+## Development
 
 ```bash
-python3 -m http.server 8000
+npm install
+npm run dev
 ```
 
-Then visit `http://localhost:8000`.
+Open [http://localhost:3000](http://localhost:3000).
+
+## Production build
+
+```bash
+npm run build
+npm start
+```
+
+## Environment variables (Vercel)
+
+| Variable | Description |
+|----------|-------------|
+| `RESEND_API_KEY` | Resend API key |
+| `RESEND_FROM_EMAIL` | Verified sender address |
+| `CONTACT_TO_EMAIL` | Inbox for contact form submissions |
+| `TURNSTILE_SECRET_KEY` | Optional Cloudflare Turnstile secret |
+| `NEXT_PUBLIC_SITE_URL` | Public site URL (e.g. `https://your-domain.vercel.app`) |
+
+## Deployment
+
+The Next.js app deploys to **Vercel**. Static authority subpages (`/about/`, `/consulting/`, `/training/`, `/engineering/*`, `/contact/`) are served from `public/`.
+
+Legacy static build (GitHub Pages):
+
+```bash
+npm run build:static
+```
+
+## Branch workflow
+
+The creative redesign lives on `feature/creative-redesign` for review before merging to `main`.

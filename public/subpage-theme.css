@@ -1,0 +1,120 @@
+:root {
+  --navy: #0a1628;
+  --blue: #2454d8;
+  --blue-deep: #173eae;
+  --blue-soft: #eef3ff;
+  --ink: #24324a;
+  --muted: #66738a;
+  --line: #e3e8f1;
+  --surface: #f7f9fc;
+  --display: "Playfair Display", Georgia, serif;
+  --body: "Nunito", sans-serif;
+  --mono: "SFMono-Regular", Consolas, monospace;
+}
+
+.site-nav,
+nav {
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-nav .brand strong,
+nav .brand strong {
+  color: var(--navy);
+}
+
+.site-nav .navlinks a:hover,
+nav .navlinks a:hover {
+  color: var(--blue);
+}
+
+.site-nav::after,
+nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(36, 84, 216, 0.45), transparent);
+  pointer-events: none;
+}
+
+.intro,
+.callout,
+.grid,
+.card,
+.topic,
+.site-nav .navlinks a.active {
+  /* About page and shared subpage utilities */
+}
+
+.intro {
+  max-width: 900px;
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.callout {
+  margin: 18px 0;
+  padding: 14px 16px;
+  border-left: 2px solid var(--blue);
+  background: rgba(238, 243, 255, 0.55);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  padding: 16px;
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  font: 600 18px/1.25 var(--display);
+  color: var(--navy);
+}
+
+.card p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.topic {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--blue-deep);
+  font: 800 10px/1 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 800px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
