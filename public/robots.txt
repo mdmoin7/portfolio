@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://mdmoin7.github.io/portfolio/sitemap.xml
