@@ -38,7 +38,7 @@ export const personSchema = {
   alternateName: "Moin",
   url: SITE_URL,
   image: PROFILE_IMAGE,
-  email: "mailto:mohammad.nicoll@gmail.com",
+  email: "mailto:mohammadmoin.tech@gmail.com",
   sameAs: [
     "https://github.com/mdmoin7",
     "https://www.linkedin.com/in/mohammadmoin/",
