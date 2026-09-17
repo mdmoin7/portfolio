@@ -11,12 +11,31 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     if (reducedMotion) return;
 
     const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.05,
+      easing: (t) => 1 - Math.pow(1 - t, 4),
       smoothWheel: true,
+      anchors: false,
     });
 
     document.documentElement.classList.add("lenis", "lenis-smooth");
+
+    const handleAnchor = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      const link = target?.closest<HTMLAnchorElement>("a[href^='#']");
+      if (!link) return;
+
+      const href = link.getAttribute("href");
+      if (!href || href === "#") return;
+
+      const destination = document.getElementById(href.slice(1));
+      if (!destination) return;
+
+      event.preventDefault();
+      lenis.scrollTo(destination, { offset: -18, duration: 1.15, lock: true });
+      window.history.replaceState(null, "", href);
+    };
+
+    document.addEventListener("click", handleAnchor);
 
     let frame = 0;
     const raf = (time: number) => {
@@ -27,6 +46,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
 
     return () => {
       cancelAnimationFrame(frame);
+      document.removeEventListener("click", handleAnchor);
       lenis.destroy();
       document.documentElement.classList.remove("lenis", "lenis-smooth");
     };
