@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./reimagine-theme.css";
 
 :root { --bg:#070b12; --panel:#0d131d; --text:#eef2f6; --muted:#8e9aa9; --line:rgba(255,255,255,.11); --accent:#78a9ff; --warm:#d8b477; --paper:#f2eee7; --ink:#15171b; }
 *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font-body),system-ui,sans-serif;line-height:1.6} ::selection{background:rgba(120,169,255,.28)} a{color:inherit}
