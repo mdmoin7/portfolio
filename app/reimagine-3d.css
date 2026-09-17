@@ -1,50 +1,79 @@
-/* Cinematic composition layer: 3D depth, glass surfaces and guaranteed text contrast. */
-.reimagine .hero-v2 { isolation:isolate; }
+/* Cinematic hero: the 3D system is the visual identity, not a portrait card. */
+.reimagine .hero-v2 { isolation:isolate; overflow:hidden; }
 .reimagine .hero-grid { z-index:0; }
-.reimagine .hero-meta { z-index:5; }
-.reimagine .hero-copy { z-index:6; }
+.reimagine .hero-meta { z-index:6; }
+.reimagine .hero-copy { z-index:7; max-width:760px; }
 .reimagine .hero-visual { position:absolute; inset:0; z-index:2; pointer-events:none; }
-.reimagine .three-d-system { position:absolute; right:4vw; top:13%; width:min(55vw,820px); height:76%; opacity:.78; filter:drop-shadow(0 25px 55px rgba(39,52,105,.22)); }
+.reimagine .three-d-system { position:absolute; right:-2vw; top:5%; width:min(70vw,980px); height:90%; opacity:.88; filter:drop-shadow(0 30px 80px rgba(39,52,105,.3)); }
 .reimagine .three-d-system canvas { width:100%!important; height:100%!important; display:block; }
-.reimagine .hero-portrait-wrap { z-index:4; }
-.reimagine .hero-portrait { filter:contrast(1.08) saturate(.92) drop-shadow(0 28px 35px rgba(30,39,73,.16)); }
-.reimagine .hero-callout { z-index:5; box-shadow:0 18px 45px rgba(15,25,55,.22); }
-.reimagine .hero-side-label { z-index:6; }
-.reimagine .hero-v2:after { content:""; position:absolute; z-index:3; right:-10%; top:5%; width:55vw; height:90%; background:radial-gradient(circle,rgba(120,153,212,.18),transparent 60%); pointer-events:none; }
+
+/* Editorial labels make the 3D object communicate the same PEOPLE × ENGINEERING × AI system as the copy. */
+.reimagine .hero-system-label,
+.reimagine .hero-system-caption { position:absolute; color:#273469; text-shadow:0 1px 18px rgba(250,250,255,.7); }
+.reimagine .hero-system-label { font-size:10px; letter-spacing:.22em; line-height:1.7; }
+.reimagine .hero-system-label span { color:#7899D4; letter-spacing:.12em; }
+.reimagine .label-people { right:35%; top:24%; }
+.reimagine .label-engineering { right:10%; top:42%; }
+.reimagine .label-ai { right:29%; bottom:24%; }
+.reimagine .label-impact { right:51%; bottom:15%; }
+.reimagine .hero-system-caption { right:5%; bottom:10%; padding-left:14px; border-left:1px solid rgba(39,52,105,.3); }
+.reimagine .hero-system-caption span { font-size:9px; letter-spacing:.24em; }
+.reimagine .hero-system-caption p { margin:4px 0 0; font-size:12px; color:#7899D4; }
+.reimagine.is-dark .hero-system-label,
+.reimagine.is-dark .hero-system-caption { color:#FAFAFF; text-shadow:0 1px 22px rgba(0,0,0,.75); }
+.reimagine.is-dark .hero-system-caption { border-color:rgba(250,250,255,.22); }
+
+.reimagine .hero-v2:after { content:""; position:absolute; z-index:3; right:-16%; top:-5%; width:72vw; height:110%; background:radial-gradient(circle,rgba(120,153,212,.22) 0%,rgba(120,153,212,.08) 28%,transparent 65%); pointer-events:none; }
+.reimagine .hero-v2:before { content:""; position:absolute; z-index:1; right:-5%; bottom:-32%; width:78vw; height:65%; background:radial-gradient(ellipse,rgba(39,52,105,.22),transparent 68%); transform:rotate(-5deg); pointer-events:none; }
+
+/* Keep the primary identity readable above the visual system. */
+.reimagine .hero-copy .hero-lede,
+.reimagine .hero-copy h1,
+.reimagine .hero-copy .eyebrow,
+.reimagine .hero-stats { position:relative; }
+.reimagine.is-light .hero-copy h1,
+.reimagine.is-light .hero-copy .hero-lede,
+.reimagine.is-light .hero-copy .eyebrow { text-shadow:0 1px 22px rgba(250,250,255,.9); }
 
 /* Prevent dark-on-dark collisions in the cinematic sections. */
 .reimagine.is-light .contact-center h2,
 .reimagine.is-light .contact-center>p,
-.reimagine.is-light .contact-link { color:#FAFAFF; }
-.reimagine.is-light .contact-center .eyebrow { color:#BFD0F1; }
+.reimagine.is-light .contact-link,
 .reimagine.is-dark .contact-center h2,
 .reimagine.is-dark .contact-center>p,
 .reimagine.is-dark .contact-link { color:#FAFAFF; }
+.reimagine.is-light .contact-center .eyebrow,
 .reimagine.is-dark .contact-center .eyebrow { color:#BFD0F1; }
 .reimagine .contact-center h2 em { color:#7899D4!important; }
 .reimagine .contact-link { text-decoration-color:rgba(120,153,212,.7); }
 
-/* Make the 3D system readable against both visual modes. */
-.reimagine.is-light .three-d-system { opacity:.82; }
-.reimagine.is-dark .three-d-system { opacity:.96; filter:drop-shadow(0 25px 60px rgba(0,0,0,.38)); }
-
 /* Glass cards get an intentional edge instead of disappearing into the background. */
 .reimagine .service-grid article,
-.reimagine .work-card,
-.reimagine .hero-callout { backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
+.reimagine .work-card { backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
 .reimagine.is-light .service-grid article { box-shadow:0 16px 40px rgba(39,52,105,.065), inset 0 1px 0 rgba(255,255,255,.8); }
 .reimagine.is-light .work-card { box-shadow:0 16px 40px rgba(39,52,105,.055); }
 .reimagine.is-dark .service-grid article,
 .reimagine.is-dark .work-card { box-shadow:0 18px 48px rgba(0,0,0,.18), inset 0 1px 0 rgba(250,250,255,.08); }
 
 @media(max-width:1050px){
-  .reimagine .three-d-system { right:-4vw; width:58vw; height:68%; top:16%; opacity:.65; }
+  .reimagine .three-d-system { right:-12vw; width:72vw; height:72%; top:12%; opacity:.62; }
+  .reimagine .hero-system-label { font-size:9px; }
+  .reimagine .label-people { right:34%; top:25%; }
+  .reimagine .label-engineering { right:4%; top:43%; }
+  .reimagine .label-ai { right:27%; bottom:22%; }
+  .reimagine .label-impact { right:49%; bottom:14%; }
 }
 @media(max-width:700px){
   .reimagine .hero-visual { z-index:1; }
-  .reimagine .three-d-system { right:-26vw; top:30%; width:105vw; height:48%; opacity:.38; }
-  .reimagine .hero-portrait-wrap { z-index:3; }
-  .reimagine .hero-v2:after { width:100vw; right:-35vw; top:20%; }
+  .reimagine .three-d-system { right:-34vw; top:28%; width:118vw; height:58%; opacity:.34; }
+  .reimagine .hero-v2:after { width:120vw; right:-45vw; top:18%; }
+  .reimagine .hero-system-label { font-size:8px; letter-spacing:.16em; }
+  .reimagine .label-people { right:28%; top:31%; }
+  .reimagine .label-engineering { right:3%; top:47%; }
+  .reimagine .label-ai { right:22%; bottom:23%; }
+  .reimagine .label-impact { right:43%; bottom:13%; }
+  .reimagine .hero-system-caption { right:5%; bottom:7%; }
+  .reimagine .hero-system-caption p { font-size:10px; }
 }
 
 @media(prefers-reduced-motion:reduce){
