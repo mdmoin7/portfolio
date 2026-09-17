@@ -1,6 +1,7 @@
 "use client";
 
 import { Canvas, useFrame } from "@react-three/fiber";
+import { Line } from "@react-three/drei";
 import { useRef } from "react";
 import * as THREE from "three";
 
@@ -10,9 +11,12 @@ const NODES = [
 ] as const;
 
 function Connector({ from, to }: { from: readonly number[]; to: readonly number[] }) {
-  const points = [new THREE.Vector3(...(from as [number, number, number])), new THREE.Vector3(...(to as [number, number, number]))];
-  const geometry = new THREE.BufferGeometry().setFromPoints(points);
-  return <line geometry={geometry}><lineBasicMaterial color="#7899D4" transparent opacity={0.24} /></line>;
+  const points: [number, number, number][] = [
+    [from[0], from[1], from[2]],
+    [to[0], to[1], to[2]],
+  ];
+
+  return <Line points={points} color="#7899D4" transparent opacity={0.24} lineWidth={1} />;
 }
 
 function CoreScene() {
