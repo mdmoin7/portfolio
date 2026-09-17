@@ -4,6 +4,7 @@ import { getJsonLd, siteMetadata, SITE_URL, PROFILE_IMAGE } from "@/lib/seo";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScroll";
 import "./globals.css";
 import "./reimagine-theme.css";
+import "./reimagine-fixes.css";
 
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", display: "swap" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
