@@ -6,19 +6,29 @@ export const PROFILE_IMAGE =
 
 export const siteMetadata = {
   title:
-    "Mohammad Moin — Independent Software Engineering Consultant & Corporate Trainer",
+    "Mohammad Moin | Independent Consultant, Software Engineer & Corporate Technology Trainer",
   description:
-    "Mohammad Moin — Independent Software Engineering Consultant and Corporate Technology Trainer with 14+ years of production engineering. Specializes in frontend architecture, Angular, React, React Native and Terraform/Azure, with corporate training and freelance consulting engagements.",
+    "Mohammad Moin is an independent technology consultant, software engineer and corporate technology trainer who helps organizations turn technology into capability through production engineering, frontend architecture, enterprise applications, AI and RAG systems, and hands-on training.",
   keywords: [
     "Mohammad Moin",
+    "Mohammad Moin Bengaluru",
+    "independent technology consultant",
     "software engineering consultant",
     "corporate technology trainer",
     "frontend architect",
-    "Angular consultant",
-    "React consultant",
-    "React Native",
-    "Terraform Azure",
     "frontend architecture",
+    "React consultant",
+    "Angular consultant",
+    "React Native consultant",
+    "TypeScript consultant",
+    "Node.js consultant",
+    "Azure consultant",
+    "Terraform Azure",
+    "enterprise application architecture",
+    "AI engineer",
+    "RAG systems",
+    "AI and RAG training",
+    "corporate technology training",
   ],
 };
 
@@ -27,38 +37,63 @@ export const personSchema = {
   "@type": "Person",
   "@id": `${SITE_URL}/#person`,
   name: "Mohammad Moin",
+  alternateName: ["Mohammad Moin", "mdmoin7"],
   url: SITE_URL,
   image: PROFILE_IMAGE,
+  email: "mailto:mohammad.nicoll@gmail.com",
   sameAs: [
     "https://github.com/mdmoin7",
     "https://www.linkedin.com/in/mohammadmoin/",
   ],
-  jobTitle:
-    "Independent Software Engineering Consultant & Corporate Technology Trainer",
+  jobTitle: "Independent Consultant · Corporate Technology Trainer",
   description:
-    "Mohammad Moin is an independent software engineering consultant and corporate technology trainer based in Bengaluru, India, combining production engineering, frontend architecture and practical enterprise technology training.",
+    "Mohammad Moin is an independent technology consultant, software engineer and corporate technology trainer based in Bengaluru, India. He combines production engineering, frontend architecture, enterprise technology, AI and RAG systems, and practical technology training to help organizations turn technology into capability.",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Bengaluru",
     addressCountry: "IN",
   },
   knowsAbout: [
+    "Software Engineering",
     "Frontend Architecture",
-    "Angular",
     "React",
+    "Angular",
     "React Native",
-    "Terraform",
-    "Microsoft Azure",
-    "Corporate Technology Training",
+    "JavaScript",
     "TypeScript",
     "Node.js",
     "NestJS",
+    "Next.js",
     "Nx Monorepo",
-    "Microfrontends",
-    "Module Federation",
-    "Stack Migration",
+    "Micro Frontends",
+    "Design Systems",
+    "Microsoft Azure",
+    "Terraform",
+    "GitHub Actions",
+    "Microsoft Entra ID",
+    "MSAL",
+    "Dynamics 365",
+    "Dataverse",
+    "Enterprise Applications",
+    "Artificial Intelligence",
+    "Large Language Models",
+    "Retrieval-Augmented Generation",
+    "RAG Systems",
+    "Embeddings",
+    "Vector Search",
+    "AI Workflows",
+    "Corporate Technology Training",
     "Curriculum Design",
   ],
+};
+
+export const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${SITE_URL}/#profile`,
+  url: SITE_URL,
+  name: "Mohammad Moin — Professional Profile",
+  mainEntity: { "@id": `${SITE_URL}/#person` },
 };
 
 export const websiteSchema = {
@@ -67,10 +102,12 @@ export const websiteSchema = {
   "@id": `${SITE_URL}/#website`,
   url: SITE_URL,
   name: "Mohammad Moin",
+  alternateName: "Mohammad Moin — Independent Consultant & Corporate Technology Trainer",
   description: siteMetadata.description,
   publisher: { "@id": `${SITE_URL}/#person` },
+  inLanguage: "en-IN",
 };
 
 export function getJsonLd() {
-  return [personSchema, websiteSchema];
+  return [personSchema, profilePageSchema, websiteSchema];
 }
