@@ -5,6 +5,7 @@ import { SmoothScrollProvider } from "@/components/providers/SmoothScroll";
 import "./globals.css";
 import "./reimagine-theme.css";
 import "./reimagine-fixes.css";
+import "./reimagine-3d.css";
 
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", display: "swap" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
