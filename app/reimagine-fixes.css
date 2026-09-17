@@ -1,0 +1,152 @@
+/* V2 interaction + alignment layer. Loaded after the base theme so the visual mode is authoritative. */
+.reimagine {
+  --surface: #FAFAFF;
+  --surface-2: #F1F4FA;
+  --surface-3: #E5EBF5;
+  --ink: #1E2749;
+  --muted: #5E6982;
+  --line-ui: rgba(30,39,73,.14);
+  --accent-ui: #273469;
+  --accent-soft: #7899D4;
+  --dark-surface: #30343F;
+  --dark-surface-2: #273469;
+  --dark-ink: #FAFAFF;
+}
+.reimagine.is-light { --surface:#FAFAFF; --surface-2:#F1F4FA; --surface-3:#E5EBF5; --ink:#1E2749; --muted:#5E6982; --line-ui:rgba(30,39,73,.14); --accent-ui:#273469; --accent-soft:#7899D4; }
+.reimagine.is-dark { --surface:#30343F; --surface-2:#273469; --surface-3:#1E2749; --ink:#FAFAFF; --muted:#C2CAD8; --line-ui:rgba(250,250,255,.16); --accent-ui:#7899D4; --accent-soft:#7899D4; }
+
+.reimagine main { width:calc(100% - 74px); }
+.reimagine section { scroll-margin-top:24px; }
+
+/* Navigation */
+.reimagine .spatial-nav { background:color-mix(in srgb,var(--surface) 90%,transparent); border-right-color:var(--line-ui); color:var(--ink); transition:background .5s,border-color .5s,color .5s; }
+.reimagine .spatial-brand { color:var(--ink); }
+.reimagine .spatial-brand span { color:var(--accent-soft); }
+.reimagine .spatial-link { color:var(--muted); }
+.reimagine .spatial-link:hover,.reimagine .spatial-link:focus-visible { color:var(--ink); }
+.reimagine .spatial-line { background:linear-gradient(var(--line-ui),transparent); }
+.reimagine .mode-toggle { color:var(--ink); border-color:var(--line-ui); background:color-mix(in srgb,var(--surface) 75%,transparent); }
+
+/* Light mode: editorial surfaces */
+.reimagine.is-light .system-section,
+.reimagine.is-light .work-section,
+.reimagine.is-light .about-v2 { background:linear-gradient(135deg,#FAFAFF 0%,#F4F6FB 58%,#E8EDF6 100%); color:#1E2749; }
+.reimagine.is-light .capability-section { background:#FAFAFF; color:#1E2749; }
+.reimagine.is-light .training-section { background:linear-gradient(135deg,#E9EEF7,#FAFAFF 52%,#DDE6F4); color:#1E2749; }
+.reimagine.is-light .labs-section { background:linear-gradient(135deg,#EDF1F8,#DDE5F3); color:#1E2749; }
+.reimagine.is-light .technology-section { background:linear-gradient(120deg,#30343F 0%,#273469 58%,#1E2749 100%); color:#FAFAFF; }
+.reimagine.is-light .contact-v2 { background:radial-gradient(circle at 50% 35%,rgba(120,153,212,.28),transparent 30%),linear-gradient(135deg,#30343F,#273469 56%,#1E2749); color:#FAFAFF; }
+
+/* Dark mode: every section follows the same palette instead of retaining light-mode hardcoded colors. */
+.reimagine.is-dark .system-section,
+.reimagine.is-dark .work-section,
+.reimagine.is-dark .about-v2 { background:linear-gradient(135deg,#30343F 0%,#273469 58%,#1E2749 100%); color:#FAFAFF; }
+.reimagine.is-dark .capability-section { background:#273469; color:#FAFAFF; }
+.reimagine.is-dark .training-section { background:linear-gradient(135deg,#30343F,#273469 60%,#1E2749); color:#FAFAFF; }
+.reimagine.is-dark .labs-section { background:linear-gradient(135deg,#30343F,#273469 60%,#1E2749); color:#FAFAFF; }
+.reimagine.is-dark .technology-section { background:linear-gradient(120deg,#30343F,#273469 58%,#1E2749); }
+.reimagine.is-dark .contact-v2 { background:radial-gradient(circle at 50% 35%,rgba(120,153,212,.3),transparent 30%),linear-gradient(135deg,#30343F,#273469 56%,#1E2749); }
+
+.reimagine.is-dark .section-lede,
+.reimagine.is-dark .work-head>p,
+.reimagine.is-dark .work-card p,
+.reimagine.is-dark .author-layout p,
+.reimagine.is-dark .training-note,
+.reimagine.is-dark .lab-list p,
+.reimagine.is-dark .system-context p { color:#C2CAD8; }
+.reimagine.is-dark .capability-grid article,
+.reimagine.is-dark .work-card { background:rgba(250,250,255,.055); border-color:rgba(250,250,255,.14); }
+.reimagine.is-dark .capability-grid { background:rgba(250,250,255,.14); }
+.reimagine.is-dark .work-featured { background:linear-gradient(145deg,#7899D4,#273469 58%,#1E2749); color:#FAFAFF; }
+.reimagine.is-dark .work-tags { color:#BFD0F1; }
+.reimagine.is-dark .training-flow div { background:rgba(250,250,255,.08); border-color:rgba(250,250,255,.2); }
+.reimagine.is-dark .lab-list,.reimagine.is-dark .lab-list>div { border-color:rgba(250,250,255,.16); }
+.reimagine.is-dark .author-photo { border-color:rgba(250,250,255,.22); }
+
+/* Hero alignment */
+.reimagine .hero-v2 { isolation:isolate; }
+.reimagine .hero-copy { width:min(650px,54vw); }
+.reimagine .hero-meta { z-index:4; }
+.reimagine .hero-actions { align-items:center; }
+.reimagine .hero-portrait-wrap { position:absolute; z-index:2; right:4vw; bottom:0; width:min(49vw,720px); height:88%; pointer-events:none; display:flex; justify-content:center; align-items:flex-end; }
+.reimagine .hero-portrait { position:relative; inset:auto; width:78%; height:100%; object-fit:cover; object-position:center top; mix-blend-mode:multiply; filter:contrast(1.04) saturate(.9); mask-image:linear-gradient(to bottom,#000 84%,transparent 100%); -webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%); }
+.reimagine.is-dark .hero-portrait { mix-blend-mode:screen; filter:contrast(1.02) saturate(.82) brightness(.92); opacity:.9; }
+.reimagine .hero-portrait-halo { position:absolute; width:min(40vw,590px); aspect-ratio:1; border:1px solid rgba(120,153,212,.42); border-radius:50%; right:2%; top:7%; box-shadow:0 0 100px rgba(120,153,212,.2); }
+.reimagine .hero-callout { position:absolute; right:0; bottom:10%; width:230px; padding:18px 20px; background:rgba(30,39,73,.88); color:#FAFAFF; border:1px solid rgba(250,250,255,.2); backdrop-filter:blur(14px); }
+.reimagine .hero-callout span { font:700 32px Georgia; color:#7899D4; }
+.reimagine .hero-callout p { margin:0 0 12px; font:500 14px/1.45 var(--font-body); }
+.reimagine .hero-callout small { font:700 8px var(--font-mono); letter-spacing:.18em; color:#BFD0F1; }
+.reimagine .hero-side-label { position:absolute; right:0; top:18%; color:#273469; font-size:8px; line-height:1.8; letter-spacing:.22em; }
+.reimagine.is-dark .hero-side-label { color:#BFD0F1; }
+
+/* Consistent section geometry */
+.reimagine section:not(.hero-v2) { padding-left:clamp(7vw,10vw,12vw); padding-right:clamp(7vw,10vw,12vw); }
+.reimagine .section-marker { left:2.4vw; }
+.reimagine .section-lede { max-width:560px; margin-top:24px; line-height:1.7; color:#5E6982; }
+.reimagine .capability-section { grid-template-columns:minmax(250px,.75fr) minmax(0,1.5fr); align-items:start; }
+.reimagine .capability-copy { max-width:430px; }
+.reimagine .capability-grid { margin-top:0; }
+.reimagine .capability-grid article { min-width:0; }
+.reimagine .technology-section { grid-template-columns:minmax(270px,.8fr) minmax(0,1.8fr) auto; }
+.reimagine .tech-copy { max-width:430px; }
+.reimagine .work-head { align-items:flex-start; }
+.reimagine .work-grid { align-items:stretch; }
+.reimagine .work-card { min-width:0; }
+.reimagine .training-layout { width:100%; }
+.reimagine .labs-layout { width:100%; }
+.reimagine .author-layout { width:100%; }
+
+/* Interactive states */
+.reimagine a,.reimagine button { -webkit-tap-highlight-color:transparent; }
+.reimagine .primary-action,.reimagine .secondary-action,.reimagine .section-link,.reimagine .capability-grid a,.reimagine .work-card a,.reimagine .contact-link { transition:transform .22s,color .22s,background .22s,border-color .22s; }
+.reimagine .primary-action:hover,.reimagine .secondary-action:hover,.reimagine .section-link:hover,.reimagine .capability-grid a:hover,.reimagine .work-card a:hover,.reimagine .contact-link:hover { transform:translateX(3px); }
+.reimagine .system-node { transition:color .2s,transform .2s; }
+.reimagine .system-node:hover { transform:translateY(-3px); }
+
+/* Native keyboard/focus accessibility */
+.reimagine :focus-visible { outline:2px solid #7899D4; outline-offset:4px; }
+
+/* Mobile: retain access to navigation and keep the portrait out of the copy column. */
+@media(max-width:900px) {
+  .reimagine main { width:calc(100% - 52px); }
+  .reimagine .hero-copy { width:auto; max-width:620px; }
+  .reimagine .hero-portrait-wrap { right:-10vw; width:64vw; height:60%; opacity:.78; }
+  .reimagine .hero-callout { display:none; }
+  .reimagine .hero-side-label { right:2vw; top:35%; font-size:7px; }
+  .reimagine .technology-section { grid-template-columns:1fr; }
+  .reimagine .capability-section { grid-template-columns:1fr; }
+}
+@media(max-width:700px) {
+  .reimagine main { width:calc(100% - 52px); }
+  .reimagine .spatial-nav { width:52px; }
+  .reimagine .hero-v2 { min-height:900px; padding:118px 8vw 70px; align-items:flex-start; }
+  .reimagine .hero-meta { top:80px; left:8vw; right:8vw; }
+  .reimagine .hero-copy { max-width:none; }
+  .reimagine .hero-v2 h1 { font-size:clamp(46px,12.5vw,68px); }
+  .reimagine .hero-lede { max-width:100%; }
+  .reimagine .hero-portrait-wrap { right:-26vw; width:100vw; height:47%; opacity:.72; }
+  .reimagine .hero-portrait { width:66%; }
+  .reimagine .hero-portrait-halo { width:76vw; right:4%; top:3%; }
+  .reimagine .hero-side-label { display:none; }
+  .reimagine .hero-stats { width:100%; }
+  .reimagine .hero-stats>div { min-width:0; }
+  .reimagine section:not(.hero-v2) { padding:82px 8vw; }
+  .reimagine .section-marker { display:none; }
+  .reimagine .system-map { margin-top:52px; }
+  .reimagine .capability-grid { margin-top:42px; }
+  .reimagine .technology-section { padding-top:76px; padding-bottom:76px; }
+  .reimagine .constellation { margin-top:26px; }
+  .reimagine .work-head { display:block; }
+  .reimagine .work-head>p { margin-top:22px; }
+  .reimagine .work-grid { margin-top:42px; }
+  .reimagine .training-flow { margin-top:44px; }
+  .reimagine .author-layout { gap:42px; }
+  .reimagine .author-photo { width:min(240px,72vw); }
+  .reimagine .footer-v2 { margin-left:52px; }
+}
+
+/* Respect system reduced-motion while preserving functional scrolling. */
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto !important; }
+  .reimagine *, .reimagine *::before, .reimagine *::after { animation:none !important; transition:none !important; }
+}
