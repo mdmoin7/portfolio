@@ -4,7 +4,7 @@
   "buildCommand": "npm run build",
   "installCommand": "npm ci",
   "cleanUrls": false,
-  "trailingSlash": true,
+  "trailingSlash": false,
   "git": {
     "deploymentEnabled": {
       "vercel-deploy": true,
