@@ -58,11 +58,6 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       window.history.replaceState(null, "", href);
     };
 
-    const handleKeydown = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      lenis.stop();
-    };
-
     const handleResize = () => {
       lenis.resize();
     };
