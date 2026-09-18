@@ -39,12 +39,16 @@ export async function POST(request: Request) {
       });
     }
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 12000);
+
     const response = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
       },
+      signal: controller.signal,
       body: JSON.stringify({
         model: process.env.OPENAI_MODEL || "gpt-5.6",
         instructions: SYSTEM_PROMPT,
@@ -52,6 +56,8 @@ export async function POST(request: Request) {
         max_output_tokens: 220,
       }),
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       return NextResponse.json(
