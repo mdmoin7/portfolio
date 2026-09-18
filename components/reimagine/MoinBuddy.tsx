@@ -17,6 +17,18 @@ export function MoinBuddy() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const move = (event: PointerEvent) => {
+      setPointer({
+        x: (event.clientX / window.innerWidth - 0.5) * 2,
+        y: (event.clientY / window.innerHeight - 0.5) * 2,
+      });
+    };
+    window.addEventListener("pointermove", move, { passive: true });
+    return () => window.removeEventListener("pointermove", move);
+  }, []);
 
   useEffect(() => {
     if (open) window.setTimeout(() => inputRef.current?.focus(), 180);
@@ -158,15 +170,25 @@ export function MoinBuddy() {
         onClick={() => setOpen((value) => !value)}
         aria-label={open ? "Close Ask Moin" : "Open Ask Moin"}
         aria-expanded={open}
-        whileHover={{ y: -3 }}
+        animate={{
+          x: pointer.x * 7,
+          y: pointer.y * 5,
+          rotate: pointer.x * 5,
+        }}
+        transition={{ type: "spring", stiffness: 120, damping: 14, mass: 0.55 }}
+        whileHover={{ y: -5, scale: 1.04 }}
         whileTap={{ scale: 0.94 }}
       >
         <span className="moin-buddy-hero" aria-hidden="true">
           <span className="moin-buddy-cape" />
-          <span className="moin-buddy-head">
+          <motion.span
+            className="moin-buddy-head"
+            animate={{ x: pointer.x * 2, y: pointer.y * 1.5 }}
+            transition={{ type: "spring", stiffness: 180, damping: 16 }}
+          >
             <i />
             <i />
-          </span>
+          </motion.span>
           <span className="moin-buddy-body">
             <b>M</b>
           </span>
