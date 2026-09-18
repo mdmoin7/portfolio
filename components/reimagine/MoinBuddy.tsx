@@ -16,13 +16,21 @@ function BuddyIcon({ className = "" }: { className?: string }) {
   return (
     <span className={`moin-buddy-hero ${className}`} aria-hidden="true">
       <span className="moin-buddy-cape" />
+      <span className="moin-buddy-ear moin-buddy-ear-left"><i /></span>
+      <span className="moin-buddy-ear moin-buddy-ear-right"><i /></span>
       <motion.span className="moin-buddy-head">
-        <i />
-        <i />
+        <span className="moin-buddy-visor">
+          <i />
+          <i />
+        </span>
       </motion.span>
+      <span className="moin-buddy-arm moin-buddy-arm-left" />
+      <span className="moin-buddy-arm moin-buddy-arm-right" />
       <span className="moin-buddy-body">
         <b>M</b>
       </span>
+      <span className="moin-buddy-foot moin-buddy-foot-left" />
+      <span className="moin-buddy-foot moin-buddy-foot-right" />
     </span>
   );
 }
@@ -249,10 +257,19 @@ export function MoinBuddy() {
       >
         <motion.span className="moin-buddy-hero" style={{ x: eyeX, y: eyeY }}>
           <span className="moin-buddy-cape" />
+          <span className="moin-buddy-ear moin-buddy-ear-left"><i /></span>
+          <span className="moin-buddy-ear moin-buddy-ear-right"><i /></span>
           <motion.span className="moin-buddy-head">
-            <i /><i />
+            <span className="moin-buddy-visor">
+              <motion.i style={{ x: eyeX, y: eyeY }} />
+              <motion.i style={{ x: eyeX, y: eyeY }} />
+            </span>
           </motion.span>
+          <span className="moin-buddy-arm moin-buddy-arm-left" />
+          <span className="moin-buddy-arm moin-buddy-arm-right" />
           <span className="moin-buddy-body"><b>M</b></span>
+          <span className="moin-buddy-foot moin-buddy-foot-left" />
+          <span className="moin-buddy-foot moin-buddy-foot-right" />
         </motion.span>
       </motion.button>
     </div>
