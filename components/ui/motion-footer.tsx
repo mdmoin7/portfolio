@@ -91,7 +91,7 @@ function MarqueeItem() {
   );
 }
 
-export function CinematicFooter() {
+export function CinematicFooter({ id = "footer" }: { id?: string }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const giantTextRef = useRef<HTMLDivElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
@@ -191,7 +191,7 @@ export function CinematicFooter() {
         @media(prefers-reduced-motion:reduce){.motion-footer-aurora,.motion-footer-marquee-track{animation:none}.motion-footer-pill{transition:none}}
       `}</style>
 
-      <footer ref={wrapperRef} className="motion-footer" id="footer">
+      <footer ref={wrapperRef} className="motion-footer" id={id}>
         <div className="motion-footer-grid" aria-hidden="true" />
         <div className="motion-footer-aurora" aria-hidden="true" />
         <div ref={giantTextRef} className="motion-footer-giant" aria-hidden="true">MOIN</div>
