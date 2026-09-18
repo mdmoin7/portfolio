@@ -44,12 +44,13 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
     <ReactLenis
       root
       options={{
-        duration: 1.15,
+        duration: 0.9,
         easing: (t: number) => 1 - Math.pow(1 - t, 4),
         smoothWheel: true,
         wheelMultiplier: 0.85,
         touchMultiplier: 1,
-        syncTouch: true,
+        smoothTouch: false,
+        syncTouch: false,
         autoRaf: true,
         anchors: true,
         prevent: (node: HTMLElement) => node.hasAttribute("data-lenis-prevent"),
