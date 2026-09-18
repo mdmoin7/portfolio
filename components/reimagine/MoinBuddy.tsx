@@ -256,7 +256,6 @@ export function MoinBuddy() {
         whileTap={{ scale: 0.94 }}
       >
         <motion.span className="moin-buddy-hero" style={{ x: eyeX, y: eyeY }}>
-          <span className="moin-buddy-cape" />
           <span className="moin-buddy-ear moin-buddy-ear-left"><i /></span>
           <span className="moin-buddy-ear moin-buddy-ear-right"><i /></span>
           <motion.span className="moin-buddy-head">
