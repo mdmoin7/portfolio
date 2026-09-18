@@ -1,9 +1,10 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
 
 type Message = { role: "user" | "assistant"; content: string };
+type BuddyState = "idle" | "peek" | "fly" | "open" | "thinking";
 
 const starters = [
   "What does Mohammad do?",
@@ -16,23 +17,49 @@ export function MoinBuddy() {
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
+  const [state, setState] = useState<BuddyState>("idle");
   const inputRef = useRef<HTMLInputElement>(null);
-  const [pointer, setPointer] = useState({ x: 0, y: 0 });
+  const peekTimer = useRef<number | null>(null);
+
+  const pointerX = useMotionValue(0);
+  const pointerY = useMotionValue(0);
+  const springX = useSpring(pointerX, { stiffness: 90, damping: 16, mass: 0.7 });
+  const springY = useSpring(pointerY, { stiffness: 90, damping: 16, mass: 0.7 });
 
   useEffect(() => {
     const move = (event: PointerEvent) => {
-      setPointer({
-        x: (event.clientX / window.innerWidth - 0.5) * 2,
-        y: (event.clientY / window.innerHeight - 0.5) * 2,
-      });
+      pointerX.set((event.clientX / window.innerWidth - 0.5) * 2);
+      pointerY.set((event.clientY / window.innerHeight - 0.5) * 2);
     };
     window.addEventListener("pointermove", move, { passive: true });
     return () => window.removeEventListener("pointermove", move);
-  }, []);
+  }, [pointerX, pointerY]);
 
   useEffect(() => {
-    if (open) window.setTimeout(() => inputRef.current?.focus(), 180);
-  }, [open]);
+    if (open) {
+      setState("open");
+      window.setTimeout(() => inputRef.current?.focus(), 180);
+      return;
+    }
+
+    if (loading) {
+      setState("thinking");
+      return;
+    }
+
+    const schedulePeek = () => {
+      setState("idle");
+      peekTimer.current = window.setTimeout(() => {
+        setState("peek");
+        window.setTimeout(() => setState("idle"), 1450);
+      }, 12000);
+    };
+
+    schedulePeek();
+    return () => {
+      if (peekTimer.current) window.clearTimeout(peekTimer.current);
+    };
+  }, [open, loading]);
 
   async function ask(question: string) {
     const trimmed = question.trim();
@@ -41,6 +68,7 @@ export function MoinBuddy() {
     setMessages((current) => [...current, { role: "user", content: trimmed }]);
     setInput("");
     setLoading(true);
+    setState("thinking");
 
     try {
       const response = await fetch("/api/ask-moin", {
@@ -69,6 +97,7 @@ export function MoinBuddy() {
       ]);
     } finally {
       setLoading(false);
+      if (!open) setState("idle");
     }
   }
 
@@ -77,13 +106,16 @@ export function MoinBuddy() {
     void ask(input);
   }
 
+  const isPeeking = state === "peek";
+  const isFlying = state === "fly";
+
   return (
-    <div className="moin-buddy">
+    <div className={`moin-buddy moin-buddy-state-${state}`}>
       <AnimatePresence>
         {open && (
           <motion.section
             className="moin-buddy-panel"
-            initial={{ opacity: 0, y: 18, scale: 0.96 }}
+            initial={{ opacity: 0, y: 18, scale: 0.96, transformOrigin: "bottom right" }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ duration: 0.22, ease: [0.2, 0.8, 0.2, 1] }}
@@ -113,11 +145,7 @@ export function MoinBuddy() {
                   </p>
                   <div className="moin-buddy-starters">
                     {starters.map((starter) => (
-                      <button
-                        key={starter}
-                        type="button"
-                        onClick={() => void ask(starter)}
-                      >
+                      <button key={starter} type="button" onClick={() => void ask(starter)}>
                         {starter} <span>↗</span>
                       </button>
                     ))}
@@ -135,9 +163,7 @@ export function MoinBuddy() {
                   ))}
                   {loading && (
                     <div className="moin-buddy-message moin-buddy-message-assistant moin-buddy-thinking">
-                      <i />
-                      <i />
-                      <i />
+                      <i /><i /><i />
                     </div>
                   )}
                 </div>
@@ -157,9 +183,7 @@ export function MoinBuddy() {
                 ↑
               </button>
             </form>
-            <small className="moin-buddy-note">
-              Brief answers · text only
-            </small>
+            <small className="moin-buddy-note">Brief answers · text only</small>
           </motion.section>
         )}
       </AnimatePresence>
@@ -171,27 +195,26 @@ export function MoinBuddy() {
         aria-label={open ? "Close Ask Moin" : "Open Ask Moin"}
         aria-expanded={open}
         animate={{
-          x: pointer.x * 7,
-          y: pointer.y * 5,
-          rotate: pointer.x * 5,
+          x: springX.get() * 7 + (isPeeking ? -30 : 0) + (isFlying ? -80 : 0),
+          y: springY.get() * 5 + (isPeeking ? 10 : 0) + (isFlying ? -100 : 0),
+          rotate: springX.get() * 5 + (isFlying ? -8 : 0),
+          rotateY: springX.get() * -10,
+          scale: isFlying ? 1.04 : isPeeking ? 0.92 : 1,
         }}
-        transition={{ type: "spring", stiffness: 120, damping: 14, mass: 0.55 }}
-        whileHover={{ y: -5, scale: 1.04 }}
+        transition={{ type: "spring", stiffness: 120, damping: 16, mass: 0.55 }}
+        whileHover={{ scale: 1.06, y: -6 }}
         whileTap={{ scale: 0.94 }}
       >
         <span className="moin-buddy-hero" aria-hidden="true">
           <span className="moin-buddy-cape" />
           <motion.span
             className="moin-buddy-head"
-            animate={{ x: pointer.x * 2, y: pointer.y * 1.5 }}
+            style={{ x: springX.get() * 2, y: springY.get() * 1.5 }}
             transition={{ type: "spring", stiffness: 180, damping: 16 }}
           >
-            <i />
-            <i />
+            <i /><i />
           </motion.span>
-          <span className="moin-buddy-body">
-            <b>M</b>
-          </span>
+          <span className="moin-buddy-body"><b>M</b></span>
         </span>
       </motion.button>
     </div>
