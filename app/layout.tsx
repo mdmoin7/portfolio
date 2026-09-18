@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Nunito, Playfair_Display } from "next/font/google";
 import { getJsonLd, siteMetadata, SITE_URL, PROFILE_IMAGE } from "@/lib/seo";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScroll";
@@ -9,6 +9,8 @@ import "./reimagine-3d.css";
 
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", display: "swap" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
+
+export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL), title: siteMetadata.title, description: siteMetadata.description,
