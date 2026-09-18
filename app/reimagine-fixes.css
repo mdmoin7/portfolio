@@ -2421,3 +2421,60 @@ html.lenis {
 @media(prefers-reduced-motion:reduce){
   .moin-buddy-hero,.moin-buddy-cape{animation:none}
 }
+
+/* M-Buddy: one canonical character used everywhere */
+.moin-buddy-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.moin-buddy-panel-icon{
+  flex:0 0 38px;
+  width:38px;
+  height:42px;
+  transform:scale(.82);
+  transform-origin:center;
+}
+.moin-buddy-panel-icon .moin-buddy-cape{
+  width:34px;
+  height:23px;
+  left:2px;
+  top:16px;
+}
+.moin-buddy-panel-icon .moin-buddy-head{
+  left:9px;
+  top:1px;
+  width:22px;
+  height:20px;
+}
+.moin-buddy-panel-icon .moin-buddy-head i{
+  top:7px;
+  width:2.5px;
+  height:7px;
+}
+.moin-buddy-panel-icon .moin-buddy-head i:first-child{left:6px}
+.moin-buddy-panel-icon .moin-buddy-head i:last-child{right:6px}
+.moin-buddy-panel-icon .moin-buddy-body{
+  left:7px;
+  top:18px;
+  width:27px;
+  height:24px;
+  border-radius:9px 9px 12px 12px;
+}
+.moin-buddy-panel-icon .moin-buddy-body b{
+  width:17px;
+  height:17px;
+  font-size:10px;
+}
+.moin-buddy-title > div{
+  display:grid;
+  gap:2px;
+  min-width:0;
+}
+.moin-buddy-title strong{
+  display:block;
+}
+@media(max-width:560px){
+  .moin-buddy-panel-icon{flex-basis:34px;width:34px;height:38px}
+}
