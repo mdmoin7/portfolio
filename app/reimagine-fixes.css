@@ -667,3 +667,12 @@
 @media (prefers-reduced-motion:reduce) {
   .reimagine .footer-reveal-word > span { transform:none !important; }
 }
+
+
+/* Global smooth-scroll surface state. Lenis owns interpolation; native scroll remains available for reduced motion. */
+html.lenis { height:auto; }
+html.lenis.lenis-smooth { scroll-behavior:auto !important; }
+html.lenis.lenis-smooth [data-lenis-prevent],
+html.lenis.lenis-smooth [data-lenis-prevent-wheel] { overscroll-behavior:contain; }
+html.lenis.lenis-stopped { overflow:hidden; }
+.reimagine { overscroll-behavior-x:none; }
