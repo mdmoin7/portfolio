@@ -28,9 +28,9 @@ function ScrollWord({ word, index, total, progress }: { word: string; index: num
 
 function ScrollWords({ words }: { words: string[] }) {
   const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ container: ref });
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   return (
-    <div ref={ref} className="hero-lab-scroll-stage" data-lenis-prevent="true" tabIndex={0} aria-label="Scrollable hero concept">
+    <div ref={ref} className="hero-lab-scroll-stage" aria-label="Hero concept scroll area">
       <div className="hero-lab-scroll-track">
         <div className="hero-lab-sticky">
           <div className="hero-lab-word-stack">
@@ -90,7 +90,7 @@ function LivingSystem() {
   const principleOpacity = useTransform(scrollYProgress, [0.78, 0.9, 1], [0, 0, 1]);
 
   return (
-    <div ref={ref} className="living-system-stage" data-lenis-prevent="true" tabIndex={0} aria-label="Scrollable Living System hero concept">
+    <div ref={ref} className="living-system-stage" aria-label="Living System scroll area">
       <div className="living-system-track">
         <div className="living-system-sticky">
           <div className="living-system-grid" aria-hidden="true" />
@@ -154,5 +154,5 @@ function HeroVariant({ id }: { id: Variant }) {
 export function HeroExplorer() {
   const [active, setActive] = useState<Variant>("J");
   const current = useMemo(() => variants.find((x) => x.id === active)!, [active]);
-  return <main className="hero-lab"><header className="hero-lab-header"><div><span className="hero-lab-kicker">MOHAMMAD MOIN / HERO EXPLORATION</span><h1>Which introduction<br /><em>makes you scroll?</em></h1></div><p>Interactive prototypes. Same identity, radically different opening experiences.</p></header><nav className="hero-lab-selector" aria-label="Hero concepts">{variants.map((x) => <button key={x.id} className={active === x.id ? "is-active" : ""} onClick={() => setActive(x.id)}><b>{x.id}</b><span>{x.name}</span></button>)}</nav><div className="hero-lab-title"><span>OPTION {current.id}</span><h2>{current.name}</h2><p>{current.description}</p></div><HeroVariant id={active} /><footer className="hero-lab-footer"><span>HERO LAB</span><p>Prototype only · reimagine/v2 · vercel-deploy remains untouched</p></footer></main>;
+  return <main className="hero-lab"><header className="hero-lab-header"><div><span className="hero-lab-kicker">MOHAMMAD MOIN / HERO EXPLORATION</span><h1>Which introduction<br /><em>makes you scroll?</em></h1></div><p>Interactive prototypes. Same identity, radically different opening experiences.</p></header><div className="hero-lab-selector-wrap"><nav className="hero-lab-selector" aria-label="Hero concepts">{variants.map((x) => <button key={x.id} className={active === x.id ? "is-active" : ""} onClick={() => setActive(x.id)}><b>{x.id}</b><span>{x.name}</span></button>)}</nav><div className="hero-lab-title"><span>OPTION {current.id}</span><h2>{current.name}</h2><p>{current.description}</p></div></div><div className="hero-lab-workspace"><HeroVariant id={active} /></div><footer className="hero-lab-footer"><span>HERO LAB</span><p>Prototype only · reimagine/v2 · vercel-deploy remains untouched</p></footer></main>;
 }
