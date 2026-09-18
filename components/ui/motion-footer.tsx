@@ -170,7 +170,7 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
           color:#7899D4;
           font-style:normal;
         }
-        .motion-footer-giant{
+        .motion-footer-giant{display:none;
           position:absolute;
           left:50%;
           bottom:-3vh;
@@ -346,6 +346,17 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
         <div className="motion-footer-marquee-track">
           <MarqueeItem /><MarqueeItem /><MarqueeItem /><MarqueeItem />
         </div>
+      </div>
+
+      <div className="motion-footer-brand" aria-label="Mohammad Moin">
+        <motion.span
+          initial={reduceMotion ? false : { y: "105%" }}
+          whileInView={reduceMotion ? undefined : { y: 0 }}
+          viewport={{ once: false, amount: 0.2 }}
+          transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1] }}
+        >
+          MOHAMMAD <em>MOIN.</em>
+        </motion.span>
       </div>
 
       <div className="motion-footer-inner">
