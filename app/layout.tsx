@@ -7,6 +7,7 @@ import "./reimagine-theme.css";
 import "./reimagine-fixes.css";
 import "./reimagine-3d.css";
 import "./reimagine-performance.css";
+import "./hero-lab.css";
 
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", display: "swap" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
