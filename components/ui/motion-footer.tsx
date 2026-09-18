@@ -357,11 +357,11 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
         </div>
       </div>
 
-      <div className="motion-footer-brand" aria-label="Mohammad Moin">
-        <span>MOHAMMAD <em>MOIN.</em></span>
-      </div>
-
       <div className="motion-footer-inner">
+        <div className="motion-footer-brand" aria-label="Mohammad Moin">
+          <span className="motion-footer-brand-word motion-footer-brand-word-1">MOHAMMAD</span>
+          <span className="motion-footer-brand-word motion-footer-brand-word-2"><em>MOIN.</em></span>
+        </div>
         <div className="motion-footer-top">
           <span className="motion-footer-kicker">MOHAMMAD MOIN · 2026</span>
           <a href="#thesis">BACK TO TOP ↑</a>
