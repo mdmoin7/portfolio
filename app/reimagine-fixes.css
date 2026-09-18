@@ -2222,3 +2222,165 @@ html.lenis {
 @media(prefers-reduced-motion:reduce){
   .moin-buddy-orb-pulse,.moin-buddy-thinking i{animation:none}
 }
+
+
+/* -------------------------------------------------------------------------- */
+/* V2 professional subpage shell                                               */
+/* -------------------------------------------------------------------------- */
+.reimagine-subpage{
+  --v2-ink:#30343F;
+  --v2-navy:#1E2749;
+  --v2-indigo:#273469;
+  --v2-blue:#7899D4;
+  --v2-paper:#FAFAFF;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 88% 4%,rgba(120,153,212,.12),transparent 28rem),
+    linear-gradient(180deg,#FAFAFF 0%,#f4f6fb 100%);
+  color:var(--v2-ink);
+}
+.reimagine-subpage .subpage-nav{
+  background:rgba(250,250,255,.88)!important;
+  border-color:rgba(39,52,105,.12)!important;
+  box-shadow:0 10px 35px rgba(30,39,73,.05);
+}
+.reimagine-subpage .subpage-nav .wrap{
+  max-width:1440px;
+}
+.reimagine-subpage .subpage-nav strong{
+  color:var(--v2-navy)!important;
+}
+.reimagine-subpage .subpage-nav a{
+  color:#536079!important;
+}
+.reimagine-subpage .subpage-nav a:hover,
+.reimagine-subpage .subpage-nav a[class*="text-blue"]{
+  color:var(--v2-indigo)!important;
+}
+.reimagine-subpage .subpage-hero{
+  min-height:min(680px,calc(100svh - 70px));
+  display:flex;
+  align-items:center;
+  border-color:rgba(39,52,105,.12)!important;
+  background:
+    linear-gradient(115deg,rgba(250,250,255,.98),rgba(232,237,248,.84)),
+    radial-gradient(circle at 78% 48%,rgba(120,153,212,.24),transparent 24rem);
+}
+.reimagine-subpage .subpage-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background-image:linear-gradient(rgba(39,52,105,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(39,52,105,.045) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:linear-gradient(to right,transparent,black 45%,transparent);
+}
+.reimagine-subpage .subpage-hero .wrap{
+  width:100%;
+  padding-top:clamp(70px,10vw,130px)!important;
+  padding-bottom:clamp(70px,10vw,130px)!important;
+}
+.reimagine-subpage .subpage-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:.7rem;
+  color:var(--v2-indigo)!important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.reimagine-subpage .subpage-eyebrow::before{
+  content:"";
+  width:32px;
+  height:1px;
+  background:var(--v2-blue);
+}
+.reimagine-subpage .subpage-hero h1{
+  max-width:1000px;
+  color:var(--v2-navy)!important;
+  font-size:clamp(42px,7vw,92px)!important;
+  letter-spacing:-.065em!important;
+  line-height:.94!important;
+}
+.reimagine-subpage .subpage-hero p{
+  max-width:720px!important;
+  color:#59657b!important;
+  font-size:clamp(15px,1.4vw,19px)!important;
+}
+.reimagine-subpage .subpage-hero .wrap::after{
+  content:"ENGINEERING × PEOPLE × AI";
+  position:absolute;
+  right:5vw;
+  bottom:clamp(28px,5vw,62px);
+  color:rgba(39,52,105,.42);
+  font:800 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.18em;
+}
+.reimagine-subpage main section{
+  border-color:rgba(39,52,105,.10)!important;
+}
+.reimagine-subpage .section-bg-light{background:#FAFAFF!important}
+.reimagine-subpage .section-bg-muted{
+  background:linear-gradient(135deg,#eef2f8,#e6ebf5)!important;
+}
+.reimagine-subpage .kicker{
+  color:var(--v2-indigo)!important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.13em;
+}
+.reimagine-subpage .section-title{
+  color:var(--v2-navy)!important;
+  letter-spacing:-.045em;
+  line-height:1.02;
+}
+.reimagine-subpage .subpage-intro{
+  max-width:760px;
+  color:#5c687e!important;
+}
+.reimagine-subpage .subpage-card,
+.reimagine-subpage .subpage-fact,
+.reimagine-subpage .subpage-step,
+.reimagine-subpage .subpage-decision,
+.reimagine-subpage .subpage-flow-item{
+  border-color:rgba(39,52,105,.12)!important;
+  background:rgba(250,250,255,.78)!important;
+  box-shadow:0 18px 45px rgba(30,39,73,.055);
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.reimagine-subpage .subpage-card:hover,
+.reimagine-subpage .subpage-fact:hover,
+.reimagine-subpage .subpage-step:hover,
+.reimagine-subpage .subpage-flow-item:hover{
+  transform:translateY(-3px);
+  border-color:rgba(120,153,212,.55)!important;
+  box-shadow:0 24px 55px rgba(30,39,73,.09);
+}
+.reimagine-subpage .subpage-card h3,
+.reimagine-subpage .subpage-step strong,
+.reimagine-subpage .subpage-fact strong,
+.reimagine-subpage .subpage-flow-item strong{
+  color:var(--v2-navy)!important;
+}
+.reimagine-subpage .subpage-cta{
+  background:linear-gradient(135deg,var(--v2-navy),var(--v2-indigo))!important;
+  color:var(--v2-paper);
+  border-color:transparent!important;
+}
+.reimagine-subpage .subpage-cta .kicker,
+.reimagine-subpage .subpage-cta .section-title,
+.reimagine-subpage .subpage-cta .subpage-intro{
+  color:var(--v2-paper)!important;
+}
+.reimagine-subpage .subpage-cta .kicker{color:#b9c9ea!important}
+.reimagine-subpage .subpage-related-link{
+  border-color:rgba(39,52,105,.16)!important;
+  background:rgba(250,250,255,.75)!important;
+  color:var(--v2-indigo)!important;
+}
+@media(max-width:760px){
+  .reimagine-subpage .subpage-hero{min-height:auto}
+  .reimagine-subpage .subpage-hero .wrap::after{display:none}
+  .reimagine-subpage .subpage-hero h1{font-size:clamp(40px,12vw,64px)!important}
+}
