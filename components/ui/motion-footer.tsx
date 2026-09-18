@@ -241,7 +241,15 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
         }
         .motion-footer-heading-line > span{
           display:block;
+          transform:translateY(105%);
           will-change:transform;
+          animation:motion-footer-reveal 1s cubic-bezier(.16,1,.3,1) forwards;
+        }
+        .motion-footer-heading-line:nth-child(2) > span{animation-delay:.08s}
+        .motion-footer-heading-line:nth-child(3) > span{animation-delay:.16s}
+        @keyframes motion-footer-reveal{
+          from{transform:translateY(105%)}
+          to{transform:translateY(0)}
         }
         .motion-footer-copy{
           max-width:390px;
@@ -321,6 +329,7 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
 
         @media(prefers-reduced-motion:reduce){
           .motion-footer-marquee-track{animation:none}
+          .motion-footer-heading-line > span{animation:none;transform:none}
         }
       `}</style>
 
@@ -349,14 +358,7 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
       </div>
 
       <div className="motion-footer-brand" aria-label="Mohammad Moin">
-        <motion.span
-          initial={reduceMotion ? false : { y: "105%" }}
-          whileInView={reduceMotion ? undefined : { y: 0 }}
-          viewport={{ once: false, amount: 0.2 }}
-          transition={{ duration: 1.05, ease: [0.16, 1, 0.3, 1] }}
-        >
-          MOHAMMAD <em>MOIN.</em>
-        </motion.span>
+        <span>MOHAMMAD <em>MOIN.</em></span>
       </div>
 
       <div className="motion-footer-inner">
@@ -367,20 +369,9 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
 
         <div className="motion-footer-main">
           <h2 className="motion-footer-heading" aria-label="Build people. Solve problems. Innovate.">
-            {["Build people.", "Solve problems.", "Innovate."].map((line, index) => (
+            {["Build people.", "Solve problems.", "Innovate."].map((line) => (
               <span className="motion-footer-heading-line" key={line}>
-                <motion.span
-                  initial={reduceMotion ? false : { y: "110%" }}
-                  whileInView={reduceMotion ? undefined : { y: 0 }}
-                  viewport={{ once: true, amount: 0.35 }}
-                  transition={{
-                    duration: 0.95,
-                    delay: index * 0.08,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                >
-                  {line === "Innovate." ? <em>{line}</em> : line}
-                </motion.span>
+                <span>{line === "Innovate." ? <em>{line}</em> : line}</span>
               </span>
             ))}
           </h2>
