@@ -358,23 +358,25 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
       </div>
 
       <div className="motion-footer-inner">
-        <div className="motion-footer-brand" aria-label="Mohammad Moin">
-          <span className="motion-footer-brand-word motion-footer-brand-word-1">MOHAMMAD</span>
-          <span className="motion-footer-brand-word motion-footer-brand-word-2"><em>MOIN.</em></span>
-        </div>
         <div className="motion-footer-top">
           <span className="motion-footer-kicker">MOHAMMAD MOIN · 2026</span>
           <a href="#thesis">BACK TO TOP ↑</a>
         </div>
 
         <div className="motion-footer-main">
-          <h2 className="motion-footer-heading" aria-label="Build people. Solve problems. Innovate.">
+          <div className="motion-footer-left">
+            <div className="motion-footer-brand" aria-label="Mohammad Moin">
+              <span className="motion-footer-brand-word motion-footer-brand-word-1">MOHAMMAD</span>
+              <span className="motion-footer-brand-word motion-footer-brand-word-2"><em>MOIN.</em></span>
+            </div>
+            <h2 className="motion-footer-heading" aria-label="Build people. Solve problems. Innovate.">
             {["Build people.", "Solve problems.", "Innovate."].map((line) => (
               <span className="motion-footer-heading-line" key={line}>
                 <span>{line === "Innovate." ? <em>{line}</em> : line}</span>
               </span>
             ))}
-          </h2>
+            </h2>
+          </div>
 
           <div>
             <p className="motion-footer-copy">
