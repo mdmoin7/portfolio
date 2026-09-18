@@ -862,7 +862,31 @@
 .reimagine .spotlight-card-content {
   position: relative;
   z-index: 2;
-  display: contents;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+}
+
+.reimagine .practice-card .spotlight-card-content {
+  display: grid;
+  grid-template-columns: 34px minmax(0,1fr);
+  gap: 16px;
+  align-content: start;
+}
+
+.reimagine .practice-card .spotlight-card-content > div {
+  min-width: 0;
+}
+
+.reimagine .service-grid .spotlight-card-content,
+.reimagine .work-card .spotlight-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.reimagine .service-grid .spotlight-card-content > *,
+.reimagine .work-card .spotlight-card-content > * {
+  min-width: 0;
 }
 
 .reimagine .spotlight-card::after {
