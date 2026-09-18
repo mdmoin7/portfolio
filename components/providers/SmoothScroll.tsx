@@ -1,7 +1,7 @@
 "use client";
 
+import { ReactLenis } from "lenis/react";
 import { useEffect } from "react";
-import Lenis from "lenis";
 import { useReducedMotion } from "@/lib/motion";
 
 export function SmoothScrollProvider({ children }: { children: React.ReactNode }) {
@@ -10,27 +10,51 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
   useEffect(() => {
     if (reducedMotion) return;
 
-    const lenis = new Lenis({
-      duration: 1.15,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
-    });
+    const root = document.documentElement;
+    root.classList.add("lenis", "lenis-smooth");
 
-    document.documentElement.classList.add("lenis", "lenis-smooth");
+    const revealTargets = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        ".reimagine section:not(.hero-v2), .reimagine .spotlight-card, .reimagine .motion-footer"
+      )
+    );
 
-    let frame = 0;
-    const raf = (time: number) => {
-      lenis.raf(time);
-      frame = requestAnimationFrame(raf);
-    };
-    frame = requestAnimationFrame(raf);
+    revealTargets.forEach((element) => element.classList.add("scroll-reveal"));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    revealTargets.forEach((element) => observer.observe(element));
 
     return () => {
-      cancelAnimationFrame(frame);
-      lenis.destroy();
-      document.documentElement.classList.remove("lenis", "lenis-smooth");
+      observer.disconnect();
+      root.classList.remove("lenis", "lenis-smooth");
     };
   }, [reducedMotion]);
 
-  return children;
+  return (
+    <ReactLenis
+      root
+      options={{
+        duration: 0.9,
+        easing: (t: number) => 1 - Math.pow(1 - t, 4),
+        smoothWheel: true,
+        wheelMultiplier: 0.85,
+        touchMultiplier: 1,
+        autoRaf: true,
+        anchors: true,
+        prevent: (node: HTMLElement) => node.hasAttribute("data-lenis-prevent"),
+      }}
+    >
+      {children}
+    </ReactLenis>
+  );
 }
