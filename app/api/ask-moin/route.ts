@@ -46,7 +46,7 @@ export async function POST(request: Request) {
         Authorization: `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: process.env.OPENAI_MODEL || "gpt-5.6-mini",
+        model: process.env.OPENAI_MODEL || "gpt-5.6-luna",
         instructions: SYSTEM_PROMPT,
         input: message,
         max_output_tokens: 220,
