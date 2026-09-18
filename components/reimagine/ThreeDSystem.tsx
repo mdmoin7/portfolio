@@ -2,7 +2,7 @@
 
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Line } from "@react-three/drei";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 
 const NODES = [
@@ -92,15 +92,38 @@ function CoreScene() {
 }
 
 export function ThreeDSystem() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    const start = () => {
+      if (!cancelled) setReady(true);
+    };
+
+    if ("requestIdleCallback" in window) {
+      const idleId = window.requestIdleCallback(start, { timeout: 900 });
+      return () => {
+        cancelled = true;
+        window.cancelIdleCallback(idleId);
+      };
+    }
+
+    const timeoutId = window.setTimeout(start, 500);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+    };
+  }, []);
+
   return (
     <div className="three-d-system" aria-hidden="true">
-      <Canvas camera={{ position: [0, 0, 5.7], fov: 34 }} dpr={[1, 1.7]} gl={{ antialias: true, alpha: true }}>
+      {ready ? <Canvas camera={{ position: [0, 0, 5.7], fov: 34 }} dpr={[1, 1.35]} gl={{ antialias: true, alpha: true }}>
         <ambientLight intensity={0.75} />
         <pointLight position={[3.5, 3, 4]} intensity={18} color="#7899D4" />
         <pointLight position={[-3, -2, 2]} intensity={8} color="#FAFAFF" />
         <pointLight position={[0, 0, 5]} intensity={5} color="#273469" />
         <CoreScene />
-      </Canvas>
+      </Canvas> : <div className="three-d-system-placeholder" />}
     </div>
   );
 }
