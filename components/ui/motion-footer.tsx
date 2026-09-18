@@ -8,14 +8,17 @@ import { cn } from "@/lib/utils";
 
 export type MagneticButtonProps =
   React.ButtonHTMLAttributes<HTMLButtonElement> &
-  React.AnchorHTMLAttributes<HTMLAnchorElement> & {
-    as?: React.ElementType;
-  };
+    React.AnchorHTMLAttributes<HTMLAnchorElement> & {
+      as?: React.ElementType;
+    };
 
 const EMAIL = "mohammadmoin.tech@gmail.com";
 
 const MagneticButton = React.forwardRef<HTMLElement, MagneticButtonProps>(
-  ({ className, children, as: Component = "button", ...props }, forwardedRef) => {
+  (
+    { className, children, as: Component = "button", ...props },
+    forwardedRef,
+  ) => {
     const localRef = useRef<HTMLElement>(null);
 
     useEffect(() => {
@@ -66,7 +69,8 @@ const MagneticButton = React.forwardRef<HTMLElement, MagneticButtonProps>(
         localRef.current = node;
         if (typeof forwardedRef === "function") forwardedRef(node);
         else if (forwardedRef) {
-          (forwardedRef as React.MutableRefObject<HTMLElement | null>).current = node;
+          (forwardedRef as React.MutableRefObject<HTMLElement | null>).current =
+            node;
         }
       },
       className: cn("cursor-pointer", className),
@@ -81,10 +85,14 @@ MagneticButton.displayName = "MagneticButton";
 function MarqueeItem() {
   return (
     <div className="motion-footer-marquee-item">
-      <span>Build People</span><i>✦</i>
-      <span>Solve Problems</span><i>✦</i>
-      <span>Innovate</span><i>✦</i>
-      <span>Engineering × People × AI</span><i>✦</i>
+      <span>Build People</span>
+      <i>✦</i>
+      <span>Solve Problems</span>
+      <i>✦</i>
+      <span>Innovate</span>
+      <i>✦</i>
+      <span>Engineering × People × AI</span>
+      <i>✦</i>
     </div>
   );
 }
@@ -337,7 +345,11 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
       <motion.div
         className="motion-footer-aurora"
         aria-hidden="true"
-        animate={reduceMotion ? undefined : { scale: [1, 1.06, 1], opacity: [0.65, 1, 0.65] }}
+        animate={
+          reduceMotion
+            ? undefined
+            : { scale: [1, 1.06, 1], opacity: [0.65, 1, 0.65] }
+        }
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
@@ -353,7 +365,10 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
 
       <div className="motion-footer-marquee" aria-hidden="true">
         <div className="motion-footer-marquee-track">
-          <MarqueeItem /><MarqueeItem /><MarqueeItem /><MarqueeItem />
+          <MarqueeItem />
+          <MarqueeItem />
+          <MarqueeItem />
+          <MarqueeItem />
         </div>
       </div>
 
@@ -366,28 +381,60 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
         <div className="motion-footer-main">
           <div className="motion-footer-left">
             <div className="motion-footer-brand" aria-label="Mohammad Moin">
-              <span className="motion-footer-brand-word motion-footer-brand-word-1">MOHAMMAD</span>
-              <span className="motion-footer-brand-word motion-footer-brand-word-2"><em>MOIN.</em></span>
-            </div>
-            <h2 className="motion-footer-heading" aria-label="Build people. Solve problems. Innovate.">
-            {["Build people.", "Solve problems.", "Innovate."].map((line) => (
-              <span className="motion-footer-heading-line" key={line}>
-                <span>{line === "Innovate." ? <em>{line}</em> : line}</span>
+              <span className="motion-footer-brand-word motion-footer-brand-word-1">
+                MOHAMMAD{" "}
               </span>
-            ))}
+              <span className="motion-footer-brand-word motion-footer-brand-word-2">
+                <em>MOIN.</em>
+              </span>
+            </div>
+            <h2
+              className="motion-footer-heading"
+              aria-label="Build people. Solve problems. Innovate."
+            >
+              {["Build people.", "Solve problems.", "Innovate."].map((line) => (
+                <span className="motion-footer-heading-line" key={line}>
+                  <span>{line === "Innovate." ? <em>{line}</em> : line}</span>
+                </span>
+              ))}
             </h2>
           </div>
 
           <div>
             <p className="motion-footer-copy">
-              Independent software engineering consultant and corporate technology trainer.
-              Consulting, engineering, architecture and practical technology training.
+              Independent software engineering consultant and corporate
+              technology trainer. Consulting, engineering, architecture and
+              practical technology training.
             </p>
             <div className="motion-footer-links">
-              <MagneticButton as="a" href="#capability" className="motion-footer-pill">What I Do <span>→</span></MagneticButton>
-              <MagneticButton as="a" href="#work" className="motion-footer-pill">Selected Work <span>→</span></MagneticButton>
-              <MagneticButton as="a" href="#training" className="motion-footer-pill">Training <span>→</span></MagneticButton>
-              <MagneticButton as="a" href={`mailto:${EMAIL}`} className="motion-footer-pill">Let's Talk <span>→</span></MagneticButton>
+              <MagneticButton
+                as="a"
+                href="#capability"
+                className="motion-footer-pill"
+              >
+                What I Do <span>→</span>
+              </MagneticButton>
+              <MagneticButton
+                as="a"
+                href="#work"
+                className="motion-footer-pill"
+              >
+                Selected Work <span>→</span>
+              </MagneticButton>
+              <MagneticButton
+                as="a"
+                href="#training"
+                className="motion-footer-pill"
+              >
+                Training <span>→</span>
+              </MagneticButton>
+              <MagneticButton
+                as="a"
+                href={`mailto:${EMAIL}`}
+                className="motion-footer-pill"
+              >
+                Let's Talk <span>→</span>
+              </MagneticButton>
             </div>
           </div>
         </div>
