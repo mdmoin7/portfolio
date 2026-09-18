@@ -17,18 +17,23 @@ export function DeferredThreeDSystem() {
       if (!cancelled) setEnabled(true);
     };
 
-    if ("requestIdleCallback" in window) {
-      const id = window.requestIdleCallback(enable, { timeout: 1200 });
+    const idleWindow = globalThis as typeof globalThis & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout?: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+
+    if (typeof idleWindow.requestIdleCallback === "function") {
+      const idleId = idleWindow.requestIdleCallback(enable, { timeout: 1200 });
       return () => {
         cancelled = true;
-        window.cancelIdleCallback(id);
+        idleWindow.cancelIdleCallback?.(idleId);
       };
     }
 
-    const id = window.setTimeout(enable, 650);
+    const timeoutId = globalThis.setTimeout(enable, 650);
     return () => {
       cancelled = true;
-      window.clearTimeout(id);
+      globalThis.clearTimeout(timeoutId);
     };
   }, []);
 
