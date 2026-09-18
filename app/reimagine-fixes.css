@@ -1573,3 +1573,143 @@
     transform:none !important;
   }
 }
+
+/* FINAL DESKTOP GEOMETRY CORRECTION — hero, sections and footer */
+@media (min-width:901px) {
+  .reimagine .hero-v2 {
+    height:auto !important;
+    min-height:min(900px, max(760px, 100svh));
+    max-height:none !important;
+    padding-top:126px !important;
+    padding-bottom:86px !important;
+    grid-template-columns:minmax(0,.92fr) minmax(480px,1.08fr);
+    align-items:center;
+  }
+
+  .reimagine .hero-copy {
+    align-self:center;
+    min-width:0;
+  }
+
+  .reimagine .hero-v2 h1 {
+    max-width:10.5ch;
+  }
+
+  .reimagine .hero-lede {
+    max-width:560px;
+  }
+
+  .reimagine .hero-stats {
+    margin-top:32px;
+  }
+
+  .reimagine .hero-visual {
+    position:relative !important;
+    inset:auto !important;
+    grid-column:2;
+    grid-row:1;
+    align-self:stretch;
+    justify-self:stretch;
+    width:100%;
+    height:min(72svh,680px);
+    min-width:0;
+    z-index:2;
+  }
+
+  .reimagine .three-d-system {
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    right:auto !important;
+    top:auto !important;
+    transform:none !important;
+  }
+
+  .reimagine .hero-system-label,
+  .reimagine .hero-system-caption {
+    pointer-events:none;
+  }
+}
+
+/* At compact desktop/tablet widths, keep the hero as a stacked composition so
+   the 3D scene can never sit over the identity copy. */
+@media (min-width:641px) and (max-width:900px) {
+  .reimagine .hero-v2 {
+    height:auto !important;
+    min-height:820px;
+    padding-top:150px !important;
+    padding-bottom:64px !important;
+  }
+
+  .reimagine .hero-copy { order:1; }
+  .reimagine .hero-visual {
+    order:2;
+    position:relative !important;
+    inset:auto !important;
+    height:360px;
+    width:100%;
+  }
+
+  .reimagine .three-d-system {
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    right:auto !important;
+    top:auto !important;
+  }
+}
+
+/* Numbers and section markers are always readable on indigo/navy surfaces. */
+.reimagine.is-dark .hero-stats strong,
+.reimagine.is-dark .hero-stats span,
+.reimagine.is-dark .section-kicker,
+.reimagine.is-dark .section-marker,
+.reimagine.is-dark .practice-index,
+.reimagine.is-dark .node-index,
+.reimagine.is-dark .node-name {
+  color:#FAFAFF !important;
+}
+.reimagine.is-dark .hero-stats span,
+.reimagine.is-dark .section-kicker,
+.reimagine.is-dark .section-marker,
+.reimagine.is-dark .node-index {
+  color:#BFD0F1 !important;
+}
+
+/* Remove inherited legacy positioning from section links/controls. */
+.reimagine .section-link,
+.reimagine .tech-more {
+  position:static !important;
+  transform:none !important;
+}
+
+/* Footer reveal: large Mohammad identity is visible first, animation then
+   moves it into its resting position instead of starting invisible. */
+.reimagine .motion-footer-brand {
+  position:relative;
+  z-index:1;
+  width:100%;
+  margin:clamp(42px,6vw,82px) 0 30px;
+  overflow:hidden;
+  font:500 clamp(72px,14vw,210px)/.72 var(--font-display);
+  letter-spacing:-.075em;
+  white-space:nowrap;
+  color:#FAFAFF;
+}
+.reimagine .motion-footer-brand span {
+  display:block;
+  will-change:transform;
+}
+.reimagine .motion-footer-brand em {
+  color:#7899D4;
+  font-style:normal;
+}
+@media(max-width:560px){
+  .reimagine .motion-footer-brand {
+    margin:42px 0 25px;
+    font-size:clamp(58px,17vw,92px);
+    white-space:normal;
+  }
+}
