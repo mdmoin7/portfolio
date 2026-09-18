@@ -1365,3 +1365,211 @@
     transform:none;
   }
 }
+
+
+/* =========================================================================
+   FINAL VISUAL COMPOSITION OVERRIDE
+   Explicit grid placement prevents legacy/implicit CSS from reordering
+   content. This is the only layout authority for the V2 page.
+   ========================================================================= */
+
+@media (min-width:901px) {
+  .reimagine .capability-section {
+    grid-template-columns:minmax(280px,340px) minmax(0,1fr);
+    gap:clamp(56px,6vw,96px);
+    align-items:start;
+  }
+
+  .reimagine .capability-section > .section-kicker {
+    grid-column:auto;
+  }
+
+  .reimagine .capability-section > .capability-lead {
+    grid-column:1;
+    grid-row:1;
+    align-self:start;
+  }
+
+  .reimagine .capability-section > .capability-content {
+    grid-column:2;
+    grid-row:1;
+    align-self:start;
+  }
+
+  .reimagine .practice-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+  }
+
+  .reimagine .practice-card {
+    min-height:360px;
+    padding:30px;
+  }
+
+  .reimagine .service-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+  }
+
+  .reimagine .service-grid .spotlight-card {
+    min-height:190px;
+  }
+
+  /* Approach */
+  .reimagine .system-section {
+    min-height:650px;
+    padding-top:118px;
+    padding-bottom:92px;
+  }
+
+  .reimagine .system-intro {
+    max-width:650px;
+  }
+
+  .reimagine .system-map {
+    margin-top:74px;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:18px;
+  }
+
+  .reimagine .system-node {
+    padding:18px 12px 22px;
+  }
+
+  .reimagine .node-name {
+    font-size:14px;
+  }
+
+  .reimagine .node-description {
+    max-width:165px;
+    font-size:11px;
+    line-height:1.5;
+  }
+
+  /* Technology */
+  .reimagine .technology-section {
+    min-height:330px;
+    padding-top:76px;
+    padding-bottom:76px;
+    grid-template-columns:minmax(290px,.58fr) minmax(0,1.65fr) auto;
+    gap:54px;
+  }
+
+  .reimagine .constellation {
+    min-height:150px;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+
+  .reimagine .tech-node {
+    min-height:120px;
+    padding:18px 14px;
+  }
+
+  .reimagine .tech-node span {
+    font-size:26px;
+  }
+
+  .reimagine .tech-node strong {
+    font-size:11px;
+  }
+
+  /* Selected work */
+  .reimagine .work-section {
+    padding-top:112px;
+    padding-bottom:108px;
+  }
+
+  .reimagine .work-head {
+    grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);
+    gap:80px;
+  }
+
+  .reimagine .work-grid {
+    grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);
+    grid-template-rows:repeat(2,220px);
+    gap:18px;
+    margin-top:50px;
+  }
+
+  .reimagine .work-featured {
+    min-height:458px;
+  }
+
+  .reimagine .work-card {
+    padding:30px;
+  }
+
+  /* Training */
+  .reimagine .training-section {
+    padding-top:112px;
+    padding-bottom:104px;
+  }
+
+  .reimagine .training-layout {
+    grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+    gap:80px;
+    align-items:center;
+  }
+
+  .reimagine .training-flow {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+
+  .reimagine .training-flow span:first-child {
+    grid-column:1 / -1;
+  }
+
+  /* Insights */
+  .reimagine .labs-section {
+    padding-top:112px;
+    padding-bottom:104px;
+  }
+
+  .reimagine .labs-layout {
+    grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+    gap:90px;
+  }
+
+  .reimagine .lab-list > div {
+    grid-template-columns:44px minmax(0,1fr);
+    padding:21px 0;
+  }
+
+  /* About */
+  .reimagine .about-v2 {
+    padding-top:110px;
+    padding-bottom:110px;
+  }
+
+  .reimagine .author-layout {
+    grid-template-columns:280px minmax(0,1fr);
+    gap:90px;
+  }
+
+  /* The motion footer is the sole contact destination and starts as visible
+     content; motion only changes transform, so a failed observer can never
+     leave the CTA invisible. */
+  .reimagine .motion-footer {
+    min-height:88svh;
+  }
+
+  .reimagine .motion-footer-heading {
+    opacity:1 !important;
+  }
+}
+
+@media (max-width:900px) {
+  .reimagine .capability-section > .capability-lead,
+  .reimagine .capability-section > .capability-content {
+    grid-column:auto;
+    grid-row:auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reimagine .motion-footer-heading-line > span,
+  .reimagine .motion-footer-giant {
+    transform:none !important;
+  }
+}
