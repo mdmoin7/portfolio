@@ -12,6 +12,21 @@ const starters = [
   "What has he built?",
 ];
 
+function BuddyIcon({ className = "" }: { className?: string }) {
+  return (
+    <span className={`moin-buddy-hero ${className}`} aria-hidden="true">
+      <span className="moin-buddy-cape" />
+      <motion.span className="moin-buddy-head">
+        <i />
+        <i />
+      </motion.span>
+      <span className="moin-buddy-body">
+        <b>M</b>
+      </span>
+    </span>
+  );
+}
+
 export function MoinBuddy() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -141,9 +156,12 @@ export function MoinBuddy() {
             aria-label="Ask Moin"
           >
             <div className="moin-buddy-head">
-              <div>
-                <span className="mono">ASK MOIN</span>
-                <strong>Curious about my work?</strong>
+              <div className="moin-buddy-title">
+                <BuddyIcon className="moin-buddy-panel-icon" />
+                <div>
+                  <span className="mono">ASK MOIN</span>
+                  <strong>Curious about my work?</strong>
+                </div>
               </div>
               <button
                 type="button"
@@ -229,17 +247,13 @@ export function MoinBuddy() {
         whileHover={{ scale: 1.06, y: -6 }}
         whileTap={{ scale: 0.94 }}
       >
-        <span className="moin-buddy-hero" aria-hidden="true">
+        <motion.span className="moin-buddy-hero" style={{ x: eyeX, y: eyeY }}>
           <span className="moin-buddy-cape" />
-          <motion.span
-            className="moin-buddy-head"
-            style={{ x: eyeX, y: eyeY }}
-            transition={{ type: "spring", stiffness: 180, damping: 16 }}
-          >
+          <motion.span className="moin-buddy-head">
             <i /><i />
           </motion.span>
           <span className="moin-buddy-body"><b>M</b></span>
-        </span>
+        </motion.span>
       </motion.button>
     </div>
   );
