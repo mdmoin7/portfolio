@@ -60,6 +60,8 @@ export async function POST(request: Request) {
     clearTimeout(timeoutId);
 
     if (!response.ok) {
+      const providerError = await response.text().catch(() => "");
+      console.error("Ask Moin provider error:", response.status, providerError.slice(0, 500));
       return NextResponse.json(
         { answer: "I couldn't reach Ask Moin right now. Please try again shortly." },
         { status: 502 },
