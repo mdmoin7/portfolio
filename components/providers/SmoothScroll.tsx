@@ -62,8 +62,13 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       lenis.resize();
     };
 
+    const handleScrollTop = () => {
+      lenis.scrollTo(0, { duration: 1.2, lock: true, force: true });
+    };
+
     document.addEventListener("click", handleAnchor);
     window.addEventListener("resize", handleResize);
+    window.addEventListener("moin-scroll-top", handleScrollTop);
 
     frame = requestAnimationFrame(raf);
 
@@ -72,6 +77,7 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
       cancelAnimationFrame(frame);
       document.removeEventListener("click", handleAnchor);
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("moin-scroll-top", handleScrollTop);
       lenis.destroy();
       root.classList.remove("lenis", "lenis-smooth");
     };
