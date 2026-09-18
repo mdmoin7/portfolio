@@ -163,7 +163,7 @@ export function MoinBuddy() {
             transition={{ duration: 0.22, ease: [0.2, 0.8, 0.2, 1] }}
             aria-label="Ask Moin"
           >
-            <div className="moin-buddy-head">
+            <div className="moin-buddy-panel-head">
               <div className="moin-buddy-title">
                 <BuddyIcon className="moin-buddy-panel-icon" />
                 <div>
