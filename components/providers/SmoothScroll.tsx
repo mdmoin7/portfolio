@@ -49,8 +49,6 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
         smoothWheel: true,
         wheelMultiplier: 0.85,
         touchMultiplier: 1,
-        smoothTouch: false,
-        syncTouch: false,
         autoRaf: true,
         anchors: true,
         prevent: (node: HTMLElement) => node.hasAttribute("data-lenis-prevent"),
