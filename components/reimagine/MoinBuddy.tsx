@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 type Message = { role: "user" | "assistant"; content: string };
 type BuddyState = "idle" | "peek" | "fly" | "open" | "thinking";
@@ -20,11 +20,18 @@ export function MoinBuddy() {
   const [state, setState] = useState<BuddyState>("idle");
   const inputRef = useRef<HTMLInputElement>(null);
   const peekTimer = useRef<number | null>(null);
+  const flyTimer = useRef<number | null>(null);
 
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
   const springX = useSpring(pointerX, { stiffness: 90, damping: 16, mass: 0.7 });
   const springY = useSpring(pointerY, { stiffness: 90, damping: 16, mass: 0.7 });
+  const buddyX = useTransform(springX, (v) => v * 7);
+  const buddyY = useTransform(springY, (v) => v * 5);
+  const buddyRotate = useTransform(springX, (v) => v * 5);
+  const buddyRotateY = useTransform(springX, (v) => v * -10);
+  const eyeX = useTransform(springX, (v) => v * 2);
+  const eyeY = useTransform(springY, (v) => v * 1.5);
 
   useEffect(() => {
     const move = (event: PointerEvent) => {
@@ -55,9 +62,21 @@ export function MoinBuddy() {
       }, 12000);
     };
 
+    const scheduleFly = () => {
+      flyTimer.current = window.setTimeout(() => {
+        setState("fly");
+        window.setTimeout(() => {
+          setState("idle");
+          schedulePeek();
+        }, 1100);
+      }, 26000);
+    };
+
     schedulePeek();
+    scheduleFly();
     return () => {
       if (peekTimer.current) window.clearTimeout(peekTimer.current);
+      if (flyTimer.current) window.clearTimeout(flyTimer.current);
     };
   }, [open, loading]);
 
@@ -194,11 +213,16 @@ export function MoinBuddy() {
         onClick={() => setOpen((value) => !value)}
         aria-label={open ? "Close Ask Moin" : "Open Ask Moin"}
         aria-expanded={open}
+        style={{
+          x: buddyX,
+          y: buddyY,
+          rotate: buddyRotate,
+          rotateY: buddyRotateY,
+        }}
         animate={{
-          x: springX.get() * 7 + (isPeeking ? -30 : 0) + (isFlying ? -80 : 0),
-          y: springY.get() * 5 + (isPeeking ? 10 : 0) + (isFlying ? -100 : 0),
-          rotate: springX.get() * 5 + (isFlying ? -8 : 0),
-          rotateY: springX.get() * -10,
+          x: isPeeking ? -30 : isFlying ? -80 : 0,
+          y: isPeeking ? 10 : isFlying ? -100 : 0,
+          rotate: isFlying ? -8 : 0,
           scale: isFlying ? 1.04 : isPeeking ? 0.92 : 1,
         }}
         transition={{ type: "spring", stiffness: 120, damping: 16, mass: 0.55 }}
@@ -209,7 +233,7 @@ export function MoinBuddy() {
           <span className="moin-buddy-cape" />
           <motion.span
             className="moin-buddy-head"
-            style={{ x: springX.get() * 2, y: springY.get() * 1.5 }}
+            style={{ x: eyeX, y: eyeY }}
             transition={{ type: "spring", stiffness: 180, damping: 16 }}
           >
             <i /><i />
