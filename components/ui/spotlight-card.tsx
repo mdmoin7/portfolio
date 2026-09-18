@@ -21,14 +21,14 @@ export function SpotlightCard({
     onMouseMove?.(event);
   };
 
-  return (
-    <Component
-      className={cn("spotlight-card", className)}
-      onMouseMove={handleMove}
-      {...props}
-    >
-      <span className="spotlight-card-glow" aria-hidden="true" />
-      <div className="spotlight-card-content">{children}</div>
-    </Component>
+  return React.createElement(
+    Component,
+    {
+      ...props,
+      className: cn("spotlight-card", className),
+      onMouseMove: handleMove,
+    },
+    React.createElement("span", { className: "spotlight-card-glow", "aria-hidden": true }),
+    React.createElement("div", { className: "spotlight-card-content" }, children),
   );
 }
