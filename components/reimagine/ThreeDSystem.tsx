@@ -100,18 +100,23 @@ export function ThreeDSystem() {
       if (!cancelled) setReady(true);
     };
 
-    if ("requestIdleCallback" in window) {
-      const idleId = window.requestIdleCallback(start, { timeout: 900 });
+    const idleWindow = globalThis as typeof globalThis & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout?: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    };
+
+    if (typeof idleWindow.requestIdleCallback === "function") {
+      const idleId = idleWindow.requestIdleCallback(start, { timeout: 900 });
       return () => {
         cancelled = true;
-        window.cancelIdleCallback(idleId);
+        idleWindow.cancelIdleCallback?.(idleId);
       };
     }
 
-    const timeoutId = window.setTimeout(start, 500);
+    const timeoutId = globalThis.setTimeout(start, 500);
     return () => {
       cancelled = true;
-      window.clearTimeout(timeoutId);
+      globalThis.clearTimeout(timeoutId);
     };
   }, []);
 
