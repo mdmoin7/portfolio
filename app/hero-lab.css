@@ -68,26 +68,29 @@
 .hero-lab-narrative-end strong{display:block;margin-top:14px;font:700 10px var(--font-mono);letter-spacing:.18em}
 .hero-lab-footer{max-width:1280px;margin:24px auto 0;display:flex;justify-content:space-between;color:var(--hl-muted);font:700 8px var(--font-mono);letter-spacing:.16em;text-transform:uppercase}
 .hero-lab-footer p{margin:0;font:500 11px var(--font-body);letter-spacing:0;text-transform:none}
-@media(max-width:760px){.hero-lab{padding:28px 4.5vw 55px}.hero-lab-header{display:block}.hero-lab-header>p{margin-top:18px}.hero-lab-title{display:block}.hero-lab-title p{margin-top:7px}.hero-lab-variant{height:760px;min-height:760px;border-radius:10px}.hero-lab-copy,.hero-lab-system-copy,.hero-lab-problem{padding-left:7%;padding-right:7%}.hero-lab-choice-grid{grid-template-columns:1fr;bottom:9%;gap:8px}.hero-lab-choice{min-height:90px}.hero-lab-scroll-stage{height:180vh}.hero-lab-scroll-word{font-size:clamp(42px,13vw,72px)}.hero-lab-narrative-intro{left:7%;right:7%}.lightfield-orb{width:95vw;right:-35vw;top:25%}.lightfield-copy{left:7%;top:18%}.graph-node{font-size:8px;padding:9px 11px}.graph-node.is-core{padding:20px 24px}.hero-lab-footer{display:block}.hero-lab-footer p{margin-top:8px}}
+@media(max-width:760px){.hero-lab{padding:28px 4.5vw 55px}.hero-lab-header{display:block}.hero-lab-header>p{margin-top:18px}.hero-lab-title{display:block}.hero-lab-title p{margin-top:7px}.hero-lab-variant{height:760px;min-height:760px;border-radius:10px}.hero-lab-copy,.hero-lab-system-copy,.hero-lab-problem{padding-left:7%;padding-right:7%}.hero-lab-choice-grid{grid-template-columns:1fr;bottom:9%;gap:8px}.hero-lab-choice{min-height:90px}.hero-lab-scroll-stage{height:100%}.hero-lab-scroll-word{font-size:clamp(42px,13vw,72px)}.hero-lab-narrative-intro{left:7%;right:7%}.lightfield-orb{width:95vw;right:-35vw;top:25%}.lightfield-copy{left:7%;top:18%}.graph-node{font-size:8px;padding:9px 11px}.graph-node.is-core{padding:20px 24px}.hero-lab-footer{display:block}.hero-lab-footer p{margin-top:8px}}
 @media(prefers-reduced-motion:reduce){.hero-lab-scroll-word{transform:none!important;opacity:1!important}}
 
 
 /* The scroll concepts are self-contained demo viewports. Their scroll progress
    must be driven by the demo window, not the document. */
 .hero-lab-scroll-stage{
+  position:relative;
+  z-index:6;
+  width:100%;
   height:100%;
   min-height:0;
-  overflow-y:auto;
+  overflow-y:scroll;
   overflow-x:hidden;
   overscroll-behavior:contain;
   -webkit-overflow-scrolling:touch;
   scrollbar-width:thin;
-  position:relative;
-  z-index:6;
   outline:none;
+  touch-action:pan-y;
 }
 .hero-lab-scroll-track{
   position:relative;
+  width:100%;
   min-height:220svh;
 }
 .hero-lab-scroll-stage:focus-visible{
@@ -96,8 +99,8 @@
 .hero-lab-sticky{
   position:sticky;
   top:0;
-  height:100%;
-  min-height:720px;
+  height:100svh;
+  min-height:620px;
   display:grid;
   place-items:center;
 }
@@ -110,5 +113,5 @@
 @media(max-width:760px){
   .hero-lab-scroll-stage{height:100%;min-height:0}
   .hero-lab-scroll-track{min-height:220svh}
-  .hero-lab-sticky{height:100%;min-height:760px}
+  .hero-lab-sticky{height:100svh;min-height:620px}
 }
