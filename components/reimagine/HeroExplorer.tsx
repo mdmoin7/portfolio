@@ -30,7 +30,7 @@ function ScrollWords({ words }: { words: string[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ container: ref });
   return (
-    <div ref={ref} className="hero-lab-scroll-stage" tabIndex={0} aria-label="Scrollable hero concept">
+    <div ref={ref} className="hero-lab-scroll-stage" data-lenis-prevent="true" tabIndex={0} aria-label="Scrollable hero concept">
       <div className="hero-lab-scroll-track">
         <div className="hero-lab-sticky">
           <div className="hero-lab-word-stack">
@@ -90,7 +90,7 @@ function LivingSystem() {
   const principleOpacity = useTransform(scrollYProgress, [0.78, 0.9, 1], [0, 0, 1]);
 
   return (
-    <div ref={ref} className="living-system-stage" tabIndex={0} aria-label="Scrollable Living System hero concept">
+    <div ref={ref} className="living-system-stage" data-lenis-prevent="true" tabIndex={0} aria-label="Scrollable Living System hero concept">
       <div className="living-system-track">
         <div className="living-system-sticky">
           <div className="living-system-grid" aria-hidden="true" />
