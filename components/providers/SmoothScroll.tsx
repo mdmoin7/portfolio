@@ -47,11 +47,12 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
         duration: 1.15,
         easing: (t: number) => 1 - Math.pow(1 - t, 4),
         smoothWheel: true,
-        wheelMultiplier: 0.9,
-        touchMultiplier: 0.95,
+        wheelMultiplier: 0.85,
+        touchMultiplier: 1,
         syncTouch: true,
         autoRaf: true,
-        anchors: false,
+        anchors: true,
+        prevent: (node: HTMLElement) => node.hasAttribute("data-lenis-prevent"),
       }}
     >
       {children}
