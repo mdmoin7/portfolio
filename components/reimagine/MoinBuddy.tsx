@@ -161,8 +161,16 @@ export function MoinBuddy() {
         whileHover={{ y: -3 }}
         whileTap={{ scale: 0.94 }}
       >
-        <span className="moin-buddy-orb-mark">M</span>
-        <span className="moin-buddy-orb-pulse" />
+        <span className="moin-buddy-hero" aria-hidden="true">
+          <span className="moin-buddy-cape" />
+          <span className="moin-buddy-head">
+            <i />
+            <i />
+          </span>
+          <span className="moin-buddy-body">
+            <b>M</b>
+          </span>
+        </span>
       </motion.button>
     </div>
   );
