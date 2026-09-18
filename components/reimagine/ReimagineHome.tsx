@@ -9,6 +9,7 @@ import {
 import { CinematicAudioControl } from "@/components/audio/CinematicAudio";
 import { DeferredThreeDSystem } from "@/components/reimagine/DeferredThreeDSystem";
 import { CinematicFooter } from "@/components/ui/motion-footer";
+import { MoinBuddy } from "@/components/reimagine/MoinBuddy";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
 const PROFILE_IMAGE =
   "https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@reimagine/v2/assets/profile.webp";
@@ -478,6 +479,7 @@ export function ReimagineHome() {
         </section>
       </main>
       <CinematicFooter id="contact" />
+      <MoinBuddy />
     </div>
   );
 }
