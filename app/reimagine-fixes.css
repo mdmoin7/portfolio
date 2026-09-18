@@ -1,974 +1,1097 @@
-/* Final V2 correction layer. Loaded last so theme and geometry are deterministic. */
+/* Reimagine V2 — authoritative layout layer.
+   This file intentionally overrides legacy V1 geometry from globals.css/theme.css. */
+
 .reimagine {
+  --content-max: 1280px;
+  --gutter: max(5.2vw, calc((100vw - var(--content-max)) / 2));
   --surface: #FAFAFF;
   --surface-2: #F1F4FA;
-  --surface-3: #E5EBF5;
+  --surface-3: #E4EAF4;
   --ink: #1E2749;
   --muted-ui: #5E6982;
   --line-ui: rgba(30,39,73,.14);
   --accent-ui: #273469;
   --accent-soft: #7899D4;
-  --dark-surface: #30343F;
-  --dark-surface-2: #273469;
-  --dark-ink: #FAFAFF;
   color: var(--ink);
   background: var(--surface);
+  overflow-x: clip;
 }
 
-/* Layout: the horizontal nav replaces the old spatial rail. */
-.reimagine main { width: 100%; margin-left: 0; }
-.reimagine section { scroll-margin-top: 84px; }
-.reimagine .footer-v2 { margin-left: 0; }
-
-/* Navigation */
-.reimagine .top-nav {
-  background: rgba(250,250,255,.88);
-  border-bottom-color: rgba(39,52,105,.10);
-  color: #1E2749;
-  transition: background .35s,border-color .35s,color .35s;
-}
-.reimagine .brand-lockup,
-.reimagine .top-nav nav a { color: #1E2749; }
-.reimagine .brand-lockup small { color: #5E6982; }
-.reimagine .brand-mark { border-color: #1E2749; }
-.reimagine .top-nav nav a:hover { color: #7899D4; }
-.reimagine .mode-toggle { color: #1E2749; border-color: rgba(30,39,73,.16); }
-.reimagine .nav-cta { background: #1E2749; color: #FAFAFF; }
-
-/* Light mode — one consistent blue/indigo editorial system. */
-.reimagine.is-light,
-.reimagine.is-light .system-section,
-.reimagine.is-light .capability-section,
-.reimagine.is-light .work-section,
-.reimagine.is-light .training-section,
-.reimagine.is-light .labs-section,
-.reimagine.is-light .about-v2,
-.reimagine.is-light .footer-v2 {
-  color: #1E2749;
-}
-.reimagine.is-light .hero-v2 {
-  background:
-    radial-gradient(circle at 78% 38%,rgba(120,153,212,.50),transparent 27%),
-    linear-gradient(115deg,#FAFAFF 0%,#F3F6FC 40%,rgba(120,153,212,.48) 66%,#273469 100%);
-}
-.reimagine.is-light .hero-v2:before { background: linear-gradient(90deg,rgba(250,250,255,.96) 0%,rgba(250,250,255,.82) 34%,rgba(250,250,255,.08) 70%); }
-.reimagine.is-light .hero-lede { color: #34425f; }
-.reimagine.is-light .hero-v2 h1,
-.reimagine.is-light .system-intro h2,
-.reimagine.is-light .capability-lead h2,
-.reimagine.is-light .work-head h2,
-.reimagine.is-light .training-layout h2,
-.reimagine.is-light .labs-layout h2,
-.reimagine.is-light .author-layout h2 { color: #1E2749; }
-.reimagine.is-light .hero-v2 h1 em,
-.reimagine.is-light h2 em { color: #7899D4; }
-.reimagine.is-light .system-section { background: linear-gradient(135deg,#FAFAFF 0%,#F4F6FB 58%,#E8EDF6 100%); }
-.reimagine.is-light .capability-section { background: #FAFAFF; }
-.reimagine.is-light .work-section { background: linear-gradient(135deg,#FAFAFF,#F3F6FB); }
-.reimagine.is-light .training-section { background: linear-gradient(135deg,#E9EEF7,#FAFAFF 52%,#DDE6F4); }
-.reimagine.is-light .labs-section { background: linear-gradient(135deg,#EDF1F8,#DDE5F3); }
-.reimagine.is-light .about-v2 { background: linear-gradient(135deg,#FAFAFF,#F0F3F9); }
-.reimagine.is-light .contact-v2 { background: radial-gradient(circle at 50% 35%,rgba(120,153,212,.30),transparent 30%),linear-gradient(135deg,#30343F,#273469 56%,#1E2749); }
-.reimagine.is-light .section-lede,
-.reimagine.is-light .capability-lead>p:not(.eyebrow),
-.reimagine.is-light .work-head>p,
-.reimagine.is-light .author-layout p { color: #5E6982; }
-.reimagine.is-light .service-grid article { background: linear-gradient(145deg,#FAFAFF,#F3F6FC); border-color: rgba(39,52,105,.11); }
-.reimagine.is-light .service-grid p,
-.reimagine.is-light .work-card p { color: #5E6982; }
-.reimagine.is-light .work-card { background: #F7F8FC; border-color: rgba(39,52,105,.12); }
-.reimagine.is-light .work-featured { background: linear-gradient(145deg,#273469,#1E2749); color:#FAFAFF; }
-.reimagine.is-light .work-featured p { color:#C7D1E3; }
-.reimagine.is-light .technology-section { background: linear-gradient(120deg,#30343F,#273469 58%,#1E2749); color:#FAFAFF; }
-.reimagine.is-light .technology-section .tech-lede { color:rgba(250,250,255,.72); }
-.reimagine.is-light .training-flow div { background:rgba(250,250,255,.30); border-color:rgba(39,52,105,.18); }
-
-/* Dark mode — all previously light surfaces invert as a coherent environment. */
-.reimagine.is-dark { --ink:#FAFAFF; --muted-ui:#C2CAD8; --line-ui:rgba(250,250,255,.16); background:#30343F; color:#FAFAFF; }
-.reimagine.is-dark .top-nav { background:rgba(30,39,73,.90); border-bottom-color:rgba(250,250,255,.12); color:#FAFAFF; }
-.reimagine.is-dark .brand-lockup,
-.reimagine.is-dark .top-nav nav a,
-.reimagine.is-dark .brand-mark,
-.reimagine.is-dark .mode-toggle { color:#FAFAFF; }
-.reimagine.is-dark .brand-mark { border-color:#FAFAFF; }
-.reimagine.is-dark .brand-lockup small { color:#C2CAD8; }
-.reimagine.is-dark .top-nav nav a:hover { color:#7899D4; }
-.reimagine.is-dark .mode-toggle { border-color:rgba(250,250,255,.18); }
-.reimagine.is-dark .nav-cta { background:#7899D4; color:#1E2749; }
-.reimagine.is-dark .hero-v2,
-.reimagine.is-dark .system-section,
-.reimagine.is-dark .capability-section,
-.reimagine.is-dark .work-section,
-.reimagine.is-dark .training-section,
-.reimagine.is-dark .labs-section,
-.reimagine.is-dark .about-v2,
-.reimagine.is-dark .contact-v2,
-.reimagine.is-dark .footer-v2 {
-  color:#FAFAFF;
-}
-.reimagine.is-dark .hero-v2 { background:radial-gradient(circle at 78% 38%,rgba(120,153,212,.28),transparent 27%),linear-gradient(115deg,#30343F,#273469 58%,#1E2749); }
-.reimagine.is-dark .hero-v2:before { background:linear-gradient(90deg,rgba(30,39,73,.76),rgba(30,39,73,.42) 42%,rgba(30,39,73,.08) 72%); }
-.reimagine.is-dark .hero-lede { color:#C2CAD8; }
-.reimagine.is-dark .hero-v2 h1,
-.reimagine.is-dark .system-intro h2,
-.reimagine.is-dark .capability-lead h2,
-.reimagine.is-dark .work-head h2,
-.reimagine.is-dark .training-layout h2,
-.reimagine.is-dark .labs-layout h2,
-.reimagine.is-dark .author-layout h2 { color:#FAFAFF; }
-.reimagine.is-dark h2 em,
-.reimagine.is-dark .hero-v2 h1 em { color:#7899D4; }
-.reimagine.is-dark .system-section,
-.reimagine.is-dark .work-section,
-.reimagine.is-dark .about-v2 { background:linear-gradient(135deg,#30343F,#273469 58%,#1E2749); }
-.reimagine.is-dark .capability-section { background:#273469; }
-.reimagine.is-dark .training-section,
-.reimagine.is-dark .labs-section { background:linear-gradient(135deg,#30343F,#273469 60%,#1E2749); }
-.reimagine.is-dark .technology-section { background:linear-gradient(120deg,#30343F,#273469 58%,#1E2749); }
-.reimagine.is-dark .contact-v2 { background:radial-gradient(circle at 50% 35%,rgba(120,153,212,.28),transparent 30%),linear-gradient(135deg,#30343F,#273469 56%,#1E2749); }
-.reimagine.is-dark .section-lede,
-.reimagine.is-dark .capability-lead>p:not(.eyebrow),
-.reimagine.is-dark .work-head>p,
-.reimagine.is-dark .author-layout p,
-.reimagine.is-dark .training-section p,
-.reimagine.is-dark .lab-list p,
-.reimagine.is-dark .system-context p { color:#C2CAD8; }
-.reimagine.is-dark .service-grid article,
-.reimagine.is-dark .work-card { background:rgba(250,250,255,.055); border-color:rgba(250,250,255,.14); color:#FAFAFF; }
-.reimagine.is-dark .service-grid p,
-.reimagine.is-dark .work-card p { color:#C2CAD8; }
-.reimagine.is-dark .work-featured { background:linear-gradient(145deg,#7899D4,#273469 58%,#1E2749); color:#FAFAFF; }
-.reimagine.is-dark .training-flow div { background:rgba(250,250,255,.08); border-color:rgba(250,250,255,.20); }
-.reimagine.is-dark .footer-v2 { background:#1E2749; border-top-color:rgba(250,250,255,.14); color:#C2CAD8; }
-
-/* Hero composition */
-.reimagine .hero-v2 { isolation:isolate; }
-.reimagine .hero-copy { width:min(650px,54vw); }
-.reimagine .hero-portrait-wrap { position:absolute; z-index:2; right:4vw; bottom:0; width:min(49vw,720px); height:88%; pointer-events:none; display:flex; justify-content:center; align-items:flex-end; }
-.reimagine .hero-portrait { position:relative; inset:auto; width:78%; height:100%; object-fit:cover; object-position:center top; mix-blend-mode:multiply; filter:contrast(1.04) saturate(.9); mask-image:linear-gradient(to bottom,#000 84%,transparent 100%); -webkit-mask-image:linear-gradient(to bottom,#000 84%,transparent 100%); }
-.reimagine.is-dark .hero-portrait { mix-blend-mode:screen; filter:contrast(1.02) saturate(.82) brightness(.92); opacity:.9; }
-.reimagine .hero-portrait-halo { position:absolute; width:min(40vw,590px); aspect-ratio:1; border:1px solid rgba(120,153,212,.42); border-radius:50%; right:2%; top:7%; box-shadow:0 0 100px rgba(120,153,212,.2); }
-.reimagine .hero-callout { position:absolute; right:0; bottom:10%; width:230px; padding:18px 20px; background:rgba(30,39,73,.88); color:#FAFAFF; border:1px solid rgba(250,250,255,.2); backdrop-filter:blur(14px); }
-.reimagine .hero-side-label { position:absolute; right:0; top:18%; color:#273469; font-size:8px; line-height:1.8; letter-spacing:.22em; }
-.reimagine.is-dark .hero-side-label { color:#BFD0F1; }
-
-/* Interaction and scrolling */
-.reimagine a,.reimagine button { -webkit-tap-highlight-color:transparent; }
-.reimagine :focus-visible { outline:2px solid #7899D4; outline-offset:4px; }
-.reimagine .primary-action,.reimagine .secondary-action,.reimagine .section-link,.reimagine .capability-grid a,.reimagine .work-card a,.reimagine .contact-link { transition:transform .22s,color .22s,background .22s,border-color .22s; }
-.reimagine .primary-action:hover,.reimagine .secondary-action:hover,.reimagine .section-link:hover,.reimagine .capability-grid a:hover,.reimagine .work-card a:hover,.reimagine .contact-link:hover { transform:translateX(3px); }
-.reimagine .system-node { transition:color .2s,transform .2s; }
-.reimagine .system-node:hover { transform:translateY(-3px); }
-.reimagine .sound-control { background:rgba(30,39,73,.90); border-color:rgba(120,153,212,.45); color:#FAFAFF; }
-
-@media(max-width:1050px) {
-  .reimagine .hero-copy { max-width:590px; }
-  .reimagine .hero-portrait-wrap { right:-5vw; width:54vw; }
-  .reimagine .capability-section { grid-template-columns:1fr; }
-  .reimagine .service-grid { grid-template-columns:repeat(2,1fr); }
-  .reimagine .technology-section { grid-template-columns:1fr; }
-  .reimagine .tech-more { justify-self:end; }
-}
-@media(max-width:700px) {
-  .reimagine section { scroll-margin-top:70px; }
-  .reimagine .hero-v2 { min-height:900px; height:auto; padding:118px 8vw 70px; align-items:flex-start; }
-  .reimagine .hero-copy { width:auto; max-width:none; }
-  .reimagine .hero-meta { top:80px; left:8vw; right:8vw; }
-  .reimagine .hero-v2 h1 { font-size:clamp(46px,12.5vw,68px); }
-  .reimagine .hero-lede { max-width:100%; }
-  .reimagine .hero-portrait-wrap { right:-26vw; width:100vw; height:47%; opacity:.72; }
-  .reimagine .hero-portrait { width:66%; }
-  .reimagine .hero-portrait-halo { width:76vw; right:4%; top:3%; }
-  .reimagine .hero-callout,.reimagine .hero-side-label { display:none; }
-  .reimagine .hero-stats { width:100%; }
-  .reimagine section:not(.hero-v2) { padding-left:8vw; padding-right:8vw; }
-  .reimagine .section-marker { display:none; }
-  .reimagine .service-grid { grid-template-columns:1fr; margin-top:42px; }
-  .reimagine .technology-section { padding-top:76px; padding-bottom:76px; }
-  .reimagine .constellation { margin-top:26px; }
-  .reimagine .work-head { display:block; }
-  .reimagine .work-head>p { margin-top:22px; }
-  .reimagine .work-grid { grid-template-columns:1fr; margin-top:42px; }
-  .reimagine .training-flow { margin-top:44px; }
-  .reimagine .author-layout { gap:42px; }
-  .reimagine .author-photo { width:min(240px,72vw); }
-  .reimagine .footer-v2 { flex-direction:column; gap:8px; padding:20px 8vw; }
+.reimagine *,
+.reimagine *::before,
+.reimagine *::after {
+  box-sizing: border-box;
 }
 
-@media(prefers-reduced-motion:reduce) {
-  html { scroll-behavior:auto !important; }
-  .reimagine *, .reimagine *::before, .reimagine *::after { animation:none !important; transition:none !important; }
+.reimagine main {
+  width: 100%;
+  margin: 0;
 }
 
+.reimagine section {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  scroll-margin-top: 92px;
+}
 
-/* Responsive V2 pass: no fixed desktop geometry should leak into compact viewports. */
-.reimagine,
-.reimagine main,
-.reimagine section,
-.reimagine article,
-.reimagine .capability-section,
-.reimagine .system-section,
-.reimagine .work-section,
-.reimagine .training-section,
-.reimagine .labs-section,
-.reimagine .about-v2 {
+.reimagine section > * {
   min-width: 0;
 }
 
-.reimagine img,
-.reimagine canvas {
-  max-width: 100%;
+/* -------------------------------------------------------------------------
+   Global typography + utility geometry
+   ------------------------------------------------------------------------- */
+.reimagine .section-kicker,
+.reimagine .section-marker {
+  position: absolute;
+  z-index: 4;
+  left: var(--gutter);
+  top: 38px;
+  writing-mode: horizontal-tb;
+  color: #687691;
+  font: 700 8px/1 var(--font-mono);
+  letter-spacing: .18em;
+  white-space: nowrap;
 }
 
-.reimagine .practice-card,
-.reimagine .work-card,
-.reimagine .service-grid article {
-  overflow: hidden;
+.reimagine .eyebrow {
+  color: #5678B8;
 }
 
-@media (max-width: 1100px) {
-  .reimagine .top-nav { padding-left: 3.5vw; padding-right: 3.5vw; gap: 18px; }
-  .reimagine .top-nav nav { gap: 16px; }
-  .reimagine .top-nav nav a { font-size: 12px; }
-  .reimagine .brand-lockup { min-width: 190px; }
-  .reimagine .hero-v2 { min-height: 760px; height: 100svh; padding: 132px 7vw 70px; }
-  .reimagine .hero-copy { width: min(56vw, 640px); }
-  .reimagine .three-d-system { right: -15vw; width: 72vw; height: 78%; top: 13%; }
-  .reimagine .hero-system-label { font-size: 8px; }
-  .reimagine .practice-grid { gap: 16px; }
-  .reimagine .practice-card { min-height: 280px; padding: 26px; }
-  .reimagine .service-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
-  .reimagine .technology-section { grid-template-columns: 1fr; }
-  .reimagine .constellation { width: 100%; max-width: 900px; }
-  .reimagine .tech-more { justify-self: start; margin-top: 12px; }
-  .reimagine .work-grid { grid-template-columns: 1.15fr 1fr 1fr; }
-  .reimagine .work-card { min-height: 310px; }
-  .reimagine .author-layout { grid-template-columns: 240px minmax(0,1fr); }
+.reimagine .section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent-ui);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
 }
 
-@media (max-width: 820px) {
-  .reimagine .top-nav {
-    min-height: 64px;
-    height: auto;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    align-items: center;
-  }
-
-  /* Keep navigation usable instead of hiding it on tablet/mobile. */
-  .reimagine .top-nav nav {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scrollbar-width: none;
-    padding: 10px 4vw;
-    background: rgba(250,250,255,.94);
-    border-bottom: 1px solid rgba(39,52,105,.12);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-  }
-  .reimagine .top-nav nav::-webkit-scrollbar { display: none; }
-  .reimagine .top-nav nav a {
-    flex: 0 0 auto;
-    white-space: nowrap;
-    padding: 7px 13px;
-    border-right: 1px solid rgba(39,52,105,.10);
-  }
-  .reimagine .top-nav nav a:last-child { border-right: 0; }
-  .reimagine.is-dark .top-nav nav {
-    background: rgba(30,39,73,.97);
-    border-bottom-color: rgba(250,250,255,.12);
-  }
-  .reimagine.is-dark .top-nav nav a { color: #FAFAFF; border-right-color: rgba(250,250,255,.10); }
-
-  .reimagine .hero-v2 {
-    min-height: 820px;
-    height: auto;
-    max-height: none;
-    padding: 156px 7vw 64px;
-    display: block;
-  }
-  .reimagine .hero-meta { top: 118px; left: 7vw; right: 7vw; }
-  .reimagine .hero-copy { width: 100%; max-width: 650px; }
-  .reimagine .hero-v2 h1 { font-size: clamp(46px, 10vw, 76px); }
-  .reimagine .hero-lede { max-width: 620px; font-size: 16px; }
-  .reimagine .hero-actions { position: relative; z-index: 8; }
-  .reimagine .hero-stats { position: relative; z-index: 8; width: min(100%, 620px); }
-  .reimagine .three-d-system {
-    right: -24vw;
-    top: 35%;
-    width: 100vw;
-    height: 58%;
-    opacity: .42;
-  }
-  .reimagine .hero-system-label { z-index: 5; font-size: 7px; }
-  .reimagine .label-people { right: 30%; top: 35%; }
-  .reimagine .label-engineering { right: 4%; top: 50%; }
-  .reimagine .label-ai { right: 22%; bottom: 19%; }
-  .reimagine .label-impact { right: 45%; bottom: 9%; }
-  .reimagine .hero-system-caption { right: 5%; bottom: 5%; }
-  .reimagine .hero-scroll { display: none; }
-
-  .reimagine section:not(.hero-v2) {
-    padding: 88px 7vw;
-  }
-  .reimagine .section-kicker { left: 7vw; top: 32px; }
-  .reimagine .capability-section {
-    display: block;
-  }
-  .reimagine .capability-lead { padding-top: 0; }
-  .reimagine .practice-grid {
-    grid-template-columns: 1fr;
-    margin-top: 38px;
-  }
-  .reimagine .practice-card {
-    grid-template-columns: auto minmax(0,1fr);
-    min-height: 0;
-    padding: 24px;
-  }
-  .reimagine .service-grid {
-    grid-template-columns: repeat(2,minmax(0,1fr));
-    margin-top: 28px;
-  }
-  .reimagine .system-map {
-    grid-template-columns: 1fr;
-    margin: 54px 0 32px;
-  }
-  .reimagine .system-node {
-    display: grid;
-    grid-template-columns: 34px 42px minmax(0,1fr);
-    gap: 8px;
-    align-items: center;
-    text-align: left;
-    padding: 13px 0;
-  }
-  .reimagine .system-node .node-index { margin: 0; }
-  .reimagine .node-description {
-    grid-column: 3;
-    grid-row: 2;
-    font-size: 12px;
-    line-height: 1.5;
-    padding-top: 4px;
-  }
-  .reimagine .node-icon { grid-row: 1 / span 2; }
-  .reimagine .technology-section {
-    display: block;
-    min-height: 0;
-  }
-  .reimagine .constellation {
-    height: auto;
-    display: grid;
-    grid-template-columns: repeat(2,minmax(0,1fr));
-    gap: 0;
-    margin-top: 30px;
-  }
-  .reimagine .tech-node {
-    min-width: 0;
-    min-height: 86px;
-    border-right: 1px solid rgba(250,250,255,.12);
-    border-bottom: 1px solid rgba(250,250,255,.12);
-  }
-  .reimagine .tech-node:nth-child(2n) { border-right: 0; }
-  .reimagine .work-head { display: block; }
-  .reimagine .work-head > p { max-width: 620px; margin-top: 22px; }
-  .reimagine .work-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
-    margin-top: 38px;
-  }
-  .reimagine .work-card { min-height: 280px; }
-  .reimagine .training-layout { max-width: 720px; }
-  .reimagine .training-flow {
-    display: grid;
-    grid-template-columns: repeat(2,minmax(0,1fr));
-    gap: 8px;
-    align-items: stretch;
-    margin: 42px 0 26px;
-  }
-  .reimagine .training-flow span {
-    display: block;
-    min-width: 0;
-    padding: 12px 10px;
-    border: 1px solid rgba(39,52,105,.16);
-    background: rgba(250,250,255,.38);
-  }
-  .reimagine .training-flow span::first-letter { color: #273469; }
-  .reimagine.is-dark .training-flow span {
-    border-color: rgba(250,250,255,.14);
-    background: rgba(250,250,255,.06);
-  }
-  .reimagine .author-layout {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .reimagine .author-photo { width: min(220px, 62vw); margin: 0 auto; }
-  .reimagine .contact-v2 { min-height: 620px; }
+.reimagine .primary-action,
+.reimagine .secondary-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  text-decoration: none;
 }
-
-@media (max-width: 560px) {
-  .reimagine .top-nav { padding-left: 4vw; padding-right: 4vw; }
-  .reimagine .brand-mark { width: 34px; height: 34px; }
-  .reimagine .brand-lockup { gap: 8px; }
-  .reimagine .brand-lockup strong { font-size: 11px; letter-spacing: .12em; }
-  .reimagine .brand-lockup small { font-size: 8px; }
-  .reimagine .nav-cta { padding: 9px 11px; font-size: 10px; }
-
-  .reimagine .hero-v2 {
-    min-height: 780px;
-    padding: 148px 6vw 54px;
-  }
-  .reimagine .hero-meta {
-    top: 112px;
-    left: 6vw;
-    right: 6vw;
-    font-size: 7px;
-  }
-  .reimagine .hero-v2 h1 {
-    font-size: clamp(43px, 12.5vw, 62px);
-    letter-spacing: -.055em;
-  }
-  .reimagine .hero-v2 h1 em {
-    display: inline;
-  }
-  .reimagine .hero-lede {
-    font-size: 14px;
-    line-height: 1.55;
-    margin: 24px 0 28px;
-  }
-  .reimagine .hero-actions {
-    gap: 9px;
-  }
-  .reimagine .primary-action,
-  .reimagine .secondary-action {
-    padding: 11px 13px;
-    font-size: 10px;
-  }
-  .reimagine .hero-stats {
-    margin-top: 28px;
-  }
-  .reimagine .hero-stats > div {
-    padding-right: 9px;
-    margin-right: 9px;
-  }
-  .reimagine .hero-stats strong { font-size: 20px; }
-  .reimagine .hero-stats span { font-size: 8px; line-height: 1.35; }
-
-  .reimagine .three-d-system {
-    right: -40vw;
-    top: 38%;
-    width: 125vw;
-    height: 54%;
-    opacity: .27;
-  }
-  .reimagine .hero-system-label,
-  .reimagine .hero-system-caption { display: none; }
-
-  .reimagine section:not(.hero-v2) {
-    padding: 72px 6vw;
-  }
-  .reimagine .section-kicker {
-    left: 6vw;
-    top: 25px;
-    font-size: 7px;
-  }
-  .reimagine .capability-lead h2,
-  .reimagine .system-intro h2,
-  .reimagine .work-head h2,
-  .reimagine .training-layout h2,
-  .reimagine .labs-layout h2,
-  .reimagine .author-layout h2 {
-    font-size: clamp(39px, 11vw, 56px);
-  }
-  .reimagine .capability-lead > p:not(.eyebrow),
-  .reimagine .section-lede,
-  .reimagine .work-head > p,
-  .reimagine .author-layout p {
-    font-size: 13px;
-    line-height: 1.65;
-  }
-
-  .reimagine .practice-card {
-    grid-template-columns: 1fr;
-    gap: 18px;
-    padding: 22px;
-    border-radius: 14px;
-  }
-  .reimagine .practice-index {
-    width: 36px;
-    height: 36px;
-  }
-  .reimagine .practice-card h3 { font-size: 29px; }
-  .reimagine .practice-card .practice-tags {
-    margin: 17px 0;
-    font-size: 9px;
-    line-height: 1.8;
-  }
-  .reimagine .service-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .reimagine .service-grid article { min-height: 220px; }
-
-  .reimagine .system-map { margin-top: 42px; }
-  .reimagine .system-node {
-    grid-template-columns: 28px 34px minmax(0,1fr);
-    padding: 12px 0;
-  }
-  .reimagine .node-name { font-size: 12px; }
-  .reimagine .node-description { font-size: 11px; }
-
-  .reimagine .constellation {
-    grid-template-columns: 1fr 1fr;
-    margin-left: 0;
-    margin-right: 0;
-  }
-  .reimagine .tech-node {
-    min-height: 78px;
-    padding: 8px 5px;
-  }
-  .reimagine .tech-node span { font-size: 20px; }
-  .reimagine .tech-node strong { font-size: 10px; text-align: center; }
-
-  .reimagine .work-card {
-    min-height: 250px;
-    padding: 22px;
-  }
-  .reimagine .work-card h3 { margin-top: 42px; font-size: 25px; }
-
-  .reimagine .training-flow {
-    grid-template-columns: 1fr;
-    margin-top: 32px;
-  }
-  .reimagine .training-flow span { font-size: 9px; }
-
-  .reimagine .author-photo { width: min(190px, 58vw); }
-  .reimagine .contact-v2 {
-    min-height: 570px;
-    padding-top: 76px;
-    padding-bottom: 76px;
-  }
-  .reimagine .contact-center h2 { font-size: clamp(42px, 12vw, 62px); }
-  .reimagine .contact-center > p { font-size: 13px; }
-  .reimagine .contact-link {
-    display: inline-flex;
-    max-width: 100%;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-    font-size: 13px;
-  }
-  .reimagine .contact-meta { gap: 14px; margin-top: 42px; }
-  .reimagine .footer-v2 {
-    padding: 18px 6vw;
-    font-size: 7px;
-  }
-}
-
-@media (max-width: 380px) {
-  .reimagine .brand-lockup small { display: none; }
-  .reimagine .nav-cta { padding: 8px 9px; }
-  .reimagine .hero-v2 { padding-top: 142px; }
-  .reimagine .hero-v2 h1 { font-size: 42px; }
-  .reimagine .hero-stats strong { font-size: 18px; }
-  .reimagine .hero-stats span { font-size: 7px; }
-}
-
-/* Cinematic footer reveal — inspired by editorial motion footers, adapted to the Moin system. */
-.reimagine .footer-reveal {
-  position: relative;
-  z-index: 2;
-  overflow: hidden;
-  padding: 0 5.2vw;
-  background: linear-gradient(135deg,#1E2749 0%,#273469 52%,#30343F 100%);
-  color: #FAFAFF;
-}
-.reimagine .footer-reveal-inner { max-width: 1440px; margin: 0 auto; padding: 28px 0 18px; }
-.reimagine .footer-reveal-top,
-.reimagine .footer-reveal-bottom {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:24px;
-}
-.reimagine .footer-reveal-top { padding-bottom:20px; border-bottom:1px solid rgba(250,250,255,.12); }
-.reimagine .footer-reveal-top .eyebrow { margin:0; color:#BFD0F1; }
-.reimagine .footer-reveal-back { color:#FAFAFF; text-decoration:none; font-size:9px; letter-spacing:.14em; }
-.reimagine .footer-reveal-word {
-  display:flex;
-  align-items:flex-end;
-  gap:.02em;
-  overflow:hidden;
-  margin:clamp(38px,6vw,88px) 0 clamp(34px,5vw,70px);
-  font:500 clamp(74px,15vw,230px)/.72 var(--font-display);
-  letter-spacing:-.075em;
-  white-space:nowrap;
-}
-.reimagine .footer-reveal-word > span { display:block; will-change:transform; }
-.reimagine .footer-reveal-accent { color:#7899D4; }
-.reimagine .footer-reveal-grid {
-  display:grid;
-  grid-template-columns:minmax(240px,1.6fr) minmax(130px,.7fr) minmax(240px,1fr);
-  gap:clamp(28px,6vw,100px);
-  padding-bottom:54px;
-}
-.reimagine .footer-reveal-grid > div { min-width:0; }
-.reimagine .footer-reveal-grid p { max-width:390px; margin:10px 0 0; color:#C2CAD8; font-size:13px; line-height:1.65; }
-.reimagine .footer-reveal-label {
-  display:block;
-  margin-bottom:13px;
-  color:#7899D4;
-  font-size:8px;
-  font-weight:700;
-  letter-spacing:.16em;
-}
-.reimagine .footer-reveal-grid a {
-  display:block;
-  width:max-content;
-  max-width:100%;
-  margin:0 0 10px;
-  color:#FAFAFF;
-  text-decoration:none;
-  font-size:13px;
-  line-height:1.45;
-  overflow-wrap:anywhere;
-  transition:color .2s,transform .2s;
-}
-.reimagine .footer-reveal-grid a:hover { color:#7899D4; transform:translateX(3px); }
-.reimagine .footer-reveal-bottom {
-  padding-top:16px;
-  border-top:1px solid rgba(250,250,255,.12);
-  color:#AEB9CC;
-  font:700 7px/1.5 var(--font-mono);
-  letter-spacing:.12em;
-}
-.reimagine .footer-reveal-bottom span { min-width:0; }
-.reimagine.is-light .footer-reveal { background:linear-gradient(135deg,#30343F,#273469 62%,#1E2749); }
-@media (max-width:820px) {
-  .reimagine .footer-reveal { padding:0 7vw; }
-  .reimagine .footer-reveal-inner { padding-top:24px; }
-  .reimagine .footer-reveal-word { margin:52px 0 42px; font-size:clamp(70px,16vw,140px); }
-  .reimagine .footer-reveal-grid { grid-template-columns:1fr 1fr; gap:34px 26px; }
-  .reimagine .footer-reveal-grid > div:first-child { grid-column:1/-1; }
-  .reimagine .footer-reveal-bottom { align-items:flex-start; flex-direction:column; gap:7px; }
-}
-@media (max-width:560px) {
-  .reimagine .footer-reveal { padding:0 6vw; }
-  .reimagine .footer-reveal-top { align-items:flex-start; flex-direction:column; gap:12px; }
-  .reimagine .footer-reveal-word { margin:48px 0 40px; font-size:clamp(62px,18vw,105px); line-height:.76; flex-direction:column; align-items:flex-start; white-space:normal; }
-  .reimagine .footer-reveal-grid { grid-template-columns:1fr; gap:28px; padding-bottom:38px; }
-  .reimagine .footer-reveal-grid > div:first-child { grid-column:auto; }
-  .reimagine .footer-reveal-grid p { font-size:12px; }
-  .reimagine .footer-reveal-bottom { padding-bottom:4px; }
-}
-@media (prefers-reduced-motion:reduce) {
-  .reimagine .footer-reveal-word > span { transform:none !important; }
-}
-
-
-/* Global smooth-scroll surface state. Lenis owns interpolation; native scroll remains available for reduced motion. */
-html.lenis { height:auto; }
-html.lenis.lenis-smooth { scroll-behavior:auto !important; }
-html.lenis.lenis-smooth [data-lenis-prevent],
-html.lenis.lenis-smooth [data-lenis-prevent-wheel] { overscroll-behavior:contain; }
-html.lenis.lenis-stopped { overflow:hidden; }
-.reimagine { overscroll-behavior-x:none; }
-
-
-/* Final compact navigation + footer fit correction.
-   At phone/tablet widths the six-item menu becomes a contained 3×2 grid,
-   and the footer identity mark stacks before it can exceed the viewport. */
-@media (max-width:820px) {
-  .reimagine .top-nav {
-    min-width:0;
-    width:100%;
-  }
-
-  .reimagine .top-nav nav {
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:0;
-    width:100%;
-    box-sizing:border-box;
-    padding:8px 4vw;
-    overflow:hidden;
-  }
-
-  .reimagine .top-nav nav a {
-    min-width:0;
-    width:100%;
-    box-sizing:border-box;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:10px 5px;
-    border-right:1px solid rgba(39,52,105,.10);
-    border-bottom:1px solid rgba(39,52,105,.10);
-    font-size:clamp(10px,1.9vw,13px);
-    text-align:center;
-  }
-
-  .reimagine .top-nav nav a:nth-child(3n) { border-right:0; }
-  .reimagine .top-nav nav a:nth-child(n+4) { border-bottom:0; }
-
-  .reimagine.is-dark .top-nav nav a {
-    border-right-color:rgba(250,250,255,.10);
-    border-bottom-color:rgba(250,250,255,.10);
-  }
-
-  .reimagine .footer-reveal-word {
-    width:100%;
-    max-width:100%;
-    box-sizing:border-box;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:0;
-    margin:48px 0 42px;
-    font-size:clamp(58px,12.5vw,96px);
-    line-height:.78;
-    letter-spacing:-.065em;
-    white-space:normal;
-  }
-
-  .reimagine .footer-reveal-word > span {
-    max-width:100%;
-    box-sizing:border-box;
-  }
-}
-
-@media (max-width:560px) {
-  .reimagine .top-nav nav {
-    padding-left:3vw;
-    padding-right:3vw;
-  }
-
-  .reimagine .top-nav nav a {
-    padding:9px 3px;
-    font-size:10px;
-  }
-
-  .reimagine .footer-reveal-word {
-    font-size:clamp(54px,15vw,78px);
-  }
-}
-
 
 /* -------------------------------------------------------------------------
-   Mobile UI system — final pass
-   Designed around narrow phones (320–430px), then scales cleanly upward.
+   Header
    ------------------------------------------------------------------------- */
-@media (max-width:820px) {
-  .reimagine {
-    width:100%;
-    overflow-x:clip;
+.reimagine .top-nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 55;
+  width: 100%;
+  min-width: 0;
+  height: 76px;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(220px,1fr) auto minmax(150px,1fr);
+  align-items: center;
+  gap: 28px;
+  background: rgba(250,250,255,.86);
+  border-bottom: 1px solid rgba(39,52,105,.10);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.reimagine .brand-lockup {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #1E2749;
+  text-decoration: none;
+}
+
+.reimagine .brand-mark {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid currentColor;
+}
+
+.reimagine .brand-lockup > span:last-child {
+  min-width: 0;
+}
+
+.reimagine .brand-lockup strong {
+  display: block;
+  font-size: 14px;
+  letter-spacing: .14em;
+  line-height: 1.1;
+}
+
+.reimagine .brand-lockup small {
+  display: block;
+  margin-top: 4px;
+  color: #697893;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.reimagine .top-nav nav {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px,2vw,34px);
+}
+
+.reimagine .top-nav nav a {
+  white-space: nowrap;
+  color: #24304F;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 1;
+  transition: color .2s ease;
+}
+
+.reimagine .top-nav nav a:hover {
+  color: #7899D4;
+}
+
+.reimagine .nav-actions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.reimagine .mode-toggle {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  margin: 0;
+  border: 1px solid rgba(30,39,73,.15);
+  background: transparent;
+  color: #1E2749;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.reimagine .nav-cta {
+  white-space: nowrap;
+  padding: 11px 17px;
+  border-radius: 9px;
+  background: #1E2749;
+  color: #FAFAFF;
+}
+
+/* -------------------------------------------------------------------------
+   Hero
+   ------------------------------------------------------------------------- */
+.reimagine .hero-v2 {
+  min-height: 820px;
+  height: 100svh;
+  max-height: 900px;
+  padding: 150px var(--gutter) 70px;
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(460px, 1.05fr);
+  align-items: center;
+  gap: clamp(30px,5vw,90px);
+  overflow: hidden;
+}
+
+.reimagine .hero-copy {
+  width: 100%;
+  max-width: 650px;
+  z-index: 4;
+}
+
+.reimagine .hero-v2 h1 {
+  max-width: 11ch;
+  margin: 0;
+  font-size: clamp(60px, 6vw, 94px);
+  line-height: .9;
+  letter-spacing: -.06em;
+}
+
+.reimagine .hero-v2 h1 em {
+  display: block;
+  max-width: 11ch;
+  margin-top: 8px;
+  font-style: normal;
+  color: #7899D4;
+}
+
+.reimagine .hero-lede {
+  max-width: 580px;
+  margin: 28px 0 30px;
+  color: #394867;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.reimagine .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.reimagine .hero-stats {
+  width: min(100%, 620px);
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  margin-top: 38px;
+}
+
+.reimagine .hero-stats > div {
+  min-width: 0;
+  padding-right: 22px;
+  margin-right: 22px;
+  border-right: 1px solid rgba(39,52,105,.15);
+}
+
+.reimagine .hero-stats > div:last-child {
+  padding-right: 0;
+  margin-right: 0;
+  border-right: 0;
+}
+
+.reimagine .hero-stats strong {
+  display: block;
+  color: #1E2749;
+  font-size: 27px;
+  line-height: 1;
+}
+
+.reimagine .hero-stats span {
+  display: block;
+  margin-top: 7px;
+  color: #65728A;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.reimagine .hero-visual {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  height: min(76svh, 700px);
+}
+
+.reimagine .hero-meta {
+  left: var(--gutter);
+  top: 102px;
+  z-index: 5;
+  color: #5678B8;
+}
+
+.reimagine .hero-scroll {
+  left: var(--gutter);
+  bottom: 25px;
+  z-index: 5;
+  color: #66748D;
+}
+
+.reimagine .three-d-system {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.reimagine .hero-system-label {
+  z-index: 5;
+}
+
+/* -------------------------------------------------------------------------
+   What I Do — deliberate 2 + 2 card composition
+   ------------------------------------------------------------------------- */
+.reimagine .capability-section {
+  padding: 112px var(--gutter) 96px;
+  background: linear-gradient(135deg,#FAFAFF 0%,#F3F6FB 60%,#E8EEF7 100%);
+  display: grid;
+  grid-template-columns: minmax(250px, .72fr) minmax(0, 1.8fr);
+  align-items: start;
+  gap: clamp(54px,7vw,110px);
+}
+
+.reimagine .capability-lead {
+  width: 100%;
+  max-width: 360px;
+  padding-top: 10px;
+}
+
+.reimagine .capability-lead h2 {
+  margin: 0;
+  font-size: clamp(48px,4.8vw,72px);
+  line-height: .92;
+  letter-spacing: -.05em;
+}
+
+.reimagine .capability-lead > p:not(.eyebrow) {
+  max-width: 330px;
+  margin: 24px 0 28px;
+  color: #5E6982;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.reimagine .capability-content {
+  width: 100%;
+  display: grid;
+  gap: 16px;
+}
+
+.reimagine .practice-grid,
+.reimagine .service-grid {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 16px;
+}
+
+.reimagine .practice-card {
+  width: 100%;
+  min-width: 0;
+  min-height: 310px;
+  padding: 30px;
+}
+
+.reimagine .practice-card > div {
+  min-width: 0;
+}
+
+.reimagine .practice-index {
+  color: #6A7FA8;
+  font: 700 8px/1 var(--font-mono);
+}
+
+.reimagine .practice-card h3 {
+  margin: 24px 0 12px;
+  color: #1E2749;
+  font-size: 34px;
+  line-height: .98;
+  letter-spacing: -.04em;
+}
+
+.reimagine .practice-card p {
+  color: #5E6982;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.reimagine .practice-tags {
+  margin: 22px 0;
+  color: #5A79B5;
+  font: 700 8px/1.7 var(--font-mono);
+  letter-spacing: .04em;
+}
+
+.reimagine .practice-card a {
+  color: #273469;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.reimagine .service-grid article {
+  width: 100%;
+  min-height: 190px;
+  padding: 23px;
+}
+
+.reimagine .service-grid h3 {
+  margin: 14px 0 8px;
+  color: #1E2749;
+  font-size: 22px;
+}
+
+.reimagine .service-grid p {
+  color: #64728A;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.reimagine .service-grid a {
+  color: #273469;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* -------------------------------------------------------------------------
+   Approach
+   ------------------------------------------------------------------------- */
+.reimagine .system-section {
+  min-height: 640px;
+  padding: 112px var(--gutter) 90px;
+  background: linear-gradient(135deg,#FAFAFF,#F1F4FA 58%,#E5EBF5);
+}
+
+.reimagine .system-intro {
+  width: min(620px,100%);
+}
+
+.reimagine .system-intro h2 {
+  margin: 0;
+  font-size: clamp(50px,5vw,76px);
+  line-height: .92;
+  letter-spacing: -.055em;
+}
+
+.reimagine .system-intro .section-lede {
+  max-width: 500px;
+  margin-top: 22px;
+  color: #5E6982;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.reimagine .system-map {
+  width: 100%;
+  margin: 70px 0 34px;
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 8px;
+}
+
+.reimagine .system-node {
+  width: 100%;
+  min-width: 0;
+  padding: 15px 12px 18px;
+  border: 0;
+  background: transparent;
+  color: #6C7890;
+  text-align: center;
+}
+
+.reimagine .system-node .node-index {
+  display: block;
+  margin-bottom: 13px;
+  color: #7181A0;
+  font: 700 8px/1 var(--font-mono);
+}
+
+.reimagine .node-name {
+  display: block;
+  margin-top: 10px;
+  color: inherit;
+  font: 700 13px/1.2 var(--font-mono);
+  letter-spacing: .08em;
+}
+
+.reimagine .node-description {
+  display: block;
+  max-width: 150px;
+  margin: 10px auto 0;
+  color: #68768D;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.reimagine .system-node.active {
+  color: #1E2749;
+}
+
+/* -------------------------------------------------------------------------
+   Technology
+   ------------------------------------------------------------------------- */
+.reimagine .technology-section {
+  min-height: 300px;
+  padding: 82px var(--gutter);
+  background: linear-gradient(120deg,#30343F,#273469 58%,#1E2749);
+  color: #FAFAFF;
+  display: grid;
+  grid-template-columns: minmax(260px,.65fr) minmax(0,1.7fr) auto;
+  align-items: center;
+  gap: 42px;
+}
+
+.reimagine .tech-copy {
+  max-width: 360px;
+}
+
+.reimagine .tech-copy h2 {
+  margin: 0;
+  font-size: clamp(46px,4.5vw,66px);
+  line-height: .94;
+}
+
+.reimagine .tech-copy h2 em {
+  color: #7899D4;
+}
+
+.reimagine .tech-lede {
+  margin-top: 18px;
+  color: rgba(250,250,255,.70);
+  font-size: 13px;
+}
+
+.reimagine .constellation {
+  width: 100%;
+  height: auto;
+  min-height: 130px;
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 0;
+  align-items: stretch;
+}
+
+.reimagine .constellation::before,
+.reimagine .constellation::after,
+.reimagine .constellation-core {
+  display: none;
+}
+
+.reimagine .tech-node {
+  position: static !important;
+  transform: none !important;
+  min-width: 0;
+  min-height: 100px;
+  padding: 16px 12px;
+  border: 0;
+  border-right: 1px solid rgba(250,250,255,.14);
+  border-radius: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: rgba(250,250,255,.86);
+}
+
+.reimagine .tech-node:nth-child(4n) {
+  border-right: 0;
+}
+
+.reimagine .tech-node span {
+  font-size: 24px;
+  color: #DCE6FB;
+}
+
+.reimagine .tech-node strong {
+  text-align: center;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.reimagine .tech-more {
+  color: #FAFAFF;
+  white-space: nowrap;
+  font-size: 11px;
+  text-decoration: none;
+}
+
+/* -------------------------------------------------------------------------
+   Selected work — asymmetric editorial grid
+   ------------------------------------------------------------------------- */
+.reimagine .work-section {
+  padding: 112px var(--gutter) 96px;
+  background: linear-gradient(135deg,#FAFAFF,#F3F6FB);
+  color: #1E2749;
+}
+
+.reimagine .work-head {
+  display: grid;
+  grid-template-columns: minmax(0,1.2fr) minmax(260px,.8fr);
+  align-items: end;
+  gap: 60px;
+}
+
+.reimagine .work-head h2 {
+  margin: 0;
+  font-size: clamp(52px,5vw,76px);
+  line-height: .92;
+  letter-spacing: -.055em;
+}
+
+.reimagine .work-head > p {
+  max-width: 390px;
+  justify-self: end;
+  margin: 0 0 6px;
+  color: #637088;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.reimagine .work-grid {
+  width: 100%;
+  margin-top: 46px;
+  display: grid;
+  grid-template-columns: minmax(0,1.3fr) minmax(260px,.7fr);
+  grid-template-rows: repeat(2,minmax(190px,1fr));
+  gap: 16px;
+}
+
+.reimagine .work-card {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 28px;
+}
+
+.reimagine .work-featured {
+  grid-row: 1 / span 2;
+  min-height: 410px;
+}
+
+.reimagine .work-card h3 {
+  margin-top: 46px;
+  max-width: 19ch;
+  color: #1E2749;
+  font-size: 28px;
+  line-height: 1.04;
+  letter-spacing: -.035em;
+}
+
+.reimagine .work-card p {
+  color: #66738B;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.reimagine.is-light .work-featured {
+  background: linear-gradient(145deg,#273469,#1E2749);
+  color: #FAFAFF;
+}
+
+.reimagine.is-light .work-featured h3,
+.reimagine.is-light .work-featured .mono {
+  color: #FAFAFF;
+}
+
+.reimagine.is-light .work-featured p {
+  color: #C7D1E3;
+}
+
+/* -------------------------------------------------------------------------
+   Training / Insights / About
+   ------------------------------------------------------------------------- */
+.reimagine .training-section {
+  padding: 112px var(--gutter) 96px;
+  background: linear-gradient(135deg,#E8EDF6,#FAFAFF 54%,#DEE7F5);
+  color: #1E2749;
+}
+
+.reimagine .training-layout {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr);
+  gap: clamp(50px,7vw,110px);
+  align-items: center;
+}
+
+.reimagine .training-layout h2 {
+  margin: 0;
+  font-size: clamp(50px,5.2vw,78px);
+  line-height: .92;
+}
+
+.reimagine .training-layout > div:first-child > p:not(.eyebrow) {
+  max-width: 510px;
+  color: #5E6982;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.reimagine .training-flow {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 10px;
+  margin: 0 0 24px;
+}
+
+.reimagine .training-flow span {
+  min-width: 0;
+  padding: 15px 14px;
+  border: 1px solid rgba(39,52,105,.15);
+  background: rgba(255,255,255,.38);
+  color: #273469;
+  font: 700 9px/1.3 var(--font-mono);
+  letter-spacing: .08em;
+}
+
+.reimagine .training-flow span:first-child {
+  grid-column: 1 / -1;
+}
+
+.reimagine .training-note {
+  color: #66738A;
+  font: 700 8px/1.5 var(--font-mono);
+  letter-spacing: .08em;
+}
+
+.reimagine .labs-section {
+  padding: 112px var(--gutter) 96px;
+  background: linear-gradient(135deg,#EDF1F8,#DCE5F3);
+  color: #1E2749;
+}
+
+.reimagine .labs-layout {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap: clamp(50px,8vw,120px);
+  align-items: start;
+}
+
+.reimagine .labs-layout h2 {
+  margin: 0;
+  font-size: clamp(50px,5vw,74px);
+  line-height: .92;
+}
+
+.reimagine .lab-list {
+  margin: 0;
+  border-top: 1px solid rgba(39,52,105,.14);
+}
+
+.reimagine .lab-list > div {
+  display: grid;
+  grid-template-columns: 38px minmax(0,1fr);
+  gap: 12px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(39,52,105,.14);
+}
+
+.reimagine .lab-list strong {
+  color: #273469;
+  font-size: 20px;
+}
+
+.reimagine .lab-list p {
+  grid-column: 2;
+  margin: 0;
+  color: #61708A;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.reimagine .about-v2 {
+  padding: 112px var(--gutter) 104px;
+  background: linear-gradient(135deg,#FAFAFF,#F0F3F9);
+  color: #1E2749;
+}
+
+.reimagine .author-layout {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px minmax(0,1fr);
+  gap: clamp(50px,8vw,110px);
+  align-items: center;
+}
+
+.reimagine .author-photo {
+  width: 280px;
+  max-width: 100%;
+  aspect-ratio: 1;
+}
+
+.reimagine .author-layout h2 {
+  margin: 0 0 20px;
+  font-size: clamp(50px,5vw,74px);
+  line-height: .92;
+}
+
+.reimagine .author-layout p {
+  max-width: 680px;
+  color: #5E6982;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+/* -------------------------------------------------------------------------
+   Single footer only
+   ------------------------------------------------------------------------- */
+.reimagine .contact-v2,
+.reimagine .footer-v2,
+.reimagine .footer-reveal {
+  display: none !important;
+}
+
+.reimagine .motion-footer {
+  margin: 0;
+  width: 100%;
+}
+
+.reimagine .motion-footer .motion-footer-inner {
+  width: min(1180px,88vw);
+}
+
+/* -------------------------------------------------------------------------
+   Spotlight cards
+   ------------------------------------------------------------------------- */
+.reimagine .spotlight-card {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transform: translateZ(0);
+  border: 1px solid rgba(39,52,105,.12);
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(39,52,105,.05);
+  transition:
+    transform .35s cubic-bezier(.2,.8,.2,1),
+    border-color .35s ease,
+    box-shadow .35s ease;
+}
+
+.reimagine .spotlight-card-glow {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    320px circle at var(--spot-x) var(--spot-y),
+    rgba(120,153,212,.25),
+    rgba(120,153,212,.08) 34%,
+    transparent 70%
+  );
+  transition: opacity .25s ease;
+}
+
+.reimagine .spotlight-card-content {
+  position: relative;
+  z-index: 2;
+  display: contents;
+}
+
+.reimagine .spotlight-card::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(120,153,212,.5);
+  transition: opacity .25s ease;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .reimagine .spotlight-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(120,153,212,.4);
+    box-shadow: 0 24px 60px rgba(30,39,73,.13);
   }
 
-  /* Header: two intentional rows instead of squeezing six links into one. */
+  .reimagine .spotlight-card:hover .spotlight-card-glow,
+  .reimagine .spotlight-card:hover::after {
+    opacity: 1;
+  }
+
+  .reimagine .spotlight-card:hover h3 {
+    transform: translateX(2px);
+  }
+}
+
+.reimagine .spotlight-card h3 {
+  transition: transform .3s ease;
+}
+
+/* -------------------------------------------------------------------------
+   Dark mode
+   ------------------------------------------------------------------------- */
+.reimagine.is-dark {
+  --surface: #1E2749;
+  --surface-2: #273469;
+  --surface-3: #30343F;
+  --ink: #FAFAFF;
+  --muted-ui: #C1CCDD;
+  --line-ui: rgba(250,250,255,.16);
+  --accent-ui: #7899D4;
+  --accent-soft: #9CB8E8;
+  background: #1E2749;
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark .top-nav {
+  background: rgba(30,39,73,.9);
+  border-bottom-color: rgba(250,250,255,.12);
+}
+
+.reimagine.is-dark .brand-lockup,
+.reimagine.is-dark .top-nav nav a,
+.reimagine.is-dark .mode-toggle {
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark .brand-lockup small {
+  color: #C1CCDD;
+}
+
+.reimagine.is-dark .mode-toggle {
+  border-color: rgba(250,250,255,.2);
+}
+
+.reimagine.is-dark .nav-cta {
+  background: #FAFAFF;
+  color: #1E2749;
+}
+
+.reimagine.is-dark .section-kicker,
+.reimagine.is-dark .section-marker {
+  color: #BFD0F1;
+}
+
+.reimagine.is-dark .eyebrow {
+  color: #9CB8E8;
+}
+
+.reimagine.is-dark .hero-v2 {
+  background:
+    radial-gradient(circle at 78% 36%,rgba(120,153,212,.23),transparent 28%),
+    linear-gradient(115deg,#30343F 0%,#273469 58%,#1E2749 100%);
+}
+
+.reimagine.is-dark .hero-v2::before {
+  background: linear-gradient(90deg,rgba(30,39,73,.78),rgba(30,39,73,.34) 50%,rgba(30,39,73,.06) 78%);
+}
+
+.reimagine.is-dark .hero-lede,
+.reimagine.is-dark .hero-stats span {
+  color: #C1CCDD;
+}
+
+.reimagine.is-dark .hero-v2 h1,
+.reimagine.is-dark .hero-stats strong {
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark .hero-v2 h1 em {
+  color: #9CB8E8;
+}
+
+.reimagine.is-dark .capability-section,
+.reimagine.is-dark .system-section,
+.reimagine.is-dark .work-section,
+.reimagine.is-dark .training-section,
+.reimagine.is-dark .labs-section,
+.reimagine.is-dark .about-v2 {
+  color: #FAFAFF;
+  background: linear-gradient(135deg,#30343F,#273469 58%,#1E2749);
+}
+
+.reimagine.is-dark .capability-lead > p:not(.eyebrow),
+.reimagine.is-dark .system-intro .section-lede,
+.reimagine.is-dark .work-head > p,
+.reimagine.is-dark .training-layout > div:first-child > p:not(.eyebrow),
+.reimagine.is-dark .author-layout p,
+.reimagine.is-dark .lab-list p,
+.reimagine.is-dark .practice-card p,
+.reimagine.is-dark .service-grid p,
+.reimagine.is-dark .work-card p {
+  color: #C1CCDD;
+}
+
+.reimagine.is-dark .capability-lead h2,
+.reimagine.is-dark .system-intro h2,
+.reimagine.is-dark .work-head h2,
+.reimagine.is-dark .training-layout h2,
+.reimagine.is-dark .labs-layout h2,
+.reimagine.is-dark .author-layout h2 {
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark h2 em {
+  color: #9CB8E8;
+}
+
+.reimagine.is-dark .practice-card,
+.reimagine.is-dark .service-grid article,
+.reimagine.is-dark .work-card {
+  background: linear-gradient(145deg,#303D67,#273469);
+  border-color: rgba(250,250,255,.14);
+  color: #FAFAFF;
+  box-shadow: 0 14px 38px rgba(0,0,0,.12);
+}
+
+.reimagine.is-dark .practice-card h3,
+.reimagine.is-dark .service-grid h3,
+.reimagine.is-dark .work-card h3 {
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark .practice-index,
+.reimagine.is-dark .node-index,
+.reimagine.is-dark .node-name,
+.reimagine.is-dark .system-node,
+.reimagine.is-dark .work-card .mono,
+.reimagine.is-dark .lab-list .mono {
+  color: #BFD0F1;
+}
+
+.reimagine.is-dark .system-node.active,
+.reimagine.is-dark .system-node.active .node-name,
+.reimagine.is-dark .system-node.active .node-index {
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark .node-description {
+  color: #AEBBD0;
+}
+
+.reimagine.is-dark .practice-tags,
+.reimagine.is-dark .practice-card a,
+.reimagine.is-dark .service-grid a,
+.reimagine.is-dark .work-card a,
+.reimagine.is-dark .section-link {
+  color: #9CB8E8;
+}
+
+.reimagine.is-dark .training-flow span {
+  border-color: rgba(250,250,255,.16);
+  background: rgba(250,250,255,.06);
+  color: #D8E1F0;
+}
+
+.reimagine.is-dark .training-note {
+  color: #B7C3D6;
+}
+
+.reimagine.is-dark .about-v2 .author-photo {
+  border-color: rgba(250,250,255,.14);
+}
+
+.reimagine.is-dark .motion-footer {
+  background:
+    radial-gradient(circle at 50% 40%,rgba(120,153,212,.14),transparent 38%),
+    linear-gradient(135deg,#1E2749,#273469 58%,#30343F);
+}
+
+/* -------------------------------------------------------------------------
+   Responsive composition — derived from the clean desktop geometry
+   ------------------------------------------------------------------------- */
+@media (max-width: 1180px) {
   .reimagine .top-nav {
-    height:auto;
-    min-height:112px;
-    padding:0;
-    display:grid;
-    grid-template-columns:1fr auto;
-    grid-template-rows:64px 48px;
-    gap:0;
-    align-items:center;
-  }
-
-  .reimagine .brand-lockup {
-    min-width:0;
-    margin-left:5vw;
-    gap:9px;
-  }
-
-  .reimagine .brand-mark {
-    width:34px;
-    height:34px;
-    flex:0 0 34px;
-    font-size:16px;
-  }
-
-  .reimagine .brand-lockup strong {
-    font-size:12px;
-    letter-spacing:.13em;
-  }
-
-  .reimagine .brand-lockup small {
-    font-size:8px;
-    margin-top:4px;
-  }
-
-  .reimagine .nav-actions {
-    margin-right:5vw;
-    gap:6px;
-    min-width:0;
-  }
-
-  .reimagine .mode-toggle {
-    width:30px;
-    height:30px;
-    padding:0;
-  }
-
-  .reimagine .nav-cta {
-    padding:9px 12px;
-    border-radius:8px;
-    font-size:9px;
-    white-space:nowrap;
+    grid-template-columns: minmax(180px,1fr) auto minmax(120px,1fr);
+    gap: 16px;
   }
 
   .reimagine .top-nav nav {
-    grid-column:1/-1;
-    grid-row:2;
-    width:100%;
-    height:48px;
-    padding:5px 4vw;
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    overflow:hidden;
-    border-top:1px solid rgba(39,52,105,.08);
+    gap: 18px;
   }
 
   .reimagine .top-nav nav a {
-    min-width:0;
-    width:100%;
-    height:38px;
-    padding:0 2px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:10px;
-    line-height:1;
-    white-space:nowrap;
-    border-right:1px solid rgba(39,52,105,.10);
-    border-bottom:1px solid rgba(39,52,105,.10);
+    font-size: 11px;
   }
 
-  .reimagine .top-nav nav a:nth-child(3n) { border-right:0; }
-  .reimagine .top-nav nav a:nth-child(n+4) { border-bottom:0; }
-
-  /* The hero becomes a deliberate editorial composition rather than a
-     desktop hero squeezed into a phone. */
   .reimagine .hero-v2 {
-    min-height:0;
-    height:auto;
-    max-height:none;
-    padding:48px 6vw 46px;
-    display:block;
-  }
-
-  .reimagine .hero-meta {
-    position:relative;
-    top:auto;
-    left:auto;
-    right:auto;
-    margin-bottom:22px;
-    font-size:7px;
-    line-height:1.5;
-  }
-
-  .reimagine .hero-copy {
-    position:relative;
-    z-index:3;
-    width:100%;
-    max-width:100%;
+    grid-template-columns: minmax(0,1fr) minmax(360px,.9fr);
+    gap: 30px;
   }
 
   .reimagine .hero-v2 h1 {
-    max-width:100%;
-    font-size:clamp(42px,13vw,56px);
-    line-height:.9;
-    letter-spacing:-.065em;
-  }
-
-  .reimagine .hero-v2 h1 em {
-    display:block;
-    margin-top:5px;
-    max-width:10ch;
-  }
-
-  .reimagine .hero-lede {
-    max-width:34rem;
-    margin:22px 0 25px;
-    font-size:12px;
-    line-height:1.65;
-  }
-
-  .reimagine .hero-actions {
-    flex-wrap:wrap;
-    gap:8px;
-  }
-
-  .reimagine .primary-action,
-  .reimagine .secondary-action {
-    min-height:36px;
-    padding:9px 12px;
-    font-size:9px;
-  }
-
-  .reimagine .hero-stats {
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:0;
-    margin-top:28px;
-    width:100%;
-  }
-
-  .reimagine .hero-stats > div {
-    min-width:0;
-    padding:0 9px;
-    margin:0;
-    border-right:1px solid rgba(39,52,105,.16);
-  }
-
-  .reimagine .hero-stats > div:first-child { padding-left:0; }
-  .reimagine .hero-stats > div:last-child { padding-right:0; border-right:0; }
-  .reimagine .hero-stats strong { font-size:19px; }
-  .reimagine .hero-stats span { font-size:7px; line-height:1.35; }
-
-  .reimagine .hero-visual {
-    position:relative;
-    min-height:185px;
-    margin-top:-10px;
-    pointer-events:none;
-  }
-
-  .reimagine .three-d-system {
-    position:absolute;
-    inset:0;
-    width:115%;
-    height:125%;
-    right:auto;
-    top:-12%;
-    opacity:.34;
-    transform:translateX(8%);
-  }
-
-  .reimagine .hero-system-label,
-  .reimagine .hero-system-caption {
-    display:none;
-  }
-
-  /* Consistent section geometry. */
-  .reimagine section:not(.hero-v2) {
-    padding:78px 6vw;
-    min-height:0;
-  }
-
-  .reimagine .section-kicker {
-    left:6vw;
-    top:25px;
-    font-size:7px;
-  }
-
-  .reimagine .section-marker {
-    left:6vw !important;
-    top:25px !important;
-    font-size:7px;
+    font-size: clamp(54px,6.2vw,78px);
   }
 
   .reimagine .capability-section,
@@ -977,276 +1100,190 @@ html.lenis.lenis-stopped { overflow:hidden; }
   .reimagine .training-section,
   .reimagine .labs-section,
   .reimagine .about-v2 {
-    display:block;
-  }
-
-  .reimagine .capability-lead,
-  .reimagine .system-intro,
-  .reimagine .tech-copy,
-  .reimagine .training-layout,
-  .reimagine .labs-layout,
-  .reimagine .author-layout {
-    max-width:100%;
-  }
-
-  .reimagine .capability-lead { padding-top:0; }
-
-  .reimagine .capability-lead h2,
-  .reimagine .system-intro h2,
-  .reimagine .work-head h2,
-  .reimagine .training-layout h2,
-  .reimagine .labs-layout h2,
-  .reimagine .author-layout h2 {
-    font-size:clamp(37px,11vw,52px);
-    line-height:.94;
-    letter-spacing:-.055em;
-  }
-
-  .reimagine .eyebrow {
-    font-size:7px;
-    letter-spacing:.16em;
-  }
-
-  .reimagine .capability-lead > p:not(.eyebrow),
-  .reimagine .section-lede,
-  .reimagine .work-head > p,
-  .reimagine .training-layout > div:first-child > p:not(.eyebrow),
-  .reimagine .labs-layout p,
-  .reimagine .author-layout p {
-    font-size:12px;
-    line-height:1.65;
-  }
-
-  /* Capability cards: clean vertical reading order. */
-  .reimagine .practice-grid {
-    grid-template-columns:1fr;
-    gap:12px;
-    margin-top:34px;
-  }
-
-  .reimagine .practice-card {
-    min-width:0;
-    grid-template-columns:30px minmax(0,1fr);
-    gap:13px;
-    padding:19px;
-    border-radius:12px;
-  }
-
-  .reimagine .practice-card h3 { font-size:26px; }
-  .reimagine .practice-card p { font-size:12px; line-height:1.6; }
-  .reimagine .practice-card .practice-tags {
-    margin:15px 0;
-    font-size:8px;
-    line-height:1.75;
-  }
-
-  .reimagine .service-grid {
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:10px;
-  }
-
-  .reimagine .service-grid article {
-    min-height:170px;
-    padding:18px 14px;
-    border-radius:10px;
-  }
-
-  .reimagine .service-grid h3 {
-    margin:16px 0 8px;
-    font-size:16px;
-  }
-
-  .reimagine .service-grid p {
-    font-size:10px;
-    line-height:1.5;
-  }
-
-  .reimagine .service-grid a { font-size:9px; padding-top:14px; }
-
-  /* Approach: one clear vertical system. */
-  .reimagine .system-map {
-    margin:36px 0 22px;
-  }
-
-  .reimagine .system-node {
-    grid-template-columns:26px 28px minmax(0,1fr);
-    gap:7px;
-    padding:13px 0;
-  }
-
-  .reimagine .node-name { font-size:11px; }
-  .reimagine .node-description {
-    grid-column:3;
-    font-size:10px;
-    line-height:1.45;
-  }
-
-  /* Technology: compact 2-column capability matrix. */
-  .reimagine .technology-section {
-    padding:70px 6vw;
-  }
-
-  .reimagine .constellation {
-    grid-template-columns:1fr 1fr;
-    height:auto;
-    margin-top:28px;
-  }
-
-  .reimagine .tech-node {
-    min-height:74px;
-    padding:9px 5px;
-    border-right:1px solid rgba(250,250,255,.12);
-    border-bottom:1px solid rgba(250,250,255,.12);
-  }
-
-  .reimagine .tech-node:nth-child(2n) { border-right:0; }
-  .reimagine .tech-node span { font-size:19px; }
-  .reimagine .tech-node strong { font-size:9px; text-align:center; }
-
-  /* Work: cards shouldn't consume a whole phone viewport. */
-  .reimagine .work-grid {
-    grid-template-columns:1fr;
-    gap:10px;
-    margin-top:30px;
-  }
-
-  .reimagine .work-card {
-    min-height:0;
-    padding:19px;
-    border-radius:11px;
-  }
-
-  .reimagine .work-card h3 {
-    margin-top:32px;
-    font-size:23px;
-    line-height:1.05;
-  }
-
-  .reimagine .work-card p {
-    font-size:11px;
-    line-height:1.55;
-  }
-
-  /* Training: numbered stages become readable cards. */
-  .reimagine .training-flow {
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin:30px 0 24px;
-  }
-
-  .reimagine .training-flow span {
-    min-width:0;
-    padding:11px 9px;
-    font-size:8px;
-    line-height:1.3;
-  }
-
-  .reimagine .training-flow span:first-child { grid-column:1/-1; }
-
-  .reimagine .training-note {
-    font-size:10px !important;
-    line-height:1.5;
-  }
-
-  /* Insights. */
-  .reimagine .labs-layout {
-    display:block;
-  }
-
-  .reimagine .lab-list {
-    margin-top:32px;
-  }
-
-  .reimagine .lab-list > div {
-    padding:15px 0;
-  }
-
-  .reimagine .lab-list strong { font-size:13px; }
-  .reimagine .lab-list p { font-size:10px; }
-
-  /* About: portrait and text should not compete for horizontal space. */
-  .reimagine .author-layout {
-    grid-template-columns:1fr;
-    gap:28px;
-  }
-
-  .reimagine .author-photo {
-    width:min(170px,52vw);
-    margin:0 auto;
-  }
-
-  /* Prevent any long contact/address-like text from creating overflow. */
-  .reimagine a,
-  .reimagine p,
-  .reimagine span,
-  .reimagine strong,
-  .reimagine h1,
-  .reimagine h2,
-  .reimagine h3 {
-    min-width:0;
-    overflow-wrap:anywhere;
+    padding-left: 6vw;
+    padding-right: 6vw;
   }
 }
 
-@media (max-width:560px) {
-  .reimagine .hero-visual { min-height:165px; }
-  .reimagine .service-grid { grid-template-columns:1fr; }
-  .reimagine .service-grid article { min-height:150px; }
-  .reimagine .training-flow { grid-template-columns:1fr; }
-  .reimagine .training-flow span:first-child { grid-column:auto; }
-
-  /* Footer is a single, coherent CTA/contact destination. */
-  .reimagine .motion-footer {
-    min-height:100svh;
+@media (max-width: 900px) {
+  .reimagine .top-nav {
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-rows:64px 48px;
+    height:112px;
+    padding:0 5vw;
   }
 
-  .reimagine .motion-footer-inner {
-    width:88vw;
-    min-height:100svh;
-    padding:24px 0 18px;
+  .reimagine .top-nav nav {
+    grid-column:1 / -1;
+    grid-row:2;
+    width:100%;
+    height:48px;
+    padding:0;
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:0;
+    border-top:1px solid rgba(39,52,105,.10);
   }
 
-  .reimagine .motion-footer-top {
-    align-items:flex-start;
-    flex-direction:column;
-    gap:10px;
+  .reimagine .top-nav nav a {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-width:0;
+    height:47px;
+    border-right:1px solid rgba(39,52,105,.10);
+    font-size:10px;
   }
 
-  .reimagine .motion-footer-main {
-    padding:150px 0 36px;
+  .reimagine .top-nav nav a:last-child {
+    border-right:0;
+  }
+
+  .reimagine .hero-v2 {
+    min-height: 760px;
+    height:auto;
+    max-height:none;
+    padding:150px 7vw 70px;
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .hero-visual {
+    height: 360px;
+  }
+
+  .reimagine .hero-copy {
+    max-width:700px;
+  }
+
+  .reimagine .capability-section {
+    grid-template-columns:1fr;
+    gap:34px;
+  }
+
+  .reimagine .capability-lead {
+    max-width:650px;
+  }
+
+  .reimagine .practice-grid,
+  .reimagine .service-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .reimagine .technology-section {
+    grid-template-columns:1fr;
     gap:28px;
   }
 
-  .reimagine .motion-footer-heading {
-    font-size:clamp(48px,14.5vw,72px);
-    line-height:.86;
+  .reimagine .constellation {
+    grid-template-columns:repeat(4,minmax(0,1fr));
   }
 
-  .reimagine .motion-footer-copy {
-    max-width:100%;
-    font-size:12px;
-    line-height:1.6;
+  .reimagine .tech-more {
+    justify-self:start;
+  }
+
+  .reimagine .work-head {
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+
+  .reimagine .work-head > p {
+    justify-self:start;
+  }
+
+  .reimagine .training-layout,
+  .reimagine .labs-layout,
+  .reimagine .author-layout {
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .author-photo {
+    margin:0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .reimagine section {
+    scroll-margin-top: 118px;
+  }
+
+  .reimagine .top-nav {
+    padding:0 4vw;
+  }
+
+  .reimagine .brand-lockup strong {
+    font-size:11px;
+  }
+
+  .reimagine .brand-lockup small {
+    font-size:8px;
+  }
+
+  .reimagine .nav-cta {
+    padding:9px 11px;
+    font-size:9px;
+  }
+
+  .reimagine .mode-toggle {
+    display:none;
+  }
+
+  .reimagine .top-nav nav {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+
+  .reimagine .hero-v2 {
+    padding:150px 6vw 56px;
+  }
+
+  .reimagine .hero-v2 h1 {
+    font-size: clamp(44px,12.5vw,60px);
+  }
+
+  .reimagine .hero-visual {
+    height:240px;
+  }
+
+  .reimagine .hero-stats span {
+    font-size:7px;
+  }
+
+  .reimagine .practice-grid,
+  .reimagine .service-grid,
+  .reimagine .work-grid {
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .work-featured {
+    grid-row:auto;
+  }
+
+  .reimagine .constellation {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .reimagine .training-flow {
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .training-flow span:first-child {
+    grid-column:auto;
+  }
+
+  .reimagine .motion-footer-main {
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .motion-footer-heading {
+    font-size:clamp(48px,14vw,76px);
   }
 
   .reimagine .motion-footer-links {
     grid-template-columns:1fr;
-    gap:8px;
-  }
-
-  .reimagine .motion-footer-pill {
-    width:100%;
-    box-sizing:border-box;
-    min-height:42px;
-    padding:12px 14px;
-    font-size:10px;
   }
 
   .reimagine .motion-footer-bottom {
     grid-template-columns:1fr;
-    gap:6px;
-    padding-bottom:4px;
-    font-size:7px;
   }
 
   .reimagine .motion-footer-bottom span,
@@ -1254,346 +1291,53 @@ html.lenis.lenis-stopped { overflow:hidden; }
   .reimagine .motion-footer-bottom span:last-child {
     text-align:left;
   }
-
-  .reimagine .motion-footer-giant {
-    font-size:45vw;
-    bottom:3vh;
-  }
 }
 
-@media (max-width:380px) {
+@media (max-width: 420px) {
   .reimagine .top-nav {
+    height:106px;
     grid-template-rows:60px 46px;
-    min-height:106px;
   }
-
-  .reimagine .brand-lockup { margin-left:4vw; }
-  .reimagine .brand-lockup strong { font-size:11px; }
-  .reimagine .brand-lockup small { font-size:7px; }
-  .reimagine .nav-actions { margin-right:4vw; }
-  .reimagine .nav-cta { padding:8px 10px; font-size:8px; }
 
   .reimagine .top-nav nav {
     height:46px;
-    padding:4px 3vw;
   }
 
   .reimagine .top-nav nav a {
-    height:38px;
+    height:45px;
     font-size:9px;
   }
 
-  .reimagine .hero-v2 h1 { font-size:40px; }
-  .reimagine .hero-lede { font-size:11px; }
-  .reimagine .hero-stats strong { font-size:17px; }
-  .reimagine .hero-stats span { font-size:6.5px; }
+  .reimagine .hero-v2 {
+    padding-top:144px;
+  }
 
-  .reimagine section:not(.hero-v2) { padding-left:5.5vw; padding-right:5.5vw; }
+  .reimagine .hero-v2 h1 {
+    font-size:40px;
+  }
+
+  .reimagine .hero-stats strong {
+    font-size:17px;
+  }
+
+  .reimagine section:not(.hero-v2) {
+    padding-left:5.5vw;
+    padding-right:5.5vw;
+  }
+
   .reimagine .section-kicker,
-  .reimagine .section-marker { left:5.5vw !important; }
-
-  .reimagine .practice-card { padding:17px; }
-  .reimagine .practice-card h3 { font-size:24px; }
-
-  .reimagine .motion-footer-inner { width:89vw; }
-  .reimagine .motion-footer-heading { font-size:47px; }
-}
-
-
-/* =========================================================================
-   FINAL DESKTOP COMPOSITION + INTERACTIVE CARD SYSTEM
-   ========================================================================= */
-
-/* Only the current cinematic footer is allowed to render. */
-.reimagine .contact-v2,
-.reimagine .footer-v2,
-.reimagine .footer-reveal { display:none !important; }
-
-/* Restore a strong centered desktop canvas instead of stretching every
-   section's content across the full viewport. */
-@media (min-width:821px) {
-  .reimagine .capability-section,
-  .reimagine .system-section,
-  .reimagine .work-section,
-  .reimagine .training-section,
-  .reimagine .labs-section,
-  .reimagine .about-v2 {
-    padding-left:max(5.2vw,calc((100vw - 1440px)/2 + 56px));
-    padding-right:max(5.2vw,calc((100vw - 1440px)/2 + 56px));
-  }
-
-  .reimagine .capability-section {
-    grid-template-columns:minmax(240px,.72fr) minmax(0,2fr);
-    gap:clamp(48px,6vw,104px);
-    align-items:start;
-  }
-
-  .reimagine .capability-content {
-    min-width:0;
-    display:grid;
-    gap:16px;
-  }
-
-  .reimagine .practice-grid {
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:16px;
-    margin:0;
-  }
-
-  .reimagine .practice-card {
-    min-height:330px;
-    padding:30px;
-  }
-
-  .reimagine .service-grid {
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:16px;
-    margin:0;
-  }
-
-  .reimagine .service-grid article {
-    min-height:190px;
-    padding:24px;
-  }
-
-  .reimagine .work-head {
-    display:grid;
-    grid-template-columns:minmax(0,1.4fr) minmax(260px,.6fr);
-    align-items:end;
-    gap:60px;
-  }
-
-  .reimagine .work-head > p {
-    max-width:360px;
-    justify-self:end;
-    margin-bottom:8px;
-  }
-
-  .reimagine .work-grid {
-    display:grid;
-    grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);
-    grid-template-rows:repeat(2,minmax(210px,auto));
-    gap:16px;
-    margin-top:46px;
-  }
-
-  .reimagine .work-card {
-    min-height:0;
-    padding:28px;
-  }
-
-  .reimagine .work-featured {
-    grid-row:1 / span 2;
-    min-height:440px;
-    padding:34px;
-  }
-
-  .reimagine .work-card h3 {
-    max-width:19ch;
-  }
-
-  .reimagine .training-layout,
-  .reimagine .labs-layout,
-  .reimagine .author-layout {
-    width:min(100%,1180px);
-    margin-left:auto;
-    margin-right:auto;
+  .reimagine .section-marker {
+    left:5.5vw;
   }
 }
 
-/* Cursor-following spotlight. The glow lives behind card content and does
-   not intercept links or pointer events. */
-.reimagine .spotlight-card {
-  --spot-x:50%;
-  --spot-y:50%;
-  position:relative;
-  isolation:isolate;
-  overflow:hidden;
-  transform:translateZ(0);
-  transition:
-    transform .35s cubic-bezier(.2,.8,.2,1),
-    border-color .35s ease,
-    box-shadow .35s ease;
-}
-
-.reimagine .spotlight-card-content {
-  position:relative;
-  z-index:2;
-  height:100%;
-  display:contents;
-}
-
-.reimagine .spotlight-card-glow {
-  position:absolute;
-  z-index:1;
-  inset:0;
-  pointer-events:none;
-  opacity:0;
-  background:
-    radial-gradient(
-      320px circle at var(--spot-x) var(--spot-y),
-      rgba(120,153,212,.24),
-      rgba(120,153,212,.075) 34%,
-      transparent 68%
-    );
-  transition:opacity .3s ease;
-}
-
-.reimagine .spotlight-card::after {
-  content:"";
-  position:absolute;
-  z-index:1;
-  inset:-1px;
-  pointer-events:none;
-  border-radius:inherit;
-  opacity:0;
-  background:
-    radial-gradient(
-      220px circle at var(--spot-x) var(--spot-y),
-      rgba(120,153,212,.62),
-      transparent 68%
-    );
-  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
-  mask-composite:exclude;
-  -webkit-mask-composite:xor;
-  padding:1px;
-  transition:opacity .3s ease;
-}
-
-@media (hover:hover) and (pointer:fine) {
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto !important; }
+  .reimagine .spotlight-card,
+  .reimagine .spotlight-card h3 {
+    transition:none !important;
+  }
   .reimagine .spotlight-card:hover {
-    transform:translateY(-5px);
-    border-color:rgba(120,153,212,.32);
-    box-shadow:0 22px 60px rgba(30,39,73,.11);
+    transform:none;
   }
-
-  .reimagine .spotlight-card:hover .spotlight-card-glow,
-  .reimagine .spotlight-card:hover::after {
-    opacity:1;
-  }
-
-  .reimagine.is-dark .spotlight-card:hover {
-    border-color:rgba(120,153,212,.42);
-    box-shadow:0 24px 70px rgba(0,0,0,.24);
-  }
-
-  .reimagine.is-dark .spotlight-card-glow {
-    background:
-      radial-gradient(
-        340px circle at var(--spot-x) var(--spot-y),
-        rgba(120,153,212,.22),
-        rgba(120,153,212,.06) 36%,
-        transparent 70%
-      );
-  }
-}
-
-@media (max-width:820px) {
-  .reimagine .capability-content {
-    display:grid;
-    gap:12px;
-    margin-top:34px;
-  }
-
-  .reimagine .practice-grid { margin-top:0; }
-
-  .reimagine .work-featured { grid-row:auto; }
-}
-
-@media (prefers-reduced-motion:reduce) {
-  .reimagine .spotlight-card { transition:none; }
-  .reimagine .spotlight-card:hover { transform:none; }
-}
-
-/* Dark-mode token correction: all semantic UI text and indices must retain
-   accessible contrast against the indigo/navy surfaces. */
-.reimagine.is-dark {
-  --bg:#1E2749;
-  --panel:#273469;
-  --text:#FAFAFF;
-  --muted:#B9C5DA;
-  --line:rgba(250,250,255,.16);
-  --accent:#7899D4;
-  --warm:#7899D4;
-  --paper:#273469;
-  --ink:#FAFAFF;
-  --re-text:#FAFAFF;
-  --re-muted:#B9C5DA;
-  --re-line:rgba(250,250,255,.16);
-}
-.reimagine.is-dark .section-kicker,
-.reimagine.is-dark .section-marker,
-.reimagine.is-dark .eyebrow,
-.reimagine.is-dark .node-index,
-.reimagine.is-dark .node-name,
-.reimagine.is-dark .system-node,
-.reimagine.is-dark .practice-index,
-.reimagine.is-dark .work-card .mono,
-.reimagine.is-dark .lab-list .mono {
-  color:#BFD0F1;
-}
-.reimagine.is-dark .system-node.active,
-.reimagine.is-dark .system-node.active .node-name,
-.reimagine.is-dark .system-node.active .node-index {
-  color:#FAFAFF;
-}
-.reimagine.is-dark .system-node.active .node-dot {
-  background:#7899D4;
-  box-shadow:0 0 0 7px #273469,0 0 24px rgba(120,153,212,.55);
-}
-.reimagine.is-dark .capability-section,
-.reimagine.is-dark .system-section,
-.reimagine.is-dark .work-section,
-.reimagine.is-dark .training-section,
-.reimagine.is-dark .labs-section,
-.reimagine.is-dark .about-v2 {
-  color:#FAFAFF;
-}
-.reimagine.is-dark .capability-section p,
-.reimagine.is-dark .system-section p,
-.reimagine.is-dark .work-section p,
-.reimagine.is-dark .training-section p,
-.reimagine.is-dark .labs-section p,
-.reimagine.is-dark .about-v2 p { color:#B9C5DA; }
-.reimagine.is-dark .practice-card,
-.reimagine.is-dark .service-grid article,
-.reimagine.is-dark .work-card {
-  background:linear-gradient(145deg,#303D67,#273469);
-  border-color:rgba(250,250,255,.13);
-  color:#FAFAFF;
-}
-.reimagine.is-dark .practice-card h3,
-.reimagine.is-dark .service-grid h3,
-.reimagine.is-dark .work-card h3 { color:#FAFAFF; }
-.reimagine.is-dark .practice-card a,
-.reimagine.is-dark .service-grid a,
-.reimagine.is-dark .work-card a,
-.reimagine.is-dark .section-link { color:#9CB9EB; }
-.reimagine.is-dark .technology-section { color:#FAFAFF; }
-.reimagine.is-dark .tech-node { color:#E7EDFA; border-color:rgba(250,250,255,.16); }
-.reimagine.is-dark .top-nav {
-  background:linear-gradient(180deg,rgba(30,39,73,.96),rgba(30,39,73,.78));
-  border-bottom-color:rgba(250,250,255,.12);
-}
-.reimagine.is-dark .brand-lockup,
-.reimagine.is-dark .top-nav nav a { color:#FAFAFF; }
-.reimagine.is-dark .brand-lockup small { color:#B9C5DA; }
-.reimagine.is-dark .brand-mark { border-color:#FAFAFF; }
-.reimagine.is-dark .nav-cta { background:#FAFAFF; color:#1E2749; }
-
-@media (max-width:820px) {
-  .reimagine .capability-section { display:block !important; }
-  .reimagine .capability-lead { width:100%; }
-  .reimagine .capability-content { width:100%; }
-  .reimagine .practice-grid { display:grid !important; grid-template-columns:1fr !important; width:100%; }
-  .reimagine .service-grid { display:grid !important; grid-template-columns:1fr !important; width:100%; }
-  .reimagine .practice-card { display:grid !important; grid-template-columns:32px minmax(0,1fr); width:100%; min-width:0; }
-  .reimagine .work-grid { display:grid !important; grid-template-columns:1fr !important; width:100%; }
-  .reimagine .work-card { width:100%; min-width:0; }
-  .reimagine .training-layout,
-  .reimagine .labs-layout,
-  .reimagine .author-layout { width:100%; }
 }
