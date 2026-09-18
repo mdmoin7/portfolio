@@ -1,6 +1,6 @@
 "use client";
 import { useEffect,useMemo,useRef,useState } from "react";
-import { motion,useInView,useReducedMotion,useScroll,useTransform } from "framer-motion";
+import { motion,useReducedMotion,useScroll,useTransform } from "framer-motion";
 import { CinematicAudioControl } from "@/components/audio/CinematicAudio";
 import { ThreeDSystem } from "@/components/reimagine/ThreeDSystem";
 const PROFILE_IMAGE="https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@reimagine/v2/assets/profile.webp";
