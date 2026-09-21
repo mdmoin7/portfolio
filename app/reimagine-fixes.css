@@ -3415,3 +3415,56 @@ html.lenis {
     grid-template-columns:1fr!important;
   }
 }
+
+
+/* Ask Moin — portal host
+   The panel is rendered directly under document.body so no hero/grid/flex
+   ancestor can constrain, stretch, clip, or scale its dimensions. */
+.moin-buddy-portal{
+  position:fixed;
+  right:24px;
+  bottom:98px;
+  z-index:10000;
+  width:auto;
+  height:auto;
+  max-width:calc(100vw - 32px);
+  pointer-events:none;
+}
+.moin-buddy-portal .moin-buddy-panel{
+  pointer-events:auto;
+  position:relative!important;
+  inset:auto!important;
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:min(620px,calc(100svh - 120px))!important;
+  margin:0!important;
+  transform-origin:bottom right;
+}
+.moin-buddy-portal .moin-buddy-panel-head{
+  flex:0 0 auto!important;
+}
+.moin-buddy-portal .moin-buddy-body{
+  max-height:360px!important;
+  min-height:0!important;
+  height:auto!important;
+}
+@media(max-width:560px){
+  .moin-buddy-portal{
+    left:12px;
+    right:12px;
+    bottom:82px;
+    max-width:none;
+    display:flex;
+    justify-content:flex-end;
+  }
+  .moin-buddy-portal .moin-buddy-panel{
+    width:100%!important;
+    max-width:100%!important;
+    max-height:calc(100svh - 96px)!important;
+  }
+  .moin-buddy-portal .moin-buddy-body{
+    max-height:calc(100svh - 300px)!important;
+  }
+}
