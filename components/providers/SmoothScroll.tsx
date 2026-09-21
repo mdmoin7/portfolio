@@ -51,7 +51,9 @@ export function SmoothScrollProvider({ children }: { children: React.ReactNode }
         touchMultiplier: 1,
         autoRaf: true,
         anchors: true,
-        prevent: (node: HTMLElement) => node.hasAttribute("data-lenis-prevent"),
+        prevent: (node: HTMLElement) =>
+          node.hasAttribute("data-lenis-prevent") ||
+          Boolean(node.closest("[data-lenis-prevent]")),
       }}
     >
       {children}

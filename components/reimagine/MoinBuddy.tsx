@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { useLenis } from "lenis/react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
@@ -51,7 +52,9 @@ export function MoinBuddy() {
   const [followUps, setFollowUps] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState<BuddyState>("idle");
+  const lenis = useLenis();
   const inputRef = useRef<HTMLInputElement>(null);
+  const chatBodyRef = useRef<HTMLDivElement>(null);
   const peekTimer = useRef<number | null>(null);
   const flyTimer = useRef<number | null>(null);
 
@@ -112,6 +115,66 @@ export function MoinBuddy() {
       if (flyTimer.current) window.clearTimeout(flyTimer.current);
     };
   }, [open, loading]);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    if (open) {
+      lenis?.stop();
+      html.classList.add("ask-moin-scroll-lock");
+      const previousHtmlOverflow = html.style.overflow;
+      const previousBodyOverflow = body.style.overflow;
+      html.style.overflow = "hidden";
+      body.style.overflow = "hidden";
+
+      return () => {
+        html.classList.remove("ask-moin-scroll-lock");
+        html.style.overflow = previousHtmlOverflow;
+        body.style.overflow = previousBodyOverflow;
+        lenis?.start();
+      };
+    }
+
+    lenis?.start();
+  }, [open, lenis]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const node = chatBodyRef.current;
+    if (!node) return;
+
+    const stopLenisWheel = (event: WheelEvent) => {
+      event.stopPropagation();
+    };
+    const stopLenisTouch = (event: TouchEvent) => {
+      event.stopPropagation();
+    };
+
+    node.addEventListener("wheel", stopLenisWheel, { capture: true, passive: true });
+    node.addEventListener("touchmove", stopLenisTouch, { capture: true, passive: true });
+
+    return () => {
+      node.removeEventListener("wheel", stopLenisWheel, { capture: true });
+      node.removeEventListener("touchmove", stopLenisTouch, { capture: true });
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      const node = chatBodyRef.current;
+      if (!node) return;
+      node.scrollTo({
+        top: node.scrollHeight,
+        behavior: "smooth",
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [open, messages, loading, followUps]);
 
   async function ask(question: string) {
     const trimmed = question.trim();
@@ -201,7 +264,14 @@ export function MoinBuddy() {
               </button>
             </div>
 
-            <div className="ask-moin-body">
+            <div
+              ref={chatBodyRef}
+              className="ask-moin-body"
+              data-lenis-prevent
+              data-lenis-prevent-wheel
+              data-lenis-prevent-touch
+              style={{ touchAction: "pan-y" }}
+            >
               {messages.length === 0 ? (
                 <div className="ask-moin-intro">
                   <div className="ask-moin-hero-mascot">
@@ -236,8 +306,11 @@ export function MoinBuddy() {
                     </div>
                   ))}
                   {loading && (
-                    <div className="ask-moin-message ask-moin-message-assistant ask-moin-thinking">
-                      <i /><i /><i />
+                    <div className="ask-moin-skeleton" role="status" aria-label="Moin is preparing a response">
+                      <span className="ask-moin-skeleton-line" />
+                      <span className="ask-moin-skeleton-line" />
+                      <span className="ask-moin-skeleton-line" />
+                      <span className="ask-moin-skeleton-line" />
                     </div>
                   )}
                   {!loading && messages.some((message) => message.role === "assistant") && followUps.length > 0 && (
