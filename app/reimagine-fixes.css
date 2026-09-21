@@ -4409,3 +4409,87 @@ html.lenis {
     min-height:50px!important;
   }
 }
+
+
+/* Ask Moin mascot — final alignment override.
+   Use canonical 60x66 character geometry as a single scaled unit. */
+.ask-moin-hero-mascot{
+  width:88px!important;
+  height:96px!important;
+  position:relative!important;
+  margin:0 auto 2px!important;
+  display:block!important;
+  overflow:visible!important;
+  background:transparent!important;
+}
+.ask-moin-mascot{
+  position:absolute!important;
+  left:14px!important;
+  top:0!important;
+  width:60px!important;
+  height:66px!important;
+  min-width:60px!important;
+  min-height:66px!important;
+  display:block!important;
+  transform:scale(1.28)!important;
+  transform-origin:top center!important;
+  animation:none!important;
+  background:transparent!important;
+  overflow:visible!important;
+  filter:drop-shadow(0 11px 10px rgba(30,39,73,.18))!important;
+}
+.ask-moin-mascot .moin-buddy-cape{
+  display:none!important;
+}
+.ask-moin-mascot .moin-buddy-head{
+  left:8px!important;
+  top:0!important;
+  width:48px!important;
+  height:42px!important;
+}
+.ask-moin-mascot .moin-buddy-ear{
+  top:12px!important;
+  width:15px!important;
+  height:21px!important;
+}
+.ask-moin-mascot .moin-buddy-ear-left{left:1px!important}
+.ask-moin-mascot .moin-buddy-ear-right{right:0!important}
+.ask-moin-mascot .moin-buddy-body{
+  left:14px!important;
+  top:35px!important;
+  width:40px!important;
+  height:31px!important;
+  background:linear-gradient(145deg,#82A9E8,#4D73BC 62%,#273469)!important;
+}
+.ask-moin-mascot .moin-buddy-arm{
+  top:39px!important;
+  width:14px!important;
+  height:20px!important;
+}
+.ask-moin-mascot .moin-buddy-arm-left{left:5px!important}
+.ask-moin-mascot .moin-buddy-arm-right{right:3px!important}
+.ask-moin-mascot .moin-buddy-foot{
+  top:57px!important;
+  width:17px!important;
+  height:13px!important;
+}
+.ask-moin-mascot .moin-buddy-foot-left{left:14px!important}
+.ask-moin-mascot .moin-buddy-foot-right{right:9px!important}
+.ask-moin-mascot .moin-buddy-visor i{
+  top:16px!important;
+  width:4px!important;
+  height:11px!important;
+}
+.ask-moin-mascot .moin-buddy-visor i:first-child{left:19px!important}
+.ask-moin-mascot .moin-buddy-visor i:last-child{right:19px!important}
+
+@media(max-width:560px){
+  .ask-moin-hero-mascot{
+    width:76px!important;
+    height:84px!important;
+  }
+  .ask-moin-mascot{
+    left:8px!important;
+    transform:scale(1.12)!important;
+  }
+}
