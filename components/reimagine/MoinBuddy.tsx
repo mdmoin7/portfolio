@@ -30,7 +30,7 @@ function BuddyIcon({ className = "" }: { className?: string }) {
       </motion.span>
       <span className="moin-buddy-arm moin-buddy-arm-left" />
       <span className="moin-buddy-arm moin-buddy-arm-right" />
-      <span className="ask-moin-body">
+      <span className="moin-buddy-body">
         <b>M</b>
       </span>
       <span className="moin-buddy-foot moin-buddy-foot-left" />
