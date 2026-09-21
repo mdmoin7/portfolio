@@ -3814,3 +3814,186 @@ html.lenis {
     max-width:100%!important;
   }
 }
+
+
+/* Ask Moin — clean reference implementation */
+.ask-moin-panel{
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  max-height:min(650px,calc(100svh - 96px))!important;
+  display:flex!important;
+  flex-direction:column!important;
+  border-radius:24px!important;
+  background:rgba(250,250,255,.98)!important;
+  overflow:hidden!important;
+}
+.ask-moin-header{
+  flex:0 0 72px!important;
+  height:72px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  padding:14px 18px!important;
+  border-bottom:1px solid rgba(39,52,105,.08)!important;
+  background:rgba(250,250,255,.92)!important;
+}
+.ask-moin-brand{
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+}
+.ask-moin-brand-mark{
+  width:40px!important;
+  height:40px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:12px!important;
+  background:linear-gradient(145deg,#7899D4,#273469)!important;
+  color:#FAFAFF!important;
+  font:600 18px/1 var(--font-display)!important;
+  box-shadow:0 7px 18px rgba(39,52,105,.18)!important;
+}
+.ask-moin-brand .mono{
+  color:#6079AC!important;
+  font-size:9px!important;
+  font-weight:800!important;
+  letter-spacing:.18em!important;
+}
+.ask-moin-close{
+  flex:0 0 40px!important;
+  width:40px!important;
+  height:40px!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:0!important;
+  border:1px solid rgba(39,52,105,.12)!important;
+  border-radius:50%!important;
+  background:#FAFAFF!important;
+  color:#273469!important;
+  font-size:25px!important;
+  line-height:1!important;
+}
+.ask-moin-body{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:20px 22px 18px!important;
+  background:
+    radial-gradient(circle at 50% 16%,rgba(120,153,212,.10),transparent 220px),
+    #FAFAFF!important;
+}
+.ask-moin-intro{
+  width:100%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+}
+.ask-moin-hero-mascot{
+  width:88px!important;
+  height:88px!important;
+  display:grid!important;
+  place-items:center!important;
+  margin:0 auto 2px!important;
+  background:transparent!important;
+  overflow:visible!important;
+}
+.ask-moin-hero-mascot .moin-buddy-hero{
+  position:relative!important;
+  width:74px!important;
+  height:82px!important;
+  transform:scale(1)!important;
+  background:transparent!important;
+}
+.ask-moin-hero-mascot .moin-buddy-cape{
+  display:none!important;
+}
+.ask-moin-kicker{
+  display:block!important;
+  margin:0 0 10px!important;
+  color:#5278BA!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  letter-spacing:.24em!important;
+  text-align:center!important;
+}
+.ask-moin-intro-copy{
+  width:100%!important;
+  max-width:440px!important;
+  margin:0 auto 24px!important;
+  text-align:center!important;
+}
+.ask-moin-intro-copy h3{
+  margin:0!important;
+  color:#1E2749!important;
+  font:500 clamp(28px,5vw,36px)/1.02 var(--font-display)!important;
+  letter-spacing:-.045em!important;
+}
+.ask-moin-intro-copy p{
+  max-width:420px!important;
+  margin:12px auto 0!important;
+  color:#687793!important;
+  font-size:12px!important;
+  line-height:1.6!important;
+}
+.ask-moin-starters{
+  width:100%!important;
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+.ask-moin-starters button{
+  min-width:0!important;
+  min-height:70px!important;
+  display:grid!important;
+  grid-template-columns:40px minmax(0,1fr) 18px!important;
+  align-items:center!important;
+  gap:11px!important;
+  padding:11px 14px!important;
+  border:1px solid rgba(120,153,212,.24)!important;
+  border-radius:15px!important;
+  background:linear-gradient(135deg,#FFFFFF,#F1F5FC)!important;
+  color:#273469!important;
+  text-align:left!important;
+  font:500 11px/1.35 var(--font-body)!important;
+  box-shadow:0 4px 14px rgba(30,39,73,.035)!important;
+}
+.ask-moin-starter-icon{
+  width:34px!important;
+  height:34px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:10px!important;
+  background:#EAF0FA!important;
+  color:#5278BA!important;
+  font-size:14px!important;
+}
+.ask-moin-starter-arrow{
+  color:#5278BA!important;
+  font-size:17px!important;
+  text-align:right!important;
+}
+.ask-moin-form{
+  flex:0 0 58px!important;
+  height:58px!important;
+  margin:8px 18px 0!important;
+}
+.ask-moin-note{
+  padding:9px 20px 13px!important;
+}
+@media(max-width:560px){
+  .ask-moin-panel{
+    width:100%!important;
+    max-width:100%!important;
+    max-height:calc(100svh - 76px)!important;
+    border-radius:20px!important;
+  }
+  .ask-moin-header{height:64px!important;flex-basis:64px!important}
+  .ask-moin-body{padding:16px 14px!important}
+  .ask-moin-hero-mascot{width:72px!important;height:72px!important}
+  .ask-moin-hero-mascot .moin-buddy-hero{transform:scale(.84)!important}
+  .ask-moin-intro-copy h3{font-size:29px!important}
+  .ask-moin-starters{grid-template-columns:1fr!important}
+  .ask-moin-starters button{min-height:56px!important}
+}
