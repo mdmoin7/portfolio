@@ -3343,3 +3343,75 @@ html.lenis {
     white-space:normal!important;
   }
 }
+
+
+/* Ask Moin — final compact panel geometry
+   Keep the dialog content-sized; never let the conversation panel become a
+   second viewport or overlap the page underneath. */
+.moin-buddy-panel{
+  position:relative!important;
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:min(620px,calc(100svh - 104px))!important;
+  display:grid!important;
+  grid-template-rows:auto minmax(0,auto) auto auto!important;
+  align-self:flex-end!important;
+  overflow:hidden!important;
+  background:#FAFAFF!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.moin-buddy-panel-head{
+  flex:0 0 auto!important;
+  min-height:84px!important;
+  background:linear-gradient(135deg,#F5F8FD 0%,#E8EEF8 100%)!important;
+}
+.moin-buddy-body{
+  height:auto!important;
+  min-height:0!important;
+  max-height:360px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:22px 20px 18px!important;
+  background:#FAFAFF!important;
+}
+.moin-buddy-intro{
+  height:auto!important;
+  min-height:0!important;
+  justify-content:flex-start!important;
+}
+.moin-buddy-intro-copy{
+  margin:0 auto 20px!important;
+}
+.moin-buddy-intro-copy h3{
+  font-size:32px!important;
+}
+.moin-buddy-starters{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+.moin-buddy-form{
+  margin:8px 18px 0!important;
+}
+.moin-buddy-note{
+  background:#FAFAFF!important;
+  padding:8px 18px 13px!important;
+}
+@media(max-width:560px){
+  .moin-buddy-panel{
+    width:calc(100vw - 24px)!important;
+    max-width:calc(100vw - 24px)!important;
+    max-height:calc(100svh - 76px)!important;
+  }
+  .moin-buddy-body{
+    max-height:calc(100svh - 260px)!important;
+    padding:20px 14px 16px!important;
+  }
+  .moin-buddy-intro-copy h3{
+    font-size:29px!important;
+  }
+  .moin-buddy-starters{
+    grid-template-columns:1fr!important;
+  }
+}
