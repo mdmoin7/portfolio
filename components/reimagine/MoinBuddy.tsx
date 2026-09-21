@@ -115,7 +115,12 @@ export function MoinBuddy() {
     const trimmed = question.trim();
     if (!trimmed || loading) return;
 
-    setMessages((current) => [...current, { role: "user", content: trimmed }]);
+    const conversation = [
+      ...messages,
+      { role: "user" as const, content: trimmed },
+    ].slice(-12);
+
+    setMessages(conversation);
     setInput("");
     setLoading(true);
     setState("thinking");
@@ -124,7 +129,10 @@ export function MoinBuddy() {
       const response = await fetch("/api/ask-moin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: trimmed }),
+        body: JSON.stringify({
+          message: trimmed,
+          messages: conversation,
+        }),
       });
       const data = (await response.json()) as { answer?: string };
       setMessages((current) => [
