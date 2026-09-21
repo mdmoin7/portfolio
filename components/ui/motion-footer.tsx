@@ -97,7 +97,7 @@ function MarqueeItem() {
   );
 }
 
-export function CinematicFooter({ id = "footer" }: { id?: string }) {
+export function CinematicFooter({ id = "footer", homeHref = "" }: { id?: string; homeHref?: string }) {
   const reduceMotion = useReducedMotion();
 
   return (
@@ -375,7 +375,7 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
       <div className="motion-footer-inner">
         <div className="motion-footer-top">
           <span className="motion-footer-kicker">MOHAMMAD MOIN · 2026</span>
-          <a href="#thesis">BACK TO TOP ↑</a>
+          <a href={homeHref ? `${homeHref}#thesis` : "#thesis"}>BACK TO TOP ↑</a>
         </div>
 
         <div className="motion-footer-main">
@@ -409,21 +409,21 @@ export function CinematicFooter({ id = "footer" }: { id?: string }) {
             <div className="motion-footer-links">
               <MagneticButton
                 as="a"
-                href="#capability"
+                href={homeHref ? `${homeHref}#capability` : "#capability"}
                 className="motion-footer-pill"
               >
                 What I Do <span>→</span>
               </MagneticButton>
               <MagneticButton
                 as="a"
-                href="#work"
+                href={homeHref ? `${homeHref}#work` : "#work"}
                 className="motion-footer-pill"
               >
                 Selected Work <span>→</span>
               </MagneticButton>
               <MagneticButton
                 as="a"
-                href="#training"
+                href={homeHref ? `${homeHref}#training` : "#training"}
                 className="motion-footer-pill"
               >
                 Training <span>→</span>
