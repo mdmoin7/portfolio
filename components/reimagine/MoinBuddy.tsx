@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { useLenis } from "lenis/react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
@@ -51,6 +52,7 @@ export function MoinBuddy() {
   const [followUps, setFollowUps] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState<BuddyState>("idle");
+  const lenis = useLenis();
   const inputRef = useRef<HTMLInputElement>(null);
   const chatBodyRef = useRef<HTMLDivElement>(null);
   const peekTimer = useRef<number | null>(null);
@@ -113,6 +115,17 @@ export function MoinBuddy() {
       if (flyTimer.current) window.clearTimeout(flyTimer.current);
     };
   }, [open, loading]);
+
+  useEffect(() => {
+    if (open) {
+      lenis?.stop();
+      return () => {
+        lenis?.start();
+      };
+    }
+
+    lenis?.start();
+  }, [open, lenis]);
 
   useEffect(() => {
     if (!open) return;
