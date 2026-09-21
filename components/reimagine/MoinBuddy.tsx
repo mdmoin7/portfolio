@@ -168,6 +168,7 @@ export function MoinBuddy() {
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ duration: 0.22, ease: [0.2, 0.8, 0.2, 1] }}
             aria-label="Ask Moin"
+            style={{ width: "520px", maxWidth: "calc(100vw - 32px)", height: "auto", maxHeight: "min(620px, calc(100svh - 120px))" }}
           >
             <div className="ask-moin-panel-head">
               <div className="ask-moin-title">
