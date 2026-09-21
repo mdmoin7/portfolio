@@ -4493,3 +4493,116 @@ html.lenis {
     transform:scale(1.12)!important;
   }
 }
+
+
+/* Ask Moin mascot — reference-accurate final geometry.
+   Coordinate system: 60 × 66. Scale the complete character only.
+   Ears sit behind the head; arms sit beside the body; feet sit below it. */
+.ask-moin-hero-mascot{
+  width:92px!important;
+  height:102px!important;
+  position:relative!important;
+  display:block!important;
+  margin:0 auto 4px!important;
+  overflow:visible!important;
+  background:transparent!important;
+}
+.ask-moin-mascot{
+  position:absolute!important;
+  left:16px!important;
+  top:0!important;
+  width:60px!important;
+  height:66px!important;
+  display:block!important;
+  overflow:visible!important;
+  transform:scale(1.28)!important;
+  transform-origin:top center!important;
+  animation:none!important;
+  background:transparent!important;
+  filter:drop-shadow(0 10px 11px rgba(30,39,73,.16))!important;
+}
+.ask-moin-mascot .moin-buddy-ear{
+  z-index:2!important;
+  top:11px!important;
+  width:15px!important;
+  height:21px!important;
+}
+.ask-moin-mascot .moin-buddy-ear-left{
+  left:-1px!important;
+}
+.ask-moin-mascot .moin-buddy-ear-right{
+  right:-1px!important;
+}
+.ask-moin-mascot .moin-buddy-head{
+  z-index:6!important;
+  left:8px!important;
+  top:0!important;
+  width:48px!important;
+  height:42px!important;
+}
+.ask-moin-mascot .moin-buddy-visor{
+  z-index:7!important;
+}
+.ask-moin-mascot .moin-buddy-body{
+  z-index:3!important;
+  left:14px!important;
+  top:35px!important;
+  width:40px!important;
+  height:31px!important;
+}
+.ask-moin-mascot .moin-buddy-body b{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  width:20px!important;
+  height:20px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:50%!important;
+  background:#FAFAFF!important;
+  color:#273469!important;
+  font:600 12px/1 var(--font-display)!important;
+}
+.ask-moin-mascot .moin-buddy-arm{
+  z-index:4!important;
+  top:39px!important;
+  width:14px!important;
+  height:20px!important;
+}
+.ask-moin-mascot .moin-buddy-arm-left{
+  left:3px!important;
+  transform:rotate(35deg) translateZ(4px)!important;
+}
+.ask-moin-mascot .moin-buddy-arm-right{
+  right:1px!important;
+  transform:rotate(-32deg) translateZ(4px)!important;
+}
+.ask-moin-mascot .moin-buddy-foot{
+  z-index:1!important;
+  top:57px!important;
+  width:17px!important;
+  height:13px!important;
+}
+.ask-moin-mascot .moin-buddy-foot-left{
+  left:12px!important;
+  transform:rotate(12deg)!important;
+}
+.ask-moin-mascot .moin-buddy-foot-right{
+  right:7px!important;
+  transform:rotate(-12deg)!important;
+}
+.ask-moin-mascot .moin-buddy-cape{
+  display:none!important;
+}
+
+@media(max-width:560px){
+  .ask-moin-hero-mascot{
+    width:78px!important;
+    height:88px!important;
+  }
+  .ask-moin-mascot{
+    left:9px!important;
+    transform:scale(1.12)!important;
+  }
+}
