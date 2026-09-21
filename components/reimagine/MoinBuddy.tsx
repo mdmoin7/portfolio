@@ -170,13 +170,10 @@ export function MoinBuddy() {
             aria-label="Ask Moin"
             style={{ width: "520px", maxWidth: "calc(100vw - 32px)", height: "auto", maxHeight: "min(620px, calc(100svh - 120px))" }}
           >
-            <div className="ask-moin-panel-head">
-              <div className="ask-moin-title">
-                <BuddyIcon className="ask-moin-panel-icon" />
-                <div>
-                  <span className="mono">ASK MOIN</span>
-                  <strong>Curious about my work?</strong>
-                </div>
+            <div className="ask-moin-header">
+              <div className="ask-moin-brand">
+                <span className="ask-moin-brand-mark">M</span>
+                <span className="mono">MOHAMMAD MOIN</span>
               </div>
               <button
                 type="button"
@@ -191,12 +188,15 @@ export function MoinBuddy() {
             <div className="ask-moin-body">
               {messages.length === 0 ? (
                 <div className="ask-moin-intro">
+                  <div className="ask-moin-hero-mascot">
+                    <BuddyIcon />
+                  </div>
                   <div className="ask-moin-intro-copy">
-                    <span className="ask-moin-intro-kicker mono">MOHAMMAD MOIN · ENGINEERING × PEOPLE × AI</span>
+                    <span className="ask-moin-kicker mono">ASK MOIN</span>
                     <h3>Curious about my work?</h3>
                     <p>
-                      Ask me about Mohammad&apos;s experience, engineering,
-                      consulting, training, or projects.
+                      Ask me anything about Mohammad&apos;s experience,
+                      engineering, consulting, training, or projects.
                     </p>
                   </div>
                   <div className="ask-moin-starters">
@@ -204,6 +204,7 @@ export function MoinBuddy() {
                       <button key={starter} type="button" onClick={() => void ask(starter)}>
                         <span className="ask-moin-starter-icon" aria-hidden="true">{icon}</span>
                         <span>{starter}</span>
+                        <span className="ask-moin-starter-arrow" aria-hidden="true">→</span>
                       </button>
                     ))}
                   </div>
