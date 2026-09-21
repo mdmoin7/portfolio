@@ -4815,3 +4815,22 @@ html.lenis {
   -webkit-overflow-scrolling:touch!important;
   scrollbar-gutter:stable!important;
 }
+
+
+/* Ask Moin modal scroll lock — the page must not move while the dialog is open. */
+html.ask-moin-scroll-lock,
+html.ask-moin-scroll-lock body{
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+}
+
+html.ask-moin-scroll-lock .moin-buddy-portal{
+  touch-action:none!important;
+}
+
+html.ask-moin-scroll-lock .ask-moin-body{
+  touch-action:pan-y!important;
+  overscroll-behavior:contain!important;
+  overflow-y:scroll!important;
+  -webkit-overflow-scrolling:touch!important;
+}
