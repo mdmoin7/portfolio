@@ -306,8 +306,11 @@ export function MoinBuddy() {
                     </div>
                   ))}
                   {loading && (
-                    <div className="ask-moin-message ask-moin-message-assistant ask-moin-thinking">
-                      <i /><i /><i />
+                    <div className="ask-moin-skeleton" role="status" aria-label="Moin is preparing a response">
+                      <span className="ask-moin-skeleton-line" />
+                      <span className="ask-moin-skeleton-line" />
+                      <span className="ask-moin-skeleton-line" />
+                      <span className="ask-moin-skeleton-line" />
                     </div>
                   )}
                   {!loading && messages.some((message) => message.role === "assistant") && followUps.length > 0 && (
