@@ -153,14 +153,14 @@ export default function MoinResume() {
       </header>
 
       <main className="resume-main">
-        <section className="moin-resume" aria-label="Résumé">
+        <section className="moin-resume" aria-label="Resume">
       <GlyphPortal
         className="resume-glyph-portal"
         word="MOIN"
         focusChar="M"
         scrollLength={2.2}
         interactive
-        enterLabel="View résumé"
+        enterLabel="View resume"
         style={{
           "--gp-paper": theme === "dark" ? "#1E2749" : "#FAFAFF",
           "--gp-ink": theme === "dark" ? "#FAFAFF" : "#1E2749",
@@ -197,7 +197,7 @@ export default function MoinResume() {
           </p>
           <div className="moin-resume-cta-row">
             <a className="moin-resume-btn moin-resume-btn-primary" href={CONTACT.cvPdf}>
-              Download résumé ↓
+              Download resume ↓
             </a>
             <a className="moin-resume-btn moin-resume-btn-ghost" href={`mailto:${CONTACT.email}`}>
               Write to me
