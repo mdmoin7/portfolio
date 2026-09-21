@@ -112,19 +112,44 @@ function buildLocalFallback(
   query: string,
   knowledge: ReturnType<typeof searchMoinKnowledge>,
 ) {
+  const q = query.toLowerCase();
+
+  if (/what does mohammad|what does he do|who is mohammad|what is mohammad/i.test(q)) {
+    return "Mohammad Moin is an Independent Software Engineering Consultant and Corporate Technology Trainer based in Bengaluru, India. His practice combines production software engineering, frontend and enterprise architecture, AI/RAG solutions, and hands-on corporate technology training.";
+  }
+
+  if (/training|trainer|train teams|learning|upskill|course/i.test(q)) {
+    return "Mohammad provides hands-on corporate technology training built around production scenarios and capability development rather than syntax-only instruction. His documented model is ASSESS → FOUNDATION → APPLIED → PRODUCTION → OWNERSHIP, with topics including React, Angular, React Native, TypeScript, enterprise frontend architecture, AI/GenAI, and Terraform/Azure.";
+  }
+
+  if (/technology|technologies|tech stack|stack/i.test(q)) {
+    return "Mohammad's documented technology practice spans React, Angular, React Native, TypeScript, JavaScript, Next.js, Node.js, Azure, Terraform, Microsoft Entra ID, MSAL, Dataverse, Nx, microfrontends, AI, and RAG systems. These technologies are used across frontend architecture, enterprise applications, infrastructure, identity-aware systems, and AI workflows.";
+  }
+
+  if (/project|projects|aquatrack|income tracker/i.test(q)) {
+    return "The portfolio documents systems including AquaTrack, a water-consumption platform covering readings, analytics, billing, expenses, reporting, and alerts, and Income Tracker, covering authentication, token lifecycle, TTL, refresh, and persistence. These projects represent the practical engineering side of Mohammad's consulting and development work.";
+  }
+
+  if (/approach|how does he work|philosophy/i.test(q)) {
+    return "Mohammad's documented approach connects PEOPLE → PROBLEM → DESIGN → BUILD → IMPACT, combining engineering delivery with capability development. The emphasis is on solving real production problems while developing the people who operate and extend the resulting systems.";
+  }
+
+  if (/work with|hire|engage|contact/i.test(q)) {
+    return "Visitors can engage Mohammad around software engineering, frontend and enterprise architecture, AI/RAG solutions, and corporate technology training. The portfolio provides a Contact page for starting a professional conversation and does not publish invented pricing or availability.";
+  }
+
   if (!knowledge.length) {
     return "I don't have enough information on the portfolio to answer that yet. I can help with Mohammad's documented engineering, training, and project work.";
   }
+
   const primary = knowledge[0];
   const secondary = knowledge[1];
   const first = primary.content.trim().replace(/\s+/g, " ");
   const second = secondary?.content.trim().replace(/\s+/g, " ");
   let answer = first;
-  if (second && secondary.id !== primary.id) answer += ` ${second}`;
-  else answer += " This information comes directly from Mohammad's portfolio knowledge.";
+  if (second && secondary.id !== primary.id) answer += " " + second;
   return ensureMinimumAnswer(answer, query);
 }
-
 async function generateWithGemini({
   model,
   apiKey,
