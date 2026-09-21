@@ -4748,3 +4748,61 @@ html.lenis {
   justify-content:space-between!important;
   font-size: 12px!important;
 }
+
+
+/* Ask Moin — bounded conversation viewport.
+   Keep the dialog fixed to the available viewport while the message history
+   becomes the only scroll surface. */
+.moin-buddy-portal .ask-moin-panel{
+  height:min(620px,calc(100svh - 120px))!important;
+  max-height:min(620px,calc(100svh - 120px))!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+}
+
+.moin-buddy-portal .ask-moin-header{
+  flex:0 0 78px!important;
+  min-height:78px!important;
+  max-height:78px!important;
+}
+
+.moin-buddy-portal .ask-moin-body{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-width:thin!important;
+}
+
+.moin-buddy-portal .ask-moin-form{
+  flex:0 0 58px!important;
+  min-height:58px!important;
+}
+
+.moin-buddy-portal .ask-moin-note{
+  flex:0 0 auto!important;
+}
+
+@media(max-width:560px){
+  .moin-buddy-portal .ask-moin-panel{
+    height:calc(100svh - 96px)!important;
+    max-height:calc(100svh - 96px)!important;
+  }
+
+  .moin-buddy-portal .ask-moin-header{
+    flex-basis:64px!important;
+    min-height:64px!important;
+    max-height:64px!important;
+  }
+
+  .moin-buddy-portal .ask-moin-form{
+    flex-basis:54px!important;
+    min-height:54px!important;
+  }
+}
