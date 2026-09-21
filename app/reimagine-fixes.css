@@ -4673,7 +4673,7 @@ html.lenis {
   gap:12px!important;
   border:1px solid rgba(48,52,63,.10)!important;
   border-radius:18px!important;
-  padding:10px 13px!important;
+  padding:5px 13px!important;
   background:rgba(238,242,250,.72)!important;
   color:#30343F!important;
   font:500 13px/1.25 var(--font-body)!important;
@@ -4746,4 +4746,5 @@ html.lenis {
   box-sizing:border-box!important;
   align-items:center!important;
   justify-content:space-between!important;
+  font-size: 12px!important;
 }
