@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 type Message = { role: "user" | "assistant"; content: string };
@@ -156,6 +157,10 @@ export function MoinBuddy() {
 
   return (
     <div className={`moin-buddy moin-buddy-state-${state}`}>
+      {typeof document !== "undefined" && createPortal(
+        <AnimatePresence>
+          {open && (
+            <div className="moin-buddy-portal" aria-label="Ask Moin">
       <AnimatePresence>
         {open && (
           <motion.section
@@ -240,6 +245,11 @@ export function MoinBuddy() {
           </motion.section>
         )}
       </AnimatePresence>
+          </div>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
 
       <motion.button
         type="button"
