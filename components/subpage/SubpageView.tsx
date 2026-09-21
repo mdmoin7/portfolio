@@ -7,12 +7,12 @@ import { SubpageSimpleFooter } from "./SubpageSimpleFooter";
 
 export function SubpageView({ page }: { page: SubpageContent }) {
   return (
-    <>
+    <div className="reimagine-subpage">
       <SubpageNav active={page.navActive} />
       <SubpageHero hero={page.hero} />
       <SubpageSections sections={page.sections} />
       {page.footer === "rich" ? <Footer /> : null}
       {page.footer === "simple" ? <SubpageSimpleFooter note={page.footerNote} /> : null}
-    </>
+    </div>
   );
 }

@@ -1,0 +1,4933 @@
+/* Reimagine V2 — authoritative layout layer.
+   This file intentionally overrides legacy V1 geometry from globals.css/theme.css. */
+
+.reimagine {
+  --content-max: 1280px;
+  --gutter: max(5.2vw, calc((100vw - var(--content-max)) / 2));
+  --surface: #FAFAFF;
+  --surface-2: #F1F4FA;
+  --surface-3: #E4EAF4;
+  --ink: #1E2749;
+  --muted-ui: #5E6982;
+  --line-ui: rgba(30,39,73,.14);
+  --accent-ui: #273469;
+  --accent-soft: #7899D4;
+  color: var(--ink);
+  background: var(--surface);
+  overflow-x: clip;
+}
+
+.reimagine *,
+.reimagine *::before,
+.reimagine *::after {
+  box-sizing: border-box;
+}
+
+.reimagine main {
+  width: 100%;
+  margin: 0;
+}
+
+.reimagine section {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  scroll-margin-top: 92px;
+}
+
+.reimagine section > * {
+  min-width: 0;
+}
+
+/* -------------------------------------------------------------------------
+   Global typography + utility geometry
+   ------------------------------------------------------------------------- */
+.reimagine .section-kicker,
+.reimagine .section-marker {
+  position: absolute;
+  z-index: 4;
+  left: var(--gutter);
+  top: 38px;
+  writing-mode: horizontal-tb;
+  color: #687691;
+  font: 700 8px/1 var(--font-mono);
+  letter-spacing: .18em;
+  white-space: nowrap;
+}
+
+.reimagine .eyebrow {
+  color: #5678B8;
+}
+
+.reimagine .section-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--accent-ui);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.reimagine .primary-action,
+.reimagine .secondary-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 42px;
+  text-decoration: none;
+}
+
+/* -------------------------------------------------------------------------
+   Header
+   ------------------------------------------------------------------------- */
+.reimagine .top-nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 55;
+  width: 100%;
+  min-width: 0;
+  height: 76px;
+  padding: 0 var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(220px,1fr) auto minmax(150px,1fr);
+  align-items: center;
+  gap: 28px;
+  background: rgba(250,250,255,.86);
+  border-bottom: 1px solid rgba(39,52,105,.10);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.reimagine .brand-lockup {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #1E2749;
+  text-decoration: none;
+}
+
+.reimagine .brand-mark {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid currentColor;
+}
+
+.reimagine .brand-lockup > span:last-child {
+  min-width: 0;
+}
+
+.reimagine .brand-lockup strong {
+  display: block;
+  font-size: 14px;
+  letter-spacing: .14em;
+  line-height: 1.1;
+}
+
+.reimagine .brand-lockup small {
+  display: block;
+  margin-top: 4px;
+  color: #697893;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.reimagine .top-nav nav {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px,2vw,34px);
+}
+
+.reimagine .top-nav nav a {
+  white-space: nowrap;
+  color: #24304F;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 1;
+  transition: color .2s ease;
+}
+
+.reimagine .top-nav nav a:hover {
+  color: #7899D4;
+}
+
+.reimagine .nav-actions {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.reimagine .mode-toggle {
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  margin: 0;
+  border: 1px solid rgba(30,39,73,.15);
+  background: transparent;
+  color: #1E2749;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.reimagine .nav-cta {
+  white-space: nowrap;
+  padding: 11px 17px;
+  border-radius: 9px;
+  background: #1E2749;
+  color: #FAFAFF;
+}
+
+/* -------------------------------------------------------------------------
+   Hero
+   ------------------------------------------------------------------------- */
+.reimagine .hero-v2 {
+  min-height: 820px;
+  height: 100svh;
+  max-height: 900px;
+  padding: 150px var(--gutter) 70px;
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(460px, 1.05fr);
+  align-items: center;
+  gap: clamp(30px,5vw,90px);
+  overflow: hidden;
+}
+
+.reimagine .hero-copy {
+  width: 100%;
+  max-width: 650px;
+  z-index: 4;
+}
+
+.reimagine .hero-v2 h1 {
+  max-width: 11ch;
+  margin: 0;
+  font-size: clamp(60px, 6vw, 94px);
+  line-height: .9;
+  letter-spacing: -.06em;
+}
+
+.reimagine .hero-v2 h1 em {
+  display: block;
+  max-width: 11ch;
+  margin-top: 8px;
+  font-style: normal;
+  color: #7899D4;
+}
+
+.reimagine .hero-lede {
+  max-width: 580px;
+  margin: 28px 0 30px;
+  color: #394867;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.reimagine .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.reimagine .hero-stats {
+  width: min(100%, 620px);
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  margin-top: 38px;
+}
+
+.reimagine .hero-stats > div {
+  min-width: 0;
+  padding-right: 22px;
+  margin-right: 22px;
+  border-right: 1px solid rgba(39,52,105,.15);
+}
+
+.reimagine .hero-stats > div:last-child {
+  padding-right: 0;
+  margin-right: 0;
+  border-right: 0;
+}
+
+.reimagine .hero-stats strong {
+  display: block;
+  color: #1E2749;
+  font-size: 27px;
+  line-height: 1;
+}
+
+.reimagine .hero-stats span {
+  display: block;
+  margin-top: 7px;
+  color: #65728A;
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.reimagine .hero-visual {
+  position: relative;
+  width: 100%;
+  min-width: 0;
+  height: min(76svh, 700px);
+}
+
+.reimagine .hero-meta {
+  left: var(--gutter);
+  top: 102px;
+  z-index: 5;
+  color: #5678B8;
+}
+
+.reimagine .hero-scroll {
+  left: var(--gutter);
+  bottom: 25px;
+  z-index: 5;
+  color: #66748D;
+}
+
+.reimagine .three-d-system {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.reimagine .hero-system-label {
+  z-index: 5;
+}
+
+/* -------------------------------------------------------------------------
+   What I Do — deliberate 2 + 2 card composition
+   ------------------------------------------------------------------------- */
+.reimagine .capability-section {
+  padding: 112px var(--gutter) 96px;
+  background: linear-gradient(135deg,#FAFAFF 0%,#F3F6FB 60%,#E8EEF7 100%);
+  display: grid;
+  grid-template-columns: minmax(250px, .72fr) minmax(0, 1.8fr);
+  align-items: start;
+  gap: clamp(54px,7vw,110px);
+}
+
+.reimagine .capability-lead {
+  width: 100%;
+  max-width: 360px;
+  padding-top: 10px;
+}
+
+.reimagine .capability-lead h2 {
+  margin: 0;
+  font-size: clamp(48px,4.8vw,72px);
+  line-height: .92;
+  letter-spacing: -.05em;
+}
+
+.reimagine .capability-lead > p:not(.eyebrow) {
+  max-width: 330px;
+  margin: 24px 0 28px;
+  color: #5E6982;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.reimagine .capability-content {
+  width: 100%;
+  display: grid;
+  gap: 16px;
+}
+
+.reimagine .practice-grid,
+.reimagine .service-grid {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 16px;
+}
+
+.reimagine .practice-card {
+  width: 100%;
+  min-width: 0;
+  min-height: 310px;
+  padding: 30px;
+}
+
+.reimagine .practice-card > div {
+  min-width: 0;
+}
+
+.reimagine .practice-index {
+  color: #6A7FA8;
+  font: 700 8px/1 var(--font-mono);
+}
+
+.reimagine .practice-card h3 {
+  margin: 24px 0 12px;
+  color: #1E2749;
+  font-size: 34px;
+  line-height: .98;
+  letter-spacing: -.04em;
+}
+
+.reimagine .practice-card p {
+  color: #5E6982;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.reimagine .practice-tags {
+  margin: 22px 0;
+  color: #5A79B5;
+  font: 700 8px/1.7 var(--font-mono);
+  letter-spacing: .04em;
+}
+
+.reimagine .practice-card a {
+  color: #273469;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.reimagine .service-grid article {
+  width: 100%;
+  min-height: 190px;
+  padding: 23px;
+}
+
+.reimagine .service-grid h3 {
+  margin: 14px 0 8px;
+  color: #1E2749;
+  font-size: 22px;
+}
+
+.reimagine .service-grid p {
+  color: #64728A;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.reimagine .service-grid a {
+  color: #273469;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* -------------------------------------------------------------------------
+   Approach
+   ------------------------------------------------------------------------- */
+.reimagine .system-section {
+  min-height: 640px;
+  padding: 112px var(--gutter) 90px;
+  background: linear-gradient(135deg,#FAFAFF,#F1F4FA 58%,#E5EBF5);
+}
+
+.reimagine .system-intro {
+  width: min(620px,100%);
+}
+
+.reimagine .system-intro h2 {
+  margin: 0;
+  font-size: clamp(50px,5vw,76px);
+  line-height: .92;
+  letter-spacing: -.055em;
+}
+
+.reimagine .system-intro .section-lede {
+  max-width: 500px;
+  margin-top: 22px;
+  color: #5E6982;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.reimagine .system-map {
+  width: 100%;
+  margin: 70px 0 34px;
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 8px;
+}
+
+.reimagine .system-node {
+  width: 100%;
+  min-width: 0;
+  padding: 15px 12px 18px;
+  border: 0;
+  background: transparent;
+  color: #6C7890;
+  text-align: center;
+}
+
+.reimagine .system-node .node-index {
+  display: block;
+  margin-bottom: 13px;
+  color: #7181A0;
+  font: 700 8px/1 var(--font-mono);
+}
+
+.reimagine .node-name {
+  display: block;
+  margin-top: 10px;
+  color: inherit;
+  font: 700 13px/1.2 var(--font-mono);
+  letter-spacing: .08em;
+}
+
+.reimagine .node-description {
+  display: block;
+  max-width: 150px;
+  margin: 10px auto 0;
+  color: #68768D;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.reimagine .system-node.active {
+  color: #1E2749;
+}
+
+/* -------------------------------------------------------------------------
+   Technology
+   ------------------------------------------------------------------------- */
+.reimagine .technology-section {
+  min-height: 300px;
+  padding: 82px var(--gutter);
+  background: linear-gradient(120deg,#30343F,#273469 58%,#1E2749);
+  color: #FAFAFF;
+  display: grid;
+  grid-template-columns: minmax(260px,.65fr) minmax(0,1.7fr) auto;
+  align-items: center;
+  gap: 42px;
+}
+
+.reimagine .tech-copy {
+  max-width: 360px;
+}
+
+.reimagine .tech-copy h2 {
+  margin: 0;
+  font-size: clamp(46px,4.5vw,66px);
+  line-height: .94;
+}
+
+.reimagine .tech-copy h2 em {
+  color: #7899D4;
+}
+
+.reimagine .tech-lede {
+  margin-top: 18px;
+  color: rgba(250,250,255,.70);
+  font-size: 13px;
+}
+
+.reimagine .constellation {
+  width: 100%;
+  height: auto;
+  min-height: 130px;
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 0;
+  align-items: stretch;
+}
+
+.reimagine .constellation::before,
+.reimagine .constellation::after,
+.reimagine .constellation-core {
+  display: none;
+}
+
+.reimagine .tech-node {
+  position: static !important;
+  transform: none !important;
+  min-width: 0;
+  min-height: 100px;
+  padding: 16px 12px;
+  border: 0;
+  border-right: 1px solid rgba(250,250,255,.14);
+  border-radius: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: rgba(250,250,255,.86);
+}
+
+.reimagine .tech-node:nth-child(4n) {
+  border-right: 0;
+}
+
+.reimagine .tech-node span {
+  font-size: 24px;
+  color: #DCE6FB;
+}
+
+.reimagine .tech-node strong {
+  text-align: center;
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.reimagine .tech-more {
+  color: #FAFAFF;
+  white-space: nowrap;
+  font-size: 11px;
+  text-decoration: none;
+}
+
+/* -------------------------------------------------------------------------
+   Selected work — asymmetric editorial grid
+   ------------------------------------------------------------------------- */
+.reimagine .work-section {
+  padding: 112px var(--gutter) 96px;
+  background: linear-gradient(135deg,#FAFAFF,#F3F6FB);
+  color: #1E2749;
+}
+
+.reimagine .work-head {
+  display: grid;
+  grid-template-columns: minmax(0,1.2fr) minmax(260px,.8fr);
+  align-items: end;
+  gap: 60px;
+}
+
+.reimagine .work-head h2 {
+  margin: 0;
+  font-size: clamp(52px,5vw,76px);
+  line-height: .92;
+  letter-spacing: -.055em;
+}
+
+.reimagine .work-head > p {
+  max-width: 390px;
+  justify-self: end;
+  margin: 0 0 6px;
+  color: #637088;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.reimagine .work-grid {
+  width: 100%;
+  margin-top: 46px;
+  display: grid;
+  grid-template-columns: minmax(0,1.3fr) minmax(260px,.7fr);
+  grid-template-rows: repeat(2,minmax(190px,1fr));
+  gap: 16px;
+}
+
+.reimagine .work-card {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  padding: 28px;
+}
+
+.reimagine .work-featured {
+  grid-row: 1 / span 2;
+  min-height: 410px;
+}
+
+.reimagine .work-card h3 {
+  margin-top: 46px;
+  max-width: 19ch;
+  color: #1E2749;
+  font-size: 28px;
+  line-height: 1.04;
+  letter-spacing: -.035em;
+}
+
+.reimagine .work-card p {
+  color: #66738B;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.reimagine.is-light .work-featured {
+  background: linear-gradient(145deg,#273469,#1E2749);
+  color: #FAFAFF;
+}
+
+.reimagine.is-light .work-featured h3,
+.reimagine.is-light .work-featured .mono {
+  color: #FAFAFF;
+}
+
+.reimagine.is-light .work-featured p {
+  color: #C7D1E3;
+}
+
+/* -------------------------------------------------------------------------
+   Training / Insights / About
+   ------------------------------------------------------------------------- */
+.reimagine .training-section {
+  padding: 112px var(--gutter) 96px;
+  background: linear-gradient(135deg,#E8EDF6,#FAFAFF 54%,#DEE7F5);
+  color: #1E2749;
+}
+
+.reimagine .training-layout {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0,.95fr) minmax(0,1.05fr);
+  gap: clamp(50px,7vw,110px);
+  align-items: center;
+}
+
+.reimagine .training-layout h2 {
+  margin: 0;
+  font-size: clamp(50px,5.2vw,78px);
+  line-height: .92;
+}
+
+.reimagine .training-layout > div:first-child > p:not(.eyebrow) {
+  max-width: 510px;
+  color: #5E6982;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.reimagine .training-flow {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 10px;
+  margin: 0 0 24px;
+}
+
+.reimagine .training-flow span {
+  min-width: 0;
+  padding: 15px 14px;
+  border: 1px solid rgba(39,52,105,.15);
+  background: rgba(255,255,255,.38);
+  color: #273469;
+  font: 700 9px/1.3 var(--font-mono);
+  letter-spacing: .08em;
+}
+
+.reimagine .training-flow span:first-child {
+  grid-column: 1 / -1;
+}
+
+.reimagine .training-note {
+  color: #66738A;
+  font: 700 8px/1.5 var(--font-mono);
+  letter-spacing: .08em;
+}
+
+.reimagine .labs-section {
+  padding: 112px var(--gutter) 96px;
+  background: linear-gradient(135deg,#EDF1F8,#DCE5F3);
+  color: #1E2749;
+}
+
+.reimagine .labs-layout {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap: clamp(50px,8vw,120px);
+  align-items: start;
+}
+
+.reimagine .labs-layout h2 {
+  margin: 0;
+  font-size: clamp(50px,5vw,74px);
+  line-height: .92;
+}
+
+.reimagine .lab-list {
+  margin: 0;
+  border-top: 1px solid rgba(39,52,105,.14);
+}
+
+.reimagine .lab-list > div {
+  display: grid;
+  grid-template-columns: 38px minmax(0,1fr);
+  gap: 12px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(39,52,105,.14);
+}
+
+.reimagine .lab-list strong {
+  color: #273469;
+  font-size: 20px;
+}
+
+.reimagine .lab-list p {
+  grid-column: 2;
+  margin: 0;
+  color: #61708A;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.reimagine .about-v2 {
+  padding: 112px var(--gutter) 104px;
+  background: linear-gradient(135deg,#FAFAFF,#F0F3F9);
+  color: #1E2749;
+}
+
+.reimagine .author-layout {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px minmax(0,1fr);
+  gap: clamp(50px,8vw,110px);
+  align-items: center;
+}
+
+.reimagine .author-photo {
+  width: 280px;
+  max-width: 100%;
+  aspect-ratio: 1;
+}
+
+.reimagine .author-layout h2 {
+  margin: 0 0 20px;
+  font-size: clamp(50px,5vw,74px);
+  line-height: .92;
+}
+
+.reimagine .author-layout p {
+  max-width: 680px;
+  color: #5E6982;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+/* -------------------------------------------------------------------------
+   Single footer only
+   ------------------------------------------------------------------------- */
+.reimagine .contact-v2,
+.reimagine .footer-v2,
+.reimagine .footer-reveal {
+  display: none !important;
+}
+
+.reimagine .motion-footer {
+  margin: 0;
+  width: 100%;
+}
+
+.reimagine .motion-footer .motion-footer-inner {
+  width: min(1180px,88vw);
+}
+
+/* -------------------------------------------------------------------------
+   Spotlight cards
+   ------------------------------------------------------------------------- */
+.reimagine .spotlight-card {
+  --spot-x: 50%;
+  --spot-y: 50%;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transform: translateZ(0);
+  border: 1px solid rgba(39,52,105,.12);
+  border-radius: 14px;
+  box-shadow: 0 12px 35px rgba(39,52,105,.05);
+  transition:
+    transform .35s cubic-bezier(.2,.8,.2,1),
+    border-color .35s ease,
+    box-shadow .35s ease;
+}
+
+.reimagine .spotlight-card-glow {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    320px circle at var(--spot-x) var(--spot-y),
+    rgba(120,153,212,.25),
+    rgba(120,153,212,.08) 34%,
+    transparent 70%
+  );
+  transition: opacity .25s ease;
+}
+
+.reimagine .spotlight-card-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+}
+
+.reimagine .practice-card .spotlight-card-content {
+  display: grid;
+  grid-template-columns: 34px minmax(0,1fr);
+  gap: 16px;
+  align-content: start;
+}
+
+.reimagine .practice-card .spotlight-card-content > div {
+  min-width: 0;
+}
+
+.reimagine .service-grid .spotlight-card-content,
+.reimagine .work-card .spotlight-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.reimagine .service-grid .spotlight-card-content > *,
+.reimagine .work-card .spotlight-card-content > * {
+  min-width: 0;
+}
+
+.reimagine .spotlight-card::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px rgba(120,153,212,.5);
+  transition: opacity .25s ease;
+}
+
+@media (hover:hover) and (pointer:fine) {
+  .reimagine .spotlight-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(120,153,212,.4);
+    box-shadow: 0 24px 60px rgba(30,39,73,.13);
+  }
+
+  .reimagine .spotlight-card:hover .spotlight-card-glow,
+  .reimagine .spotlight-card:hover::after {
+    opacity: 1;
+  }
+
+  .reimagine .spotlight-card:hover h3 {
+    transform: translateX(2px);
+  }
+}
+
+.reimagine .spotlight-card h3 {
+  transition: transform .3s ease;
+}
+
+/* -------------------------------------------------------------------------
+   Dark mode
+   ------------------------------------------------------------------------- */
+.reimagine.is-dark {
+  --surface: #1E2749;
+  --surface-2: #273469;
+  --surface-3: #30343F;
+  --ink: #FAFAFF;
+  --muted-ui: #C1CCDD;
+  --line-ui: rgba(250,250,255,.16);
+  --accent-ui: #7899D4;
+  --accent-soft: #9CB8E8;
+  background: #1E2749;
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark .top-nav {
+  background: rgba(30,39,73,.9);
+  border-bottom-color: rgba(250,250,255,.12);
+}
+
+.reimagine.is-dark .brand-lockup,
+.reimagine.is-dark .top-nav nav a,
+.reimagine.is-dark .mode-toggle {
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark .brand-lockup small {
+  color: #C1CCDD;
+}
+
+.reimagine.is-dark .mode-toggle {
+  border-color: rgba(250,250,255,.2);
+}
+
+.reimagine.is-dark .nav-cta {
+  background: #FAFAFF;
+  color: #1E2749;
+}
+
+.reimagine.is-dark .section-kicker,
+.reimagine.is-dark .section-marker {
+  color: #BFD0F1;
+}
+
+.reimagine.is-dark .eyebrow {
+  color: #9CB8E8;
+}
+
+.reimagine.is-dark .hero-v2 {
+  background:
+    radial-gradient(circle at 78% 36%,rgba(120,153,212,.23),transparent 28%),
+    linear-gradient(115deg,#30343F 0%,#273469 58%,#1E2749 100%);
+}
+
+.reimagine.is-dark .hero-v2::before {
+  background: linear-gradient(90deg,rgba(30,39,73,.78),rgba(30,39,73,.34) 50%,rgba(30,39,73,.06) 78%);
+}
+
+.reimagine.is-dark .hero-lede,
+.reimagine.is-dark .hero-stats span {
+  color: #C1CCDD;
+}
+
+.reimagine.is-dark .hero-v2 h1,
+.reimagine.is-dark .hero-stats strong {
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark .hero-v2 h1 em {
+  color: #9CB8E8;
+}
+
+.reimagine.is-dark .capability-section,
+.reimagine.is-dark .system-section,
+.reimagine.is-dark .work-section,
+.reimagine.is-dark .training-section,
+.reimagine.is-dark .labs-section,
+.reimagine.is-dark .about-v2 {
+  color: #FAFAFF;
+  background: linear-gradient(135deg,#30343F,#273469 58%,#1E2749);
+}
+
+.reimagine.is-dark .capability-lead > p:not(.eyebrow),
+.reimagine.is-dark .system-intro .section-lede,
+.reimagine.is-dark .work-head > p,
+.reimagine.is-dark .training-layout > div:first-child > p:not(.eyebrow),
+.reimagine.is-dark .author-layout p,
+.reimagine.is-dark .lab-list p,
+.reimagine.is-dark .practice-card p,
+.reimagine.is-dark .service-grid p,
+.reimagine.is-dark .work-card p {
+  color: #C1CCDD;
+}
+
+.reimagine.is-dark .capability-lead h2,
+.reimagine.is-dark .system-intro h2,
+.reimagine.is-dark .work-head h2,
+.reimagine.is-dark .training-layout h2,
+.reimagine.is-dark .labs-layout h2,
+.reimagine.is-dark .author-layout h2 {
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark h2 em {
+  color: #9CB8E8;
+}
+
+.reimagine.is-dark .practice-card,
+.reimagine.is-dark .service-grid article,
+.reimagine.is-dark .work-card {
+  background: linear-gradient(145deg,#303D67,#273469);
+  border-color: rgba(250,250,255,.14);
+  color: #FAFAFF;
+  box-shadow: 0 14px 38px rgba(0,0,0,.12);
+}
+
+.reimagine.is-dark .practice-card h3,
+.reimagine.is-dark .service-grid h3,
+.reimagine.is-dark .work-card h3 {
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark .practice-index,
+.reimagine.is-dark .node-index,
+.reimagine.is-dark .node-name,
+.reimagine.is-dark .system-node,
+.reimagine.is-dark .work-card .mono,
+.reimagine.is-dark .lab-list .mono {
+  color: #BFD0F1;
+}
+
+.reimagine.is-dark .system-node.active,
+.reimagine.is-dark .system-node.active .node-name,
+.reimagine.is-dark .system-node.active .node-index {
+  color: #FAFAFF;
+}
+
+.reimagine.is-dark .node-description {
+  color: #AEBBD0;
+}
+
+.reimagine.is-dark .practice-tags,
+.reimagine.is-dark .practice-card a,
+.reimagine.is-dark .service-grid a,
+.reimagine.is-dark .work-card a,
+.reimagine.is-dark .section-link {
+  color: #9CB8E8;
+}
+
+.reimagine.is-dark .training-flow span {
+  border-color: rgba(250,250,255,.16);
+  background: rgba(250,250,255,.06);
+  color: #D8E1F0;
+}
+
+.reimagine.is-dark .training-note {
+  color: #B7C3D6;
+}
+
+.reimagine.is-dark .about-v2 .author-photo {
+  border-color: rgba(250,250,255,.14);
+}
+
+.reimagine.is-dark .motion-footer {
+  background:
+    radial-gradient(circle at 50% 40%,rgba(120,153,212,.14),transparent 38%),
+    linear-gradient(135deg,#1E2749,#273469 58%,#30343F);
+}
+
+/* -------------------------------------------------------------------------
+   Responsive composition — derived from the clean desktop geometry
+   ------------------------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .reimagine .top-nav {
+    grid-template-columns: minmax(180px,1fr) auto minmax(120px,1fr);
+    gap: 16px;
+  }
+
+  .reimagine .top-nav nav {
+    gap: 18px;
+  }
+
+  .reimagine .top-nav nav a {
+    font-size: 11px;
+  }
+
+  .reimagine .hero-v2 {
+    grid-template-columns: minmax(0,1fr) minmax(360px,.9fr);
+    gap: 30px;
+  }
+
+  .reimagine .hero-v2 h1 {
+    font-size: clamp(54px,6.2vw,78px);
+  }
+
+  .reimagine .capability-section,
+  .reimagine .system-section,
+  .reimagine .work-section,
+  .reimagine .training-section,
+  .reimagine .labs-section,
+  .reimagine .about-v2 {
+    padding-left: 6vw;
+    padding-right: 6vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .reimagine .top-nav {
+    grid-template-columns:minmax(0,1fr) auto;
+    grid-template-rows:64px 48px;
+    height:112px;
+    padding:0 5vw;
+  }
+
+  .reimagine .top-nav nav {
+    grid-column:1 / -1;
+    grid-row:2;
+    width:100%;
+    height:48px;
+    padding:0;
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:0;
+    border-top:1px solid rgba(39,52,105,.10);
+  }
+
+  .reimagine .top-nav nav a {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-width:0;
+    height:47px;
+    border-right:1px solid rgba(39,52,105,.10);
+    font-size:10px;
+  }
+
+  .reimagine .top-nav nav a:last-child {
+    border-right:0;
+  }
+
+  .reimagine .hero-v2 {
+    min-height: 760px;
+    height:auto;
+    max-height:none;
+    padding:150px 7vw 70px;
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .hero-visual {
+    height: 360px;
+  }
+
+  .reimagine .hero-copy {
+    max-width:700px;
+  }
+
+  .reimagine .capability-section {
+    grid-template-columns:1fr;
+    gap:34px;
+  }
+
+  .reimagine .capability-lead {
+    max-width:650px;
+  }
+
+  .reimagine .practice-grid,
+  .reimagine .service-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .reimagine .technology-section {
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+
+  .reimagine .constellation {
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+
+  .reimagine .tech-more {
+    justify-self:start;
+  }
+
+  .reimagine .work-head {
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+
+  .reimagine .work-head > p {
+    justify-self:start;
+  }
+
+  .reimagine .training-layout,
+  .reimagine .labs-layout,
+  .reimagine .author-layout {
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .author-photo {
+    margin:0 auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .reimagine section {
+    scroll-margin-top: 118px;
+  }
+
+  .reimagine .top-nav {
+    padding:0 4vw;
+  }
+
+  .reimagine .brand-lockup strong {
+    font-size:11px;
+  }
+
+  .reimagine .brand-lockup small {
+    font-size:8px;
+  }
+
+  .reimagine .nav-cta {
+    padding:9px 11px;
+    font-size:9px;
+  }
+
+  .reimagine .mode-toggle {
+    display:none;
+  }
+
+  .reimagine .top-nav nav {
+    grid-template-columns:repeat(3,minmax(0,1fr));
+  }
+
+  .reimagine .hero-v2 {
+    padding:150px 6vw 56px;
+  }
+
+  .reimagine .hero-v2 h1 {
+    font-size: clamp(44px,12.5vw,60px);
+  }
+
+  .reimagine .hero-visual {
+    height:240px;
+  }
+
+  .reimagine .hero-stats span {
+    font-size:7px;
+  }
+
+  .reimagine .practice-grid,
+  .reimagine .service-grid,
+  .reimagine .work-grid {
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .work-featured {
+    grid-row:auto;
+  }
+
+  .reimagine .constellation {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .reimagine .training-flow {
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .training-flow span:first-child {
+    grid-column:auto;
+  }
+
+  .reimagine .motion-footer-main {
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .motion-footer-heading {
+    font-size:clamp(48px,14vw,76px);
+  }
+
+  .reimagine .motion-footer-links {
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .motion-footer-bottom {
+    grid-template-columns:1fr;
+  }
+
+  .reimagine .motion-footer-bottom span,
+  .reimagine .motion-footer-bottom span:nth-child(2),
+  .reimagine .motion-footer-bottom span:last-child {
+    text-align:left;
+  }
+}
+
+@media (max-width: 420px) {
+  .reimagine .top-nav {
+    height:106px;
+    grid-template-rows:60px 46px;
+  }
+
+  .reimagine .top-nav nav {
+    height:46px;
+  }
+
+  .reimagine .top-nav nav a {
+    height:45px;
+    font-size:9px;
+  }
+
+  .reimagine .hero-v2 {
+    padding-top:144px;
+  }
+
+  .reimagine .hero-v2 h1 {
+    font-size:40px;
+  }
+
+  .reimagine .hero-stats strong {
+    font-size:17px;
+  }
+
+  .reimagine section:not(.hero-v2) {
+    padding-left:5.5vw;
+    padding-right:5.5vw;
+  }
+
+  .reimagine .section-kicker,
+  .reimagine .section-marker {
+    left:5.5vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior:auto !important; }
+  .reimagine .spotlight-card,
+  .reimagine .spotlight-card h3 {
+    transition:none !important;
+  }
+  .reimagine .spotlight-card:hover {
+    transform:none;
+  }
+}
+
+
+/* =========================================================================
+   FINAL VISUAL COMPOSITION OVERRIDE
+   Explicit grid placement prevents legacy/implicit CSS from reordering
+   content. This is the only layout authority for the V2 page.
+   ========================================================================= */
+
+@media (min-width:901px) {
+  .reimagine .capability-section {
+    grid-template-columns:minmax(280px,340px) minmax(0,1fr);
+    gap:clamp(56px,6vw,96px);
+    align-items:start;
+  }
+
+  .reimagine .capability-section > .section-kicker {
+    grid-column:auto;
+  }
+
+  .reimagine .capability-section > .capability-lead {
+    grid-column:1;
+    grid-row:1;
+    align-self:start;
+  }
+
+  .reimagine .capability-section > .capability-content {
+    grid-column:2;
+    grid-row:1;
+    align-self:start;
+  }
+
+  .reimagine .practice-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+  }
+
+  .reimagine .practice-card {
+    min-height:360px;
+    padding:30px;
+  }
+
+  .reimagine .service-grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:18px;
+  }
+
+  .reimagine .service-grid .spotlight-card {
+    min-height:190px;
+  }
+
+  /* Approach */
+  .reimagine .system-section {
+    min-height:650px;
+    padding-top:118px;
+    padding-bottom:92px;
+  }
+
+  .reimagine .system-intro {
+    max-width:650px;
+  }
+
+  .reimagine .system-map {
+    margin-top:74px;
+    grid-template-columns:repeat(5,minmax(0,1fr));
+    gap:18px;
+  }
+
+  .reimagine .system-node {
+    padding:18px 12px 22px;
+  }
+
+  .reimagine .node-name {
+    font-size:14px;
+  }
+
+  .reimagine .node-description {
+    max-width:165px;
+    font-size:11px;
+    line-height:1.5;
+  }
+
+  /* Technology */
+  .reimagine .technology-section {
+    min-height:330px;
+    padding-top:76px;
+    padding-bottom:76px;
+    grid-template-columns:minmax(290px,.58fr) minmax(0,1.65fr) auto;
+    gap:54px;
+  }
+
+  .reimagine .constellation {
+    min-height:150px;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+  }
+
+  .reimagine .tech-node {
+    min-height:120px;
+    padding:18px 14px;
+  }
+
+  .reimagine .tech-node span {
+    font-size:26px;
+  }
+
+  .reimagine .tech-node strong {
+    font-size:11px;
+  }
+
+  /* Selected work */
+  .reimagine .work-section {
+    padding-top:112px;
+    padding-bottom:108px;
+  }
+
+  .reimagine .work-head {
+    grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);
+    gap:80px;
+  }
+
+  .reimagine .work-grid {
+    grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);
+    grid-template-rows:repeat(2,220px);
+    gap:18px;
+    margin-top:50px;
+  }
+
+  .reimagine .work-featured {
+    min-height:458px;
+  }
+
+  .reimagine .work-card {
+    padding:30px;
+  }
+
+  /* Training */
+  .reimagine .training-section {
+    padding-top:112px;
+    padding-bottom:104px;
+  }
+
+  .reimagine .training-layout {
+    grid-template-columns:minmax(0,.88fr) minmax(0,1.12fr);
+    gap:80px;
+    align-items:center;
+  }
+
+  .reimagine .training-flow {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:12px;
+  }
+
+  .reimagine .training-flow span:first-child {
+    grid-column:1 / -1;
+  }
+
+  /* Insights */
+  .reimagine .labs-section {
+    padding-top:112px;
+    padding-bottom:104px;
+  }
+
+  .reimagine .labs-layout {
+    grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);
+    gap:90px;
+  }
+
+  .reimagine .lab-list > div {
+    grid-template-columns:44px minmax(0,1fr);
+    padding:21px 0;
+  }
+
+  /* About */
+  .reimagine .about-v2 {
+    padding-top:110px;
+    padding-bottom:110px;
+  }
+
+  .reimagine .author-layout {
+    grid-template-columns:280px minmax(0,1fr);
+    gap:90px;
+  }
+
+  /* The motion footer is the sole contact destination and starts as visible
+     content; motion only changes transform, so a failed observer can never
+     leave the CTA invisible. */
+  .reimagine .motion-footer {
+    min-height:88svh;
+  }
+
+  .reimagine .motion-footer-heading {
+    opacity:1 !important;
+  }
+}
+
+@media (max-width:900px) {
+  .reimagine .capability-section > .capability-lead,
+  .reimagine .capability-section > .capability-content {
+    grid-column:auto;
+    grid-row:auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reimagine .motion-footer-heading-line > span,
+  .reimagine .motion-footer-giant {
+    transform:none !important;
+  }
+}
+
+/* FINAL DESKTOP GEOMETRY CORRECTION — hero, sections and footer */
+@media (min-width:901px) {
+  .reimagine .hero-v2 {
+    height:auto !important;
+    min-height:min(900px, max(760px, 100svh));
+    max-height:none !important;
+    padding-top:126px !important;
+    padding-bottom:86px !important;
+    grid-template-columns:minmax(0,.92fr) minmax(480px,1.08fr);
+    align-items:center;
+  }
+
+  .reimagine .hero-copy {
+    align-self:center;
+    min-width:0;
+  }
+
+  .reimagine .hero-v2 h1 {
+    max-width:10.5ch;
+  }
+
+  .reimagine .hero-lede {
+    max-width:560px;
+  }
+
+  .reimagine .hero-stats {
+    margin-top:32px;
+  }
+
+  .reimagine .hero-visual {
+    position:relative !important;
+    inset:auto !important;
+    grid-column:2;
+    grid-row:1;
+    align-self:stretch;
+    justify-self:stretch;
+    width:100%;
+    height:min(72svh,680px);
+    min-width:0;
+    z-index:2;
+  }
+
+  .reimagine .three-d-system {
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    right:auto !important;
+    top:auto !important;
+    transform:none !important;
+  }
+
+  .reimagine .hero-system-label,
+  .reimagine .hero-system-caption {
+    pointer-events:none;
+  }
+}
+
+/* At compact desktop/tablet widths, keep the hero as a stacked composition so
+   the 3D scene can never sit over the identity copy. */
+@media (min-width:641px) and (max-width:900px) {
+  .reimagine .hero-v2 {
+    height:auto !important;
+    min-height:820px;
+    padding-top:150px !important;
+    padding-bottom:64px !important;
+  }
+
+  .reimagine .hero-copy { order:1; }
+  .reimagine .hero-visual {
+    order:2;
+    position:relative !important;
+    inset:auto !important;
+    height:360px;
+    width:100%;
+  }
+
+  .reimagine .three-d-system {
+    position:absolute !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100% !important;
+    right:auto !important;
+    top:auto !important;
+  }
+}
+
+/* Numbers and section markers are always readable on indigo/navy surfaces. */
+.reimagine.is-dark .hero-stats strong,
+.reimagine.is-dark .hero-stats span,
+.reimagine.is-dark .section-kicker,
+.reimagine.is-dark .section-marker,
+.reimagine.is-dark .practice-index,
+.reimagine.is-dark .node-index,
+.reimagine.is-dark .node-name {
+  color:#FAFAFF !important;
+}
+.reimagine.is-dark .hero-stats span,
+.reimagine.is-dark .section-kicker,
+.reimagine.is-dark .section-marker,
+.reimagine.is-dark .node-index {
+  color:#BFD0F1 !important;
+}
+
+/* Remove inherited legacy positioning from section links/controls. */
+.reimagine .section-link,
+.reimagine .tech-more {
+  position:static !important;
+  transform:none !important;
+}
+
+/* Footer reveal: large Mohammad identity is visible first, animation then
+   moves it into its resting position instead of starting invisible. */
+.reimagine .motion-footer-brand {
+  position:relative;
+  z-index:1;
+  width:100%;
+  margin:clamp(42px,6vw,82px) 0 30px;
+  overflow:hidden;
+  font:500 clamp(72px,14vw,210px)/.72 var(--font-display);
+  letter-spacing:-.075em;
+  white-space:nowrap;
+  color:#FAFAFF;
+}
+.reimagine .motion-footer-brand span {
+  display:block;
+  will-change:transform;
+}
+.reimagine .motion-footer-brand em {
+  color:#7899D4;
+  font-style:normal;
+}
+@media(max-width:560px){
+  .reimagine .motion-footer-brand {
+    margin:42px 0 25px;
+    font-size:clamp(58px,17vw,92px);
+    white-space:normal;
+  }
+}
+
+
+/* Footer identity reveal — authoritative positioning and animation.
+   The identity now lives inside the footer's primary content layer. */
+.reimagine .motion-footer .motion-footer-inner {
+  position:relative;
+  z-index:5;
+}
+
+.reimagine .motion-footer-brand {
+  position:relative;
+  z-index:6;
+  width:100%;
+  min-width:0;
+  overflow:hidden;
+  display:flex;
+  align-items:flex-end;
+  flex-wrap:wrap;
+  gap:.025em;
+  margin:clamp(28px,4vw,54px) 0 18px;
+  padding:0;
+  color:#FAFAFF;
+  font:500 clamp(68px,12vw,190px)/.76 var(--font-display);
+  letter-spacing:-.075em;
+  white-space:nowrap;
+  pointer-events:none;
+}
+
+.reimagine .motion-footer-brand-word {
+  display:block;
+  transform:translateY(112%);
+  opacity:0;
+  animation:motion-footer-brand-reveal 1.15s cubic-bezier(.16,1,.3,1) forwards;
+  will-change:transform,opacity;
+}
+
+.reimagine .motion-footer-brand-word-2 {
+  animation-delay:.11s;
+  color:#7899D4;
+}
+
+.reimagine .motion-footer-brand-word em {
+  color:inherit;
+  font-style:normal;
+}
+
+@keyframes motion-footer-brand-reveal {
+  from { transform:translateY(112%); opacity:0; }
+  to { transform:translateY(0); opacity:1; }
+}
+
+@media (max-width:900px) {
+  .reimagine .motion-footer-brand {
+    margin:24px 0 14px;
+    font-size:clamp(58px,13vw,108px);
+  }
+}
+
+@media (max-width:560px) {
+  .reimagine .motion-footer-brand {
+    margin:24px 0 14px;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:0;
+    font-size:clamp(56px,16vw,84px);
+    line-height:.8;
+    white-space:normal;
+  }
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .reimagine .motion-footer-brand-word {
+    animation:none;
+    transform:none;
+    opacity:1;
+  }
+}
+
+
+/* Lenis + scroll reveal system */
+html.lenis,
+html.lenis body {
+  height:auto;
+}
+
+html.lenis {
+  scroll-behavior:auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior:contain;
+}
+
+.reimagine .scroll-reveal {
+  opacity:0;
+  transform:translate3d(0,42px,0);
+  transition:
+    opacity .85s cubic-bezier(.16,1,.3,1),
+    transform 1s cubic-bezier(.16,1,.3,1);
+  will-change:opacity,transform;
+}
+
+.reimagine .scroll-reveal.is-revealed {
+  opacity:1;
+  transform:translate3d(0,0,0);
+}
+
+.reimagine .spotlight-card.scroll-reveal {
+  transition:
+    opacity .8s cubic-bezier(.16,1,.3,1),
+    transform 1s cubic-bezier(.16,1,.3,1),
+    border-color .35s ease,
+    box-shadow .35s ease;
+}
+
+.reimagine .motion-footer {
+  overflow:hidden;
+}
+
+.reimagine .motion-footer .motion-footer-inner {
+  position:relative;
+  z-index:5;
+}
+
+.reimagine .motion-footer-brand {
+  flex:0 0 auto;
+  width:100%;
+  min-height:clamp(90px,15vw,190px);
+}
+
+.reimagine .motion-footer-brand-word {
+  flex:0 0 auto;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .reimagine .scroll-reveal {
+    opacity:1;
+    transform:none;
+    transition:none;
+  }
+}
+
+
+
+/* Footer composition: identity belongs to the left editorial column,
+   directly above the CTA statement. */
+.reimagine .motion-footer-main {
+  align-items:end;
+}
+
+.reimagine .motion-footer-left {
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+
+.reimagine .motion-footer-left .motion-footer-brand {
+  position:relative;
+  z-index:6;
+  width:100%;
+  min-height:0;
+  margin:0 0 clamp(34px,4.5vw,58px);
+  padding:0;
+  display:flex;
+  align-items:flex-end;
+  gap:.025em;
+  overflow:hidden;
+  font:500 clamp(66px,8.8vw,132px)/.72 var(--font-display);
+  letter-spacing:-.075em;
+  white-space:nowrap;
+  color:#FAFAFF;
+}
+
+.reimagine .motion-footer-left .motion-footer-brand-word {
+  display:block;
+  flex:0 0 auto;
+  transform:translateY(112%);
+  opacity:0;
+  animation:motion-footer-brand-reveal 1.15s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.reimagine .motion-footer-left .motion-footer-brand-word-2 {
+  animation-delay:.11s;
+  color:#7899D4;
+}
+
+.reimagine .motion-footer-left .motion-footer-heading {
+  margin:0;
+}
+
+@media(max-width:820px){
+  .reimagine .motion-footer-left .motion-footer-brand {
+    font-size:clamp(58px,13vw,104px);
+    margin-bottom:32px;
+  }
+}
+
+@media(max-width:560px){
+  .reimagine .motion-footer-left .motion-footer-brand {
+    flex-direction:column;
+    align-items:flex-start;
+    gap:0;
+    white-space:normal;
+    font-size:clamp(56px,16vw,84px);
+    line-height:.78;
+    margin-bottom:28px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .reimagine .motion-footer-left .motion-footer-brand-word {
+    animation:none;
+    transform:none;
+    opacity:1;
+  }
+}
+
+
+/* -------------------------------------------------------------------------
+   Ask Moin — persistent micro-conversation
+   ------------------------------------------------------------------------- */
+.moin-buddy{
+  position:fixed;
+  z-index:80;
+  right:24px;
+  bottom:24px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  pointer-events:none;
+}
+.moin-buddy-orb{
+  position:relative;
+  width:62px;
+  height:62px;
+  padding:0;
+  border:1px solid rgba(250,250,255,.82);
+  border-radius:20px 20px 24px 24px;
+  background:linear-gradient(145deg,#7899D4,#273469);
+  color:#FAFAFF;
+  box-shadow:0 16px 38px rgba(30,39,73,.24),0 0 0 5px rgba(120,153,212,.10);
+  cursor:pointer;
+  pointer-events:auto;
+  display:grid;
+  place-items:center;
+  overflow:visible;
+}
+.moin-buddy-orb::after{
+  content:"";
+  position:absolute;
+  right:-3px;
+  bottom:6px;
+  width:13px;
+  height:13px;
+  border-radius:50%;
+  background:#7899D4;
+  box-shadow:0 0 18px rgba(120,153,212,.8);
+}
+.moin-buddy-hero{
+  position:relative;
+  width:48px;
+  height:54px;
+  display:block;
+  transform:translateY(-1px);
+}
+.moin-buddy-cape{
+  position:absolute;
+  left:2px;
+  top:20px;
+  width:44px;
+  height:30px;
+  background:linear-gradient(145deg,#1E2749,#273469);
+  clip-path:polygon(16% 0,84% 0,100% 100%,50% 78%,0 100%);
+  filter:drop-shadow(0 5px 5px rgba(30,39,73,.22));
+  z-index:0;
+}
+.moin-buddy-head{
+  position:absolute;
+  z-index:3;
+  left:11px;
+  top:1px;
+  width:27px;
+  height:25px;
+  border-radius:48% 48% 44% 44%;
+  background:#FAFAFF;
+  box-shadow:0 5px 12px rgba(30,39,73,.16);
+}
+.moin-buddy-head i{
+  position:absolute;
+  top:9px;
+  width:3px;
+  height:8px;
+  border-radius:999px;
+  background:#1E2749;
+}
+.moin-buddy-head i:first-child{left:8px}
+.moin-buddy-head i:last-child{right:8px}
+.moin-buddy-body{
+  position:absolute;
+  z-index:2;
+  left:8px;
+  top:22px;
+  width:33px;
+  height:30px;
+  border-radius:11px 11px 15px 15px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(160deg,#7899D4,#5278BA);
+  border:1px solid rgba(250,250,255,.55);
+  box-shadow:0 8px 15px rgba(30,39,73,.22);
+}
+.moin-buddy-body b{
+  width:20px;
+  height:20px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#FAFAFF;
+  color:#273469;
+  font:700 12px/1 var(--font-display);
+  box-shadow:0 2px 7px rgba(30,39,73,.16);
+}
+.moin-buddy-orb.is-open{
+  background:#1E2749;
+}
+@keyframes moin-buddy-pulse{
+  0%,100%{transform:scale(.9);opacity:.25}
+  50%{transform:scale(1.08);opacity:.7}
+}
+.moin-buddy-panel{
+  width:min(390px,calc(100vw - 32px));
+  margin-bottom:12px;
+  overflow:hidden;
+  border:1px solid rgba(39,52,105,.13);
+  border-radius:18px;
+  background:rgba(250,250,255,.96);
+  color:#1E2749;
+  box-shadow:0 24px 70px rgba(30,39,73,.18),0 8px 24px rgba(30,39,73,.08);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  pointer-events:auto;
+}
+.moin-buddy-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+  padding:20px 20px 16px;
+  border-bottom:1px solid rgba(39,52,105,.09);
+}
+.moin-buddy-head div{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.moin-buddy-head .mono{
+  color:#5678B8;
+  font-size:8px;
+  letter-spacing:.18em;
+}
+.moin-buddy-head strong{
+  font:500 22px/1.05 var(--font-display);
+  letter-spacing:-.025em;
+}
+.moin-buddy-close{
+  width:30px;
+  height:30px;
+  border:1px solid rgba(39,52,105,.12);
+  border-radius:50%;
+  background:#fff;
+  color:#273469;
+  font-size:18px;
+  line-height:1;
+  cursor:pointer;
+}
+.moin-buddy-body{
+  max-height:310px;
+  overflow:auto;
+  padding:18px 20px;
+}
+.moin-buddy-intro p{
+  margin:0 0 16px;
+  max-width:320px;
+  color:#61708A;
+  font-size:12px;
+  line-height:1.55;
+}
+.moin-buddy-starters{
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+.moin-buddy-starters button{
+  width:100%;
+  padding:11px 12px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  border:1px solid rgba(39,52,105,.11);
+  border-radius:9px;
+  background:#fff;
+  color:#273469;
+  text-align:left;
+  font:600 11px/1.3 var(--font-body);
+  cursor:pointer;
+  transition:transform .2s ease,border-color .2s ease,background .2s ease;
+}
+.moin-buddy-starters button:hover{
+  transform:translateX(3px);
+  border-color:rgba(120,153,212,.65);
+  background:#f3f6fc;
+}
+.moin-buddy-starters button span{color:#7899D4}
+.moin-buddy-messages{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.moin-buddy-message{
+  max-width:88%;
+  padding:10px 12px;
+  border-radius:12px;
+  font-size:12px;
+  line-height:1.55;
+}
+.moin-buddy-message-user{
+  align-self:flex-end;
+  background:#273469;
+  color:#FAFAFF;
+  border-bottom-right-radius:4px;
+}
+.moin-buddy-message-assistant{
+  align-self:flex-start;
+  background:#EEF2F8;
+  color:#30405f;
+  border-bottom-left-radius:4px;
+}
+.moin-buddy-thinking{
+  display:flex;
+  gap:4px;
+  width:max-content;
+}
+.moin-buddy-thinking i{
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:#7899D4;
+  animation:moin-buddy-dot 1s ease-in-out infinite;
+}
+.moin-buddy-thinking i:nth-child(2){animation-delay:.12s}
+.moin-buddy-thinking i:nth-child(3){animation-delay:.24s}
+@keyframes moin-buddy-dot{
+  0%,100%{transform:translateY(0);opacity:.35}
+  50%{transform:translateY(-3px);opacity:1}
+}
+.moin-buddy-form{
+  margin:0 14px;
+  padding:7px 7px 7px 13px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  border:1px solid rgba(39,52,105,.13);
+  border-radius:999px;
+  background:#fff;
+}
+.moin-buddy-form input{
+  width:100%;
+  min-width:0;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:#1E2749;
+  font:500 12px var(--font-body);
+}
+.moin-buddy-form input::placeholder{color:#8792a7}
+.moin-buddy-form button{
+  flex:0 0 auto;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:50%;
+  background:#E4ECF9;
+  color:#273469;
+  font-size:17px;
+  cursor:pointer;
+}
+.moin-buddy-form button:disabled{opacity:.45;cursor:default}
+.moin-buddy-note{
+  display:block;
+  padding:8px 20px 14px;
+  color:#8792A7;
+  font:700 7px var(--font-mono);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+@media(max-width:560px){
+  .moin-buddy{right:14px;bottom:14px}
+  .moin-buddy-orb{width:50px;height:50px}
+  .moin-buddy-panel{
+    width:calc(100vw - 28px);
+    margin-bottom:10px;
+    border-radius:16px;
+  }
+  .moin-buddy-body{max-height:280px}
+}
+@media(prefers-reduced-motion:reduce){
+  .moin-buddy-orb-pulse,.moin-buddy-thinking i{animation:none}
+}
+
+
+/* -------------------------------------------------------------------------- */
+/* V2 professional subpage shell                                               */
+/* -------------------------------------------------------------------------- */
+.reimagine-subpage{
+  --v2-ink:#30343F;
+  --v2-navy:#1E2749;
+  --v2-indigo:#273469;
+  --v2-blue:#7899D4;
+  --v2-paper:#FAFAFF;
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 88% 4%,rgba(120,153,212,.12),transparent 28rem),
+    linear-gradient(180deg,#FAFAFF 0%,#f4f6fb 100%);
+  color:var(--v2-ink);
+}
+.reimagine-subpage .subpage-nav{
+  background:rgba(250,250,255,.88)!important;
+  border-color:rgba(39,52,105,.12)!important;
+  box-shadow:0 10px 35px rgba(30,39,73,.05);
+}
+.reimagine-subpage .subpage-nav .wrap{
+  max-width:1440px;
+}
+.reimagine-subpage .subpage-nav strong{
+  color:var(--v2-navy)!important;
+}
+.reimagine-subpage .subpage-nav a{
+  color:#536079!important;
+}
+.reimagine-subpage .subpage-nav a:hover,
+.reimagine-subpage .subpage-nav a[class*="text-blue"]{
+  color:var(--v2-indigo)!important;
+}
+.reimagine-subpage .subpage-hero{
+  min-height:min(680px,calc(100svh - 70px));
+  display:flex;
+  align-items:center;
+  border-color:rgba(39,52,105,.12)!important;
+  background:
+    linear-gradient(115deg,rgba(250,250,255,.98),rgba(232,237,248,.84)),
+    radial-gradient(circle at 78% 48%,rgba(120,153,212,.24),transparent 24rem);
+}
+.reimagine-subpage .subpage-hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background-image:linear-gradient(rgba(39,52,105,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(39,52,105,.045) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:linear-gradient(to right,transparent,black 45%,transparent);
+}
+.reimagine-subpage .subpage-hero .wrap{
+  width:100%;
+  padding-top:clamp(70px,10vw,130px)!important;
+  padding-bottom:clamp(70px,10vw,130px)!important;
+}
+.reimagine-subpage .subpage-eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:.7rem;
+  color:var(--v2-indigo)!important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.reimagine-subpage .subpage-eyebrow::before{
+  content:"";
+  width:32px;
+  height:1px;
+  background:var(--v2-blue);
+}
+.reimagine-subpage .subpage-hero h1{
+  max-width:1000px;
+  color:var(--v2-navy)!important;
+  font-size:clamp(42px,7vw,92px)!important;
+  letter-spacing:-.065em!important;
+  line-height:.94!important;
+}
+.reimagine-subpage .subpage-hero p{
+  max-width:720px!important;
+  color:#59657b!important;
+  font-size:clamp(15px,1.4vw,19px)!important;
+}
+.reimagine-subpage .subpage-hero .wrap::after{
+  content:"ENGINEERING × PEOPLE × AI";
+  position:absolute;
+  right:5vw;
+  bottom:clamp(28px,5vw,62px);
+  color:rgba(39,52,105,.42);
+  font:800 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.18em;
+}
+.reimagine-subpage main section{
+  border-color:rgba(39,52,105,.10)!important;
+}
+.reimagine-subpage .section-bg-light{background:#FAFAFF!important}
+.reimagine-subpage .section-bg-muted{
+  background:linear-gradient(135deg,#eef2f8,#e6ebf5)!important;
+}
+.reimagine-subpage .kicker{
+  color:var(--v2-indigo)!important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.13em;
+}
+.reimagine-subpage .section-title{
+  color:var(--v2-navy)!important;
+  letter-spacing:-.045em;
+  line-height:1.02;
+}
+.reimagine-subpage .subpage-intro{
+  max-width:760px;
+  color:#5c687e!important;
+}
+.reimagine-subpage .subpage-card,
+.reimagine-subpage .subpage-fact,
+.reimagine-subpage .subpage-step,
+.reimagine-subpage .subpage-decision,
+.reimagine-subpage .subpage-flow-item{
+  border-color:rgba(39,52,105,.12)!important;
+  background:rgba(250,250,255,.78)!important;
+  box-shadow:0 18px 45px rgba(30,39,73,.055);
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.reimagine-subpage .subpage-card:hover,
+.reimagine-subpage .subpage-fact:hover,
+.reimagine-subpage .subpage-step:hover,
+.reimagine-subpage .subpage-flow-item:hover{
+  transform:translateY(-3px);
+  border-color:rgba(120,153,212,.55)!important;
+  box-shadow:0 24px 55px rgba(30,39,73,.09);
+}
+.reimagine-subpage .subpage-card h3,
+.reimagine-subpage .subpage-step strong,
+.reimagine-subpage .subpage-fact strong,
+.reimagine-subpage .subpage-flow-item strong{
+  color:var(--v2-navy)!important;
+}
+.reimagine-subpage .subpage-cta{
+  background:linear-gradient(135deg,var(--v2-navy),var(--v2-indigo))!important;
+  color:var(--v2-paper);
+  border-color:transparent!important;
+}
+.reimagine-subpage .subpage-cta .kicker,
+.reimagine-subpage .subpage-cta .section-title,
+.reimagine-subpage .subpage-cta .subpage-intro{
+  color:var(--v2-paper)!important;
+}
+.reimagine-subpage .subpage-cta .kicker{color:#b9c9ea!important}
+.reimagine-subpage .subpage-related-link{
+  border-color:rgba(39,52,105,.16)!important;
+  background:rgba(250,250,255,.75)!important;
+  color:var(--v2-indigo)!important;
+}
+@media(max-width:760px){
+  .reimagine-subpage .subpage-hero{min-height:auto}
+  .reimagine-subpage .subpage-hero .wrap::after{display:none}
+  .reimagine-subpage .subpage-hero h1{font-size:clamp(40px,12vw,64px)!important}
+}
+
+/* Ask Moin character motion */
+.moin-buddy-orb{
+  perspective:420px;
+  transform-style:preserve-3d;
+}
+.moin-buddy-hero{
+  transform-style:preserve-3d;
+  animation:moin-buddy-float 3.8s ease-in-out infinite;
+}
+.moin-buddy-cape{
+  transform-origin:50% 0;
+  animation:moin-buddy-cape 2.1s ease-in-out infinite;
+}
+.moin-buddy-head{
+  transform-style:preserve-3d;
+}
+.moin-buddy-head i{
+  transition:transform .12s ease-out;
+}
+.moin-buddy-body{
+  transform:translateZ(8px);
+}
+@keyframes moin-buddy-float{
+  0%,100%{transform:translate3d(0,1px,0) rotateZ(-1deg)}
+  50%{transform:translate3d(0,-5px,8px) rotateZ(1deg)}
+}
+@keyframes moin-buddy-cape{
+  0%,100%{transform:rotateY(-3deg) skewX(0deg)}
+  50%{transform:rotateY(7deg) skewX(-2deg) translateY(2px)}
+}
+.moin-buddy-orb:hover .moin-buddy-cape{
+  animation-duration:.8s;
+}
+@media(prefers-reduced-motion:reduce){
+  .moin-buddy-hero,.moin-buddy-cape{animation:none}
+}
+
+/* M-Buddy: one canonical character used everywhere */
+.moin-buddy-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.moin-buddy-panel-icon{
+  flex:0 0 38px;
+  width:38px;
+  height:42px;
+  transform:scale(.82);
+  transform-origin:center;
+}
+.moin-buddy-panel-icon .moin-buddy-cape{
+  width:34px;
+  height:23px;
+  left:2px;
+  top:16px;
+}
+.moin-buddy-panel-icon .moin-buddy-head{
+  left:9px;
+  top:1px;
+  width:22px;
+  height:20px;
+}
+.moin-buddy-panel-icon .moin-buddy-head i{
+  top:7px;
+  width:2.5px;
+  height:7px;
+}
+.moin-buddy-panel-icon .moin-buddy-head i:first-child{left:6px}
+.moin-buddy-panel-icon .moin-buddy-head i:last-child{right:6px}
+.moin-buddy-panel-icon .moin-buddy-body{
+  left:7px;
+  top:18px;
+  width:27px;
+  height:24px;
+  border-radius:9px 9px 12px 12px;
+}
+.moin-buddy-panel-icon .moin-buddy-body b{
+  width:17px;
+  height:17px;
+  font-size:10px;
+}
+.moin-buddy-title > div{
+  display:grid;
+  gap:2px;
+  min-width:0;
+}
+.moin-buddy-title strong{
+  display:block;
+}
+@media(max-width:560px){
+  .moin-buddy-panel-icon{flex-basis:34px;width:34px;height:38px}
+}
+
+/* -------------------------------------------------------------------------- */
+/* M-Buddy 3D character — canonical visual                                      */
+/* -------------------------------------------------------------------------- */
+.moin-buddy-orb{
+  width:76px!important;
+  height:76px!important;
+  border:0!important;
+  border-radius:24px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+  perspective:700px;
+}
+.moin-buddy-orb::before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border-radius:28px;
+  background:radial-gradient(circle at 40% 25%,rgba(255,255,255,.75),rgba(120,153,212,.22) 46%,transparent 72%);
+  filter:blur(5px);
+  opacity:.75;
+  z-index:-2;
+}
+.moin-buddy-orb::after{
+  width:10px!important;
+  height:10px!important;
+  right:2px!important;
+  bottom:5px!important;
+  background:#9EE8FF!important;
+  box-shadow:0 0 16px rgba(100,220,255,.9)!important;
+}
+.moin-buddy-hero{
+  position:absolute!important;
+  left:8px!important;
+  top:4px!important;
+  width:60px!important;
+  height:66px!important;
+  display:block!important;
+  transform-style:preserve-3d;
+  filter:drop-shadow(0 13px 11px rgba(30,39,73,.24));
+  animation:moin-buddy-float 4s ease-in-out infinite;
+}
+.moin-buddy-head{
+  position:absolute!important;
+  left:8px!important;
+  top:0!important;
+  width:48px!important;
+  height:42px!important;
+  z-index:5;
+  border-radius:17px 17px 19px 19px!important;
+  background:linear-gradient(145deg,#79A2E5 0%,#4F75BD 48%,#273469 100%)!important;
+  border:1px solid rgba(250,250,255,.6);
+  box-shadow:
+    inset 3px 3px 6px rgba(255,255,255,.36),
+    inset -4px -5px 9px rgba(20,32,72,.22),
+    0 7px 12px rgba(30,39,73,.22);
+  transform:translateZ(16px);
+  overflow:visible;
+}
+.moin-buddy-head::after{
+  content:"";
+  position:absolute;
+  inset:4px 5px 6px;
+  border-radius:13px 13px 15px 15px;
+  background:linear-gradient(160deg,#FFFFFF 0%,#F5F8FF 72%,#DCE7F8 100%);
+  box-shadow:inset 0 -2px 4px rgba(39,52,105,.1);
+}
+.moin-buddy-visor{
+  position:absolute;
+  z-index:2;
+  inset:0;
+}
+.moin-buddy-visor i{
+  position:absolute!important;
+  z-index:4;
+  top:16px!important;
+  width:4px!important;
+  height:11px!important;
+  border-radius:999px!important;
+  background:#17234A!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.12);
+}
+.moin-buddy-visor i:first-child{left:19px!important}
+.moin-buddy-visor i:last-child{right:19px!important}
+.moin-buddy-ear{
+  position:absolute;
+  z-index:4;
+  top:12px;
+  width:15px;
+  height:21px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#628DD5,#273469);
+  border:1px solid rgba(250,250,255,.35);
+  box-shadow:inset 2px 2px 4px rgba(255,255,255,.25),0 5px 8px rgba(30,39,73,.18);
+  transform:translateZ(8px);
+}
+.moin-buddy-ear i{
+  position:absolute;
+  inset:5px;
+  border-radius:50%;
+  background:#8DE8FF;
+  box-shadow:0 0 9px rgba(101,224,255,.95);
+}
+.moin-buddy-ear-left{left:1px}
+.moin-buddy-ear-right{right:0}
+.moin-buddy-body{
+  position:absolute!important;
+  z-index:3;
+  left:14px!important;
+  top:35px!important;
+  width:40px!important;
+  height:31px!important;
+  border-radius:13px 13px 17px 17px!important;
+  background:linear-gradient(145deg,#82A9E8,#4D73BC 62%,#273469)!important;
+  border:1px solid rgba(250,250,255,.48);
+  box-shadow:
+    inset 3px 2px 6px rgba(255,255,255,.25),
+    inset -3px -4px 8px rgba(20,32,72,.22),
+    0 8px 13px rgba(30,39,73,.2);
+  transform:translateZ(10px);
+}
+.moin-buddy-body b{
+  width:20px!important;
+  height:20px!important;
+  background:#FAFAFF!important;
+  color:#273469!important;
+  font-size:12px!important;
+  box-shadow:0 2px 5px rgba(30,39,73,.2);
+}
+.moin-buddy-arm{
+  position:absolute;
+  z-index:2;
+  top:39px;
+  width:14px;
+  height:20px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#80A8E8,#4268AD);
+  box-shadow:inset 2px 2px 4px rgba(255,255,255,.25),0 5px 8px rgba(30,39,73,.16);
+}
+.moin-buddy-arm-left{left:5px;transform:rotate(35deg) translateZ(4px)}
+.moin-buddy-arm-right{right:3px;transform:rotate(-32deg) translateZ(4px)}
+.moin-buddy-foot{
+  position:absolute;
+  z-index:1;
+  top:57px;
+  width:17px;
+  height:13px;
+  border-radius:50%;
+  background:linear-gradient(145deg,#668FD4,#273469);
+  box-shadow:inset 2px 2px 4px rgba(255,255,255,.2),0 5px 7px rgba(30,39,73,.15);
+}
+.moin-buddy-foot-left{left:14px;transform:rotate(18deg)}
+.moin-buddy-foot-right{right:9px;transform:rotate(-18deg)}
+.moin-buddy-cape{
+  position:absolute!important;
+  z-index:0!important;
+  left:-4px!important;
+  top:31px!important;
+  width:35px!important;
+  height:32px!important;
+  border-radius:6px 4px 22px 24px!important;
+  background:linear-gradient(145deg,#355AA0,#1E2749)!important;
+  clip-path:polygon(28% 0,100% 5%,82% 40%,100% 100%,44% 78%,0 100%,16% 47%);
+  filter:drop-shadow(0 5px 4px rgba(30,39,73,.22));
+  transform-origin:100% 8%;
+  animation:moin-buddy-cape 2.1s ease-in-out infinite;
+}
+.moin-buddy-panel-icon{
+  position:relative!important;
+  left:auto!important;
+  top:auto!important;
+  width:42px!important;
+  height:44px!important;
+  flex:0 0 42px!important;
+  transform:scale(.72)!important;
+}
+.moin-buddy-panel-icon .moin-buddy-head{left:8px!important}
+.moin-buddy-panel-icon .moin-buddy-ear-left{left:1px}
+.moin-buddy-panel-icon .moin-buddy-ear-right{right:0}
+.moin-buddy-panel-icon .moin-buddy-body{left:14px!important}
+@keyframes moin-buddy-float{
+  0%,100%{transform:translate3d(0,1px,0) rotateZ(-1deg) rotateY(-2deg)}
+  50%{transform:translate3d(0,-5px,6px) rotateZ(1deg) rotateY(3deg)}
+}
+@keyframes moin-buddy-cape{
+  0%,100%{transform:rotateY(-3deg) rotateZ(0deg) scaleY(1)}
+  50%{transform:rotateY(12deg) rotateZ(-4deg) scaleY(1.05)}
+}
+@media(max-width:560px){
+  .moin-buddy-orb{width:64px!important;height:64px!important}
+  .moin-buddy-hero{transform:scale(.86);transform-origin:center bottom}
+}
+@media(prefers-reduced-motion:reduce){
+  .moin-buddy-hero,.moin-buddy-cape{animation:none!important}
+}
+
+/* M-Buddy final visual refinement: clean robot, no cape/veil */
+.moin-buddy-panel-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.moin-buddy-title{align-items:center}
+.moin-buddy-hero{
+  animation:moin-buddy-float 4.4s ease-in-out infinite!important;
+}
+.moin-buddy-head{
+  left:8px!important;
+  top:0!important;
+  width:48px!important;
+  height:42px!important;
+}
+.moin-buddy-head::after{
+  inset:5px 5px 6px!important;
+  border-radius:13px 13px 15px 15px!important;
+}
+.moin-buddy-visor i{
+  top:14px!important;
+  width:7px!important;
+  height:15px!important;
+  border-radius:999px!important;
+  background:#17234A!important;
+  box-shadow:0 1px 2px rgba(0,0,0,.14), inset 1px 0 1px rgba(255,255,255,.08);
+}
+.moin-buddy-visor i:first-child{left:16px!important}
+.moin-buddy-visor i:last-child{right:16px!important}
+.moin-buddy-ear{
+  top:11px!important;
+  width:16px!important;
+  height:23px!important;
+}
+.moin-buddy-ear-left{left:0!important}
+.moin-buddy-ear-right{right:-1px!important}
+.moin-buddy-arm{
+  z-index:6!important;
+  top:39px!important;
+  width:17px!important;
+  height:25px!important;
+}
+.moin-buddy-arm-left{
+  left:2px!important;
+  transform:rotate(28deg) translateZ(12px)!important;
+}
+.moin-buddy-arm-right{
+  right:0!important;
+  transform:rotate(-30deg) translateZ(12px)!important;
+}
+.moin-buddy-body{
+  z-index:4!important;
+  left:14px!important;
+  top:35px!important;
+}
+.moin-buddy-body b{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  margin:0!important;
+}
+.moin-buddy-foot{
+  z-index:2!important;
+}
+.moin-buddy-cape{display:none!important}
+.moin-buddy-panel-icon .moin-buddy-cape{display:none!important}
+@media(max-width:560px){
+  .moin-buddy-head{width:46px!important;height:40px!important}
+  .moin-buddy-body{top:34px!important}
+}
+@media(prefers-reduced-motion:reduce){
+  .moin-buddy-hero{animation:none!important}
+}
+
+/* Ask Moin — final chat UI pass */
+.moin-buddy{
+  right:24px;
+  bottom:24px;
+  z-index:120;
+}
+.moin-buddy-panel{
+  width:min(420px,calc(100vw - 32px));
+  max-height:min(620px,calc(100svh - 112px));
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto auto;
+  margin-bottom:14px;
+  border:1px solid rgba(39,52,105,.16);
+  border-radius:22px;
+  background:rgba(250,250,255,.97);
+  box-shadow:0 28px 90px rgba(30,39,73,.22),0 8px 30px rgba(30,39,73,.10);
+  overflow:hidden;
+}
+.moin-buddy-panel-head{
+  min-height:76px;
+  padding:14px 16px 13px;
+  background:linear-gradient(135deg,rgba(244,247,252,.98),rgba(232,238,249,.92));
+  border-bottom:1px solid rgba(39,52,105,.10);
+}
+.moin-buddy-title{
+  gap:11px;
+}
+.moin-buddy-panel-icon{
+  flex:0 0 42px!important;
+  width:42px!important;
+  height:44px!important;
+}
+.moin-buddy-title > div{
+  gap:3px;
+}
+.moin-buddy-title .mono{
+  color:#5678B8;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.2em;
+}
+.moin-buddy-title strong{
+  color:#1E2749;
+  font:500 18px/1.08 var(--font-display);
+  letter-spacing:-.02em;
+}
+.moin-buddy-close{
+  flex:0 0 32px;
+  width:32px;
+  height:32px;
+  border:1px solid rgba(39,52,105,.13);
+  background:rgba(250,250,255,.9);
+  color:#52617D;
+  font-size:19px;
+  transition:background .18s ease,transform .18s ease,border-color .18s ease;
+}
+.moin-buddy-close:hover{
+  background:#fff;
+  border-color:rgba(120,153,212,.55);
+  transform:rotate(4deg);
+}
+.moin-buddy-body{
+  min-height:0;
+  max-height:none;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  padding:18px 17px;
+  background:#FAFAFF;
+}
+.moin-buddy-intro{
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:8px 3px;
+}
+.moin-buddy-intro p{
+  max-width:330px;
+  margin:0 auto 18px 0;
+  color:#59677F;
+  font-size:12px;
+  line-height:1.65;
+}
+.moin-buddy-starters{
+  gap:8px;
+}
+.moin-buddy-starters button{
+  min-height:44px;
+  padding:11px 13px;
+  border-radius:11px;
+  background:#fff;
+  border-color:rgba(39,52,105,.11);
+}
+.moin-buddy-messages{
+  min-height:100%;
+  justify-content:flex-end;
+  padding:2px 1px;
+}
+.moin-buddy-message{
+  max-width:86%;
+  padding:10px 13px;
+  border-radius:14px;
+  font-size:12px;
+  line-height:1.6;
+  box-shadow:0 3px 12px rgba(30,39,73,.04);
+}
+.moin-buddy-message-user{
+  background:linear-gradient(135deg,#273469,#1E2749);
+  border-bottom-right-radius:5px;
+}
+.moin-buddy-message-assistant{
+  background:#EEF2F8;
+  border:1px solid rgba(39,52,105,.07);
+  border-bottom-left-radius:5px;
+}
+.moin-buddy-form{
+  margin:10px 14px 0;
+  min-height:50px;
+  padding:6px 6px 6px 15px;
+  border:1px solid rgba(39,52,105,.16);
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 5px 18px rgba(30,39,73,.06);
+}
+.moin-buddy-form:focus-within{
+  border-color:rgba(120,153,212,.75);
+  box-shadow:0 0 0 3px rgba(120,153,212,.12),0 5px 18px rgba(30,39,73,.06);
+}
+.moin-buddy-form input{
+  height:36px;
+  font-size:12px;
+}
+.moin-buddy-form button{
+  width:38px;
+  height:38px;
+  background:#273469;
+  color:#FAFAFF;
+  font-size:18px;
+  transition:transform .18s ease,opacity .18s ease;
+}
+.moin-buddy-form button:not(:disabled):hover{
+  transform:translateY(-1px);
+}
+.moin-buddy-note{
+  padding:8px 18px 13px;
+  text-align:right;
+  color:#8A95A8;
+  font-size:7px;
+}
+@media(max-width:560px){
+  .moin-buddy{
+    right:12px;
+    bottom:12px;
+    left:12px;
+    align-items:flex-end;
+  }
+  .moin-buddy-panel{
+    width:min(100%,420px);
+    max-height:calc(100svh - 88px);
+    border-radius:20px;
+    margin-bottom:10px;
+  }
+  .moin-buddy-body{
+    padding:16px 14px;
+  }
+  .moin-buddy-orb{
+    width:64px!important;
+    height:64px!important;
+  }
+}
+@media(max-height:650px) and (min-width:561px){
+  .moin-buddy-panel{
+    max-height:calc(100svh - 92px);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .moin-buddy-close,.moin-buddy-form button{transition:none}
+}
+
+
+/* Header brand mark — final identity treatment */
+.reimagine .brand-mark{
+  position:relative;
+  flex:0 0 42px;
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  clip-path:none;
+  border:1px solid rgba(120,153,212,.52);
+  border-radius:13px;
+  background:
+    linear-gradient(145deg,#7899D4 0%,#5278BA 46%,#273469 100%);
+  color:#FAFAFF;
+  box-shadow:
+    inset 2px 2px 5px rgba(255,255,255,.34),
+    inset -3px -4px 8px rgba(20,32,72,.20),
+    0 8px 18px rgba(30,39,73,.14);
+}
+.reimagine .brand-mark::before{
+  content:"";
+  position:absolute;
+  inset:1px;
+  border-radius:12px;
+  background:linear-gradient(135deg,rgba(255,255,255,.22),transparent 46%);
+  pointer-events:none;
+}
+.reimagine .brand-mark span{
+  position:relative;
+  z-index:1;
+  display:block;
+  color:#FAFAFF;
+  font:600 19px/1 var(--font-display);
+  letter-spacing:-.08em;
+  transform:translateY(-1px);
+  text-shadow:0 1px 2px rgba(20,32,72,.22);
+}
+.reimagine .brand-lockup:hover .brand-mark{
+  border-color:rgba(120,153,212,.82);
+  box-shadow:
+    inset 2px 2px 5px rgba(255,255,255,.34),
+    inset -3px -4px 8px rgba(20,32,72,.20),
+    0 10px 22px rgba(30,39,73,.18);
+}
+@media(max-width:820px){
+  .reimagine .brand-mark{
+    flex-basis:38px;
+    width:38px;
+    height:38px;
+    border-radius:11px;
+  }
+  .reimagine .brand-mark span{font-size:17px}
+}
+
+
+/* Ask Moin — conversational panel redesign */
+.moin-buddy-panel{
+  width:min(520px,calc(100vw - 32px));
+  max-height:min(680px,calc(100svh - 96px));
+  border-radius:26px;
+  border:1px solid rgba(120,153,212,.24);
+  background:rgba(250,250,255,.985);
+  box-shadow:0 32px 100px rgba(30,39,73,.24),0 10px 32px rgba(30,39,73,.10);
+}
+.moin-buddy-panel-head{
+  min-height:92px;
+  padding:17px 18px 15px;
+  background:linear-gradient(135deg,#F5F8FD 0%,#E8EEF8 100%);
+  border-bottom:1px solid rgba(39,52,105,.09);
+}
+.moin-buddy-title{
+  gap:14px;
+}
+.moin-buddy-panel-icon{
+  flex:0 0 54px!important;
+  width:54px!important;
+  height:58px!important;
+  transform:scale(.9)!important;
+}
+.moin-buddy-title .mono{
+  display:block;
+  color:#5278BA;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.24em;
+}
+.moin-buddy-title strong{
+  margin-top:5px;
+  color:#1E2749;
+  font:500 21px/1.08 var(--font-display);
+  letter-spacing:-.025em;
+}
+.moin-buddy-close{
+  width:38px;
+  height:38px;
+  flex-basis:38px;
+  border-radius:50%;
+  font-size:23px;
+  color:#5A6780;
+  background:rgba(250,250,255,.9);
+}
+.moin-buddy-body{
+  padding:26px 24px 20px;
+  background:
+    radial-gradient(circle at 82% 8%,rgba(120,153,212,.11),transparent 180px),
+    #FAFAFF;
+}
+.moin-buddy-intro{
+  min-height:auto;
+  justify-content:flex-start;
+  padding:2px 0 0;
+}
+.moin-buddy-intro-copy{
+  max-width:430px;
+  margin:0 auto 24px;
+  text-align:center;
+}
+.moin-buddy-intro-kicker{
+  display:block;
+  margin-bottom:11px;
+  color:#6782B6;
+  font-size:7px;
+  font-weight:800;
+  letter-spacing:.16em;
+  line-height:1.4;
+}
+.moin-buddy-intro-copy h3{
+  margin:0;
+  color:#1E2749;
+  font:500 clamp(28px,6vw,38px)/.98 var(--font-display);
+  letter-spacing:-.045em;
+}
+.moin-buddy-intro-copy p{
+  max-width:390px;
+  margin:12px auto 0;
+  color:#697690;
+  font-size:12px;
+  line-height:1.65;
+}
+.moin-buddy-starters{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px!important;
+}
+.moin-buddy-starters button{
+  min-height:66px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:11px 13px;
+  border:1px solid rgba(120,153,212,.22);
+  border-radius:15px;
+  background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(241,245,252,.92));
+  color:#405173;
+  text-align:left;
+  font-size:11px;
+  line-height:1.35;
+  box-shadow:0 5px 16px rgba(30,39,73,.035);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.moin-buddy-starters button:hover{
+  transform:translateY(-2px);
+  border-color:rgba(120,153,212,.58);
+  background:#fff;
+  box-shadow:0 10px 24px rgba(30,39,73,.08);
+}
+.moin-buddy-starter-icon{
+  flex:0 0 30px;
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  background:#EAF0FA;
+  color:#5278BA;
+  font:700 12px/1 var(--font-mono);
+}
+.moin-buddy-form{
+  margin:8px 20px 0;
+  min-height:58px;
+  padding:7px 7px 7px 17px;
+  border-radius:18px;
+  border-color:rgba(120,153,212,.55);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(120,153,212,.08),0 8px 22px rgba(30,39,73,.07);
+}
+.moin-buddy-form input{
+  height:42px;
+  font-size:13px;
+}
+.moin-buddy-form input::placeholder{
+  color:#8793AA;
+}
+.moin-buddy-form button{
+  width:44px;
+  height:44px;
+  background:#5278BA;
+  color:#FAFAFF;
+  font-size:21px;
+  box-shadow:0 5px 12px rgba(82,120,186,.28);
+}
+.moin-buddy-note{
+  padding:9px 22px 15px;
+  text-align:right;
+  color:#8792A7;
+  font-size:7px;
+}
+.moin-buddy-note::before{
+  content:"ⓘ  ";
+  font-size:10px;
+}
+@media(max-width:560px){
+  .moin-buddy-panel{
+    width:calc(100vw - 24px);
+    max-height:calc(100svh - 76px);
+    border-radius:22px;
+  }
+  .moin-buddy-panel-head{
+    min-height:80px;
+    padding:13px 14px;
+  }
+  .moin-buddy-panel-icon{
+    flex-basis:46px!important;
+    width:46px!important;
+    height:50px!important;
+  }
+  .moin-buddy-title strong{font-size:18px}
+  .moin-buddy-body{padding:22px 16px 16px}
+  .moin-buddy-intro-copy h3{font-size:30px}
+  .moin-buddy-starters{grid-template-columns:1fr!important}
+  .moin-buddy-starters button{min-height:54px}
+  .moin-buddy-form{margin-left:12px;margin-right:12px}
+}
+
+
+/* Ask Moin — structural layout correction
+   The panel uses an intrinsic-height grid, so the 1fr conversation row
+   must have an explicit panel height or it collapses to zero. */
+.moin-buddy-panel{
+  height:min(680px,calc(100svh - 96px));
+  max-height:min(680px,calc(100svh - 96px));
+  grid-template-rows:auto minmax(0,1fr) auto auto;
+}
+.moin-buddy-panel-head{
+  position:relative;
+  z-index:2;
+}
+.moin-buddy-panel-icon{
+  flex:0 0 48px!important;
+  width:48px!important;
+  height:52px!important;
+  transform:scale(.82)!important;
+  transform-origin:center!important;
+}
+.moin-buddy-body{
+  position:relative;
+  z-index:1;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-y:auto!important;
+  display:block;
+}
+.moin-buddy-intro{
+  min-height:100%;
+  height:100%;
+  justify-content:center;
+}
+.moin-buddy-intro-copy{
+  margin-top:0;
+}
+.moin-buddy-form{
+  position:relative;
+  z-index:3;
+}
+.moin-buddy-note{
+  position:relative;
+  z-index:3;
+  background:#FAFAFF;
+}
+@media(max-width:560px){
+  .moin-buddy-panel{
+    height:min(680px,calc(100svh - 76px));
+    max-height:calc(100svh - 76px);
+  }
+  .moin-buddy-panel-icon{
+    flex-basis:44px!important;
+    width:44px!important;
+    height:48px!important;
+  }
+}
+
+/* Brand mark — keep the M monogram isolated from lockup typography */
+.reimagine .brand-mark{
+  isolation:isolate;
+}
+.reimagine .brand-mark span{
+  position:absolute!important;
+  inset:0!important;
+  display:grid!important;
+  place-items:center!important;
+  width:auto!important;
+  height:auto!important;
+  margin:0!important;
+  color:#FAFAFF!important;
+  font:600 19px/1 var(--font-display)!important;
+  letter-spacing:-.08em!important;
+}
+
+
+/* Ask Moin — final width isolation
+   Keep the chat panel completely independent from legacy .moin-buddy-* geometry. */
+.moin-buddy{
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  align-items:flex-end!important;
+}
+.moin-buddy-panel{
+  position:relative!important;
+  box-sizing:border-box!important;
+  display:grid!important;
+  width:min(520px,calc(100vw - 32px))!important;
+  min-width:0!important;
+  max-width:calc(100vw - 32px)!important;
+  flex:0 0 auto!important;
+  align-self:flex-end!important;
+  margin-left:auto!important;
+  margin-right:0!important;
+  overflow:hidden!important;
+}
+.moin-buddy-panel > *{
+  box-sizing:border-box!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+.moin-buddy-panel-head{
+  width:100%!important;
+  min-width:0!important;
+  display:flex!important;
+  align-items:center!important;
+}
+.moin-buddy-title{
+  min-width:0!important;
+  max-width:calc(100% - 52px)!important;
+  flex:1 1 auto!important;
+  overflow:hidden!important;
+}
+.moin-buddy-title > div{
+  min-width:0!important;
+  max-width:100%!important;
+}
+.moin-buddy-title strong{
+  min-width:0!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+.moin-buddy-body{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow-x:hidden!important;
+}
+.moin-buddy-intro,
+.moin-buddy-intro-copy,
+.moin-buddy-starters,
+.moin-buddy-messages{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+.moin-buddy-starters{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+.moin-buddy-starters button{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+.moin-buddy-form{
+  width:auto!important;
+  min-width:0!important;
+  max-width:none!important;
+}
+.moin-buddy-form input{
+  min-width:0!important;
+  max-width:100%!important;
+}
+.moin-buddy-panel-icon{
+  position:relative!important;
+  flex:0 0 48px!important;
+  width:48px!important;
+  max-width:48px!important;
+}
+@media(max-width:560px){
+  .moin-buddy-panel{
+    width:calc(100vw - 24px)!important;
+    max-width:calc(100vw - 24px)!important;
+  }
+  .moin-buddy-starters{
+    grid-template-columns:1fr!important;
+  }
+  .moin-buddy-title strong{
+    white-space:normal!important;
+  }
+}
+
+
+/* Ask Moin — final compact panel geometry
+   Keep the dialog content-sized; never let the conversation panel become a
+   second viewport or overlap the page underneath. */
+.moin-buddy-panel{
+  position:relative!important;
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:min(620px,calc(100svh - 104px))!important;
+  display:grid!important;
+  grid-template-rows:auto minmax(0,auto) auto auto!important;
+  align-self:flex-end!important;
+  overflow:hidden!important;
+  background:#FAFAFF!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.moin-buddy-panel-head{
+  flex:0 0 auto!important;
+  min-height:84px!important;
+  background:linear-gradient(135deg,#F5F8FD 0%,#E8EEF8 100%)!important;
+}
+.moin-buddy-body{
+  height:auto!important;
+  min-height:0!important;
+  max-height:360px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:22px 20px 18px!important;
+  background:#FAFAFF!important;
+}
+.moin-buddy-intro{
+  height:auto!important;
+  min-height:0!important;
+  justify-content:flex-start!important;
+}
+.moin-buddy-intro-copy{
+  margin:0 auto 20px!important;
+}
+.moin-buddy-intro-copy h3{
+  font-size:32px!important;
+}
+.moin-buddy-starters{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+.moin-buddy-form{
+  margin:8px 18px 0!important;
+}
+.moin-buddy-note{
+  background:#FAFAFF!important;
+  padding:8px 18px 13px!important;
+}
+@media(max-width:560px){
+  .moin-buddy-panel{
+    width:calc(100vw - 24px)!important;
+    max-width:calc(100vw - 24px)!important;
+    max-height:calc(100svh - 76px)!important;
+  }
+  .moin-buddy-body{
+    max-height:calc(100svh - 260px)!important;
+    padding:20px 14px 16px!important;
+  }
+  .moin-buddy-intro-copy h3{
+    font-size:29px!important;
+  }
+  .moin-buddy-starters{
+    grid-template-columns:1fr!important;
+  }
+}
+
+
+/* Ask Moin — portal host
+   The panel is rendered directly under document.body so no hero/grid/flex
+   ancestor can constrain, stretch, clip, or scale its dimensions. */
+.moin-buddy-portal{
+  position:fixed;
+  right:24px;
+  bottom:98px;
+  z-index:10000;
+  width:auto;
+  height:auto;
+  max-width:calc(100vw - 32px);
+  pointer-events:none;
+}
+.moin-buddy-portal .moin-buddy-panel{
+  pointer-events:auto;
+  position:relative!important;
+  inset:auto!important;
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:min(620px,calc(100svh - 120px))!important;
+  margin:0!important;
+  transform-origin:bottom right;
+}
+.moin-buddy-portal .moin-buddy-panel-head{
+  flex:0 0 auto!important;
+}
+.moin-buddy-portal .moin-buddy-body{
+  max-height:360px!important;
+  min-height:0!important;
+  height:auto!important;
+}
+@media(max-width:560px){
+  .moin-buddy-portal{
+    left:12px;
+    right:12px;
+    bottom:82px;
+    max-width:none;
+    display:flex;
+    justify-content:flex-end;
+  }
+  .moin-buddy-portal .moin-buddy-panel{
+    width:100%!important;
+    max-width:100%!important;
+    max-height:calc(100svh - 96px)!important;
+  }
+  .moin-buddy-portal .moin-buddy-body{
+    max-height:calc(100svh - 300px)!important;
+  }
+}
+
+
+/* Ask Moin — namespaced dialog layout
+   Deliberately isolated from the legacy .moin-buddy-* mascot styles. */
+.ask-moin-panel{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  position:relative!important;
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:min(620px,calc(100svh - 120px))!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border:1px solid rgba(120,153,212,.28)!important;
+  border-radius:24px!important;
+  background:#FAFAFF!important;
+  color:#1E2749!important;
+  box-shadow:0 28px 80px rgba(30,39,73,.22),0 8px 26px rgba(30,39,73,.10)!important;
+}
+.ask-moin-header{
+  box-sizing:border-box!important;
+  flex:0 0 auto!important;
+  width:100%!important;
+  min-height:84px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:14px!important;
+  padding:14px 16px!important;
+  border-bottom:1px solid rgba(39,52,105,.10)!important;
+  background:linear-gradient(135deg,#F4F7FC,#E7EEF9)!important;
+}
+.ask-moin-title{
+  min-width:0!important;
+  flex:1 1 auto!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+}
+.ask-moin-title > div{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:4px!important;
+}
+.ask-moin-title .mono{
+  display:block!important;
+  color:#5278BA!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  letter-spacing:.22em!important;
+  line-height:1.2!important;
+}
+.ask-moin-title strong{
+  display:block!important;
+  color:#1E2749!important;
+  font:500 19px/1.1 var(--font-display)!important;
+  letter-spacing:-.025em!important;
+  white-space:nowrap!important;
+}
+.ask-moin-icon{
+  flex:0 0 46px!important;
+  width:46px!important;
+  height:50px!important;
+  transform:scale(.8)!important;
+}
+.ask-moin-close{
+  flex:0 0 38px!important;
+  width:38px!important;
+  height:38px!important;
+  padding:0!important;
+  border:1px solid rgba(39,52,105,.14)!important;
+  border-radius:50%!important;
+  background:#FAFAFF!important;
+  color:#52617D!important;
+  font-size:24px!important;
+  line-height:1!important;
+  cursor:pointer!important;
+}
+.ask-moin-body{
+  box-sizing:border-box!important;
+  flex:0 1 auto!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-height:370px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:22px 20px 18px!important;
+  background:#FAFAFF!important;
+}
+.ask-moin-intro{
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+}
+.ask-moin-intro-copy{
+  width:100%!important;
+  max-width:440px!important;
+  margin:0 auto 20px!important;
+  text-align:center!important;
+}
+.ask-moin-kicker{
+  display:block!important;
+  margin:0 0 10px!important;
+  color:#5F7DB7!important;
+  font-size:7px!important;
+  font-weight:800!important;
+  letter-spacing:.16em!important;
+  line-height:1.4!important;
+}
+.ask-moin-intro-copy h3{
+  margin:0!important;
+  color:#1E2749!important;
+  font:500 clamp(27px,5vw,34px)/1 var(--font-display)!important;
+  letter-spacing:-.045em!important;
+}
+.ask-moin-intro-copy p{
+  max-width:400px!important;
+  margin:11px auto 0!important;
+  color:#697690!important;
+  font-size:12px!important;
+  line-height:1.55!important;
+}
+.ask-moin-starters{
+  width:100%!important;
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:9px!important;
+  margin:0!important;
+}
+.ask-moin-starters button{
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:62px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  padding:10px 12px!important;
+  border:1px solid rgba(120,153,212,.22)!important;
+  border-radius:14px!important;
+  background:linear-gradient(135deg,#FFFFFF,#F0F4FB)!important;
+  color:#5278BA!important;
+  text-align:left!important;
+  font:600 11px/1.35 var(--font-body)!important;
+  cursor:pointer!important;
+}
+.ask-moin-starter-icon{
+  flex:0 0 30px!important;
+  width:30px!important;
+  height:30px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:9px!important;
+  background:#EAF0FA!important;
+  color:#5278BA!important;
+}
+.ask-moin-messages{
+  width:100%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:10px!important;
+}
+.ask-moin-message{
+  max-width:88%!important;
+  padding:10px 12px!important;
+  border-radius:12px!important;
+  font-size:12px!important;
+  line-height:1.55!important;
+}
+.ask-moin-message-user{
+  align-self:flex-end!important;
+  background:#273469!important;
+  color:#FAFAFF!important;
+}
+.ask-moin-message-assistant{
+  align-self:flex-start!important;
+  background:#EEF2F8!important;
+  color:#30405F!important;
+}
+.ask-moin-thinking{display:flex!important;gap:4px!important}
+.ask-moin-form{
+  box-sizing:border-box!important;
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  height:58px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  margin:0 18px!important;
+  padding:6px 6px 6px 16px!important;
+  border:1px solid rgba(120,153,212,.55)!important;
+  border-radius:17px!important;
+  background:#FFFFFF!important;
+  box-shadow:0 0 0 3px rgba(120,153,212,.08)!important;
+}
+.ask-moin-form input{
+  flex:1 1 auto!important;
+  width:100%!important;
+  min-width:0!important;
+  height:42px!important;
+  border:0!important;
+  outline:0!important;
+  background:transparent!important;
+  color:#1E2749!important;
+  font:500 13px var(--font-body)!important;
+}
+.ask-moin-form button{
+  flex:0 0 44px!important;
+  width:44px!important;
+  height:44px!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:#7899D4!important;
+  color:#FAFAFF!important;
+  font-size:21px!important;
+  cursor:pointer!important;
+}
+.ask-moin-note{
+  flex:0 0 auto!important;
+  display:block!important;
+  padding:9px 20px 13px!important;
+  color:#8792A7!important;
+  text-align:right!important;
+  font:700 7px var(--font-mono)!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+@media(max-width:560px){
+  .ask-moin-panel{
+    width:100%!important;
+    max-width:100%!important;
+    max-height:calc(100svh - 96px)!important;
+    border-radius:20px!important;
+  }
+  .ask-moin-header{
+    min-height:76px!important;
+    padding:12px 13px!important;
+  }
+  .ask-moin-title strong{font-size:17px!important}
+  .ask-moin-icon{
+    flex-basis:42px!important;
+    width:42px!important;
+    height:46px!important;
+  }
+  .ask-moin-body{
+    max-height:calc(100svh - 290px)!important;
+    padding:18px 13px 14px!important;
+  }
+  .ask-moin-starters{
+    grid-template-columns:1fr!important;
+  }
+  .ask-moin-starters button{min-height:54px!important}
+  .ask-moin-form{margin:0 12px!important}
+  .ask-moin-note{padding-bottom:11px!important}
+}
+
+
+/* Ask Moin — hard isolation after DOM namespace refactor */
+.moin-buddy-portal{
+  position:fixed!important;
+  right:24px!important;
+  bottom:98px!important;
+  left:auto!important;
+  top:auto!important;
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  height:auto!important;
+  max-height:min(620px,calc(100svh - 120px))!important;
+  display:block!important;
+  overflow:visible!important;
+  pointer-events:none!important;
+}
+.ask-moin-panel{
+  box-sizing:border-box!important;
+  position:relative!important;
+  display:flex!important;
+  flex-direction:column!important;
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  min-width:0!important;
+  height:auto!important;
+  max-height:min(620px,calc(100svh - 120px))!important;
+  margin:0!important;
+  overflow:hidden!important;
+  transform-origin:bottom right!important;
+  pointer-events:auto!important;
+}
+.ask-moin-header{
+  position:relative!important;
+  flex:0 0 78px!important;
+  min-height:78px!important;
+  max-height:78px!important;
+}
+.ask-moin-icon{
+  position:relative!important;
+  flex:0 0 48px!important;
+  width:48px!important;
+  height:54px!important;
+  min-width:48px!important;
+  min-height:54px!important;
+  display:block!important;
+  overflow:visible!important;
+}
+.ask-moin-icon .moin-buddy-hero{
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:48px!important;
+  height:54px!important;
+  transform:scale(.86)!important;
+  transform-origin:top left!important;
+}
+.ask-moin-body{
+  flex:0 1 auto!important;
+  width:100%!important;
+  max-height:360px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+}
+.ask-moin-form{
+  flex:0 0 58px!important;
+}
+@media(max-width:560px){
+  .moin-buddy-portal{
+    left:12px!important;
+    right:12px!important;
+    bottom:82px!important;
+    width:auto!important;
+    max-width:none!important;
+  }
+  .ask-moin-panel{
+    width:100%!important;
+    max-width:100%!important;
+  }
+}
+
+
+/* Ask Moin — clean reference implementation */
+.ask-moin-panel{
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  max-height:min(650px,calc(100svh - 96px))!important;
+  display:flex!important;
+  flex-direction:column!important;
+  border-radius:24px!important;
+  background:rgba(250,250,255,.98)!important;
+  overflow:hidden!important;
+}
+.ask-moin-header{
+  flex:0 0 72px!important;
+  height:72px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  padding:14px 18px!important;
+  border-bottom:1px solid rgba(39,52,105,.08)!important;
+  background:rgba(250,250,255,.92)!important;
+}
+.ask-moin-brand{
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+}
+.ask-moin-brand-mark{
+  width:40px!important;
+  height:40px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:12px!important;
+  background:linear-gradient(145deg,#7899D4,#273469)!important;
+  color:#FAFAFF!important;
+  font:600 18px/1 var(--font-display)!important;
+  box-shadow:0 7px 18px rgba(39,52,105,.18)!important;
+}
+.ask-moin-brand .mono{
+  color:#6079AC!important;
+  font-size:9px!important;
+  font-weight:800!important;
+  letter-spacing:.18em!important;
+}
+.ask-moin-close{
+  flex:0 0 40px!important;
+  width:40px!important;
+  height:40px!important;
+  display:grid!important;
+  place-items:center!important;
+  padding:0!important;
+  border:1px solid rgba(39,52,105,.12)!important;
+  border-radius:50%!important;
+  background:#FAFAFF!important;
+  color:#273469!important;
+  font-size:25px!important;
+  line-height:1!important;
+}
+.ask-moin-body{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:20px 22px 18px!important;
+  background:
+    radial-gradient(circle at 50% 16%,rgba(120,153,212,.10),transparent 220px),
+    #FAFAFF!important;
+}
+.ask-moin-intro{
+  width:100%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+}
+.ask-moin-hero-mascot{
+  width:88px!important;
+  height:88px!important;
+  display:grid!important;
+  place-items:center!important;
+  margin:0 auto 2px!important;
+  background:transparent!important;
+  overflow:visible!important;
+}
+.ask-moin-hero-mascot .moin-buddy-cape{
+  display:none!important;
+}
+.ask-moin-kicker{
+  display:block!important;
+  margin:0 0 10px!important;
+  color:#5278BA!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  letter-spacing:.24em!important;
+  text-align:center!important;
+}
+.ask-moin-intro-copy{
+  width:100%!important;
+  max-width:440px!important;
+  margin:0 auto 24px!important;
+  text-align:center!important;
+}
+.ask-moin-intro-copy h3{
+  margin:0!important;
+  color:#1E2749!important;
+  font:500 clamp(28px,5vw,36px)/1.02 var(--font-display)!important;
+  letter-spacing:-.045em!important;
+}
+.ask-moin-intro-copy p{
+  max-width:420px!important;
+  margin:12px auto 0!important;
+  color:#687793!important;
+  font-size:12px!important;
+  line-height:1.6!important;
+}
+.ask-moin-starters{
+  width:100%!important;
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:10px!important;
+}
+.ask-moin-starters button{
+  min-width:0!important;
+  min-height:70px!important;
+  display:grid!important;
+  grid-template-columns:40px minmax(0,1fr) 18px!important;
+  align-items:center!important;
+  gap:11px!important;
+  padding:11px 14px!important;
+  border:1px solid rgba(120,153,212,.24)!important;
+  border-radius:15px!important;
+  background:linear-gradient(135deg,#FFFFFF,#F1F5FC)!important;
+  color:#273469!important;
+  text-align:left!important;
+  font:500 11px/1.35 var(--font-body)!important;
+  box-shadow:0 4px 14px rgba(30,39,73,.035)!important;
+}
+.ask-moin-starter-icon{
+  width:34px!important;
+  height:34px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:10px!important;
+  background:#EAF0FA!important;
+  color:#5278BA!important;
+  font-size:14px!important;
+}
+.ask-moin-starter-arrow{
+  color:#5278BA!important;
+  font-size:17px!important;
+  text-align:right!important;
+}
+.ask-moin-form{
+  flex:0 0 58px!important;
+  height:58px!important;
+  margin:8px 18px 0!important;
+}
+.ask-moin-note{
+  padding:9px 20px 13px!important;
+}
+@media(max-width:560px){
+  .ask-moin-panel{
+    width:100%!important;
+    max-width:100%!important;
+    max-height:calc(100svh - 76px)!important;
+    border-radius:20px!important;
+  }
+  .ask-moin-header{height:64px!important;flex-basis:64px!important}
+  .ask-moin-body{padding:16px 14px!important}
+  .ask-moin-hero-mascot{width:72px!important;height:72px!important}
+  .ask-moin-intro-copy h3{font-size:29px!important}
+  .ask-moin-starters{grid-template-columns:1fr!important}
+  .ask-moin-starters button{min-height:56px!important}
+}
+
+
+/* Ask Moin — final no-scroll composition */
+.ask-moin-panel{
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  height:auto!important;
+  max-height:none!important;
+}
+.ask-moin-body{
+  flex:0 0 auto!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow:hidden!important;
+  padding:14px 20px 12px!important;
+}
+.ask-moin-intro{
+  gap:0!important;
+}
+.ask-moin-hero-mascot{
+  position:relative!important;
+  width:82px!important;
+  height:78px!important;
+  margin:0 auto 2px!important;
+  overflow:visible!important;
+}
+.ask-moin-mascot{
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:82px!important;
+  height:78px!important;
+  transform:none!important;
+  background:transparent!important;
+  filter:drop-shadow(0 10px 10px rgba(30,39,73,.18))!important;
+}
+.ask-moin-mascot .moin-buddy-cape{
+  display:none!important;
+}
+.ask-moin-mascot .moin-buddy-head{
+  left:25px!important;
+  top:4px!important;
+  width:38px!important;
+  height:34px!important;
+  border-radius:48% 48% 44% 44%!important;
+}
+.ask-moin-mascot .moin-buddy-head i{
+  top:12px!important;
+  width:5px!important;
+  height:11px!important;
+}
+.ask-moin-mascot .moin-buddy-head i:first-child{left:11px!important}
+.ask-moin-mascot .moin-buddy-head i:last-child{right:11px!important}
+.ask-moin-mascot .moin-buddy-ear{
+  top:12px!important;
+  width:19px!important;
+  height:25px!important;
+}
+.ask-moin-mascot .moin-buddy-ear-left{left:7px!important}
+.ask-moin-mascot .moin-buddy-ear-right{right:7px!important}
+.ask-moin-mascot .moin-buddy-body{
+  left:21px!important;
+  top:34px!important;
+  width:40px!important;
+  height:33px!important;
+}
+.ask-moin-mascot .moin-buddy-body b{
+  width:21px!important;
+  height:21px!important;
+  font-size:12px!important;
+}
+.ask-moin-mascot .moin-buddy-arm{
+  top:39px!important;
+  width:17px!important;
+  height:23px!important;
+}
+.ask-moin-mascot .moin-buddy-arm-left{left:9px!important}
+.ask-moin-mascot .moin-buddy-arm-right{right:8px!important}
+.ask-moin-mascot .moin-buddy-foot{
+  top:61px!important;
+  width:19px!important;
+  height:14px!important;
+}
+.ask-moin-mascot .moin-buddy-foot-left{left:21px!important}
+.ask-moin-mascot .moin-buddy-foot-right{right:17px!important}
+.ask-moin-kicker{
+  margin-bottom:7px!important;
+  font-size:8px!important;
+}
+.ask-moin-intro-copy{
+  margin:0 auto 18px!important;
+}
+.ask-moin-intro-copy h3{
+  font-size:32px!important;
+  line-height:1.04!important;
+}
+.ask-moin-intro-copy p{
+  margin-top:9px!important;
+  font-size:11px!important;
+  line-height:1.45!important;
+}
+.ask-moin-starters{
+  gap:8px!important;
+}
+.ask-moin-starters button{
+  min-height:58px!important;
+  height:58px!important;
+  grid-template-columns:34px minmax(0,1fr) 16px!important;
+  gap:9px!important;
+  padding:9px 11px!important;
+  font-size:11px!important;
+  line-height:1.28!important;
+}
+.ask-moin-starter-icon{
+  width:32px!important;
+  height:32px!important;
+}
+.ask-moin-starter-arrow{
+  font-size:15px!important;
+}
+.ask-moin-form{
+  flex:0 0 54px!important;
+  height:54px!important;
+  margin:7px 18px 0!important;
+}
+.ask-moin-form input{
+  height:38px!important;
+  font-size:12px!important;
+}
+.ask-moin-form button{
+  width:40px!important;
+  height:40px!important;
+  flex-basis:40px!important;
+}
+.ask-moin-note{
+  padding:7px 20px 10px!important;
+  font-size:7px!important;
+}
+@media(max-width:560px){
+  .ask-moin-panel{
+    max-height:none!important;
+  }
+  .ask-moin-body{
+    padding:12px 13px 10px!important;
+  }
+  .ask-moin-hero-mascot{
+    width:70px!important;
+    height:68px!important;
+  }
+  .ask-moin-mascot{
+    transform:scale(.86)!important;
+    transform-origin:top center!important;
+  }
+  .ask-moin-intro-copy{
+    margin-bottom:14px!important;
+  }
+  .ask-moin-intro-copy h3{
+    font-size:28px!important;
+  }
+  .ask-moin-intro-copy p{
+    font-size:11px!important;
+  }
+  .ask-moin-starters{
+    grid-template-columns:1fr!important;
+  }
+  .ask-moin-starters button{
+    height:52px!important;
+    min-height:52px!important;
+  }
+}
+
+
+/* Ask Moin — dedicated mascot, no shared BuddyIcon geometry */
+.ask-moin-hero-mascot{
+  width:96px!important;
+  height:96px!important;
+  position:relative!important;
+  display:block!important;
+  margin:2px auto 2px!important;
+  overflow:visible!important;
+  background:transparent!important;
+}
+.ask-moin-mascot{
+  position:absolute!important;
+  inset:0!important;
+  width:96px!important;
+  height:96px!important;
+  display:block!important;
+  transform:none!important;
+  background:transparent!important;
+  filter:drop-shadow(0 12px 12px rgba(30,39,73,.16))!important;
+}
+.ask-moin-mascot-ear{
+  position:absolute!important;
+  top:30px!important;
+  width:18px!important;
+  height:27px!important;
+  border-radius:50%!important;
+  background:linear-gradient(145deg,#78A5E5,#3F68A8)!important;
+  box-shadow:inset 2px 2px 4px rgba(255,255,255,.28)!important;
+}
+.ask-moin-mascot-ear-left{left:10px!important}
+.ask-moin-mascot-ear-right{right:10px!important}
+.ask-moin-mascot-head{
+  position:absolute!important;
+  left:23px!important;
+  top:17px!important;
+  width:50px!important;
+  height:43px!important;
+  border-radius:46% 46% 43% 43%!important;
+  background:linear-gradient(145deg,#87ABE4,#315B9E)!important;
+  box-shadow:inset 2px 2px 5px rgba(255,255,255,.38),0 8px 15px rgba(39,52,105,.16)!important;
+}
+.ask-moin-mascot-head span{
+  position:absolute!important;
+  left:7px!important;
+  top:6px!important;
+  width:36px!important;
+  height:31px!important;
+  border-radius:48%!important;
+  background:linear-gradient(145deg,#FFFFFF,#EEF3FA)!important;
+  box-shadow:inset 0 -2px 4px rgba(39,52,105,.08)!important;
+}
+.ask-moin-mascot-head i{
+  position:absolute!important;
+  top:16px!important;
+  width:6px!important;
+  height:13px!important;
+  border-radius:99px!important;
+  background:#182B56!important;
+}
+.ask-moin-mascot-head i:first-of-type{left:16px!important}
+.ask-moin-mascot-head i:last-of-type{right:16px!important}
+.ask-moin-mascot-arm{
+  position:absolute!important;
+  top:54px!important;
+  width:18px!important;
+  height:27px!important;
+  border-radius:55%!important;
+  background:linear-gradient(145deg,#78A5E5,#416DB0)!important;
+}
+.ask-moin-mascot-arm-left{left:13px!important;transform:rotate(22deg)!important}
+.ask-moin-mascot-arm-right{right:13px!important;transform:rotate(-22deg)!important}
+.ask-moin-mascot-body{
+  position:absolute!important;
+  left:29px!important;
+  top:55px!important;
+  width:38px!important;
+  height:30px!important;
+  border-radius:11px 11px 15px 15px!important;
+  background:linear-gradient(145deg,#5D83C8,#284E91)!important;
+  box-shadow:inset 2px 2px 4px rgba(255,255,255,.22)!important;
+}
+.ask-moin-mascot-body b{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  width:19px!important;
+  height:19px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:50%!important;
+  background:#FAFAFF!important;
+  color:#273469!important;
+  font:600 10px/1 var(--font-display)!important;
+}
+.ask-moin-mascot-foot{
+  position:absolute!important;
+  top:80px!important;
+  width:18px!important;
+  height:11px!important;
+  border-radius:50%!important;
+  background:#294B87!important;
+}
+.ask-moin-mascot-foot-left{left:27px!important;transform:rotate(8deg)!important}
+.ask-moin-mascot-foot-right{right:27px!important;transform:rotate(-8deg)!important}
+.ask-moin-kicker{margin-top:0!important;margin-bottom:8px!important}
+.ask-moin-intro-copy{margin-bottom:18px!important}
+.ask-moin-intro-copy h3{font-size:31px!important}
+.ask-moin-intro-copy p{font-size:11.5px!important;line-height:1.45!important}
+.ask-moin-starters{gap:8px!important}
+.ask-moin-starters button{
+  min-height:56px!important;
+  height:56px!important;
+  padding:8px 11px!important;
+  grid-template-columns:32px minmax(0,1fr) 15px!important;
+  font-size:10.5px!important;
+  line-height:1.22!important;
+}
+.ask-moin-starter-icon{width:30px!important;height:30px!important}
+.ask-moin-form{height:52px!important;flex-basis:52px!important;margin-top:6px!important}
+.ask-moin-form input{font-size:12px!important}
+.ask-moin-note{padding:6px 18px 9px!important}
+@media(max-width:560px){
+  .ask-moin-hero-mascot{width:78px!important;height:78px!important}
+  .ask-moin-mascot{transform:scale(.82)!important;transform-origin:top center!important}
+  .ask-moin-starters{grid-template-columns:1fr!important}
+  .ask-moin-starters button{height:50px!important;min-height:50px!important}
+}
+
+
+/* Ask Moin — canonical mascot restoration
+   Reuse the proven floating mascot geometry and scale the complete character,
+   rather than redefining its individual anatomy. This prevents distortion. */
+.ask-moin-hero-mascot{
+  position:relative!important;
+  width:96px!important;
+  height:108px!important;
+  margin:4px auto 0!important;
+  display:block!important;
+  overflow:visible!important;
+  background:transparent!important;
+}
+.ask-moin-mascot{
+  position:absolute!important;
+  left:24px!important;
+  top:0!important;
+  width:48px!important;
+  height:54px!important;
+  min-width:48px!important;
+  min-height:54px!important;
+  display:block!important;
+  transform:scale(1.7)!important;
+  transform-origin:top center!important;
+  background:transparent!important;
+  filter:drop-shadow(0 9px 10px rgba(30,39,73,.16))!important;
+  overflow:visible!important;
+  animation:none!important;
+}
+.ask-moin-mascot .moin-buddy-cape{
+  display:none!important;
+}
+.ask-moin-mascot .moin-buddy-head{
+  left:11px!important;
+  top:1px!important;
+  width:27px!important;
+  height:25px!important;
+}
+.ask-moin-mascot .moin-buddy-ear{
+  top:12px!important;
+  width:19px!important;
+  height:25px!important;
+}
+.ask-moin-mascot .moin-buddy-ear-left{left:1px!important}
+.ask-moin-mascot .moin-buddy-ear-right{right:1px!important}
+.ask-moin-mascot .moin-buddy-body{
+  left:8px!important;
+  top:22px!important;
+  width:33px!important;
+  height:30px!important;
+}
+.ask-moin-mascot .moin-buddy-arm{
+  top:28px!important;
+}
+.ask-moin-mascot .moin-buddy-foot{
+  top:43px!important;
+}
+.ask-moin-kicker{
+  margin-top:0!important;
+  margin-bottom:7px!important;
+}
+.ask-moin-intro-copy{
+  margin-bottom:16px!important;
+}
+.ask-moin-intro-copy h3{
+  font-size:31px!important;
+  line-height:1.02!important;
+}
+.ask-moin-intro-copy p{
+  margin-top:9px!important;
+  font-size:11.5px!important;
+  line-height:1.42!important;
+}
+.ask-moin-starters{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+.ask-moin-starters button{
+  height:56px!important;
+  min-height:56px!important;
+  padding:8px 11px!important;
+  grid-template-columns:32px minmax(0,1fr) 15px!important;
+  gap:9px!important;
+  font-size:10.5px!important;
+  line-height:1.22!important;
+}
+.ask-moin-form{
+  height:52px!important;
+  flex-basis:52px!important;
+  margin:6px 18px 0!important;
+}
+.ask-moin-note{
+  padding:6px 18px 9px!important;
+}
+@media(max-width:560px){
+  .ask-moin-hero-mascot{
+    width:82px!important;
+    height:92px!important;
+  }
+  .ask-moin-mascot{
+    left:17px!important;
+    transform:scale(1.55)!important;
+  }
+  .ask-moin-starters{
+    grid-template-columns:1fr!important;
+  }
+  .ask-moin-starters button{
+    height:50px!important;
+    min-height:50px!important;
+  }
+}
+
+
+/* Ask Moin mascot — final alignment override.
+   Use canonical 60x66 character geometry as a single scaled unit. */
+.ask-moin-hero-mascot{
+  width:88px!important;
+  height:96px!important;
+  position:relative!important;
+  margin:0 auto 2px!important;
+  display:block!important;
+  overflow:visible!important;
+  background:transparent!important;
+}
+.ask-moin-mascot{
+  position:absolute!important;
+  left:14px!important;
+  top:0!important;
+  width:60px!important;
+  height:66px!important;
+  min-width:60px!important;
+  min-height:66px!important;
+  display:block!important;
+  transform:scale(1.28)!important;
+  transform-origin:top center!important;
+  animation:none!important;
+  background:transparent!important;
+  overflow:visible!important;
+  filter:drop-shadow(0 11px 10px rgba(30,39,73,.18))!important;
+}
+.ask-moin-mascot .moin-buddy-cape{
+  display:none!important;
+}
+.ask-moin-mascot .moin-buddy-head{
+  left:8px!important;
+  top:0!important;
+  width:48px!important;
+  height:42px!important;
+}
+.ask-moin-mascot .moin-buddy-ear{
+  top:12px!important;
+  width:15px!important;
+  height:21px!important;
+}
+.ask-moin-mascot .moin-buddy-ear-left{left:1px!important}
+.ask-moin-mascot .moin-buddy-ear-right{right:0!important}
+.ask-moin-mascot .moin-buddy-body{
+  left:14px!important;
+  top:35px!important;
+  width:40px!important;
+  height:31px!important;
+  background:linear-gradient(145deg,#82A9E8,#4D73BC 62%,#273469)!important;
+}
+.ask-moin-mascot .moin-buddy-arm{
+  top:39px!important;
+  width:14px!important;
+  height:20px!important;
+}
+.ask-moin-mascot .moin-buddy-arm-left{left:5px!important}
+.ask-moin-mascot .moin-buddy-arm-right{right:3px!important}
+.ask-moin-mascot .moin-buddy-foot{
+  top:57px!important;
+  width:17px!important;
+  height:13px!important;
+}
+.ask-moin-mascot .moin-buddy-foot-left{left:14px!important}
+.ask-moin-mascot .moin-buddy-foot-right{right:9px!important}
+.ask-moin-mascot .moin-buddy-visor i{
+  top:16px!important;
+  width:4px!important;
+  height:11px!important;
+}
+.ask-moin-mascot .moin-buddy-visor i:first-child{left:19px!important}
+.ask-moin-mascot .moin-buddy-visor i:last-child{right:19px!important}
+
+@media(max-width:560px){
+  .ask-moin-hero-mascot{
+    width:76px!important;
+    height:84px!important;
+  }
+  .ask-moin-mascot{
+    left:8px!important;
+    transform:scale(1.12)!important;
+  }
+}
+
+
+/* Ask Moin mascot — reference-accurate final geometry.
+   Coordinate system: 60 × 66. Scale the complete character only.
+   Ears sit behind the head; arms sit beside the body; feet sit below it. */
+.ask-moin-hero-mascot{
+  width:92px!important;
+  height:102px!important;
+  position:relative!important;
+  display:block!important;
+  margin:0 auto 4px!important;
+  overflow:visible!important;
+  background:transparent!important;
+}
+.ask-moin-mascot{
+  position:absolute!important;
+  left:16px!important;
+  top:0!important;
+  width:60px!important;
+  height:66px!important;
+  display:block!important;
+  overflow:visible!important;
+  transform:scale(1.28)!important;
+  transform-origin:top center!important;
+  animation:none!important;
+  background:transparent!important;
+  filter:drop-shadow(0 10px 11px rgba(30,39,73,.16))!important;
+}
+.ask-moin-mascot .moin-buddy-ear{
+  z-index:2!important;
+  top:11px!important;
+  width:15px!important;
+  height:21px!important;
+}
+.ask-moin-mascot .moin-buddy-ear-left{
+  left:-1px!important;
+}
+.ask-moin-mascot .moin-buddy-ear-right{
+  right:-4px!important;
+}
+.ask-moin-mascot .moin-buddy-head{
+  z-index:6!important;
+  left:8px!important;
+  top:0!important;
+  width:48px!important;
+  height:42px!important;
+}
+.ask-moin-mascot .moin-buddy-visor{
+  z-index:7!important;
+}
+.ask-moin-mascot .moin-buddy-body{
+  z-index:3!important;
+  left:14px!important;
+  top:35px!important;
+  width:40px!important;
+  height:31px!important;
+}
+.ask-moin-mascot .moin-buddy-body b{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  width:20px!important;
+  height:20px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:50%!important;
+  background:#FAFAFF!important;
+  color:#273469!important;
+  font:600 12px/1 var(--font-display)!important;
+}
+.ask-moin-mascot .moin-buddy-arm{
+  z-index:4!important;
+  top:39px!important;
+  width:14px!important;
+  height:20px!important;
+}
+.ask-moin-mascot .moin-buddy-arm-left{
+  left:3px!important;
+  transform:rotate(35deg) translateZ(4px)!important;
+}
+.ask-moin-mascot .moin-buddy-arm-right{
+  right:-2px!important;
+  transform:rotate(-32deg) translateZ(4px)!important;
+}
+.ask-moin-mascot .moin-buddy-foot{
+  z-index:5!important;
+  top:68px!important;
+  width:17px!important;
+  height:14px!important;
+}
+.ask-moin-mascot .moin-buddy-foot-left{
+  left:12px!important;
+  transform:rotate(12deg)!important;
+}
+.ask-moin-mascot .moin-buddy-foot-right{
+  right:7px!important;
+  transform:rotate(-12deg)!important;
+}
+.ask-moin-mascot .moin-buddy-cape{
+  display:none!important;
+}
+
+@media(max-width:560px){
+  .ask-moin-hero-mascot{
+    width:78px!important;
+    height:88px!important;
+  }
+  .ask-moin-mascot{
+    left:9px!important;
+    transform:scale(1.12)!important;
+  }
+}
+
+
+/* Ask Moin follow-up prompts */
+.ask-moin-followups{
+  margin:12px 0 2px;
+  padding-top:10px;
+  border-top:1px solid rgba(48,52,63,.10);
+}
+.ask-moin-followups > span{
+  display:block;
+  margin-bottom:7px;
+  color:rgba(48,52,63,.55);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.ask-moin-followups > div{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.ask-moin-followups button{
+  appearance:none;
+  border:1px solid rgba(48,52,63,.12);
+  background:rgba(250,250,255,.72);
+  color:#30343F;
+  border-radius:999px;
+  padding:7px 10px;
+  font:500 11px/1.25 var(--font-body);
+  text-align:left;
+  cursor:pointer;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease;
+}
+.ask-moin-followups button:hover{
+  transform:translateY(-1px);
+  border-color:rgba(39,52,105,.28);
+  background:#FAFAFF;
+}
+.ask-moin-followups button span{
+  margin-left:5px;
+  color:#7899D4;
+}
+@media(max-width:560px){
+  .ask-moin-followups > div{display:grid;grid-template-columns:1fr}
+  .ask-moin-followups button{width:100%}
+}
+
+
+/* Ask Moin — keep suggested questions visually native to the dialog. */
+.ask-moin-followups{
+  margin:14px 0 4px!important;
+  padding-top:14px!important;
+  border-top:1px solid rgba(48,52,63,.10)!important;
+}
+.ask-moin-followups > span{
+  margin:0 0 8px!important;
+  font-size:9px!important;
+  letter-spacing:.16em!important;
+  color:rgba(48,52,63,.48)!important;
+}
+.ask-moin-followups > div{
+  display:flex!important;
+  flex-direction:column!important;
+  gap:7px!important;
+}
+.ask-moin-followups button{
+  width:100%!important;
+  min-height:42px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:12px!important;
+  border:1px solid rgba(48,52,63,.10)!important;
+  border-radius:18px!important;
+  padding:5px 13px!important;
+  background:rgba(238,242,250,.72)!important;
+  color:#30343F!important;
+  font:500 13px/1.25 var(--font-body)!important;
+  box-shadow:none!important;
+  transform:none!important;
+}
+.ask-moin-followups button:hover{
+  transform:translateY(-1px)!important;
+  border-color:rgba(120,153,212,.45)!important;
+  background:rgba(250,250,255,.95)!important;
+}
+.ask-moin-followups button span{
+  flex:0 0 auto!important;
+  margin:0!important;
+  color:#7899D4!important;
+  font-size:18px!important;
+}
+@media(max-width:560px){
+  .ask-moin-followups{
+    margin-top:12px!important;
+    padding-top:12px!important;
+  }
+  .ask-moin-followups button{
+    min-height:40px!important;
+    padding:9px 12px!important;
+    font-size:12px!important;
+    border-radius:16px!important;
+  }
+}
+
+
+/* Final Ask Moin dialog alignment — suggestions use the same conversation geometry. */
+.ask-moin-followups{
+  width:100%!important;
+  max-width:none!important;
+  box-sizing:border-box!important;
+}
+.ask-moin-followups > div{
+  width:100%!important;
+  max-width:none!important;
+}
+.ask-moin-followups button{
+  width:100%!important;
+  max-width:none!important;
+  box-sizing:border-box!important;
+  flex:1 1 auto!important;
+  border-radius:20px!important;
+  background:rgba(238,242,250,.88)!important;
+  border-color:rgba(48,52,63,.09)!important;
+  color:#30343F!important;
+}
+.ask-moin-followups button:hover{
+  background:rgba(226,233,246,.96)!important;
+}
+
+
+/* Ask Moin final layout lock: follow-up prompts are always equal-width rows. */
+.ask-moin-followups > div{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:8px!important;
+  width:100%!important;
+  min-width:0!important;
+}
+.ask-moin-followups button{
+  display:flex!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  box-sizing:border-box!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  font-size: 12px!important;
+}
+
+
+/* Ask Moin — bounded conversation viewport.
+   Keep the dialog fixed to the available viewport while the message history
+   becomes the only scroll surface. */
+.moin-buddy-portal .ask-moin-panel{
+  height:min(620px,calc(100svh - 120px))!important;
+  max-height:min(620px,calc(100svh - 120px))!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+}
+
+.moin-buddy-portal .ask-moin-header{
+  flex:0 0 78px!important;
+  min-height:78px!important;
+  max-height:78px!important;
+}
+
+.moin-buddy-portal .ask-moin-body{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-width:thin!important;
+}
+
+.moin-buddy-portal .ask-moin-form{
+  flex:0 0 58px!important;
+  min-height:58px!important;
+}
+
+.moin-buddy-portal .ask-moin-note{
+  flex:0 0 auto!important;
+}
+
+@media(max-width:560px){
+  .moin-buddy-portal .ask-moin-panel{
+    height:calc(100svh - 96px)!important;
+    max-height:calc(100svh - 96px)!important;
+  }
+
+  .moin-buddy-portal .ask-moin-header{
+    flex-basis:64px!important;
+    min-height:64px!important;
+    max-height:64px!important;
+  }
+
+  .moin-buddy-portal .ask-moin-form{
+    flex-basis:54px!important;
+    min-height:54px!important;
+  }
+}
+
+
+/* Ask Moin — native nested scrolling is authoritative while open. */
+.moin-buddy-portal .ask-moin-body{
+  overscroll-behavior:contain!important;
+  touch-action:pan-y!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-gutter:stable!important;
+}
+
+
+/* Ask Moin modal scroll lock — the page must not move while the dialog is open. */
+html.ask-moin-scroll-lock,
+html.ask-moin-scroll-lock body{
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+}
+
+html.ask-moin-scroll-lock .moin-buddy-portal{
+  touch-action:none!important;
+}
+
+html.ask-moin-scroll-lock .ask-moin-body{
+  touch-action:pan-y!important;
+  overscroll-behavior:contain!important;
+  overflow-y:scroll!important;
+  -webkit-overflow-scrolling:touch!important;
+}
+
+
+/* Ask Moin — final scroll geometry correction.
+   The message viewport must consume the remaining flex height; content itself
+   must not determine the dialog height. */
+.moin-buddy-portal .ask-moin-panel{
+  height:min(620px,calc(100svh - 120px))!important;
+  max-height:min(620px,calc(100svh - 120px))!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+}
+
+.moin-buddy-portal .ask-moin-header{
+  flex:0 0 78px!important;
+  height:78px!important;
+  min-height:78px!important;
+  max-height:78px!important;
+}
+
+.moin-buddy-portal .ask-moin-body{
+  flex:1 1 0!important;
+  height:0!important;
+  min-height:0!important;
+  max-height:none!important;
+  width:100%!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  overscroll-behavior:contain!important;
+  touch-action:pan-y!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-gutter:stable!important;
+}
+
+.moin-buddy-portal .ask-moin-form{
+  flex:0 0 58px!important;
+  height:58px!important;
+  min-height:58px!important;
+}
+
+.moin-buddy-portal .ask-moin-note{
+  flex:0 0 auto!important;
+}
+
+@media(max-width:560px){
+  .moin-buddy-portal .ask-moin-panel{
+    height:calc(100svh - 96px)!important;
+    max-height:calc(100svh - 96px)!important;
+  }
+
+  .moin-buddy-portal .ask-moin-header{
+    flex:0 0 64px!important;
+    height:64px!important;
+    min-height:64px!important;
+    max-height:64px!important;
+  }
+
+  .moin-buddy-portal .ask-moin-form{
+    flex-basis:54px!important;
+    height:54px!important;
+    min-height:54px!important;
+  }
+}
+
+
+/* Ask Moin — assistant response skeleton */
+.ask-moin-skeleton{
+  width:min(88%,430px)!important;
+  align-self:flex-start!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+  padding:12px 14px!important;
+  border-radius:14px!important;
+  background:#EEF2F8!important;
+  border:1px solid rgba(120,153,212,.14)!important;
+}
+.ask-moin-skeleton-line{
+  display:block!important;
+  height:8px!important;
+  border-radius:999px!important;
+  background:linear-gradient(90deg,#DDE5F2 20%,#F7F9FC 45%,#DDE5F2 70%)!important;
+  background-size:220% 100%!important;
+  animation:ask-moin-skeleton-shimmer 1.35s ease-in-out infinite!important;
+}
+.ask-moin-skeleton-line:nth-child(1){width:92%!important}
+.ask-moin-skeleton-line:nth-child(2){width:100%!important}
+.ask-moin-skeleton-line:nth-child(3){width:76%!important}
+.ask-moin-skeleton-line:nth-child(4){width:48%!important}
+@keyframes ask-moin-skeleton-shimmer{
+  0%{background-position:200% 0}
+  100%{background-position:-20% 0}
+}
+@media(prefers-reduced-motion:reduce){
+  .ask-moin-skeleton-line{animation:none!important}
+}
