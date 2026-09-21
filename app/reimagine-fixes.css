@@ -4806,3 +4806,12 @@ html.lenis {
     min-height:54px!important;
   }
 }
+
+
+/* Ask Moin — native nested scrolling is authoritative while open. */
+.moin-buddy-portal .ask-moin-body{
+  overscroll-behavior:contain!important;
+  touch-action:pan-y!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-gutter:stable!important;
+}
