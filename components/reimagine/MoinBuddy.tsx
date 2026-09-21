@@ -7,10 +7,13 @@ type Message = { role: "user" | "assistant"; content: string };
 type BuddyState = "idle" | "peek" | "fly" | "open" | "thinking";
 
 const starters = [
-  "What does Mohammad do?",
-  "Tell me about his training.",
-  "What has he built?",
-];
+  ["What does Mohammad do?", "⌂"],
+  ["What technologies does he use?", "</>"],
+  ["Tell me about his projects.", "▣"],
+  ["Does he provide corporate training?", "◇"],
+  ["What's his professional approach?", "↗"],
+  ["How can I work with him?", "✦"],
+] as const;
 
 function BuddyIcon({ className = "" }: { className?: string }) {
   return (
@@ -184,14 +187,19 @@ export function MoinBuddy() {
             <div className="moin-buddy-body">
               {messages.length === 0 ? (
                 <div className="moin-buddy-intro">
-                  <p>
-                    A brief AI guide to Mohammad&apos;s engineering, consulting,
-                    training, and projects.
-                  </p>
+                  <div className="moin-buddy-intro-copy">
+                    <span className="moin-buddy-intro-kicker mono">MOHAMMAD MOIN · ENGINEERING × PEOPLE × AI</span>
+                    <h3>Curious about my work?</h3>
+                    <p>
+                      Ask me about Mohammad&apos;s experience, engineering,
+                      consulting, training, or projects.
+                    </p>
+                  </div>
                   <div className="moin-buddy-starters">
-                    {starters.map((starter) => (
+                    {starters.map(([starter, icon]) => (
                       <button key={starter} type="button" onClick={() => void ask(starter)}>
-                        {starter} <span>↗</span>
+                        <span className="moin-buddy-starter-icon" aria-hidden="true">{icon}</span>
+                        <span>{starter}</span>
                       </button>
                     ))}
                   </div>
