@@ -52,6 +52,7 @@ export function MoinBuddy() {
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState<BuddyState>("idle");
   const inputRef = useRef<HTMLInputElement>(null);
+  const chatBodyRef = useRef<HTMLDivElement>(null);
   const peekTimer = useRef<number | null>(null);
   const flyTimer = useRef<number | null>(null);
 
@@ -112,6 +113,21 @@ export function MoinBuddy() {
       if (flyTimer.current) window.clearTimeout(flyTimer.current);
     };
   }, [open, loading]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      const node = chatBodyRef.current;
+      if (!node) return;
+      node.scrollTo({
+        top: node.scrollHeight,
+        behavior: "smooth",
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [open, messages, loading, followUps]);
 
   async function ask(question: string) {
     const trimmed = question.trim();
@@ -201,7 +217,7 @@ export function MoinBuddy() {
               </button>
             </div>
 
-            <div className="ask-moin-body">
+            <div ref={chatBodyRef} className="ask-moin-body">
               {messages.length === 0 ? (
                 <div className="ask-moin-intro">
                   <div className="ask-moin-hero-mascot">
