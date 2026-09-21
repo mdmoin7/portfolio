@@ -3468,3 +3468,269 @@ html.lenis {
     max-height:calc(100svh - 300px)!important;
   }
 }
+
+
+/* Ask Moin — namespaced dialog layout
+   Deliberately isolated from the legacy .moin-buddy-* mascot styles. */
+.ask-moin-panel{
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  position:relative!important;
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:min(620px,calc(100svh - 120px))!important;
+  margin:0!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border:1px solid rgba(120,153,212,.28)!important;
+  border-radius:24px!important;
+  background:#FAFAFF!important;
+  color:#1E2749!important;
+  box-shadow:0 28px 80px rgba(30,39,73,.22),0 8px 26px rgba(30,39,73,.10)!important;
+}
+.ask-moin-header{
+  box-sizing:border-box!important;
+  flex:0 0 auto!important;
+  width:100%!important;
+  min-height:84px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:14px!important;
+  padding:14px 16px!important;
+  border-bottom:1px solid rgba(39,52,105,.10)!important;
+  background:linear-gradient(135deg,#F4F7FC,#E7EEF9)!important;
+}
+.ask-moin-title{
+  min-width:0!important;
+  flex:1 1 auto!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:12px!important;
+}
+.ask-moin-title > div{
+  min-width:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:4px!important;
+}
+.ask-moin-title .mono{
+  display:block!important;
+  color:#5278BA!important;
+  font-size:8px!important;
+  font-weight:800!important;
+  letter-spacing:.22em!important;
+  line-height:1.2!important;
+}
+.ask-moin-title strong{
+  display:block!important;
+  color:#1E2749!important;
+  font:500 19px/1.1 var(--font-display)!important;
+  letter-spacing:-.025em!important;
+  white-space:nowrap!important;
+}
+.ask-moin-icon{
+  flex:0 0 46px!important;
+  width:46px!important;
+  height:50px!important;
+  transform:scale(.8)!important;
+}
+.ask-moin-close{
+  flex:0 0 38px!important;
+  width:38px!important;
+  height:38px!important;
+  padding:0!important;
+  border:1px solid rgba(39,52,105,.14)!important;
+  border-radius:50%!important;
+  background:#FAFAFF!important;
+  color:#52617D!important;
+  font-size:24px!important;
+  line-height:1!important;
+  cursor:pointer!important;
+}
+.ask-moin-body{
+  box-sizing:border-box!important;
+  flex:0 1 auto!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-height:370px!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:22px 20px 18px!important;
+  background:#FAFAFF!important;
+}
+.ask-moin-intro{
+  width:100%!important;
+  min-width:0!important;
+  height:auto!important;
+  min-height:0!important;
+  display:block!important;
+  margin:0!important;
+  padding:0!important;
+}
+.ask-moin-intro-copy{
+  width:100%!important;
+  max-width:440px!important;
+  margin:0 auto 20px!important;
+  text-align:center!important;
+}
+.ask-moin-kicker{
+  display:block!important;
+  margin:0 0 10px!important;
+  color:#5F7DB7!important;
+  font-size:7px!important;
+  font-weight:800!important;
+  letter-spacing:.16em!important;
+  line-height:1.4!important;
+}
+.ask-moin-intro-copy h3{
+  margin:0!important;
+  color:#1E2749!important;
+  font:500 clamp(27px,5vw,34px)/1 var(--font-display)!important;
+  letter-spacing:-.045em!important;
+}
+.ask-moin-intro-copy p{
+  max-width:400px!important;
+  margin:11px auto 0!important;
+  color:#697690!important;
+  font-size:12px!important;
+  line-height:1.55!important;
+}
+.ask-moin-starters{
+  width:100%!important;
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:9px!important;
+  margin:0!important;
+}
+.ask-moin-starters button{
+  box-sizing:border-box!important;
+  width:100%!important;
+  min-width:0!important;
+  min-height:62px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:10px!important;
+  padding:10px 12px!important;
+  border:1px solid rgba(120,153,212,.22)!important;
+  border-radius:14px!important;
+  background:linear-gradient(135deg,#FFFFFF,#F0F4FB)!important;
+  color:#5278BA!important;
+  text-align:left!important;
+  font:600 11px/1.35 var(--font-body)!important;
+  cursor:pointer!important;
+}
+.ask-moin-starter-icon{
+  flex:0 0 30px!important;
+  width:30px!important;
+  height:30px!important;
+  display:grid!important;
+  place-items:center!important;
+  border-radius:9px!important;
+  background:#EAF0FA!important;
+  color:#5278BA!important;
+}
+.ask-moin-messages{
+  width:100%!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:10px!important;
+}
+.ask-moin-message{
+  max-width:88%!important;
+  padding:10px 12px!important;
+  border-radius:12px!important;
+  font-size:12px!important;
+  line-height:1.55!important;
+}
+.ask-moin-message-user{
+  align-self:flex-end!important;
+  background:#273469!important;
+  color:#FAFAFF!important;
+}
+.ask-moin-message-assistant{
+  align-self:flex-start!important;
+  background:#EEF2F8!important;
+  color:#30405F!important;
+}
+.ask-moin-thinking{display:flex!important;gap:4px!important}
+.ask-moin-form{
+  box-sizing:border-box!important;
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:0!important;
+  height:58px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:8px!important;
+  margin:0 18px!important;
+  padding:6px 6px 6px 16px!important;
+  border:1px solid rgba(120,153,212,.55)!important;
+  border-radius:17px!important;
+  background:#FFFFFF!important;
+  box-shadow:0 0 0 3px rgba(120,153,212,.08)!important;
+}
+.ask-moin-form input{
+  flex:1 1 auto!important;
+  width:100%!important;
+  min-width:0!important;
+  height:42px!important;
+  border:0!important;
+  outline:0!important;
+  background:transparent!important;
+  color:#1E2749!important;
+  font:500 13px var(--font-body)!important;
+}
+.ask-moin-form button{
+  flex:0 0 44px!important;
+  width:44px!important;
+  height:44px!important;
+  border:0!important;
+  border-radius:50%!important;
+  background:#7899D4!important;
+  color:#FAFAFF!important;
+  font-size:21px!important;
+  cursor:pointer!important;
+}
+.ask-moin-note{
+  flex:0 0 auto!important;
+  display:block!important;
+  padding:9px 20px 13px!important;
+  color:#8792A7!important;
+  text-align:right!important;
+  font:700 7px var(--font-mono)!important;
+  letter-spacing:.12em!important;
+  text-transform:uppercase!important;
+}
+@media(max-width:560px){
+  .ask-moin-panel{
+    width:100%!important;
+    max-width:100%!important;
+    max-height:calc(100svh - 96px)!important;
+    border-radius:20px!important;
+  }
+  .ask-moin-header{
+    min-height:76px!important;
+    padding:12px 13px!important;
+  }
+  .ask-moin-title strong{font-size:17px!important}
+  .ask-moin-icon{
+    flex-basis:42px!important;
+    width:42px!important;
+    height:46px!important;
+  }
+  .ask-moin-body{
+    max-height:calc(100svh - 290px)!important;
+    padding:18px 13px 14px!important;
+  }
+  .ask-moin-starters{
+    grid-template-columns:1fr!important;
+  }
+  .ask-moin-starters button{min-height:54px!important}
+  .ask-moin-form{margin:0 12px!important}
+  .ask-moin-note{padding-bottom:11px!important}
+}
