@@ -3168,3 +3168,78 @@ html.lenis {
   .moin-buddy-starters button{min-height:54px}
   .moin-buddy-form{margin-left:12px;margin-right:12px}
 }
+
+
+/* Ask Moin — structural layout correction
+   The panel uses an intrinsic-height grid, so the 1fr conversation row
+   must have an explicit panel height or it collapses to zero. */
+.moin-buddy-panel{
+  height:min(680px,calc(100svh - 96px));
+  max-height:min(680px,calc(100svh - 96px));
+  grid-template-rows:auto minmax(0,1fr) auto auto;
+}
+.moin-buddy-panel-head{
+  position:relative;
+  z-index:2;
+}
+.moin-buddy-panel-icon{
+  flex:0 0 48px!important;
+  width:48px!important;
+  height:52px!important;
+  transform:scale(.82)!important;
+  transform-origin:center!important;
+}
+.moin-buddy-body{
+  position:relative;
+  z-index:1;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow-y:auto!important;
+  display:block;
+}
+.moin-buddy-intro{
+  min-height:100%;
+  height:100%;
+  justify-content:center;
+}
+.moin-buddy-intro-copy{
+  margin-top:0;
+}
+.moin-buddy-form{
+  position:relative;
+  z-index:3;
+}
+.moin-buddy-note{
+  position:relative;
+  z-index:3;
+  background:#FAFAFF;
+}
+@media(max-width:560px){
+  .moin-buddy-panel{
+    height:min(680px,calc(100svh - 76px));
+    max-height:calc(100svh - 76px);
+  }
+  .moin-buddy-panel-icon{
+    flex-basis:44px!important;
+    width:44px!important;
+    height:48px!important;
+  }
+}
+
+/* Brand mark — keep the M monogram isolated from lockup typography */
+.reimagine .brand-mark{
+  isolation:isolate;
+}
+.reimagine .brand-mark span{
+  position:absolute!important;
+  inset:0!important;
+  display:grid!important;
+  place-items:center!important;
+  width:auto!important;
+  height:auto!important;
+  margin:0!important;
+  color:#FAFAFF!important;
+  font:600 19px/1 var(--font-display)!important;
+  letter-spacing:-.08em!important;
+}
