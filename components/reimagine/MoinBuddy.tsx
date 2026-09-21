@@ -117,9 +117,21 @@ export function MoinBuddy() {
   }, [open, loading]);
 
   useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+
     if (open) {
       lenis?.stop();
+      html.classList.add("ask-moin-scroll-lock");
+      const previousHtmlOverflow = html.style.overflow;
+      const previousBodyOverflow = body.style.overflow;
+      html.style.overflow = "hidden";
+      body.style.overflow = "hidden";
+
       return () => {
+        html.classList.remove("ask-moin-scroll-lock");
+        html.style.overflow = previousHtmlOverflow;
+        body.style.overflow = previousBodyOverflow;
         lenis?.start();
       };
     }
@@ -252,7 +264,14 @@ export function MoinBuddy() {
               </button>
             </div>
 
-            <div ref={chatBodyRef} className="ask-moin-body">
+            <div
+              ref={chatBodyRef}
+              className="ask-moin-body"
+              data-lenis-prevent
+              data-lenis-prevent-wheel
+              data-lenis-prevent-touch
+              style={{ touchAction: "pan-y" }}
+            >
               {messages.length === 0 ? (
                 <div className="ask-moin-intro">
                   <div className="ask-moin-hero-mascot">
