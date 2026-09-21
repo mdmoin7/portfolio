@@ -3243,3 +3243,103 @@ html.lenis {
   font:600 19px/1 var(--font-display)!important;
   letter-spacing:-.08em!important;
 }
+
+
+/* Ask Moin — final width isolation
+   Keep the chat panel completely independent from legacy .moin-buddy-* geometry. */
+.moin-buddy{
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  align-items:flex-end!important;
+}
+.moin-buddy-panel{
+  position:relative!important;
+  box-sizing:border-box!important;
+  display:grid!important;
+  width:min(520px,calc(100vw - 32px))!important;
+  min-width:0!important;
+  max-width:calc(100vw - 32px)!important;
+  flex:0 0 auto!important;
+  align-self:flex-end!important;
+  margin-left:auto!important;
+  margin-right:0!important;
+  overflow:hidden!important;
+}
+.moin-buddy-panel > *{
+  box-sizing:border-box!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+.moin-buddy-panel-head{
+  width:100%!important;
+  min-width:0!important;
+  display:flex!important;
+  align-items:center!important;
+}
+.moin-buddy-title{
+  min-width:0!important;
+  max-width:calc(100% - 52px)!important;
+  flex:1 1 auto!important;
+  overflow:hidden!important;
+}
+.moin-buddy-title > div{
+  min-width:0!important;
+  max-width:100%!important;
+}
+.moin-buddy-title strong{
+  min-width:0!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+.moin-buddy-body{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow-x:hidden!important;
+}
+.moin-buddy-intro,
+.moin-buddy-intro-copy,
+.moin-buddy-starters,
+.moin-buddy-messages{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+.moin-buddy-starters{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+.moin-buddy-starters button{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+}
+.moin-buddy-form{
+  width:auto!important;
+  min-width:0!important;
+  max-width:none!important;
+}
+.moin-buddy-form input{
+  min-width:0!important;
+  max-width:100%!important;
+}
+.moin-buddy-panel-icon{
+  position:relative!important;
+  flex:0 0 48px!important;
+  width:48px!important;
+  max-width:48px!important;
+}
+@media(max-width:560px){
+  .moin-buddy-panel{
+    width:calc(100vw - 24px)!important;
+    max-width:calc(100vw - 24px)!important;
+  }
+  .moin-buddy-starters{
+    grid-template-columns:1fr!important;
+  }
+  .moin-buddy-title strong{
+    white-space:normal!important;
+  }
+}
