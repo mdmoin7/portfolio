@@ -2988,3 +2988,183 @@ html.lenis {
   }
   .reimagine .brand-mark span{font-size:17px}
 }
+
+
+/* Ask Moin — conversational panel redesign */
+.moin-buddy-panel{
+  width:min(520px,calc(100vw - 32px));
+  max-height:min(680px,calc(100svh - 96px));
+  border-radius:26px;
+  border:1px solid rgba(120,153,212,.24);
+  background:rgba(250,250,255,.985);
+  box-shadow:0 32px 100px rgba(30,39,73,.24),0 10px 32px rgba(30,39,73,.10);
+}
+.moin-buddy-panel-head{
+  min-height:92px;
+  padding:17px 18px 15px;
+  background:linear-gradient(135deg,#F5F8FD 0%,#E8EEF8 100%);
+  border-bottom:1px solid rgba(39,52,105,.09);
+}
+.moin-buddy-title{
+  gap:14px;
+}
+.moin-buddy-panel-icon{
+  flex:0 0 54px!important;
+  width:54px!important;
+  height:58px!important;
+  transform:scale(.9)!important;
+}
+.moin-buddy-title .mono{
+  display:block;
+  color:#5278BA;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.24em;
+}
+.moin-buddy-title strong{
+  margin-top:5px;
+  color:#1E2749;
+  font:500 21px/1.08 var(--font-display);
+  letter-spacing:-.025em;
+}
+.moin-buddy-close{
+  width:38px;
+  height:38px;
+  flex-basis:38px;
+  border-radius:50%;
+  font-size:23px;
+  color:#5A6780;
+  background:rgba(250,250,255,.9);
+}
+.moin-buddy-body{
+  padding:26px 24px 20px;
+  background:
+    radial-gradient(circle at 82% 8%,rgba(120,153,212,.11),transparent 180px),
+    #FAFAFF;
+}
+.moin-buddy-intro{
+  min-height:auto;
+  justify-content:flex-start;
+  padding:2px 0 0;
+}
+.moin-buddy-intro-copy{
+  max-width:430px;
+  margin:0 auto 24px;
+  text-align:center;
+}
+.moin-buddy-intro-kicker{
+  display:block;
+  margin-bottom:11px;
+  color:#6782B6;
+  font-size:7px;
+  font-weight:800;
+  letter-spacing:.16em;
+  line-height:1.4;
+}
+.moin-buddy-intro-copy h3{
+  margin:0;
+  color:#1E2749;
+  font:500 clamp(28px,6vw,38px)/.98 var(--font-display);
+  letter-spacing:-.045em;
+}
+.moin-buddy-intro-copy p{
+  max-width:390px;
+  margin:12px auto 0;
+  color:#697690;
+  font-size:12px;
+  line-height:1.65;
+}
+.moin-buddy-starters{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px!important;
+}
+.moin-buddy-starters button{
+  min-height:66px;
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:11px 13px;
+  border:1px solid rgba(120,153,212,.22);
+  border-radius:15px;
+  background:linear-gradient(135deg,rgba(255,255,255,.98),rgba(241,245,252,.92));
+  color:#405173;
+  text-align:left;
+  font-size:11px;
+  line-height:1.35;
+  box-shadow:0 5px 16px rgba(30,39,73,.035);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.moin-buddy-starters button:hover{
+  transform:translateY(-2px);
+  border-color:rgba(120,153,212,.58);
+  background:#fff;
+  box-shadow:0 10px 24px rgba(30,39,73,.08);
+}
+.moin-buddy-starter-icon{
+  flex:0 0 30px;
+  width:30px;
+  height:30px;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  background:#EAF0FA;
+  color:#5278BA;
+  font:700 12px/1 var(--font-mono);
+}
+.moin-buddy-form{
+  margin:8px 20px 0;
+  min-height:58px;
+  padding:7px 7px 7px 17px;
+  border-radius:18px;
+  border-color:rgba(120,153,212,.55);
+  background:#fff;
+  box-shadow:0 0 0 4px rgba(120,153,212,.08),0 8px 22px rgba(30,39,73,.07);
+}
+.moin-buddy-form input{
+  height:42px;
+  font-size:13px;
+}
+.moin-buddy-form input::placeholder{
+  color:#8793AA;
+}
+.moin-buddy-form button{
+  width:44px;
+  height:44px;
+  background:#5278BA;
+  color:#FAFAFF;
+  font-size:21px;
+  box-shadow:0 5px 12px rgba(82,120,186,.28);
+}
+.moin-buddy-note{
+  padding:9px 22px 15px;
+  text-align:right;
+  color:#8792A7;
+  font-size:7px;
+}
+.moin-buddy-note::before{
+  content:"ⓘ  ";
+  font-size:10px;
+}
+@media(max-width:560px){
+  .moin-buddy-panel{
+    width:calc(100vw - 24px);
+    max-height:calc(100svh - 76px);
+    border-radius:22px;
+  }
+  .moin-buddy-panel-head{
+    min-height:80px;
+    padding:13px 14px;
+  }
+  .moin-buddy-panel-icon{
+    flex-basis:46px!important;
+    width:46px!important;
+    height:50px!important;
+  }
+  .moin-buddy-title strong{font-size:18px}
+  .moin-buddy-body{padding:22px 16px 16px}
+  .moin-buddy-intro-copy h3{font-size:30px}
+  .moin-buddy-starters{grid-template-columns:1fr!important}
+  .moin-buddy-starters button{min-height:54px}
+  .moin-buddy-form{margin-left:12px;margin-right:12px}
+}
