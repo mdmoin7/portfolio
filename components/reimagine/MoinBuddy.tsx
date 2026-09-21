@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 
 type Message = { role: "user" | "assistant"; content: string };
+type ChatResponse = { answer?: string; followUps?: string[] };
 type BuddyState = "idle" | "peek" | "fly" | "open" | "thinking";
 
 const starters = [
@@ -47,6 +48,7 @@ export function MoinBuddy() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const [followUps, setFollowUps] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [state, setState] = useState<BuddyState>("idle");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -121,6 +123,7 @@ export function MoinBuddy() {
     ].slice(-12);
 
     setMessages(conversation);
+    setFollowUps([]);
     setInput("");
     setLoading(true);
     setState("thinking");
@@ -134,7 +137,8 @@ export function MoinBuddy() {
           messages: messages.slice(-12),
         }),
       });
-      const data = (await response.json()) as { answer?: string };
+      const data = (await response.json()) as ChatResponse;
+      setFollowUps(data.followUps?.slice(0, 3) ?? []);
       setMessages((current) => [
         ...current,
         {
@@ -234,6 +238,24 @@ export function MoinBuddy() {
                   {loading && (
                     <div className="ask-moin-message ask-moin-message-assistant ask-moin-thinking">
                       <i /><i /><i />
+                    </div>
+                  )}
+                  {!loading && messages.some((message) => message.role === "assistant") && followUps.length > 0 && (
+                    <div className="ask-moin-followups" aria-label="Suggested follow-up questions">
+                      <span>Explore next</span>
+                      <div>
+                        {followUps.map((question) => (
+                          <button
+                            key={question}
+                            type="button"
+                            onClick={() => void ask(question)}
+                            disabled={loading}
+                          >
+                            {question}
+                            <span aria-hidden="true">→</span>
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
