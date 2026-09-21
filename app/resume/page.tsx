@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { CinematicFooter } from "@/components/ui/motion-footer";
 import { MoinBuddy } from "@/components/reimagine/MoinBuddy";
+import GlyphPortal from "@/components/ui/glyph-portal";
 
 /* -------------------------------------------------------------------------
    Fill these in — the only hand-typed placeholders in this file.
@@ -153,45 +154,65 @@ export default function MoinResume() {
 
       <main className="resume-main">
         <section className="moin-resume" aria-label="Résumé">
-      {/* Hero */}
-      <div className="moin-resume-hero">
-        <span className="moin-resume-eyebrow mono">Curriculum Vitae</span>
-        <motion.h1
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.2, 0.8, 0.2, 1] }}
-        >
-          I build software, then I teach it.
-        </motion.h1>
-        <p className="moin-resume-sub">
-          Full stack engineer and freelance corporate trainer based in
-          Bengaluru, India — fourteen-plus years across the JavaScript
-          ecosystem, shipping products and running the curricula that bring
-          enterprise teams up to speed on them.
-        </p>
-        <div className="moin-resume-cta-row">
-          <a
-            className="moin-resume-btn moin-resume-btn-primary"
-            href={CONTACT.cvPdf}
-          >
-            Download résumé ↓
-          </a>
-          <a
-            className="moin-resume-btn moin-resume-btn-ghost"
-            href={`mailto:${CONTACT.email}`}
-          >
-            Write to me
-          </a>
-        </div>
-        <div className="moin-resume-stat-row">
-          {stats.map((s) => (
-            <div className="moin-resume-stat" key={s.label}>
-              <strong>{s.value}</strong>
-              <span>{s.label}</span>
+      <GlyphPortal
+        className="resume-glyph-portal"
+        word="MOIN"
+        focusChar="M"
+        scrollLength={2.2}
+        interactive
+        enterLabel="View résumé"
+        style={{
+          "--gp-paper": theme === "dark" ? "#1E2749" : "#FAFAFF",
+          "--gp-ink": theme === "dark" ? "#FAFAFF" : "#1E2749",
+          "--gp-field": theme === "dark" ? "#273469" : "#1E2749",
+          "--gp-foreground": "#FAFAFF",
+        }}
+        background={
+          <div
+            className="resume-glyph-field"
+            aria-hidden="true"
+          />
+        }
+        front={
+          <>
+            <div className="resume-glyph-meta">
+              <span>CURRICULUM VITAE</span>
+              <span>MOHAMMAD MOIN · 2026</span>
             </div>
-          ))}
+            <div className="resume-glyph-center">
+              <span>INDEPENDENT SOFTWARE ENGINEERING CONSULTANT</span>
+              <span>× CORPORATE TECHNOLOGY TRAINER</span>
+            </div>
+          </>
+        }
+      >
+        <div className="resume-glyph-content">
+          <span className="moin-resume-eyebrow mono">Curriculum Vitae</span>
+          <h1>I build software, then I teach it.</h1>
+          <p className="moin-resume-sub">
+            Full stack engineer and freelance corporate trainer based in
+            Bengaluru, India — fourteen-plus years across the JavaScript
+            ecosystem, shipping products and running the curricula that bring
+            enterprise teams up to speed on them.
+          </p>
+          <div className="moin-resume-cta-row">
+            <a className="moin-resume-btn moin-resume-btn-primary" href={CONTACT.cvPdf}>
+              Download résumé ↓
+            </a>
+            <a className="moin-resume-btn moin-resume-btn-ghost" href={`mailto:${CONTACT.email}`}>
+              Write to me
+            </a>
+          </div>
+          <div className="moin-resume-stat-row">
+            {stats.map((s) => (
+              <div className="moin-resume-stat" key={s.label}>
+                <strong>{s.value}</strong>
+                <span>{s.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </GlyphPortal>
 
       {/* The record */}
       <div className="moin-resume-section">
