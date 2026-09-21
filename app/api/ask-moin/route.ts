@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { searchMoinKnowledge } from "@/lib/ask-moin-knowledge";
 
 type ConversationMessage = {
   role: "user" | "assistant";
@@ -133,6 +134,29 @@ export async function POST(request: Request) {
       },
     ];
 
+    const tools = [
+      {
+        functionDeclarations: [
+          {
+            name: "search_moin_knowledge",
+            description:
+              "Search Mohammad Moin's authoritative portfolio knowledge base for relevant professional facts. Use this before answering every question about Mohammad, his work, technologies, training, projects, experience, or how to work with him.",
+            parameters: {
+              type: "OBJECT",
+              properties: {
+                query: {
+                  type: "STRING",
+                  description:
+                    "A concise search query capturing the visitor's question and important follow-up context.",
+                },
+              },
+              required: ["query"],
+            },
+          },
+        ],
+      },
+    ];
+
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 12000);
 
@@ -152,6 +176,13 @@ export async function POST(request: Request) {
               parts: [{ text: SYSTEM_PROMPT }],
             },
             contents,
+            tools,
+            toolConfig: {
+              functionCallingConfig: {
+                mode: "ANY",
+                allowedFunctionNames: ["search_moin_knowledge"],
+              },
+            },
             generationConfig: {
               maxOutputTokens: 220,
             },
@@ -175,12 +206,112 @@ export async function POST(request: Request) {
       const data = (await response.json()) as {
         candidates?: Array<{
           content?: {
+            role?: string;
+            parts?: Array<{
+              text?: string;
+              functionCall?: {
+                id?: string;
+                name?: string;
+                args?: Record<string, unknown>;
+              };
+            }>;
+          };
+        }>;
+      };
+
+      const modelContent = data.candidates?.[0]?.content;
+      const toolCall = modelContent?.parts?.find(
+        (part) => part.functionCall?.name === "search_moin_knowledge",
+      )?.functionCall;
+
+      if (!modelContent || !toolCall?.name) {
+        return NextResponse.json({
+          answer:
+            "I don't have enough information on the site to answer that yet.",
+        });
+      }
+
+      const toolQuery =
+        typeof toolCall.args?.query === "string"
+          ? toolCall.args.query
+          : message;
+
+      const toolResult = searchMoinKnowledge(toolQuery, 5);
+
+      const groundedContents = [
+        ...contents,
+        modelContent,
+        {
+          role: "user",
+          parts: [
+            {
+              functionResponse: {
+                name: toolCall.name,
+                ...(toolCall.id ? { id: toolCall.id } : {}),
+                response: {
+                  result: toolResult,
+                },
+              },
+            },
+          ],
+        },
+      ];
+
+      const groundedResponse = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey,
+          },
+          signal: controller.signal,
+          body: JSON.stringify({
+            system_instruction: {
+              parts: [
+                {
+                  text:
+                    SYSTEM_PROMPT +
+                    "\n\nGROUNDING RULE: The tool result is the authoritative source for this turn. Answer from it. If it does not contain the requested fact, say that the portfolio context does not provide it. Do not fill gaps with general model knowledge.",
+                },
+              ],
+            },
+            contents: groundedContents,
+            tools,
+            toolConfig: {
+              functionCallingConfig: {
+                mode: "NONE",
+              },
+            },
+            generationConfig: {
+              maxOutputTokens: 220,
+            },
+          }),
+        },
+      );
+
+      if (!groundedResponse.ok) {
+        const providerError = await groundedResponse.text().catch(() => "");
+        console.error(
+          "Ask Moin grounded Gemini error:",
+          groundedResponse.status,
+          providerError.slice(0, 500),
+        );
+        return NextResponse.json(
+          { answer: "I couldn't complete that answer right now. Please try again shortly." },
+          { status: 502 },
+        );
+      }
+
+      const groundedData = (await groundedResponse.json()) as {
+        candidates?: Array<{
+          content?: {
             parts?: Array<{ text?: string }>;
           };
         }>;
       };
 
-      const answer = data.candidates?.[0]?.content?.parts
+      const answer = groundedData.candidates?.[0]?.content?.parts
         ?.map((part) => part.text?.trim())
         .filter(Boolean)
         .join(" ")
