@@ -4728,3 +4728,22 @@ html.lenis {
 .ask-moin-followups button:hover{
   background:rgba(226,233,246,.96)!important;
 }
+
+
+/* Ask Moin final layout lock: follow-up prompts are always equal-width rows. */
+.ask-moin-followups > div{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:8px!important;
+  width:100%!important;
+  min-width:0!important;
+}
+.ask-moin-followups button{
+  display:flex!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:none!important;
+  box-sizing:border-box!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+}
