@@ -222,23 +222,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Portfolio fact questions should be deterministic: this prevents model latency,
-    // malformed partial answers, and provider availability from affecting the core UX.
-    const knowledge = searchMoinKnowledge(
-      [...history.slice(-4).map((item) => item.content), message].join(" "),
-      6,
-    );
-
-    const deterministicAnswer = buildLocalFallback(message, knowledge);
-    const isCorePortfolioQuestion = /what does mohammad|what does he do|who is mohammad|what is mohammad|training|trainer|train teams|technology|technologies|tech stack|stack|project|projects|aquatrack|income tracker|approach|how does he work|philosophy|work with|hire|engage|contact/i.test(message);
-
-    if (isCorePortfolioQuestion) {
-      return NextResponse.json({
-        answer: deterministicAnswer,
-        followUps: getFollowUps(message, knowledge),
-      });
-    }
-
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return NextResponse.json({
@@ -258,6 +241,13 @@ export async function POST(request: Request) {
         parts: [{ text: message }],
       },
     ];
+
+    // Retrieval is local and deterministic. This avoids spending a second Gemini
+    // request just to decide which portfolio facts should be used.
+    const knowledge = searchMoinKnowledge(
+      [...history.slice(-4).map((item) => item.content), message].join(" "),
+      6,
+    );
 
     const knowledgeText = knowledge
       .map(
@@ -351,11 +341,13 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     console.error("Ask Moin request error:", error);
-    const fallbackKnowledge = searchMoinKnowledge(message ?? "", 6);
-    return NextResponse.json({
-      answer: buildLocalFallback(message ?? "", fallbackKnowledge),
-      followUps: getFollowUps(message ?? "", fallbackKnowledge),
-      degraded: true,
-    });
+    return NextResponse.json(
+      {
+        answer:
+          "Ask Moin is temporarily unavailable. Please try again shortly.",
+        followUps: FALLBACK_FOLLOWUPS,
+      },
+      { status: 200 },
+    );
   }
 }
