@@ -3899,13 +3899,6 @@ html.lenis {
   background:transparent!important;
   overflow:visible!important;
 }
-.ask-moin-hero-mascot .moin-buddy-hero{
-  position:relative!important;
-  width:74px!important;
-  height:82px!important;
-  transform:scale(1)!important;
-  background:transparent!important;
-}
 .ask-moin-hero-mascot .moin-buddy-cape{
   display:none!important;
 }
@@ -3992,7 +3985,6 @@ html.lenis {
   .ask-moin-header{height:64px!important;flex-basis:64px!important}
   .ask-moin-body{padding:16px 14px!important}
   .ask-moin-hero-mascot{width:72px!important;height:72px!important}
-  .ask-moin-hero-mascot .moin-buddy-hero{transform:scale(.84)!important}
   .ask-moin-intro-copy h3{font-size:29px!important}
   .ask-moin-starters{grid-template-columns:1fr!important}
   .ask-moin-starters button{min-height:56px!important}
@@ -4531,7 +4523,7 @@ html.lenis {
   left:-1px!important;
 }
 .ask-moin-mascot .moin-buddy-ear-right{
-  right:-1px!important;
+  right:-4px!important;
 }
 .ask-moin-mascot .moin-buddy-head{
   z-index:6!important;
@@ -4575,14 +4567,14 @@ html.lenis {
   transform:rotate(35deg) translateZ(4px)!important;
 }
 .ask-moin-mascot .moin-buddy-arm-right{
-  right:1px!important;
+  right:-2px!important;
   transform:rotate(-32deg) translateZ(4px)!important;
 }
 .ask-moin-mascot .moin-buddy-foot{
-  z-index:1!important;
-  top:57px!important;
+  z-index:5!important;
+  top:68px!important;
   width:17px!important;
-  height:13px!important;
+  height:14px!important;
 }
 .ask-moin-mascot .moin-buddy-foot-left{
   left:12px!important;
