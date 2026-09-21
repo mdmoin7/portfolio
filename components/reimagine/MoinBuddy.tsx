@@ -39,6 +39,21 @@ function BuddyIcon({ className = "" }: { className?: string }) {
   );
 }
 
+function AskMoinMascot() {
+  return (
+    <span className="ask-moin-mascot" aria-hidden="true">
+      <span className="ask-moin-mascot-ear ask-moin-mascot-ear-left" />
+      <span className="ask-moin-mascot-ear ask-moin-mascot-ear-right" />
+      <span className="ask-moin-mascot-head"><span /><i /><i /></span>
+      <span className="ask-moin-mascot-arm ask-moin-mascot-arm-left" />
+      <span className="ask-moin-mascot-arm ask-moin-mascot-arm-right" />
+      <span className="ask-moin-mascot-body"><b>M</b></span>
+      <span className="ask-moin-mascot-foot ask-moin-mascot-foot-left" />
+      <span className="ask-moin-mascot-foot ask-moin-mascot-foot-right" />
+    </span>
+  );
+}
+
 export function MoinBuddy() {
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
@@ -189,7 +204,7 @@ export function MoinBuddy() {
               {messages.length === 0 ? (
                 <div className="ask-moin-intro">
                   <div className="ask-moin-hero-mascot">
-                    <BuddyIcon className="ask-moin-mascot" />
+                    <AskMoinMascot />
                   </div>
                   <div className="ask-moin-intro-copy">
                     <span className="ask-moin-kicker mono">ASK MOIN</span>
