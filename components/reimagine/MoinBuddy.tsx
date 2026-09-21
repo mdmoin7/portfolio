@@ -189,7 +189,7 @@ export function MoinBuddy() {
               {messages.length === 0 ? (
                 <div className="ask-moin-intro">
                   <div className="ask-moin-hero-mascot">
-                    <BuddyIcon />
+                    <BuddyIcon className="ask-moin-mascot" />
                   </div>
                   <div className="ask-moin-intro-copy">
                     <span className="ask-moin-kicker mono">ASK MOIN</span>
