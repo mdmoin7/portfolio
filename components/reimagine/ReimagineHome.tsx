@@ -75,7 +75,7 @@ export function ReimagineHome() {
     <div className={`reimagine ${theme === "light" ? "is-light" : "is-dark"}`}>
       <header className="top-nav">
         <a className="brand-lockup" href="#thesis">
-          <span className="brand-mark">M</span>
+          <span className="brand-mark" aria-hidden="true"><span>M</span></span>
           <span>
             <strong>MOHAMMAD MOIN</strong>
             <small>Consult · Build · Train</small>
