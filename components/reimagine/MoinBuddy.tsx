@@ -131,7 +131,7 @@ export function MoinBuddy() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: trimmed,
-          messages: conversation,
+          messages: messages.slice(-12),
         }),
       });
       const data = (await response.json()) as { answer?: string };
