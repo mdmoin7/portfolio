@@ -161,8 +161,6 @@ export function MoinBuddy() {
         <AnimatePresence>
           {open && (
             <div className="moin-buddy-portal" aria-label="Ask Moin">
-      <AnimatePresence>
-        {open && (
           <motion.section
             className="moin-buddy-panel"
             initial={{ opacity: 0, y: 18, scale: 0.96, transformOrigin: "bottom right" }}
@@ -243,8 +241,6 @@ export function MoinBuddy() {
             </form>
             <small className="moin-buddy-note">Brief answers · text only</small>
           </motion.section>
-        )}
-      </AnimatePresence>
           </div>
           )}
         </AnimatePresence>,
