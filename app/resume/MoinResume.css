@@ -690,3 +690,89 @@
 @media(prefers-reduced-motion:reduce){
   .resume-glyph-portal [data-gp-pin]{position:relative!important}
 }
+
+
+/* ==========================================================================
+   Resume section spacing correction
+   Full-bleed sections use the application viewport grid directly. The old
+   1040px wrapper + 24px padding caused the section content to inherit an
+   unintended second horizontal inset.
+   ========================================================================== */
+.resume-main{
+  width:100%;
+  padding-top:76px;
+  overflow-x:clip;
+}
+
+.moin-resume{
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:0;
+}
+
+.moin-resume-section{
+  width:100%;
+  box-sizing:border-box;
+  padding-block:clamp(72px,9vw,110px);
+  padding-inline:max(6vw,calc((100vw - 1180px) / 2));
+}
+
+.moin-resume-section-head,
+.moin-resume-record,
+.moin-resume-curriculum-grid,
+.moin-resume-project-grid,
+.moin-resume-education{
+  width:100%;
+  max-width:1180px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.moin-resume-section-head{
+  margin-bottom:44px;
+}
+
+.moin-resume-contact{
+  width:100%;
+  box-sizing:border-box;
+  padding-block:clamp(80px,10vw,120px);
+  padding-inline:max(6vw,calc((100vw - 1180px) / 2));
+}
+
+.moin-resume-contact-copy,
+.moin-resume-contact-meta{
+  min-width:0;
+}
+
+@media(max-width:700px){
+  .resume-main{
+    padding-top:64px;
+  }
+
+  .moin-resume-section{
+    padding-block:64px;
+    padding-inline:7vw;
+  }
+
+  .moin-resume-contact{
+    padding-block:76px;
+    padding-inline:7vw;
+  }
+}
+
+@media(max-width:560px){
+  .moin-resume-section{
+    padding-block:52px;
+    padding-inline:7vw;
+  }
+
+  .moin-resume-section-head{
+    margin-bottom:32px;
+  }
+
+  .moin-resume-contact{
+    padding-block:64px;
+    padding-inline:7vw;
+  }
+}
