@@ -104,10 +104,25 @@ function ensureMinimumAnswer(answer: string, query: string) {
   const clean = answer.trim();
   if (!clean) return "I don't have enough information on the site to answer that yet.";
   if (sentenceCount(clean) >= 2) return clean;
-  if (/^(hi|hello|hey|thanks|thank you)\\b/i.test(query.trim())) {
-    return clean;
-  }
+  if (/^(hi|hello|hey|thanks|thank you)\b/i.test(query.trim())) return clean;
   return `${clean} I can also explain the related engineering, training, or project work documented on Mohammad's portfolio.`;
+}
+
+function buildLocalFallback(
+  query: string,
+  knowledge: ReturnType<typeof searchMoinKnowledge>,
+) {
+  if (!knowledge.length) {
+    return "I don't have enough information on the portfolio to answer that yet. I can help with Mohammad's documented engineering, training, and project work.";
+  }
+  const primary = knowledge[0];
+  const secondary = knowledge[1];
+  const first = primary.content.trim().replace(/\s+/g, " ");
+  const second = secondary?.content.trim().replace(/\s+/g, " ");
+  let answer = first;
+  if (second && secondary.id !== primary.id) answer += ` ${second}`;
+  else answer += " This information comes directly from Mohammad's portfolio knowledge.";
+  return ensureMinimumAnswer(answer, query);
 }
 
 async function generateWithGemini({
@@ -215,29 +230,28 @@ export async function POST(request: Request) {
 
     const primaryModel = process.env.GEMINI_MODEL || "gemini-3.6-flash";
     const fallbackModel =
-      process.env.GEMINI_FALLBACK_MODEL || "gemini-2.5-flash";
+      process.env.GEMINI_FALLBACK_MODEL || "gemini-2.5-flash-lite";
 
     let response = await generateWithGemini({
       model: primaryModel,
       apiKey,
       contents: groundedContents,
+      timeoutMs: 4500,
     });
 
     let usedModel = primaryModel;
 
-    // Google documents 503 UNAVAILABLE for temporary model congestion.
-    // Keep the user-facing API healthy by trying a stable fallback model once.
     if (response.status === 503 && fallbackModel !== primaryModel) {
       const providerError = await response.text().catch(() => "");
       console.warn(
         `Ask Moin ${primaryModel} returned 503; trying ${fallbackModel}.`,
         providerError.slice(0, 300),
       );
-
       response = await generateWithGemini({
         model: fallbackModel,
         apiKey,
         contents: groundedContents,
+        timeoutMs: 3500,
       });
       usedModel = fallbackModel;
     }
@@ -249,15 +263,11 @@ export async function POST(request: Request) {
         response.status,
         providerError.slice(0, 500),
       );
-
-      return NextResponse.json(
-        {
-          answer:
-            "Ask Moin is temporarily unavailable. Please try again shortly.",
-          followUps: getFollowUps(message, knowledge),
-        },
-        { status: 200 },
-      );
+      return NextResponse.json({
+        answer: buildLocalFallback(message, knowledge),
+        followUps: getFollowUps(message, knowledge),
+        degraded: true,
+      });
     }
 
     const data = (await response.json()) as {
