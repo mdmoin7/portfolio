@@ -117,6 +117,28 @@ export function MoinBuddy() {
   useEffect(() => {
     if (!open) return;
 
+    const node = chatBodyRef.current;
+    if (!node) return;
+
+    const stopLenisWheel = (event: WheelEvent) => {
+      event.stopPropagation();
+    };
+    const stopLenisTouch = (event: TouchEvent) => {
+      event.stopPropagation();
+    };
+
+    node.addEventListener("wheel", stopLenisWheel, { capture: true, passive: true });
+    node.addEventListener("touchmove", stopLenisTouch, { capture: true, passive: true });
+
+    return () => {
+      node.removeEventListener("wheel", stopLenisWheel, { capture: true });
+      node.removeEventListener("touchmove", stopLenisTouch, { capture: true });
+    };
+  }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+
     const frame = window.requestAnimationFrame(() => {
       const node = chatBodyRef.current;
       if (!node) return;
