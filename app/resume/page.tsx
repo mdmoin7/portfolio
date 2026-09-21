@@ -1,6 +1,9 @@
 "use client";
 import "./MoinResume.css";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { CinematicFooter } from "@/components/ui/motion-footer";
+import { MoinBuddy } from "@/components/reimagine/MoinBuddy";
 
 /* -------------------------------------------------------------------------
    Fill these in — the only hand-typed placeholders in this file.
@@ -100,8 +103,56 @@ const education = [
 /* ------------------------------------------------------------------------- */
 
 export default function MoinResume() {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("moin-theme");
+    if (saved === "light" || saved === "dark") setTheme(saved);
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem("moin-theme", theme);
+  }, [theme]);
+
   return (
-    <section className="moin-resume" aria-label="Résumé">
+    <div className={`reimagine is-${theme} resume-page`}>
+      <header className="top-nav resume-nav">
+        <a className="brand-lockup" href="/">
+          <span className="brand-mark" aria-hidden="true"><span>M</span></span>
+          <span>
+            <strong>MOHAMMAD MOIN</strong>
+            <small>Consult · Build · Train</small>
+          </span>
+        </a>
+        <nav>
+          {[
+            ["About", "/#author"],
+            ["What I Do", "/#capability"],
+            ["Training", "/#training"],
+            ["Projects", "/#work"],
+            ["Insights", "/#insights"],
+            ["Contact", "/#contact"],
+          ].map(([label, href]) => (
+            <a key={label} href={href}>{label}</a>
+          ))}
+        </nav>
+        <div className="nav-actions">
+          <button
+            className="mode-toggle"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            aria-pressed={theme === "dark"}
+          >
+            ◐
+          </button>
+          <a className="nav-cta" href="mailto:mohammadmoin.tech@gmail.com">
+            Let's Talk <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </header>
+
+      <main className="resume-main">
+        <section className="moin-resume" aria-label="Résumé">
       {/* Hero */}
       <div className="moin-resume-hero">
         <span className="moin-resume-eyebrow mono">Curriculum Vitae</span>
@@ -275,6 +326,10 @@ export default function MoinResume() {
           </div>
         </div>
       </div>
-    </section>
+        </section>
+      </main>
+      <CinematicFooter id="resume-footer" />
+      <MoinBuddy />
+    </div>
   );
 }
