@@ -3997,3 +3997,173 @@ html.lenis {
   .ask-moin-starters{grid-template-columns:1fr!important}
   .ask-moin-starters button{min-height:56px!important}
 }
+
+
+/* Ask Moin — final no-scroll composition */
+.ask-moin-panel{
+  width:520px!important;
+  max-width:calc(100vw - 32px)!important;
+  height:auto!important;
+  max-height:none!important;
+}
+.ask-moin-body{
+  flex:0 0 auto!important;
+  height:auto!important;
+  max-height:none!important;
+  overflow:hidden!important;
+  padding:14px 20px 12px!important;
+}
+.ask-moin-intro{
+  gap:0!important;
+}
+.ask-moin-hero-mascot{
+  position:relative!important;
+  width:82px!important;
+  height:78px!important;
+  margin:0 auto 2px!important;
+  overflow:visible!important;
+}
+.ask-moin-mascot{
+  position:absolute!important;
+  left:0!important;
+  top:0!important;
+  width:82px!important;
+  height:78px!important;
+  transform:none!important;
+  background:transparent!important;
+  filter:drop-shadow(0 10px 10px rgba(30,39,73,.18))!important;
+}
+.ask-moin-mascot .moin-buddy-cape{
+  display:none!important;
+}
+.ask-moin-mascot .moin-buddy-head{
+  left:25px!important;
+  top:4px!important;
+  width:38px!important;
+  height:34px!important;
+  border-radius:48% 48% 44% 44%!important;
+}
+.ask-moin-mascot .moin-buddy-head i{
+  top:12px!important;
+  width:5px!important;
+  height:11px!important;
+}
+.ask-moin-mascot .moin-buddy-head i:first-child{left:11px!important}
+.ask-moin-mascot .moin-buddy-head i:last-child{right:11px!important}
+.ask-moin-mascot .moin-buddy-ear{
+  top:12px!important;
+  width:19px!important;
+  height:25px!important;
+}
+.ask-moin-mascot .moin-buddy-ear-left{left:7px!important}
+.ask-moin-mascot .moin-buddy-ear-right{right:7px!important}
+.ask-moin-mascot .moin-buddy-body{
+  left:21px!important;
+  top:34px!important;
+  width:40px!important;
+  height:33px!important;
+}
+.ask-moin-mascot .moin-buddy-body b{
+  width:21px!important;
+  height:21px!important;
+  font-size:12px!important;
+}
+.ask-moin-mascot .moin-buddy-arm{
+  top:39px!important;
+  width:17px!important;
+  height:23px!important;
+}
+.ask-moin-mascot .moin-buddy-arm-left{left:9px!important}
+.ask-moin-mascot .moin-buddy-arm-right{right:8px!important}
+.ask-moin-mascot .moin-buddy-foot{
+  top:61px!important;
+  width:19px!important;
+  height:14px!important;
+}
+.ask-moin-mascot .moin-buddy-foot-left{left:21px!important}
+.ask-moin-mascot .moin-buddy-foot-right{right:17px!important}
+.ask-moin-kicker{
+  margin-bottom:7px!important;
+  font-size:8px!important;
+}
+.ask-moin-intro-copy{
+  margin:0 auto 18px!important;
+}
+.ask-moin-intro-copy h3{
+  font-size:32px!important;
+  line-height:1.04!important;
+}
+.ask-moin-intro-copy p{
+  margin-top:9px!important;
+  font-size:11px!important;
+  line-height:1.45!important;
+}
+.ask-moin-starters{
+  gap:8px!important;
+}
+.ask-moin-starters button{
+  min-height:58px!important;
+  height:58px!important;
+  grid-template-columns:34px minmax(0,1fr) 16px!important;
+  gap:9px!important;
+  padding:9px 11px!important;
+  font-size:11px!important;
+  line-height:1.28!important;
+}
+.ask-moin-starter-icon{
+  width:32px!important;
+  height:32px!important;
+}
+.ask-moin-starter-arrow{
+  font-size:15px!important;
+}
+.ask-moin-form{
+  flex:0 0 54px!important;
+  height:54px!important;
+  margin:7px 18px 0!important;
+}
+.ask-moin-form input{
+  height:38px!important;
+  font-size:12px!important;
+}
+.ask-moin-form button{
+  width:40px!important;
+  height:40px!important;
+  flex-basis:40px!important;
+}
+.ask-moin-note{
+  padding:7px 20px 10px!important;
+  font-size:7px!important;
+}
+@media(max-width:560px){
+  .ask-moin-panel{
+    max-height:none!important;
+  }
+  .ask-moin-body{
+    padding:12px 13px 10px!important;
+  }
+  .ask-moin-hero-mascot{
+    width:70px!important;
+    height:68px!important;
+  }
+  .ask-moin-mascot{
+    transform:scale(.86)!important;
+    transform-origin:top center!important;
+  }
+  .ask-moin-intro-copy{
+    margin-bottom:14px!important;
+  }
+  .ask-moin-intro-copy h3{
+    font-size:28px!important;
+  }
+  .ask-moin-intro-copy p{
+    font-size:11px!important;
+  }
+  .ask-moin-starters{
+    grid-template-columns:1fr!important;
+  }
+  .ask-moin-starters button{
+    height:52px!important;
+    min-height:52px!important;
+  }
+}
