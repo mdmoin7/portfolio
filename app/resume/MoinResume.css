@@ -590,3 +590,103 @@
   .moin-resume-record-item{padding:22px}
   .moin-resume-contact{padding-bottom:76px}
 }
+
+
+/* Glyph Portal resume hero */
+.resume-glyph-portal{
+  width:100%;
+  margin:0 calc((1180px - min(1180px, 88vw)) / -2);
+  width:100vw;
+  max-width:100vw;
+  --gp-length:2.2;
+  background:var(--resume-bg)!important;
+}
+.resume-glyph-portal [data-gp-pin]{
+  background:var(--resume-bg);
+}
+.resume-glyph-field{
+  position:absolute;
+  inset:-8%;
+  transform:scale(var(--gp-field-scale,1));
+  background:
+    radial-gradient(circle at 18% 18%,rgba(120,153,212,.28),transparent 27%),
+    radial-gradient(circle at 82% 30%,rgba(120,153,212,.18),transparent 30%),
+    radial-gradient(circle at 50% 90%,rgba(30,39,73,.5),transparent 42%),
+    linear-gradient(135deg,#30343F 0%,#273469 48%,#1E2749 100%);
+}
+.resume-glyph-meta{
+  position:absolute;
+  inset:clamp(26px,5vw,56px) clamp(6vw,8vw,9vw) auto;
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  color:rgba(250,250,255,.7);
+  font:700 9px/1.4 var(--font-mono);
+  letter-spacing:.2em;
+}
+.resume-glyph-center{
+  position:absolute;
+  left:50%;
+  bottom:clamp(88px,11vh,126px);
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:7px;
+  color:rgba(250,250,255,.65);
+  text-align:center;
+  font:700 9px/1.4 var(--font-mono);
+  letter-spacing:.17em;
+  white-space:nowrap;
+}
+.resume-glyph-content{
+  width:min(1180px,88vw);
+  margin:0 auto;
+  padding:clamp(70px,9vw,120px) 0;
+}
+.resume-glyph-content h1{
+  margin:0;
+  max-width:920px;
+  color:#FAFAFF;
+  font:500 clamp(52px,7vw,92px)/.92 var(--font-display);
+  letter-spacing:-.055em;
+}
+.resume-glyph-content .moin-resume-sub{
+  margin-top:28px;
+  color:#C2CAD8;
+}
+.resume-glyph-content .moin-resume-eyebrow{
+  color:#7899D4;
+}
+.resume-glyph-content .moin-resume-btn-ghost{
+  color:#FAFAFF;
+  border-color:rgba(250,250,255,.18);
+}
+.resume-glyph-content .moin-resume-stat-row{
+  border-color:rgba(250,250,255,.14);
+}
+.resume-glyph-content .moin-resume-stat strong{color:#FAFAFF}
+.resume-glyph-content .moin-resume-stat span{color:#C2CAD8}
+
+@media(max-width:700px){
+  .resume-glyph-meta{
+    inset:22px 7vw auto;
+    font-size:7px;
+    letter-spacing:.14em;
+  }
+  .resume-glyph-meta span:last-child{text-align:right}
+  .resume-glyph-center{
+    bottom:72px;
+    width:86vw;
+    white-space:normal;
+    font-size:7px;
+  }
+  .resume-glyph-content{
+    width:86vw;
+    padding:58px 0;
+  }
+  .resume-glyph-content h1{font-size:clamp(46px,13vw,70px)}
+}
+@media(prefers-reduced-motion:reduce){
+  .resume-glyph-portal [data-gp-pin]{position:relative!important}
+}
