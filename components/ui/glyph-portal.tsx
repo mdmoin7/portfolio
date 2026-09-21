@@ -80,8 +80,13 @@ function interior(context: CanvasRenderingContext2D, char: string, font: string)
 }
 
 function scrollParent(element: HTMLElement): HTMLElement | null {
+  // Only treat an ancestor as the scroll root when it is actually scrollable.
+  // "overflow: hidden" is common in page shells and must not hijack document scroll.
   for (let p = element.parentElement; p; p = p.parentElement) {
-    if (/(auto|scroll|hidden)/.test(getComputedStyle(p).overflowY) && p !== document.body && p !== document.documentElement) return p;
+    if (p === document.body || p === document.documentElement) continue;
+    const style = getComputedStyle(p);
+    const scrollable = /(auto|scroll|overlay)/.test(style.overflowY);
+    if (scrollable && p.scrollHeight > p.clientHeight + 1) return p;
   }
   return null;
 }
@@ -201,7 +206,10 @@ export default function GlyphPortal({
 
     const position = () => {
       const origin = root ? root.getBoundingClientRect().top + root.clientTop : 0;
-      return clamp((origin - section.getBoundingClientRect().top) / travel);
+      const sectionTop = section.getBoundingClientRect().top;
+      // With Lenis/root document scrolling, sectionTop moves every frame.
+      // For a nested scroll root, its viewport top is the equivalent origin.
+      return clamp((origin - sectionTop) / Math.max(1, travel));
     };
 
     const paint = (progress: number) => {
