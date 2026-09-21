@@ -30,7 +30,7 @@ function BuddyIcon({ className = "" }: { className?: string }) {
       </motion.span>
       <span className="moin-buddy-arm moin-buddy-arm-left" />
       <span className="moin-buddy-arm moin-buddy-arm-right" />
-      <span className="moin-buddy-body">
+      <span className="ask-moin-body">
         <b>M</b>
       </span>
       <span className="moin-buddy-foot moin-buddy-foot-left" />
@@ -162,16 +162,16 @@ export function MoinBuddy() {
           {open && (
             <div className="moin-buddy-portal" aria-label="Ask Moin">
           <motion.section
-            className="moin-buddy-panel"
+            className="ask-moin-panel"
             initial={{ opacity: 0, y: 18, scale: 0.96, transformOrigin: "bottom right" }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 18, scale: 0.96 }}
             transition={{ duration: 0.22, ease: [0.2, 0.8, 0.2, 1] }}
             aria-label="Ask Moin"
           >
-            <div className="moin-buddy-panel-head">
-              <div className="moin-buddy-title">
-                <BuddyIcon className="moin-buddy-panel-icon" />
+            <div className="ask-moin-panel-head">
+              <div className="ask-moin-title">
+                <BuddyIcon className="ask-moin-panel-icon" />
                 <div>
                   <span className="mono">ASK MOIN</span>
                   <strong>Curious about my work?</strong>
@@ -179,7 +179,7 @@ export function MoinBuddy() {
               </div>
               <button
                 type="button"
-                className="moin-buddy-close"
+                className="ask-moin-close"
                 onClick={() => setOpen(false)}
                 aria-label="Close Ask Moin"
               >
@@ -187,38 +187,38 @@ export function MoinBuddy() {
               </button>
             </div>
 
-            <div className="moin-buddy-body">
+            <div className="ask-moin-body">
               {messages.length === 0 ? (
-                <div className="moin-buddy-intro">
-                  <div className="moin-buddy-intro-copy">
-                    <span className="moin-buddy-intro-kicker mono">MOHAMMAD MOIN · ENGINEERING × PEOPLE × AI</span>
+                <div className="ask-moin-intro">
+                  <div className="ask-moin-intro-copy">
+                    <span className="ask-moin-intro-kicker mono">MOHAMMAD MOIN · ENGINEERING × PEOPLE × AI</span>
                     <h3>Curious about my work?</h3>
                     <p>
                       Ask me about Mohammad&apos;s experience, engineering,
                       consulting, training, or projects.
                     </p>
                   </div>
-                  <div className="moin-buddy-starters">
+                  <div className="ask-moin-starters">
                     {starters.map(([starter, icon]) => (
                       <button key={starter} type="button" onClick={() => void ask(starter)}>
-                        <span className="moin-buddy-starter-icon" aria-hidden="true">{icon}</span>
+                        <span className="ask-moin-starter-icon" aria-hidden="true">{icon}</span>
                         <span>{starter}</span>
                       </button>
                     ))}
                   </div>
                 </div>
               ) : (
-                <div className="moin-buddy-messages" aria-live="polite">
+                <div className="ask-moin-messages" aria-live="polite">
                   {messages.map((message, index) => (
                     <div
                       key={index}
-                      className={`moin-buddy-message moin-buddy-message-${message.role}`}
+                      className={`ask-moin-message ask-moin-message-${message.role}`}
                     >
                       {message.content}
                     </div>
                   ))}
                   {loading && (
-                    <div className="moin-buddy-message moin-buddy-message-assistant moin-buddy-thinking">
+                    <div className="ask-moin-message ask-moin-message-assistant ask-moin-thinking">
                       <i /><i /><i />
                     </div>
                   )}
@@ -226,7 +226,7 @@ export function MoinBuddy() {
               )}
             </div>
 
-            <form className="moin-buddy-form" onSubmit={submit}>
+            <form className="ask-moin-form" onSubmit={submit}>
               <input
                 ref={inputRef}
                 value={input}
@@ -239,7 +239,7 @@ export function MoinBuddy() {
                 ↑
               </button>
             </form>
-            <small className="moin-buddy-note">Brief answers · text only</small>
+            <small className="ask-moin-note">Brief answers · text only</small>
           </motion.section>
           </div>
           )}
@@ -280,7 +280,7 @@ export function MoinBuddy() {
           </motion.span>
           <span className="moin-buddy-arm moin-buddy-arm-left" />
           <span className="moin-buddy-arm moin-buddy-arm-right" />
-          <span className="moin-buddy-body"><b>M</b></span>
+          <span className="ask-moin-body"><b>M</b></span>
           <span className="moin-buddy-foot moin-buddy-foot-left" />
           <span className="moin-buddy-foot moin-buddy-foot-right" />
         </motion.span>
