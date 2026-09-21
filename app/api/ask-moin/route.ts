@@ -100,14 +100,29 @@ function sentenceCount(value: string) {
   return (value.match(/[.!?](?:\s|$)/g) ?? []).length;
 }
 
-function ensureMinimumAnswer(answer: string, query: string) {
+function ensureMinimumAnswer(
+  answer: string,
+  query: string,
+  knowledge?: ReturnType<typeof searchMoinKnowledge>,
+) {
   const clean = answer.trim();
   if (!clean) return "I don't have enough information on the site to answer that yet.";
   if (sentenceCount(clean) >= 2) return clean;
   if (/^(hi|hello|hey|thanks|thank you)\b/i.test(query.trim())) return clean;
-  return `${clean} I can also explain the related engineering, training, or project work documented on Mohammad's portfolio.`;
-}
 
+  const supporting = knowledge?.find((item) => item.content.trim())?.content
+    .trim()
+    .replace(/\s+/g, " ");
+
+  if (supporting) {
+    const secondSentence = supporting.split(/(?<=[.!?])\s+/)[0];
+    if (secondSentence && !clean.includes(secondSentence)) {
+      return clean + " " + secondSentence;
+    }
+  }
+
+  return clean + " The portfolio also documents related engineering, training, and project work.";
+}
 function buildLocalFallback(
   query: string,
   knowledge: ReturnType<typeof searchMoinKnowledge>,
@@ -148,7 +163,7 @@ function buildLocalFallback(
   const second = secondary?.content.trim().replace(/\s+/g, " ");
   let answer = first;
   if (second && secondary.id !== primary.id) answer += " " + second;
-  return ensureMinimumAnswer(answer, query);
+  return ensureMinimumAnswer(answer, query, knowledge);
 }
 async function generateWithGemini({
   model,
@@ -312,6 +327,7 @@ export async function POST(request: Request) {
     const finalAnswer = ensureMinimumAnswer(
       answer || "I don't have enough information on the site to answer that yet.",
       message,
+      knowledge,
     );
 
     console.info("Ask Moin answered", {
