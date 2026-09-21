@@ -4703,3 +4703,28 @@ html.lenis {
     border-radius:16px!important;
   }
 }
+
+
+/* Final Ask Moin dialog alignment — suggestions use the same conversation geometry. */
+.ask-moin-followups{
+  width:100%!important;
+  max-width:none!important;
+  box-sizing:border-box!important;
+}
+.ask-moin-followups > div{
+  width:100%!important;
+  max-width:none!important;
+}
+.ask-moin-followups button{
+  width:100%!important;
+  max-width:none!important;
+  box-sizing:border-box!important;
+  flex:1 1 auto!important;
+  border-radius:20px!important;
+  background:rgba(238,242,250,.88)!important;
+  border-color:rgba(48,52,63,.09)!important;
+  color:#30343F!important;
+}
+.ask-moin-followups button:hover{
+  background:rgba(226,233,246,.96)!important;
+}
