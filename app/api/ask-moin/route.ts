@@ -70,45 +70,55 @@ export async function POST(request: Request) {
       );
     }
 
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return NextResponse.json({
         answer:
-          "Ask Moin is ready for questions about Mohammad's engineering, consulting, training, and projects. The AI provider still needs to be connected.",
+          "Ask Moin is ready for questions about Mohammad's engineering, consulting, training, and projects. The Gemini provider still needs to be connected.",
       });
     }
 
-    // The current question is appended after the bounded client-side history.
-    // This gives Ask Moin multi-turn context without storing the conversation server-side.
-    const input: ConversationMessage[] = [
-      ...history,
-      { role: "user", content: message },
+    const contents = [
+      ...history.map((item) => ({
+        role: item.role === "assistant" ? "model" : "user",
+        parts: [{ text: item.content }],
+      })),
+      {
+        role: "user",
+        parts: [{ text: message }],
+      },
     ];
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 12000);
 
     try {
-      const response = await fetch("https://api.openai.com/v1/responses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${apiKey}`,
+      const model = process.env.GEMINI_MODEL || "gemini-3.6-flash";
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey,
+          },
+          signal: controller.signal,
+          body: JSON.stringify({
+            system_instruction: {
+              parts: [{ text: SYSTEM_PROMPT }],
+            },
+            contents,
+            generationConfig: {
+              maxOutputTokens: 220,
+            },
+          }),
         },
-        signal: controller.signal,
-        body: JSON.stringify({
-          model: process.env.OPENAI_MODEL || "gpt-5.6",
-          instructions: SYSTEM_PROMPT,
-          input,
-          max_output_tokens: 220,
-          store: false,
-        }),
-      });
+      );
 
       if (!response.ok) {
         const providerError = await response.text().catch(() => "");
         console.error(
-          "Ask Moin provider error:",
+          "Ask Moin Gemini provider error:",
           response.status,
           providerError.slice(0, 500),
         );
@@ -118,11 +128,23 @@ export async function POST(request: Request) {
         );
       }
 
-      const data = (await response.json()) as { output_text?: string };
+      const data = (await response.json()) as {
+        candidates?: Array<{
+          content?: {
+            parts?: Array<{ text?: string }>;
+          };
+        }>;
+      };
+
+      const answer = data.candidates?.[0]?.content?.parts
+        ?.map((part) => part.text?.trim())
+        .filter(Boolean)
+        .join(" ")
+        .trim();
 
       return NextResponse.json({
         answer:
-          data.output_text?.trim() ||
+          answer ||
           "I don't have enough information on the site to answer that yet.",
       });
     } finally {
