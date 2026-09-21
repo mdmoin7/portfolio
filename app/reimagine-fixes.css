@@ -4898,3 +4898,36 @@ html.ask-moin-scroll-lock .ask-moin-body{
     min-height:54px!important;
   }
 }
+
+
+/* Ask Moin — assistant response skeleton */
+.ask-moin-skeleton{
+  width:min(88%,430px)!important;
+  align-self:flex-start!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+  padding:12px 14px!important;
+  border-radius:14px!important;
+  background:#EEF2F8!important;
+  border:1px solid rgba(120,153,212,.14)!important;
+}
+.ask-moin-skeleton-line{
+  display:block!important;
+  height:8px!important;
+  border-radius:999px!important;
+  background:linear-gradient(90deg,#DDE5F2 20%,#F7F9FC 45%,#DDE5F2 70%)!important;
+  background-size:220% 100%!important;
+  animation:ask-moin-skeleton-shimmer 1.35s ease-in-out infinite!important;
+}
+.ask-moin-skeleton-line:nth-child(1){width:92%!important}
+.ask-moin-skeleton-line:nth-child(2){width:100%!important}
+.ask-moin-skeleton-line:nth-child(3){width:76%!important}
+.ask-moin-skeleton-line:nth-child(4){width:48%!important}
+@keyframes ask-moin-skeleton-shimmer{
+  0%{background-position:200% 0}
+  100%{background-position:-20% 0}
+}
+@media(prefers-reduced-motion:reduce){
+  .ask-moin-skeleton-line{animation:none!important}
+}
