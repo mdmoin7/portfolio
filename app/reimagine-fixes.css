@@ -2751,3 +2751,184 @@ html.lenis {
 @media(prefers-reduced-motion:reduce){
   .moin-buddy-hero{animation:none!important}
 }
+
+/* Ask Moin — final chat UI pass */
+.moin-buddy{
+  right:24px;
+  bottom:24px;
+  z-index:120;
+}
+.moin-buddy-panel{
+  width:min(420px,calc(100vw - 32px));
+  max-height:min(620px,calc(100svh - 112px));
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr) auto auto;
+  margin-bottom:14px;
+  border:1px solid rgba(39,52,105,.16);
+  border-radius:22px;
+  background:rgba(250,250,255,.97);
+  box-shadow:0 28px 90px rgba(30,39,73,.22),0 8px 30px rgba(30,39,73,.10);
+  overflow:hidden;
+}
+.moin-buddy-panel-head{
+  min-height:76px;
+  padding:14px 16px 13px;
+  background:linear-gradient(135deg,rgba(244,247,252,.98),rgba(232,238,249,.92));
+  border-bottom:1px solid rgba(39,52,105,.10);
+}
+.moin-buddy-title{
+  gap:11px;
+}
+.moin-buddy-panel-icon{
+  flex:0 0 42px!important;
+  width:42px!important;
+  height:44px!important;
+}
+.moin-buddy-title > div{
+  gap:3px;
+}
+.moin-buddy-title .mono{
+  color:#5678B8;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.2em;
+}
+.moin-buddy-title strong{
+  color:#1E2749;
+  font:500 18px/1.08 var(--font-display);
+  letter-spacing:-.02em;
+}
+.moin-buddy-close{
+  flex:0 0 32px;
+  width:32px;
+  height:32px;
+  border:1px solid rgba(39,52,105,.13);
+  background:rgba(250,250,255,.9);
+  color:#52617D;
+  font-size:19px;
+  transition:background .18s ease,transform .18s ease,border-color .18s ease;
+}
+.moin-buddy-close:hover{
+  background:#fff;
+  border-color:rgba(120,153,212,.55);
+  transform:rotate(4deg);
+}
+.moin-buddy-body{
+  min-height:0;
+  max-height:none;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  padding:18px 17px;
+  background:#FAFAFF;
+}
+.moin-buddy-intro{
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:8px 3px;
+}
+.moin-buddy-intro p{
+  max-width:330px;
+  margin:0 auto 18px 0;
+  color:#59677F;
+  font-size:12px;
+  line-height:1.65;
+}
+.moin-buddy-starters{
+  gap:8px;
+}
+.moin-buddy-starters button{
+  min-height:44px;
+  padding:11px 13px;
+  border-radius:11px;
+  background:#fff;
+  border-color:rgba(39,52,105,.11);
+}
+.moin-buddy-messages{
+  min-height:100%;
+  justify-content:flex-end;
+  padding:2px 1px;
+}
+.moin-buddy-message{
+  max-width:86%;
+  padding:10px 13px;
+  border-radius:14px;
+  font-size:12px;
+  line-height:1.6;
+  box-shadow:0 3px 12px rgba(30,39,73,.04);
+}
+.moin-buddy-message-user{
+  background:linear-gradient(135deg,#273469,#1E2749);
+  border-bottom-right-radius:5px;
+}
+.moin-buddy-message-assistant{
+  background:#EEF2F8;
+  border:1px solid rgba(39,52,105,.07);
+  border-bottom-left-radius:5px;
+}
+.moin-buddy-form{
+  margin:10px 14px 0;
+  min-height:50px;
+  padding:6px 6px 6px 15px;
+  border:1px solid rgba(39,52,105,.16);
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 5px 18px rgba(30,39,73,.06);
+}
+.moin-buddy-form:focus-within{
+  border-color:rgba(120,153,212,.75);
+  box-shadow:0 0 0 3px rgba(120,153,212,.12),0 5px 18px rgba(30,39,73,.06);
+}
+.moin-buddy-form input{
+  height:36px;
+  font-size:12px;
+}
+.moin-buddy-form button{
+  width:38px;
+  height:38px;
+  background:#273469;
+  color:#FAFAFF;
+  font-size:18px;
+  transition:transform .18s ease,opacity .18s ease;
+}
+.moin-buddy-form button:not(:disabled):hover{
+  transform:translateY(-1px);
+}
+.moin-buddy-note{
+  padding:8px 18px 13px;
+  text-align:right;
+  color:#8A95A8;
+  font-size:7px;
+}
+@media(max-width:560px){
+  .moin-buddy{
+    right:12px;
+    bottom:12px;
+    left:12px;
+    align-items:flex-end;
+  }
+  .moin-buddy-panel{
+    width:min(100%,420px);
+    max-height:calc(100svh - 88px);
+    border-radius:20px;
+    margin-bottom:10px;
+  }
+  .moin-buddy-body{
+    padding:16px 14px;
+  }
+  .moin-buddy-orb{
+    width:64px!important;
+    height:64px!important;
+  }
+}
+@media(max-height:650px) and (min-width:561px){
+  .moin-buddy-panel{
+    max-height:calc(100svh - 92px);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .moin-buddy-close,.moin-buddy-form button{transition:none}
+}
