@@ -328,7 +328,7 @@ export default function MoinResume() {
       </div>
         </section>
       </main>
-      <CinematicFooter id="resume-footer" />
+      <CinematicFooter id="resume-footer" homeHref="/" />
       <MoinBuddy />
     </div>
   );
