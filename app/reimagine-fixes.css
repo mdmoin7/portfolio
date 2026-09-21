@@ -4297,3 +4297,115 @@ html.lenis {
   .ask-moin-starters{grid-template-columns:1fr!important}
   .ask-moin-starters button{height:50px!important;min-height:50px!important}
 }
+
+
+/* Ask Moin — canonical mascot restoration
+   Reuse the proven floating mascot geometry and scale the complete character,
+   rather than redefining its individual anatomy. This prevents distortion. */
+.ask-moin-hero-mascot{
+  position:relative!important;
+  width:96px!important;
+  height:108px!important;
+  margin:4px auto 0!important;
+  display:block!important;
+  overflow:visible!important;
+  background:transparent!important;
+}
+.ask-moin-mascot{
+  position:absolute!important;
+  left:24px!important;
+  top:0!important;
+  width:48px!important;
+  height:54px!important;
+  min-width:48px!important;
+  min-height:54px!important;
+  display:block!important;
+  transform:scale(1.7)!important;
+  transform-origin:top center!important;
+  background:transparent!important;
+  filter:drop-shadow(0 9px 10px rgba(30,39,73,.16))!important;
+  overflow:visible!important;
+  animation:none!important;
+}
+.ask-moin-mascot .moin-buddy-cape{
+  display:none!important;
+}
+.ask-moin-mascot .moin-buddy-head{
+  left:11px!important;
+  top:1px!important;
+  width:27px!important;
+  height:25px!important;
+}
+.ask-moin-mascot .moin-buddy-ear{
+  top:12px!important;
+  width:19px!important;
+  height:25px!important;
+}
+.ask-moin-mascot .moin-buddy-ear-left{left:1px!important}
+.ask-moin-mascot .moin-buddy-ear-right{right:1px!important}
+.ask-moin-mascot .moin-buddy-body{
+  left:8px!important;
+  top:22px!important;
+  width:33px!important;
+  height:30px!important;
+}
+.ask-moin-mascot .moin-buddy-arm{
+  top:28px!important;
+}
+.ask-moin-mascot .moin-buddy-foot{
+  top:43px!important;
+}
+.ask-moin-kicker{
+  margin-top:0!important;
+  margin-bottom:7px!important;
+}
+.ask-moin-intro-copy{
+  margin-bottom:16px!important;
+}
+.ask-moin-intro-copy h3{
+  font-size:31px!important;
+  line-height:1.02!important;
+}
+.ask-moin-intro-copy p{
+  margin-top:9px!important;
+  font-size:11.5px!important;
+  line-height:1.42!important;
+}
+.ask-moin-starters{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+}
+.ask-moin-starters button{
+  height:56px!important;
+  min-height:56px!important;
+  padding:8px 11px!important;
+  grid-template-columns:32px minmax(0,1fr) 15px!important;
+  gap:9px!important;
+  font-size:10.5px!important;
+  line-height:1.22!important;
+}
+.ask-moin-form{
+  height:52px!important;
+  flex-basis:52px!important;
+  margin:6px 18px 0!important;
+}
+.ask-moin-note{
+  padding:6px 18px 9px!important;
+}
+@media(max-width:560px){
+  .ask-moin-hero-mascot{
+    width:82px!important;
+    height:92px!important;
+  }
+  .ask-moin-mascot{
+    left:17px!important;
+    transform:scale(1.55)!important;
+  }
+  .ask-moin-starters{
+    grid-template-columns:1fr!important;
+  }
+  .ask-moin-starters button{
+    height:50px!important;
+    min-height:50px!important;
+  }
+}
