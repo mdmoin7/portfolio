@@ -1,160 +1,150 @@
-export type KnowledgeChunk = {
+import fs from "node:fs";
+import path from "node:path";
+
+type KnowledgeSection = {
   id: string;
   title: string;
-  topics: string[];
   content: string;
   url?: string;
 };
 
-export const MOIN_KNOWLEDGE: KnowledgeChunk[] = [
-  {
-    id: "identity",
-    title: "Identity and positioning",
-    topics: ["who", "identity", "role", "about", "moin", "mohammad"],
-    content:
-      "Mohammad Moin is an Independent Software Engineering Consultant & Corporate Technology Trainer based in Bengaluru, India. His positioning is Engineering × People × AI. His core statement is Build People. Solve Problems. Innovate. His professional practice connects consulting, software engineering, architecture, AI/RAG solutions, and corporate technology training.",
-    url: "https://mohammadmoin.vercel.app/",
-  },
-  {
-    id: "engineering",
-    title: "Engineering practice",
-    topics: ["engineering", "consulting", "development", "architecture", "frontend", "full stack"],
-    content:
-      "Mohammad works across production software engineering, frontend architecture, enterprise application architecture, modernization, identity-aware applications, and AI-enabled systems. His approach connects PEOPLE → PROBLEM → DESIGN → BUILD → IMPACT.",
-    url: "https://mohammadmoin.vercel.app/consulting/",
-  },
-  {
-    id: "react",
-    title: "React engineering",
-    topics: ["react", "typescript", "vite", "state", "testing", "frontend"],
-    content:
-      "React expertise represented on the portfolio includes application architecture, TypeScript, state management, performance, testing, Vite, and scalable enterprise application development.",
-    url: "https://mohammadmoin.vercel.app/engineering/react/",
-  },
-  {
-    id: "angular",
-    title: "Angular engineering",
-    topics: ["angular", "signals", "rxjs", "standalone", "testing", "frontend"],
-    content:
-      "Angular expertise represented on the portfolio includes application architecture, standalone components, signals, RxJS, performance, testing, and enterprise delivery.",
-    url: "https://mohammadmoin.vercel.app/engineering/angular/",
-  },
-  {
-    id: "mobile",
-    title: "React Native engineering",
-    topics: ["react native", "mobile", "expo", "native", "performance"],
-    content:
-      "React Native work includes cross-platform mobile architecture, Expo, native integration, debugging, performance, and production delivery.",
-    url: "https://mohammadmoin.vercel.app/engineering/react-native/",
-  },
-  {
-    id: "architecture",
-    title: "Frontend architecture",
-    topics: ["architecture", "nx", "monorepo", "microfrontend", "module federation", "design system"],
-    content:
-      "Frontend architecture work covers application boundaries, component architecture, state and data flow, Nx monorepos, microfrontends, Module Federation, design systems, performance, testing, and delivery practices.",
-    url: "https://mohammadmoin.vercel.app/engineering/frontend-architecture/",
-  },
-  {
-    id: "cloud",
-    title: "Azure and Terraform",
-    topics: ["azure", "terraform", "infrastructure", "iac", "github actions", "cicd"],
-    content:
-      "Terraform and Azure engineering includes Infrastructure as Code, reusable modules, state management, Azure infrastructure, CI/CD, GitHub Actions, and infrastructure security.",
-    url: "https://mohammadmoin.vercel.app/engineering/terraform/",
-  },
-  {
-    id: "microsoft",
-    title: "Microsoft enterprise stack",
-    topics: ["entra", "entra id", "msal", "dataverse", "dynamics", "microsoft"],
-    content:
-      "The Microsoft ecosystem represented on the portfolio includes Microsoft Entra ID, MSAL, Dynamics 365, and Dataverse. Enterprise React work includes identity-aware interfaces using React, Entra ID, MSAL, and Dataverse.",
-    url: "https://mohammadmoin.vercel.app/engineering/react/",
-  },
-  {
-    id: "ai",
-    title: "AI and RAG",
-    topics: ["ai", "artificial intelligence", "llm", "genai", "rag", "embeddings", "vector search"],
-    content:
-      "AI capabilities represented on the portfolio include LLM applications, retrieval-augmented generation (RAG), embeddings, vector search, and AI workflows. AI/RAG solutions are part of the broader engineering and consulting practice.",
-    url: "https://mohammadmoin.vercel.app/consulting/",
-  },
-  {
-    id: "training",
-    title: "Corporate technology training",
-    topics: ["training", "trainer", "corporate", "learning", "upskilling", "curriculum"],
-    content:
-      "Mohammad provides hands-on corporate technology training designed around production scenarios and capability development rather than syntax-only instruction. The training model is ASSESS → FOUNDATION → APPLIED → PRODUCTION → OWNERSHIP. Topics include React, Angular, React Native, TypeScript, enterprise frontend architecture, AI/GenAI, and Terraform/Azure.",
-    url: "https://mohammadmoin.vercel.app/training/",
-  },
-  {
-    id: "credibility",
-    title: "Training and production experience",
-    topics: ["15k", "15000", "350", "14 years", "experience", "sessions"],
-    content:
-      "The portfolio states: 15K+ engineers trained, 350+ sessions delivered, and 14+ years in production. These figures should be reported exactly and not extrapolated.",
-    url: "https://mohammadmoin.vercel.app/training/",
-  },
-  {
-    id: "aquatrack",
-    title: "AquaTrack",
-    topics: ["aquatrack", "water", "consumption", "billing", "expenses", "analytics"],
-    content:
-      "AquaTrack is a water-consumption system covering water readings, analytics, billing, expenses, reporting, and alerts.",
-    url: "https://mohammadmoin.vercel.app/",
-  },
-  {
-    id: "income",
-    title: "Income Tracker",
-    topics: ["income tracker", "authentication", "token", "ttl", "refresh", "persistence"],
-    content:
-      "Income Tracker is represented as a system involving authentication, token lifecycle, TTL, refresh, and data persistence.",
-    url: "https://mohammadmoin.vercel.app/",
-  },
-  {
-    id: "contact",
-    title: "Working with Mohammad",
-    topics: ["work", "hire", "contact", "engage", "consulting", "training"],
-    content:
-      "Visitors can engage Mohammad through the site's consulting, engineering/architecture, AI/RAG, and corporate training areas. The portfolio provides a Contact page for professional conversations. Do not invent pricing, availability, contracts, or guarantees.",
-    url: "https://mohammadmoin.vercel.app/contact/",
-  },
-];
+type AiProfile = {
+  name?: string;
+  jobTitle?: string;
+  description?: string;
+  knowsAbout?: string[];
+  address?: { addressLocality?: string; addressCountry?: string };
+};
 
-function normalize(value: string) {
+const PUBLIC_DIR = path.join(process.cwd(), "public");
+
+function readJsonProfile(): AiProfile {
+  try {
+    return JSON.parse(
+      fs.readFileSync(path.join(PUBLIC_DIR, "ai-profile.json"), "utf8"),
+    ) as AiProfile;
+  } catch {
+    return {};
+  }
+}
+
+function readLlms(): string {
+  return fs.readFileSync(path.join(PUBLIC_DIR, "llms.txt"), "utf8");
+}
+
+function parseLlmsSections(markdown: string): KnowledgeSection[] {
+  const lines = markdown.split(/\r?\n/);
+  const sections: KnowledgeSection[] = [];
+  let current: { title: string; lines: string[] } | null = null;
+
+  for (const line of lines) {
+    const heading = line.match(/^##\s+(.+)$/);
+    if (heading) {
+      if (current) sections.push(toSection(current));
+      current = { title: heading[1].trim(), lines: [] };
+      continue;
+    }
+    if (current) current.lines.push(line);
+  }
+
+  if (current) sections.push(toSection(current));
+  return sections;
+}
+
+function toSection(section: { title: string; lines: string[] }): KnowledgeSection {
+  const content = section.lines.join("\n").trim();
+  const firstUrl = content.match(/https?:\/\/[^)\s]+/);
+  const id = section.title.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+  return {
+    id,
+    title: section.title,
+    content,
+    ...(firstUrl ? { url: firstUrl[0] } : {}),
+  };
+}
+
+function tokenize(value: string) {
   return value
     .toLowerCase()
-    .replace(/[^a-z0-9+.#×→]+/g, " ")
+    .replace(/[^a-z0-9+.#×→-]+/g, " ")
     .split(/\s+/)
-    .filter(Boolean);
+    .filter((token) => token.length > 1);
+}
+
+export function getMoinKnowledge() {
+  const profile = readJsonProfile();
+  const profileText = [
+    profile.name,
+    profile.jobTitle,
+    profile.description,
+    ...(profile.knowsAbout ?? []),
+    profile.address?.addressLocality,
+    profile.address?.addressCountry,
+  ]
+    .filter(Boolean)
+    .join(". ");
+
+  return {
+    profileText,
+    sections: parseLlmsSections(readLlms()),
+  };
 }
 
 export function searchMoinKnowledge(query: string, limit = 5) {
-  const queryTokens = new Set(normalize(query));
+  const { profileText, sections } = getMoinKnowledge();
+  const tokens = tokenize(query);
   const queryText = query.toLowerCase();
-  const scored = MOIN_KNOWLEDGE.map((chunk) => {
-    const haystack = normalize(
-      [chunk.title, chunk.topics.join(" "), chunk.content].join(" "),
-    );
-    let score = 0;
-    for (const token of queryTokens) {
-      if (chunk.topics.some((topic) => topic.toLowerCase().includes(token))) score += 6;
-      if (haystack.includes(token)) score += 1;
-    }
-    for (const phrase of chunk.topics) {
-      if (queryText.includes(phrase.toLowerCase())) score += 8;
-    }
-    return { chunk, score };
-  })
-    .filter((item) => item.score > 0)
+
+  const scored = sections
+    .map((section) => {
+      const haystack = tokenize(
+        [section.title, section.content, profileText].join(" "),
+      );
+      const haystackSet = new Set(haystack);
+      let score = 0;
+
+      for (const token of tokens) {
+        if (haystackSet.has(token)) score += 2;
+        else if (haystack.some((value) => value.includes(token))) score += 1;
+      }
+
+      if (/who|what does/.test(queryText) && /identity|primary pages/i.test(section.title)) {
+        score += 8;
+      }
+
+      if (/training|trainer|learn|course|upskill/.test(queryText) && /training/i.test(section.title)) {
+        score += 10;
+      }
+
+      if (/react|frontend|angular|mobile|typescript|node|azure|terraform|entra|dataverse|ai|rag/.test(queryText) && /engineering|technology/i.test(section.title)) {
+        score += 5;
+      }
+
+      if (/project|work|aquatrack|income tracker/.test(queryText) && /work/i.test(section.title)) {
+        score += 8;
+      }
+
+      return { section, score };
+    })
+    .filter(({ score }) => score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, limit);
 
-  return scored.map(({ chunk, score }) => ({
-    id: chunk.id,
-    title: chunk.title,
-    content: chunk.content,
-    url: chunk.url,
+  return scored.map(({ section, score }) => ({
+    id: section.id,
+    title: section.title,
+    content: section.content,
+    url: section.url,
     relevance: score,
   }));
+}
+
+export function getMoinSourceSummary() {
+  const { profileText, sections } = getMoinKnowledge();
+  return {
+    sourceFiles: ["public/llms.txt", "public/ai-profile.json"],
+    profileText,
+    sections: sections.map(({ id, title, url }) => ({ id, title, url })),
+  };
 }
