@@ -51,6 +51,11 @@ export function MoinBuddy() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [followUps, setFollowUps] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
+  const [typing, setTyping] = useState<{
+    words: string[];
+    count: number;
+    full: string;
+  } | null>(null);
   const [state, setState] = useState<BuddyState>("idle");
   const lenis = useLenis();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -174,18 +179,61 @@ export function MoinBuddy() {
     });
 
     return () => window.cancelAnimationFrame(frame);
-  }, [open, messages, loading, followUps]);
+  }, [open, messages, loading, followUps, typing]);
+
+  // Word-by-word typing reveal: providers return the full answer at once, so
+  // the panel reveals it progressively to mimic streaming.
+  useEffect(() => {
+    if (!typing) return;
+
+    const total = typing.words.length;
+    const step = Math.max(1, Math.ceil(total / 85));
+    const ticks = Math.max(1, Math.ceil(total / step));
+    const tickMs = Math.max(20, Math.min(60, Math.round(1900 / ticks)));
+    const next = Math.min(total, typing.count + step);
+    const { full, words } = typing;
+
+    const timer = window.setTimeout(() => {
+      if (next >= total) {
+        setMessages((current) => [...current, { role: "assistant", content: full }]);
+        setTyping(null);
+      } else {
+        setTyping({ words, count: next, full });
+      }
+    }, tickMs);
+
+    return () => window.clearTimeout(timer);
+  }, [typing]);
+
+  function deliverAnswer(content: string) {
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const words = content.match(/\S+\s*/g) ?? [];
+
+    if (prefersReducedMotion || words.length === 0) {
+      setMessages((current) => [...current, { role: "assistant", content }]);
+      return;
+    }
+
+    setTyping({ words, count: 0, full: content });
+  }
 
   async function ask(question: string) {
     const trimmed = question.trim();
     if (!trimmed || loading) return;
 
+    // Flush any in-progress typing answer so messages never arrive out of order.
+    const pendingMessages = typing
+      ? [...messages, { role: "assistant" as const, content: typing.full }]
+      : messages;
     const conversation = [
-      ...messages,
+      ...pendingMessages,
       { role: "user" as const, content: trimmed },
     ].slice(-12);
 
     setMessages(conversation);
+    setTyping(null);
     setFollowUps([]);
     setInput("");
     setLoading(true);
@@ -197,29 +245,17 @@ export function MoinBuddy() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: trimmed,
-          messages: messages.slice(-12),
+          messages: pendingMessages.slice(-12),
         }),
       });
       const data = (await response.json()) as ChatResponse;
       setFollowUps(data.followUps?.slice(0, 3) ?? []);
-      setMessages((current) => [
-        ...current,
-        {
-          role: "assistant",
-          content:
-            data.answer ??
-            "I can brief you on Mohammad's work, engineering, training, and projects.",
-        },
-      ]);
+      deliverAnswer(
+        data.answer ??
+          "I can brief you on Mohammad's work, engineering, training, and projects.",
+      );
     } catch {
-      setMessages((current) => [
-        ...current,
-        {
-          role: "assistant",
-          content:
-            "I'm having trouble connecting right now. Try again in a moment.",
-        },
-      ]);
+      deliverAnswer("I'm having trouble connecting right now. Try again in a moment.");
     } finally {
       setLoading(false);
       if (!open) setState("idle");
@@ -305,6 +341,15 @@ export function MoinBuddy() {
                       {message.content}
                     </div>
                   ))}
+                  {typing && (
+                    <div
+                      className="ask-moin-message ask-moin-message-assistant ask-moin-message-typing"
+                      aria-live="off"
+                    >
+                      {typing.words.slice(0, typing.count).join("")}
+                      <span className="ask-moin-caret" aria-hidden="true" />
+                    </div>
+                  )}
                   {loading && (
                     <div className="ask-moin-skeleton" role="status" aria-label="Moin is preparing a response">
                       <span className="ask-moin-skeleton-line" />
@@ -313,7 +358,7 @@ export function MoinBuddy() {
                       <span className="ask-moin-skeleton-line" />
                     </div>
                   )}
-                  {!loading && messages.some((message) => message.role === "assistant") && followUps.length > 0 && (
+                  {!loading && !typing && messages.some((message) => message.role === "assistant") && followUps.length > 0 && (
                     <div className="ask-moin-followups" aria-label="Suggested follow-up questions">
                       <span>Explore next</span>
                       <div>

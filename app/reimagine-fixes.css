@@ -4933,3 +4933,23 @@ html.ask-moin-scroll-lock .ask-moin-body{
 @media(prefers-reduced-motion:reduce){
   .ask-moin-skeleton-line{animation:none!important}
 }
+
+/* Ask Moin — word-by-word typing effect */
+.ask-moin-message-typing{
+  min-height:20px!important;
+}
+.ask-moin-caret{
+  display:inline-block;
+  width:2px;
+  height:1em;
+  margin-left:2px;
+  background:#7899D4;
+  vertical-align:-.15em;
+  animation:ask-moin-caret-blink .8s steps(1) infinite;
+}
+@keyframes ask-moin-caret-blink{
+  50%{opacity:0}
+}
+@media(prefers-reduced-motion:reduce){
+  .ask-moin-caret{animation:none}
+}
