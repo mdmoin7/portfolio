@@ -117,6 +117,14 @@ export function searchMoinKnowledge(query: string, limit = 5) {
         score += 10;
       }
 
+      if (/achiev|credential|track record|milestone|how many|clients|trained|sessions|recogni|award/i.test(queryText) && /achievement/i.test(section.title)) {
+        score += 12;
+      }
+
+      if (/consult|jll|engagement|hire|moderni[sz]/.test(queryText) && /consulting/i.test(section.title)) {
+        score += 12;
+      }
+
       if (/react|frontend|angular|mobile|typescript|node|azure|terraform|entra|dataverse|ai|rag/.test(queryText) && /engineering|technology/i.test(section.title)) {
         score += 5;
       }

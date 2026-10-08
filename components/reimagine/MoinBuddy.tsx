@@ -14,7 +14,7 @@ const starters = [
   ["What technologies does he use?", "</>"],
   ["Tell me about his projects.", "▣"],
   ["Does he provide corporate training?", "◇"],
-  ["What's his professional approach?", "↗"],
+  ["What are his achievements?", "★"],
   ["How can I work with him?", "✦"],
 ] as const;
 

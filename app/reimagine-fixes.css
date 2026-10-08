@@ -3646,6 +3646,8 @@ html.lenis {
   border-radius:12px!important;
   font-size:12px!important;
   line-height:1.55!important;
+  white-space:pre-wrap!important;
+  overflow-wrap:anywhere!important;
 }
 .ask-moin-message-user{
   align-self:flex-end!important;

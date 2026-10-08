@@ -4,7 +4,9 @@
    slate-blue #5278BA, paper #FAFAFF background, var(--font-display) /
    var(--font-body) / var(--font-mono).
    ------------------------------------------------------------------------- */
-
+section:not(.hero-v2){
+  padding:0px 0px;
+}
 .moin-resume{
   --ink:#1E2749;
   --brand:#273469;
