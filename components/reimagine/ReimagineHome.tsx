@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   motion,
   useReducedMotion,
@@ -41,12 +41,83 @@ const services = [
 function Arrow() {
   return <span aria-hidden="true">→</span>;
 }
+
+/* Hero entrance choreography: explicit per-element delays so the reveal order
+   is stable and readable. Everything collapses to a static render when the
+   visitor prefers reduced motion. */
+function heroEnter(reduce: boolean | null, delay: number) {
+  return {
+    initial: reduce ? false : { opacity: 0, y: 26, filter: "blur(8px)" },
+    animate: reduce ? undefined : { opacity: 1, y: 0, filter: "blur(0px)" },
+    transition: { duration: 0.9, delay, ease: "easeOut" as const },
+  };
+}
+
+/* Opacity-only reveal for elements that already carry a CSS float animation
+   (a motion transform would fight the keyframes). */
+function heroFade(reduce: boolean | null, delay: number) {
+  return {
+    initial: reduce ? false : { opacity: 0 },
+    animate: reduce ? undefined : { opacity: 1 },
+    transition: { duration: 1.1, delay, ease: "easeOut" as const },
+  };
+}
+
+function HeroStat({
+  value,
+  suffix,
+  label,
+  delay,
+  reduce,
+}: {
+  value: number;
+  suffix: string;
+  label: string;
+  delay: number;
+  reduce: boolean | null;
+}) {
+  const [n, setN] = useState(0);
+
+  useEffect(() => {
+    if (reduce) {
+      const t = globalThis.setTimeout(() => setN(value), 80);
+      return () => globalThis.clearTimeout(t);
+    }
+    let raf = 0;
+    let start: number | null = null;
+    const duration = 1500;
+    const tick = (now: number) => {
+      if (start === null) start = now;
+      const p = Math.min(1, (now - start) / duration);
+      setN(Math.round(value * (1 - Math.pow(1 - p, 3))));
+      if (p < 1) raf = globalThis.requestAnimationFrame(tick);
+    };
+    const timer = globalThis.setTimeout(() => {
+      raf = globalThis.requestAnimationFrame(tick);
+    }, delay * 1000);
+    return () => {
+      globalThis.clearTimeout(timer);
+      globalThis.cancelAnimationFrame(raf);
+    };
+  }, [value, delay, reduce]);
+
+  return (
+    <motion.div {...heroEnter(reduce, delay)}>
+      <strong aria-label={`${value}${suffix}`}>
+        {n}
+        {suffix}
+      </strong>
+      <span>{label}</span>
+    </motion.div>
+  );
+}
 export function ReimagineHome() {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const [active, setActive] = useState(0);
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const heroGlow = useTransform(scrollYProgress, [0, 0.2], [1, 0.18]);
+  const heroRef = useRef<HTMLElement | null>(null);
   useEffect(() => {
     const saved = window.localStorage.getItem("moin-theme");
     if (saved === "light" || saved === "dark") setTheme(saved);
@@ -54,6 +125,31 @@ export function ReimagineHome() {
   useEffect(() => {
     window.localStorage.setItem("moin-theme", theme);
   }, [theme]);
+  /* Cursor spotlight: feed normalized coordinates to the hero CSS layer so the
+     light follows the pointer without re-rendering React. */
+  useEffect(() => {
+    const el = heroRef.current;
+    if (!el || reduce) return;
+    let raf = 0;
+    let px = 0;
+    let py = 0;
+    const apply = () => {
+      raf = 0;
+      el.style.setProperty("--hero-mx", `${px}px`);
+      el.style.setProperty("--hero-my", `${py}px`);
+    };
+    const onMove = (e: MouseEvent) => {
+      const r = el.getBoundingClientRect();
+      px = e.clientX - r.left;
+      py = e.clientY - r.top;
+      if (!raf) raf = globalThis.requestAnimationFrame(apply);
+    };
+    el.addEventListener("mousemove", onMove);
+    return () => {
+      el.removeEventListener("mousemove", onMove);
+      if (raf) globalThis.cancelAnimationFrame(raf);
+    };
+  }, [reduce]);
   useEffect(() => {
     const k = (e: KeyboardEvent) => {
       if (e.key >= "1" && e.key <= "5") setActive(Number(e.key) - 1);
@@ -110,83 +206,79 @@ export function ReimagineHome() {
         </div>
       </header>
       <main>
-        <section className="hero-v2" id="thesis">
+        <section className="hero-v2" id="thesis" ref={heroRef}>
           <motion.div
             className="hero-orbit"
             style={reduce ? undefined : { opacity: heroGlow }}
           />
           <div className="hero-grid" />
-          <div className="hero-meta mono">
+          <div className="hero-sweep" aria-hidden="true" />
+          <div className="hero-spot" aria-hidden="true" />
+          <motion.div className="hero-meta mono" {...heroFade(reduce, 0.1)}>
             TECHNOLOGY × PEOPLE × REAL IMPACT
-          </div>
+          </motion.div>
           <div className="hero-copy">
-            <p className="eyebrow mono">
+            <motion.p className="eyebrow mono" {...heroEnter(reduce, 0.3)}>
               WHO I AM · INDEPENDENT SOFTWARE ENGINEERING CONSULTANT
               <br />& CORPORATE TECHNOLOGY TRAINER
-            </p>
+            </motion.p>
             <h1>
-              Mohammad Moin.
-              <br />
-              <em>Build People. Solve Problems. Innovate.</em>
+              <motion.span className="hero-line" {...heroEnter(reduce, 0.44)}>
+                Mohammad Moin.
+              </motion.span>
+              <motion.em className="hero-line" {...heroEnter(reduce, 0.6)}>
+                Build People. Solve Problems. Innovate.
+              </motion.em>
             </h1>
-            <p className="hero-lede">
+            <motion.p className="hero-lede" {...heroEnter(reduce, 0.78)}>
               I design and build modern software systems, advise engineering
               teams, and develop production-ready capability through practical,
               hands-on training.
-            </p>
-            <div className="hero-actions">
+            </motion.p>
+            <motion.div className="hero-actions" {...heroEnter(reduce, 0.92)}>
               <a href="#capability" className="primary-action">
                 What I Do <Arrow />
               </a>
               <a href="#training" className="secondary-action">
                 Training <Arrow />
               </a>
-            </div>
+            </motion.div>
             <div className="hero-stats">
-              <div>
-                <strong>15K+</strong>
-                <span>Professionals Trained</span>
-              </div>
-              <div>
-                <strong>350+</strong>
-                <span>Training Sessions</span>
-              </div>
-              <div>
-                <strong>14+</strong>
-                <span>Years Experience</span>
-              </div>
+              <HeroStat reduce={reduce} delay={1.05} value={15} suffix="K+" label="Professionals Trained" />
+              <HeroStat reduce={reduce} delay={1.17} value={350} suffix="+" label="Training Sessions" />
+              <HeroStat reduce={reduce} delay={1.29} value={14} suffix="+" label="Years Experience" />
             </div>
           </div>
           <div className="hero-visual">
             <DeferredThreeDSystem />
-            <div className="hero-system-label label-people mono">
+            <motion.div className="hero-system-label label-people mono" {...heroFade(reduce, 1.2)}>
               PEOPLE
               <br />
               <span>capability</span>
-            </div>
-            <div className="hero-system-label label-engineering mono">
+            </motion.div>
+            <motion.div className="hero-system-label label-engineering mono" {...heroFade(reduce, 1.35)}>
               ENGINEERING
               <br />
               <span>systems</span>
-            </div>
-            <div className="hero-system-label label-ai mono">
+            </motion.div>
+            <motion.div className="hero-system-label label-ai mono" {...heroFade(reduce, 1.5)}>
               AI / RAG
               <br />
               <span>intelligence</span>
-            </div>
-            <div className="hero-system-label label-impact mono">
+            </motion.div>
+            <motion.div className="hero-system-label label-impact mono" {...heroFade(reduce, 1.65)}>
               IMPACT
               <br />
               <span>outcomes</span>
-            </div>
-            <div className="hero-system-caption">
+            </motion.div>
+            <motion.div className="hero-system-caption" {...heroFade(reduce, 1.8)}>
               <span className="mono">THE MOIN SYSTEM</span>
               <p>People × Engineering × AI</p>
-            </div>
+            </motion.div>
           </div>
-          <div className="hero-scroll mono">
+          <motion.div className="hero-scroll mono" {...heroFade(reduce, 2)}>
             SCROLL TO EXPLORE <span>↓</span>
-          </div>
+          </motion.div>
         </section>
         <section className="capability-section" id="capability">
           <div className="section-kicker mono">02 / WHAT I DO</div>

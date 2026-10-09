@@ -247,3 +247,121 @@
     margin-top:38px !important;
   }
 }
+
+/* ==========================================================================
+   Cinematic motion pass: light sweep, cursor spotlight, orbit drift,
+   floating labels, shimmer headline, animated scroll cue.
+   Every keyframe is neutralized globally under prefers-reduced-motion by
+   globals.css, and the entrance variants live in ReimagineHome.tsx.
+   ========================================================================== */
+.reimagine .hero-v2 h1 .hero-line { display:block; }
+
+/* Slow lens flare sweeping across the hero every ~11s. */
+.reimagine .hero-sweep {
+  position:absolute; inset:0; z-index:4; overflow:hidden; pointer-events:none;
+}
+.reimagine .hero-sweep::before {
+  content:""; position:absolute; top:-45%; left:-38%; width:30%; height:190%;
+  background:linear-gradient(90deg,transparent,rgba(250,250,255,.6),rgba(120,153,212,.3),transparent);
+  filter:blur(7px); opacity:0;
+  animation:hero-sweep 11s ease-in-out 2.2s infinite;
+}
+@keyframes hero-sweep {
+  0% { transform:rotate(16deg) translateX(0); opacity:0; }
+  8% { opacity:.8; }
+  42% { opacity:.45; }
+  55%,100% { transform:rotate(16deg) translateX(480%); opacity:0; }
+}
+
+/* Pointer spotlight fed by --hero-mx/--hero-my from ReimagineHome. */
+.reimagine .hero-spot {
+  position:absolute; inset:0; z-index:4; pointer-events:none; opacity:0;
+  transition:opacity .7s ease;
+  background:radial-gradient(420px circle at var(--hero-mx,64%) var(--hero-my,38%),rgba(120,153,212,.16),transparent 70%);
+}
+.reimagine .hero-v2:hover .hero-spot { opacity:1; }
+.reimagine.is-dark .hero-spot {
+  background:radial-gradient(460px circle at var(--hero-mx,64%) var(--hero-my,38%),rgba(120,153,212,.24),transparent 72%);
+}
+
+/* The orbit rings drift and breathe instead of sitting still. */
+.reimagine .hero-orbit {
+  animation:hero-orbit-spin 120s linear infinite, hero-orbit-pulse 7s ease-in-out infinite;
+}
+@keyframes hero-orbit-spin { to { transform:rotate(360deg); } }
+@keyframes hero-orbit-pulse {
+  0%,100% { box-shadow:0 0 100px rgba(71,120,200,.10),inset 0 0 80px rgba(216,180,119,.04); }
+  50% { box-shadow:0 0 135px rgba(71,120,200,.22),inset 0 0 105px rgba(216,180,119,.09); }
+}
+
+/* The blueprint grid slowly pans so the hero never feels frozen. */
+.reimagine .hero-grid {
+  animation:hero-grid-pan 36s linear infinite;
+}
+@keyframes hero-grid-pan {
+  from { background-position:0 0,0 0; }
+  to { background-position:72px 72px,72px 72px; }
+}
+
+/* Floating system labels with a pulsing status beacon. */
+.reimagine .hero-system-label {
+  animation:hero-label-float 7.5s ease-in-out infinite;
+}
+.reimagine .label-engineering { animation-delay:-1.9s; }
+.reimagine .label-ai { animation-delay:-3.7s; }
+.reimagine .label-impact { animation-delay:-5.5s; }
+@keyframes hero-label-float {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-8px); }
+}
+.reimagine .hero-system-label::before {
+  content:""; display:inline-block; width:5px; height:5px; margin-right:9px;
+  border-radius:50%; background:#7899D4; vertical-align:middle;
+  animation:hero-dot-pulse 2.6s ease-out infinite;
+}
+@keyframes hero-dot-pulse {
+  0% { box-shadow:0 0 0 0 rgba(120,153,212,.55); }
+  70%,100% { box-shadow:0 0 0 9px rgba(120,153,212,0); }
+}
+
+/* Headline shimmer: a slow light sweep through the promise line. */
+.reimagine .hero-v2 h1 em.hero-line {
+  background-image:linear-gradient(100deg,#5F80C4 22%,#9FB6E6 45%,#4E63A8 58%,#7899D4 78%);
+  background-size:250% 100%;
+  -webkit-background-clip:text; background-clip:text;
+  -webkit-text-fill-color:transparent; color:transparent;
+  text-shadow:none;
+  animation:hero-em-shimmer 7s ease-in-out 2.6s infinite;
+}
+@keyframes hero-em-shimmer {
+  0%,100% { background-position:0% 50%; }
+  50% { background-position:100% 50%; }
+}
+
+/* Scroll cue: bouncing arrow plus a breathing lead line. */
+.reimagine .hero-scroll span {
+  display:inline-block;
+  animation:hero-scroll-bounce 1.9s ease-in-out infinite;
+}
+@keyframes hero-scroll-bounce {
+  0%,100% { transform:translateY(0); opacity:.65; }
+  50% { transform:translateY(6px); opacity:1; }
+}
+.reimagine .hero-scroll::after {
+  content:""; display:inline-block; width:64px; height:1px; margin-left:14px;
+  vertical-align:middle; transform-origin:left center;
+  background:linear-gradient(90deg,rgba(120,153,212,.9),transparent);
+  animation:hero-scroll-line 2.2s ease-in-out infinite;
+}
+@keyframes hero-scroll-line {
+  0%,100% { transform:scaleX(.3); opacity:.5; }
+  50% { transform:scaleX(1); opacity:1; }
+}
+
+/* The 3D system materializes in after the copy lands. */
+.reimagine .three-d-system {
+  animation:hero-3d-in 1.6s cubic-bezier(.16,1,.3,1) .7s both;
+}
+@keyframes hero-3d-in {
+  from { opacity:0; transform:scale(.94) translateY(18px); }
+}
