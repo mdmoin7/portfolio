@@ -85,18 +85,20 @@ export function MoinBuddy() {
 
   useEffect(() => {
     if (open) {
-      setState("open");
+      /* State flips land through the rAF channel — the effect must not
+         cascade renders synchronously (react-hooks/set-state-in-effect). */
+      const raf = requestAnimationFrame(() => setState("open"));
       window.setTimeout(() => inputRef.current?.focus(), 180);
-      return;
+      return () => cancelAnimationFrame(raf);
     }
 
     if (loading) {
-      setState("thinking");
-      return;
+      const raf = requestAnimationFrame(() => setState("thinking"));
+      return () => cancelAnimationFrame(raf);
     }
 
     const schedulePeek = () => {
-      setState("idle");
+      requestAnimationFrame(() => setState("idle"));
       peekTimer.current = window.setTimeout(() => {
         setState("peek");
         window.setTimeout(() => setState("idle"), 1450);
@@ -288,7 +290,7 @@ export function MoinBuddy() {
             <div className="ask-moin-header">
               <div className="ask-moin-brand">
                 <span className="ask-moin-brand-mark">M</span>
-                <span className="mono">MOHAMMAD MOIN</span>
+                <span className="mono">MOHAMMAD MOIN · ENDURANCE COMMS</span>
               </div>
               <button
                 type="button"
@@ -314,8 +316,8 @@ export function MoinBuddy() {
                     <AskMoinMascot />
                   </div>
                   <div className="ask-moin-intro-copy">
-                    <span className="ask-moin-kicker mono">ASK MOIN</span>
-                    <h3>Curious about my work?</h3>
+                    <span className="ask-moin-kicker mono">COMMS // ASK MOIN</span>
+                    <h3>Curious about the mission?</h3>
                     <p>
                       Ask me anything about Mohammad&apos;s experience,
                       engineering, consulting, training, or projects.
@@ -393,7 +395,7 @@ export function MoinBuddy() {
                 ↑
               </button>
             </form>
-            <small className="ask-moin-note">Brief answers · text only</small>
+            <small className="ask-moin-note">ENCRYPTED CHANNEL · BRIEF ANSWERS · TEXT ONLY</small>
           </motion.section>
           </div>
           )}

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Nunito, Playfair_Display } from "next/font/google";
+import { GeistMono } from "geist/font/mono";
 import { getJsonLd, siteMetadata, SITE_URL, PROFILE_IMAGE } from "@/lib/seo";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScroll";
 import "./globals.css";
@@ -8,6 +9,7 @@ import "./reimagine-fixes.css";
 import "./reimagine-3d.css";
 import "./reimagine-performance.css";
 import "./hero-lab.css";
+import "./mo-os.css";
 
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", display: "swap" });
 const playfair = Playfair_Display({ subsets: ["latin"], variable: "--font-playfair", display: "swap" });
@@ -26,5 +28,5 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const jsonLd = getJsonLd();
-  return <html lang="en" className={`${playfair.variable} ${nunito.variable}`}><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /><SmoothScrollProvider>{children}</SmoothScrollProvider></body></html>;
+  return <html lang="en" className={`${playfair.variable} ${nunito.variable} ${GeistMono.variable}`}><body><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} /><SmoothScrollProvider>{children}</SmoothScrollProvider></body></html>;
 }
