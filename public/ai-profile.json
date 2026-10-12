@@ -1,0 +1,34 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Mohammad Moin",
+  "url": "https://mohammadmoin.vercel.app/",
+  "jobTitle": "Independent Software Engineering Consultant & Corporate Technology Trainer",
+  "description": "Mohammad Moin helps organizations turn technology into capability by building production systems and developing the people who operate them.",
+  "sameAs": [
+    "https://github.com/mdmoin7",
+    "https://www.linkedin.com/in/mohammadmoin/"
+  ],
+  "knowsAbout": [
+    "Software Engineering",
+    "Frontend Architecture",
+    "React",
+    "Angular",
+    "React Native",
+    "TypeScript",
+    "Node.js",
+    "Microsoft Azure",
+    "Terraform",
+    "Enterprise Application Architecture",
+    "Artificial Intelligence",
+    "Retrieval-Augmented Generation",
+    "RAG Systems",
+    "Corporate Technology Training",
+    "Engineering Enablement"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Bengaluru",
+    "addressCountry": "IN"
+  }
+}

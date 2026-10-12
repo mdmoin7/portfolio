@@ -1,0 +1,3146 @@
+/* ==========================================================================
+   MOIN.OS — homepage design system
+   A mission-control OS frame (status bar + left rail, always dark) with
+   editorial film-title acts passing behind it. Single opinionated theme:
+   console-dark and editorial-paper acts alternate like scenes in a film.
+   Imported last in layout.tsx so it wins ties against every legacy layer.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Global font tokens
+   The layout loads Nunito (--font-nunito) and Playfair Display
+   (--font-playfair) via next/font; Geist Mono supplies --font-geist-mono.
+   Legacy rules across the app already reference --font-display / --font-body /
+   --font-mono but nothing defined them, so those shorthands never applied.
+   -------------------------------------------------------------------------- */
+:root {
+  --font-display: var(--font-playfair), "Playfair Display", Georgia, serif;
+  --font-body: var(--font-nunito), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono, ui-monospace), ui-monospace, "SF Mono",
+    Menlo, monospace;
+}
+
+/* --------------------------------------------------------------------------
+   Root tokens
+   -------------------------------------------------------------------------- */
+.reimagine.mo {
+  --mo-rail: 64px;
+  --mo-status: 44px;
+
+  --c-bg: #0a0d14;
+  --c-panel: #10141e;
+  --c-panel-2: #151a27;
+  --c-paper: #f1ede4;
+  --c-paper-2: #e8e2d5;
+  --c-ink: #16181d;
+  --c-text: #e9edf5;
+  --c-muted: #8c97ad;
+  --c-muted-ink: #5c5f68;
+  --c-line: rgba(255, 255, 255, 0.13);
+  --c-line-strong: rgba(255, 255, 255, 0.24);
+  --c-line-ink: rgba(22, 24, 29, 0.16);
+  --c-sig: #7c9cd9;
+  --c-sig-deep: #5278ba;
+  --c-gold: #d8b477;
+  --c-ok: #67d9a6;
+
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+
+  /* Legacy tokens: theme.css maps these to paper values under .reimagine;
+     the console theme must keep them dark (e.g. .sound-control). */
+  --bg: var(--c-bg);
+  --text: var(--c-text);
+  --panel: var(--c-panel);
+}
+
+/* Film grain over everything except floating overlays (buddy / boot). */
+.reimagine.mo::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  pointer-events: none;
+  opacity: 0.055;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 240px 240px;
+}
+
+.reimagine.mo main {
+  padding-top: var(--mo-status);
+}
+
+.mo-act {
+  position: relative;
+}
+
+/* --------------------------------------------------------------------------
+   Boot sequence
+   -------------------------------------------------------------------------- */
+.mo-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-content: center;
+  gap: 4px;
+  padding: 8vw;
+  background: #07090e;
+  font-family: var(--font-mono);
+}
+
+.mo-boot-line {
+  font-size: clamp(10px, 1.5vw, 13px);
+  letter-spacing: 0.14em;
+  color: var(--c-muted);
+  opacity: 0;
+  animation: mo-boot-line 0.05s forwards;
+  white-space: nowrap;
+}
+
+.mo-boot-line b {
+  color: var(--c-ok);
+  font-weight: 700;
+}
+
+.mo-boot-line:first-child {
+  color: var(--c-sig);
+  font-weight: 700;
+}
+
+.mo-boot-line:nth-child(1) { animation-delay: 0.15s; }
+.mo-boot-line:nth-child(2) { animation-delay: 0.4s; }
+.mo-boot-line:nth-child(3) { animation-delay: 0.65s; }
+.mo-boot-line:nth-child(4) { animation-delay: 0.9s; }
+.mo-boot-line:nth-child(5) { animation-delay: 1.15s; color: var(--c-text); }
+
+@keyframes mo-boot-line {
+  to { opacity: 1; }
+}
+
+.mo-boot-bar {
+  height: 2px;
+  margin-top: 18px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.mo-boot-bar i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--c-sig);
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: mo-boot-bar 1.5s 0.1s cubic-bezier(0.6, 0, 0.2, 1) forwards;
+}
+
+@keyframes mo-boot-bar {
+  to { transform: scaleX(1); }
+}
+
+/* --------------------------------------------------------------------------
+   Status bar (fixed top chrome)
+   -------------------------------------------------------------------------- */
+.mo-status {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 70;
+  height: var(--mo-status);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 16px 0 18px;
+  background: rgba(8, 10, 15, 0.9);
+  border-bottom: 1px solid var(--c-line);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-family: var(--font-mono);
+}
+
+.mo-status-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: var(--c-text);
+  text-decoration: none;
+}
+
+.mo-status-brand i {
+  font-style: normal;
+  color: var(--c-sig);
+}
+
+.mo-status-brand small {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--c-muted);
+}
+
+.mo-crumb {
+  margin: 0 auto;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  color: var(--c-muted);
+  white-space: nowrap;
+}
+
+.mo-crumb b {
+  color: var(--c-gold);
+  font-weight: 700;
+}
+
+.mo-status-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mo-led {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--c-muted);
+  white-space: nowrap;
+}
+
+.mo-led::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c-ok);
+  box-shadow: 0 0 8px rgba(103, 217, 166, 0.8);
+  animation: mo-led 2.4s ease-in-out infinite;
+}
+
+@keyframes mo-led {
+  50% { opacity: 0.45; }
+}
+
+.mo-clock {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--c-text);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.mo-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border: 1px solid rgba(124, 156, 217, 0.5);
+  background: rgba(124, 156, 217, 0.12);
+  color: var(--c-sig);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+}
+
+.mo-cta:hover {
+  background: var(--c-sig);
+  border-color: var(--c-sig);
+  color: #0a0d14;
+}
+
+.mo-cta-short { display: none; }
+
+.mo-progress {
+  position: fixed;
+  top: var(--mo-status);
+  left: 0;
+  right: 0;
+  z-index: 71;
+  height: 2px;
+  background: var(--c-gold);
+  transform-origin: left;
+}
+
+/* --------------------------------------------------------------------------
+   Left rail (section spy)
+   -------------------------------------------------------------------------- */
+.mo-rail {
+  position: fixed;
+  left: 0;
+  top: var(--mo-status);
+  bottom: 0;
+  z-index: 60;
+  width: var(--mo-rail);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 0 18px;
+  background: rgba(8, 10, 15, 0.72);
+  border-right: 1px solid var(--c-line);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.mo-rail-brand {
+  writing-mode: vertical-rl;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.34em;
+  color: var(--c-muted);
+  text-decoration: none;
+}
+
+.mo-rail-brand i {
+  font-style: normal;
+  color: var(--c-sig);
+}
+
+.mo-rail-line {
+  width: 1px;
+  height: 44px;
+  margin: 16px 0;
+  background: linear-gradient(var(--c-line), transparent);
+}
+
+.mo-rail-dots {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.mo-dot {
+  position: relative;
+  width: 22px;
+  height: 12px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mo-dot::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--c-muted);
+  background: transparent;
+  transition: 0.3s;
+}
+
+.mo-dot:hover::before {
+  border-color: var(--c-text);
+}
+
+.mo-dot.is-active::before {
+  width: 16px;
+  border-color: var(--c-gold);
+  background: var(--c-gold);
+}
+
+.mo-dot-label {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  translate: 0 -50%;
+  padding: 6px 10px;
+  background: var(--c-panel-2);
+  border: 1px solid var(--c-line);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--c-text);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.mo-dot:hover .mo-dot-label,
+.mo-dot:focus-visible .mo-dot-label {
+  opacity: 1;
+}
+
+.mo-rail-pct {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--c-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Score control docks inside the rail column — collapsed to an icon so it
+   never covers act copy — and unfolds to its label on hover/focus. */
+.mo .sound-control {
+  left: 18px;
+  right: auto;
+  bottom: 64px;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  justify-content: center;
+  gap: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  transition:
+    width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    padding 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    gap 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mo .sound-control > span {
+  flex: 0 0 auto;
+  font-size: 12px;
+}
+
+.mo .sound-control .sound-label {
+  max-width: 0;
+  opacity: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+}
+
+.mo .sound-control:hover,
+.mo .sound-control:focus-visible {
+  width: 218px;
+  padding: 0 16px;
+  gap: 9px;
+  justify-content: flex-start;
+  border-radius: 999px;
+}
+
+.mo .sound-control:hover .sound-label,
+.mo .sound-control:focus-visible .sound-label {
+  max-width: 160px;
+  opacity: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Shared act scaffolding
+   -------------------------------------------------------------------------- */
+.reimagine.mo .mo-act {
+  padding: clamp(88px, 11vw, 150px) clamp(24px, 5vw, 64px)
+    clamp(88px, 11vw, 150px) calc(var(--mo-rail) + clamp(22px, 4vw, 58px));
+}
+
+.reimagine.mo .mo-wrap {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.mo-act--paper {
+  background: var(--c-paper);
+  color: var(--c-ink);
+}
+
+.mo-act--dark {
+  background: var(--c-bg);
+  color: var(--c-text);
+}
+
+.mo-act--deep {
+  background: #070a10;
+  color: var(--c-text);
+}
+
+.mo-act--gold {
+  background:
+    radial-gradient(circle at 82% 12%, rgba(216, 180, 119, 0.1), transparent 40%),
+    var(--c-panel);
+  color: var(--c-text);
+}
+
+/* Hazard strip frames the training act like a worksite. */
+.mo-act--gold::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--c-gold) 0 14px,
+    #0a0d14 14px 28px
+  );
+}
+
+.mo-kicker {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 clamp(20px, 3vw, 34px);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--c-sig);
+}
+
+.mo-kicker::after {
+  content: "";
+  flex: 0 0 clamp(40px, 6vw, 90px);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+}
+
+.mo-act--paper .mo-kicker {
+  color: var(--c-sig-deep);
+}
+
+.mo-act--gold .mo-kicker {
+  color: var(--c-gold);
+}
+
+.mo-kicker .mo-act-no {
+  margin-left: auto;
+  color: var(--c-muted);
+  letter-spacing: 0.2em;
+}
+
+.mo-act--paper .mo-kicker .mo-act-no {
+  color: var(--c-muted-ink);
+}
+
+.mo-h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(40px, 5.6vw, 78px);
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+}
+
+.mo-h2 em {
+  font-style: italic;
+  color: var(--c-sig);
+}
+
+.mo-act--paper .mo-h2 em {
+  color: var(--c-sig-deep);
+}
+
+.mo-act--gold .mo-h2 em {
+  color: var(--c-gold);
+}
+
+.mo-lede {
+  max-width: 560px;
+  margin: 24px 0 0;
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.7;
+  color: var(--c-muted);
+}
+
+.mo-act--paper .mo-lede {
+  color: var(--c-muted-ink);
+}
+
+.mo-head-row {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: clamp(24px, 5vw, 70px);
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   Buttons + chips
+   -------------------------------------------------------------------------- */
+.mo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 26px;
+  border: 1px solid transparent;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s, background 0.25s, color 0.25s,
+    border-color 0.25s;
+}
+
+.mo-btn span {
+  transition: transform 0.25s;
+}
+
+.mo-btn:hover span {
+  transform: translateX(5px);
+}
+
+.mo-btn--solid {
+  background: var(--c-text);
+  color: #0a0d14;
+}
+
+.mo-btn--solid:hover {
+  background: var(--c-sig);
+  transform: translateY(-2px);
+}
+
+.mo-btn--ghost {
+  border-color: var(--c-line-strong);
+  color: var(--c-text);
+}
+
+.mo-btn--ghost:hover {
+  border-color: var(--c-gold);
+  color: var(--c-gold);
+  transform: translateY(-2px);
+}
+
+.mo-act--paper .mo-btn--solid {
+  background: var(--c-ink);
+  color: var(--c-paper);
+}
+
+.mo-act--paper .mo-btn--solid:hover {
+  background: var(--c-sig-deep);
+}
+
+.mo-act--paper .mo-btn--ghost {
+  border-color: var(--c-line-ink);
+  color: var(--c-ink);
+}
+
+.mo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 17px;
+  border: 1px solid var(--c-line);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-text);
+  transition: 0.25s;
+}
+
+.mo-chip:hover {
+  border-color: var(--c-sig);
+  background: rgba(124, 156, 217, 0.12);
+  transform: translateY(-3px);
+}
+
+.mo-chip i {
+  font-style: normal;
+  color: var(--c-sig);
+}
+
+/* --------------------------------------------------------------------------
+   Act 01 — hero title card
+   -------------------------------------------------------------------------- */
+/* Prefixed: must out-specify globals' `section:not(.hero-v2)` padding rule. */
+.reimagine.mo .mo-hero {
+  position: relative;
+  overflow: hidden;
+  min-height: calc(100svh - var(--mo-status));
+  display: grid;
+  align-content: center;
+  padding: clamp(48px, 6vh, 80px) clamp(24px, 5vw, 64px) 104px
+    calc(var(--mo-rail) + clamp(22px, 4vw, 58px));
+  background:
+    radial-gradient(circle at 78% 30%, rgba(124, 156, 217, 0.14), transparent 42%),
+    radial-gradient(circle at 12% 88%, rgba(216, 180, 119, 0.07), transparent 40%),
+    var(--c-bg);
+}
+
+.mo-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at 28% 42%, black 10%, transparent 80%);
+  mask-image: radial-gradient(ellipse at 28% 42%, black 10%, transparent 80%);
+  pointer-events: none;
+}
+
+.mo-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    460px circle at var(--mo-mx, 62%) var(--mo-my, 38%),
+    rgba(124, 156, 217, 0.13),
+    transparent 65%
+  );
+  pointer-events: none;
+  transition: background 0.2s;
+}
+
+.mo-hero-inner {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+  gap: clamp(36px, 5vw, 80px);
+  align-items: center;
+}
+
+.mo-slug {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 26px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  color: var(--c-muted);
+}
+
+.mo-slug i {
+  font-style: normal;
+  color: var(--c-gold);
+}
+
+.mo-slug::after {
+  content: "";
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: var(--c-line);
+}
+
+.mo-h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(52px, 7vw, 108px);
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+  color: var(--c-text);
+}
+
+.mo-h1 em {
+  display: block;
+  margin-top: 0.14em;
+  font-style: italic;
+  color: var(--c-sig);
+  font-size: 0.72em;
+  line-height: 1.02;
+}
+
+.mo-hero-role {
+  margin: 20px 0 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  line-height: 1.9;
+}
+
+.mo-hero-lede {
+  max-width: 540px;
+  margin: 28px 0 34px;
+  color: var(--c-muted);
+  font-size: clamp(15px, 1.4vw, 17.5px);
+  line-height: 1.7;
+}
+
+.mo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.mo-hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-width: 620px;
+  margin-top: clamp(30px, 4vh, 46px);
+  border-top: 1px solid var(--c-line);
+  padding-top: 22px;
+}
+
+.mo-stat + .mo-stat {
+  border-left: 1px solid var(--c-line);
+  padding-left: clamp(18px, 2.4vw, 32px);
+}
+
+.mo-stat strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(32px, 3.4vw, 46px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--c-text);
+}
+
+.mo-stat span {
+  display: block;
+  margin-top: 9px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+/* Portrait frame ---------------------------------------------------------- */
+.mo-portrait {
+  position: relative;
+  justify-self: end;
+  width: min(100%, 380px);
+}
+
+.mo-ghost {
+  position: absolute;
+  right: -1vw;
+  bottom: 3vh;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(120px, 17vw, 260px);
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+  user-select: none;
+}
+
+.mo-frame {
+  position: relative;
+  z-index: 2;
+  padding: 12px;
+  background: rgba(16, 20, 30, 0.78);
+  border: 1px solid var(--c-line-strong);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.mo-frame::before,
+.mo-frame::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--c-gold);
+  pointer-events: none;
+}
+
+.mo-frame::before {
+  top: -7px;
+  left: -7px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.mo-frame::after {
+  bottom: -7px;
+  right: -7px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.mo-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 4.6;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(0.24) contrast(1.06);
+}
+
+.mo-frame figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 4px 3px;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.mo-frame figcaption i {
+  font-style: normal;
+  color: var(--c-sig);
+}
+
+.mo-stamp {
+  position: absolute;
+  z-index: 3;
+  top: -18px;
+  right: -14px;
+  padding: 9px 13px;
+  border: 2px solid var(--c-gold);
+  background: rgba(10, 13, 20, 0.9);
+  color: var(--c-gold);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  transform: rotate(7deg);
+  animation: mo-stamp 4.5s ease-in-out infinite;
+}
+
+@keyframes mo-stamp {
+  50% { transform: rotate(7deg) translateY(-7px); }
+}
+
+.mo-hero-foot {
+  position: absolute;
+  z-index: 4;
+  left: calc(var(--mo-rail) + clamp(22px, 4vw, 58px));
+  right: clamp(24px, 5vw, 64px);
+  bottom: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--c-muted);
+}
+
+.mo-scrollcue {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mo-scrollcue::after {
+  content: "";
+  width: 54px;
+  height: 1px;
+  background: var(--c-gold);
+  transform-origin: left;
+  animation: mo-cue 2.2s ease-in-out infinite;
+}
+
+@keyframes mo-cue {
+  0%, 100% { transform: scaleX(0.3); opacity: 0.5; }
+  50% { transform: scaleX(1); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   Marquee band
+   -------------------------------------------------------------------------- */
+.mo-band {
+  position: relative;
+  overflow: hidden;
+  background: var(--c-sig);
+  color: #0a0d14;
+  border-block: 1px solid rgba(10, 13, 20, 0.35);
+}
+
+.mo-band-track {
+  display: flex;
+  width: max-content;
+  padding: 13px 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  animation: mo-band 30s linear infinite;
+}
+
+.mo-band-track span {
+  display: flex;
+  gap: 34px;
+  padding-right: 34px;
+  white-space: nowrap;
+}
+
+.mo-band-track b {
+  color: #0a0d14;
+}
+
+@keyframes mo-band {
+  to { transform: translateX(-50%); }
+}
+
+/* --------------------------------------------------------------------------
+   Act 02 — the index
+   -------------------------------------------------------------------------- */
+.mo-index-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(30px, 4vw, 50px);
+}
+
+.mo-index-note {
+  max-width: 300px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.9;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.mo-rows {
+  border-top: 1px solid var(--c-line);
+}
+
+.mo-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr) auto 60px;
+  align-items: center;
+  gap: 18px;
+  padding: clamp(18px, 2.4vw, 26px) 10px;
+  border-bottom: 1px solid var(--c-line);
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+
+.mo-row::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(216, 180, 119, 0.1),
+    rgba(216, 180, 119, 0.02)
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mo-row:hover::before,
+.mo-row:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.mo-row > * {
+  position: relative;
+  z-index: 1;
+}
+
+.mo-row-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--c-muted);
+  transition: color 0.3s;
+}
+
+.mo-row-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(28px, 4.2vw, 54px);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  color: var(--c-text);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s;
+}
+
+.mo-row-desc {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+  text-align: right;
+  transition: color 0.3s;
+}
+
+.mo-row-arrow {
+  justify-self: end;
+  font-size: 20px;
+  color: var(--c-muted);
+  transform: translateX(-8px);
+  opacity: 0.5;
+  transition: 0.4s;
+}
+
+.mo-row:hover .mo-row-title {
+  transform: translateX(14px);
+  color: var(--c-gold);
+}
+
+.mo-row:hover .mo-row-num {
+  color: var(--c-gold);
+}
+
+.mo-row:hover .mo-row-desc {
+  color: var(--c-text);
+}
+
+.mo-row:hover .mo-row-arrow {
+  transform: translateX(0);
+  opacity: 1;
+  color: var(--c-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Act 03 — practice panes (paper)
+   -------------------------------------------------------------------------- */
+.mo-panes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: clamp(36px, 5vw, 60px);
+}
+
+/* Prefixed: must out-specify `.reimagine .spotlight-card` geometry. */
+.reimagine.mo .mo-pane {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fbf9f4;
+  border: 1px solid var(--c-line-ink);
+  box-shadow: 0 24px 50px -34px rgba(22, 24, 29, 0.45);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.35s;
+}
+
+.reimagine.mo .mo-pane:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 34px 60px -34px rgba(22, 24, 29, 0.55);
+}
+
+.mo-pane-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--c-line-ink);
+  background: var(--c-paper-2);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-muted-ink);
+}
+
+.mo-pane-bar .mo-win {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.mo-pane-bar .mo-win i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-line-ink);
+}
+
+.mo-pane-bar .mo-win i:first-child { background: #d98b7a; }
+.mo-pane-bar .mo-win i:nth-child(2) { background: var(--c-gold); }
+.mo-pane-bar .mo-win i:nth-child(3) { background: var(--c-ok); }
+
+.mo-pane-bar .mo-pane-no {
+  margin-left: auto;
+  color: var(--c-sig-deep);
+}
+
+.mo-pane-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: clamp(24px, 3vw, 38px);
+}
+
+.mo-pane-idx {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.24em;
+  color: var(--c-sig-deep);
+}
+
+.mo-pane h3 {
+  margin: 18px 0 12px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(26px, 2.6vw, 36px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+}
+
+.mo-pane p {
+  margin: 0;
+  color: var(--c-muted-ink);
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+
+.mo-pane .mo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin: 22px 0 26px;
+}
+
+.mo-pane .mo-tags span {
+  padding: 6px 10px;
+  border: 1px solid var(--c-line-ink);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--c-muted-ink);
+}
+
+.mo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--c-ink);
+}
+
+.mo-link span {
+  transition: transform 0.25s;
+}
+
+.mo-link:hover {
+  color: var(--c-sig-deep);
+}
+
+.mo-link:hover span {
+  transform: translateX(6px);
+}
+
+.mo-services {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.reimagine.mo .mo-service {
+  padding: clamp(24px, 3vw, 36px);
+  background: var(--c-ink);
+  color: var(--c-paper);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mo-service .card-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--c-sig);
+  font-size: 17px;
+}
+
+.mo-service h3 {
+  margin: 24px 0 10px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 32px);
+  letter-spacing: -0.03em;
+}
+
+.mo-service p {
+  margin: 0 0 22px;
+  color: #a9b2c2;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.mo-service .mo-link {
+  color: var(--c-paper);
+}
+
+.mo-service .mo-link:hover {
+  color: var(--c-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Act 04 — pipeline console
+   -------------------------------------------------------------------------- */
+.mo-stations {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin: clamp(44px, 6vw, 70px) 0 30px;
+}
+
+.mo-stations::before {
+  content: "";
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  top: 46px;
+  height: 1px;
+  background: var(--c-line);
+}
+
+.mo-station {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  color: var(--c-muted);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: color 0.3s;
+}
+
+.mo-station:hover {
+  color: var(--c-text);
+}
+
+.mo-station .mo-st-no {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.mo-station .mo-st-dot {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  border: 1px solid var(--c-muted);
+  background: var(--c-bg);
+  box-shadow: 0 0 0 6px var(--c-bg);
+  transition: 0.35s;
+}
+
+.mo-station .mo-st-name {
+  font-size: clamp(10px, 1.1vw, 12.5px);
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.mo-station.is-active {
+  color: var(--c-gold);
+}
+
+.mo-station.is-active .mo-st-dot {
+  border-color: var(--c-gold);
+  background: var(--c-gold);
+  box-shadow: 0 0 0 6px var(--c-bg), 0 0 22px rgba(216, 180, 119, 0.55);
+}
+
+.mo-panel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 48px);
+  align-items: baseline;
+  padding: clamp(24px, 3vw, 36px);
+  background: var(--c-panel);
+  border: 1px solid var(--c-line);
+  min-height: 168px;
+}
+
+.mo-panel-idx {
+  font-family: var(--font-mono);
+  font-size: clamp(34px, 4vw, 54px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: rgba(216, 180, 119, 0.55);
+}
+
+.mo-panel-name {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(26px, 3vw, 40px);
+  letter-spacing: -0.03em;
+}
+
+.mo-panel-desc {
+  margin: 0;
+  max-width: 640px;
+  color: var(--c-muted);
+  font-size: 15.5px;
+  line-height: 1.7;
+}
+
+.mo-panel-hint {
+  grid-column: 2;
+  margin: 14px 0 0;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: rgba(140, 151, 173, 0.7);
+}
+
+/* --------------------------------------------------------------------------
+   Act 05 — stack chips
+   -------------------------------------------------------------------------- */
+.mo-chipwall {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(36px, 5vw, 56px);
+  max-width: 940px;
+}
+
+.mo-chipwall .mo-chip {
+  padding: 14px 22px;
+  font-size: 12.5px;
+  background: var(--c-panel);
+}
+
+.mo-chipwall .mo-chip:nth-child(3n) { transform: rotate(-1.2deg); }
+.mo-chipwall .mo-chip:nth-child(4n) { transform: rotate(1deg); }
+
+.mo-chipwall .mo-chip:hover {
+  transform: rotate(0deg) translateY(-3px);
+}
+
+.mo-stack-note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 34px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.mo-stack-note a {
+  color: var(--c-sig);
+  text-decoration: none;
+}
+
+.mo-stack-note a:hover {
+  color: var(--c-gold);
+}
+
+/* --------------------------------------------------------------------------
+   Act 06 — case files (paper)
+   -------------------------------------------------------------------------- */
+.mo-cases {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: clamp(36px, 5vw, 56px);
+}
+
+.reimagine.mo .mo-case {
+  position: relative;
+  padding: clamp(24px, 3vw, 36px);
+  background: #fbf9f4;
+  border: 1px solid var(--c-line-ink);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mo-case:hover {
+  transform: translateY(-6px);
+}
+
+.reimagine.mo .mo-case--wide {
+  grid-column: 1 / -1;
+  background: var(--c-ink);
+  color: var(--c-paper);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.mo-case-tag {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--c-sig-deep);
+}
+
+.mo-case--wide .mo-case-tag {
+  color: var(--c-sig);
+}
+
+.mo-case h3 {
+  margin: 20px 0 14px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(24px, 2.7vw, 38px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.mo-case--wide h3 {
+  max-width: 17ch;
+  font-size: clamp(30px, 4vw, 54px);
+}
+
+.mo-case-chain {
+  margin: 0 0 22px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 2;
+  color: var(--c-muted-ink);
+}
+
+.mo-case--wide .mo-case-chain {
+  color: #a9b2c2;
+}
+
+.mo-case-chain b {
+  color: var(--c-gold);
+  font-weight: 700;
+}
+
+.mo-case-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: auto;
+}
+
+.mo-case-tags {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-muted-ink);
+}
+
+.mo-case--wide .mo-case-tags {
+  color: var(--c-muted);
+}
+
+.mo-case .mo-link {
+  margin-top: 0;
+}
+
+.mo-case--wide .mo-link {
+  color: var(--c-paper);
+}
+
+.mo-case--wide .mo-link:hover {
+  color: var(--c-gold);
+}
+
+.mo-case-stamp {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  padding: 7px 11px;
+  border: 1.5px solid rgba(216, 180, 119, 0.7);
+  color: var(--c-gold);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  transform: rotate(5deg);
+  opacity: 0.9;
+}
+
+/* --------------------------------------------------------------------------
+   Act 07 — academy (training)
+   -------------------------------------------------------------------------- */
+.mo-steps {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: clamp(36px, 5vw, 54px) 0 30px;
+}
+
+.mo-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border: 1px solid rgba(216, 180, 119, 0.35);
+  background: rgba(216, 180, 119, 0.05);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  color: var(--c-text);
+  transition: 0.3s;
+}
+
+.mo-step:hover {
+  background: var(--c-gold);
+  border-color: var(--c-gold);
+  color: #0a0d14;
+  transform: translateY(-3px);
+}
+
+.mo-step-arrow {
+  color: rgba(216, 180, 119, 0.7);
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+.mo-record {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 26px;
+  margin: 0 0 34px;
+  padding: 18px 0;
+  border-block: 1px solid var(--c-line);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-muted);
+}
+
+.mo-record b {
+  color: var(--c-gold);
+  font-weight: 800;
+}
+
+/* --------------------------------------------------------------------------
+   Act 08 — log (insights)
+   -------------------------------------------------------------------------- */
+.mo-log-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(34px, 6vw, 90px);
+  align-items: start;
+}
+
+.mo-log-rows {
+  border-top: 1px solid var(--c-line);
+}
+
+.mo-log-row {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 14px;
+  padding: 24px 10px;
+  border-bottom: 1px solid var(--c-line);
+  transition: background 0.3s, padding-left 0.3s;
+}
+
+.mo-log-row:hover {
+  background: rgba(124, 156, 217, 0.06);
+  padding-left: 20px;
+}
+
+.mo-log-idx {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--c-sig);
+  padding-top: 7px;
+}
+
+.mo-log-row strong {
+  display: block;
+  margin: 0 0 8px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(21px, 2.2vw, 27px);
+  letter-spacing: -0.02em;
+}
+
+.mo-log-row p {
+  margin: 0;
+  color: var(--c-muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   Act 09 — dossier (paper)
+   -------------------------------------------------------------------------- */
+.mo-dossier {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+  gap: clamp(36px, 6vw, 84px);
+  align-items: start;
+}
+
+.mo-idcard {
+  position: relative;
+  padding: 14px;
+  background: #fbf9f4;
+  border: 1px solid var(--c-line-ink);
+  box-shadow: 0 26px 54px -36px rgba(22, 24, 29, 0.55);
+}
+
+.mo-idcard img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 4.4;
+  object-fit: cover;
+  object-position: center top;
+  filter: grayscale(0.2) contrast(1.05);
+}
+
+.mo-idcard-cap {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 2px 2px;
+  font-family: var(--font-mono);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-muted-ink);
+}
+
+.mo-data {
+  margin: 16px 0 0;
+  padding-top: 4px;
+  border-top: 1px solid var(--c-line-ink);
+}
+
+.mo-data div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 2px;
+  border-bottom: 1px dashed var(--c-line-ink);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.mo-data dt {
+  color: var(--c-muted-ink);
+}
+
+.mo-data dd {
+  margin: 0;
+  color: var(--c-ink);
+  text-align: right;
+}
+
+.mo-dossier-copy .mo-h2 {
+  margin-bottom: 22px;
+}
+
+.mo-dossier-copy p {
+  max-width: 640px;
+  margin: 0;
+  color: var(--c-muted-ink);
+  font-size: clamp(15px, 1.4vw, 17px);
+  line-height: 1.75;
+}
+
+.mo-dossier-copy .mo-actions {
+  margin-top: 32px;
+}
+
+/* --------------------------------------------------------------------------
+   Footer bridge
+   -------------------------------------------------------------------------- */
+.reimagine.mo .motion-footer .motion-footer-inner {
+  padding-top: calc(var(--mo-status) + 26px);
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1180px) {
+  .mo-crumb { display: none; }
+}
+
+@media (max-width: 1024px) {
+  .reimagine.mo { --mo-rail: 0px; }
+
+  .mo-rail { display: none; }
+
+  .mo .sound-control { left: 14px; }
+
+  .mo-led { display: none; }
+
+  .mo-hero-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .mo-portrait {
+    justify-self: start;
+    width: min(100%, 340px);
+    order: -1;
+  }
+
+  .mo-ghost { font-size: clamp(90px, 22vw, 170px); }
+}
+
+@media (max-width: 860px) {
+  .mo-panes,
+  .mo-services,
+  .mo-cases {
+    grid-template-columns: 1fr;
+  }
+
+  .mo-case--wide { grid-column: auto; }
+
+  .mo-stations {
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin-top: 34px;
+  }
+
+  .mo-stations::before {
+    left: 10px;
+    right: auto;
+    top: 6%;
+    bottom: 6%;
+    width: 1px;
+    height: auto;
+  }
+
+  .mo-station {
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 13px 0;
+  }
+
+  .mo-station .mo-st-name { font-size: 12px; }
+
+  .mo-panel {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    min-height: 0;
+  }
+
+  .mo-panel-hint { grid-column: 1; }
+
+  .mo-log-grid { grid-template-columns: 1fr; }
+
+  .mo-dossier { grid-template-columns: 1fr; }
+
+  .mo-idcard { max-width: 360px; }
+
+  .mo-row {
+    grid-template-columns: 46px minmax(0, 1fr) 40px;
+  }
+
+  .mo-row-desc { display: none; }
+
+  .mo-hero-foot { display: none; }
+}
+
+@media (max-width: 640px) {
+  .mo-clock { display: none; }
+
+  .mo-cta-long { display: none; }
+  .mo-cta-short { display: inline; }
+
+  .reimagine.mo .mo-hero {
+    padding-bottom: clamp(70px, 10vw, 100px);
+    min-height: auto;
+  }
+
+  .mo-h1 { font-size: clamp(44px, 12vw, 64px); }
+
+  .mo-hero-stats { grid-template-columns: 1fr; gap: 18px; }
+
+  .mo-stat + .mo-stat {
+    border-left: 0;
+    padding-left: 0;
+    border-top: 1px solid var(--c-line);
+    padding-top: 18px;
+  }
+
+  .mo-stamp { right: -6px; top: -14px; }
+
+  .mo-band-track { font-size: 10px; }
+
+  .mo-case-stamp { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mo-band-track,
+  .mo-boot-bar i,
+  .mo-boot-line,
+  .mo-stamp,
+  .mo-scrollcue::after,
+  .mo-led::before {
+    animation: none !important;
+  }
+
+  .mo-boot-line { opacity: 1; }
+  .mo-boot-bar i { transform: scaleX(1); }
+}
+
+/* ==========================================================================
+   Engagement layer — launcher, console, cursor, live micro-interactions
+   ========================================================================== */
+
+/* -------------------------------------------------------------------------- Status bar additions ------------------------------------------------ */
+.mo-launcher,
+.mo-console-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--c-line);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--c-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.mo-launcher:hover,
+.mo-console-btn:hover {
+  color: var(--c-text);
+  border-color: var(--c-sig);
+  background: rgba(124, 156, 217, 0.12);
+}
+
+.mo-launcher-kbd {
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--c-text);
+  font-size: 9px;
+}
+
+.mo-console-btn {
+  font-weight: 700;
+  color: var(--c-sig);
+}
+
+@media (max-width: 860px) {
+  .mo-launcher-text { display: none; }
+  .mo-launcher { padding: 0 8px; }
+}
+
+/* -------------------------------------------------------------------------- Hero typewriter ---------------------------------------------------- */
+.mo-type {
+  color: var(--c-sig);
+}
+
+.mo-caret {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  margin-left: 3px;
+  vertical-align: -0.12em;
+  background: var(--c-sig);
+  animation: mo-blink 1s steps(2, start) infinite;
+}
+
+@keyframes mo-blink {
+  to { opacity: 0; }
+}
+
+/* -------------------------------------------------------------------------- Command launcher (⌘K) --------------------------------------------- */
+.mo-palette-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: start center;
+  padding: 14vh 20px 20px;
+  background: rgba(6, 8, 13, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.mo-palette {
+  width: min(560px, 94vw);
+  border: 1px solid var(--c-line-strong);
+  border-radius: 10px;
+  background: var(--c-panel);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+}
+
+.mo-palette-head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--c-line);
+  color: var(--c-sig);
+}
+
+.mo-palette-head input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--c-text);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  outline: none;
+}
+
+.mo-palette-head input::placeholder { color: var(--c-muted); }
+
+.mo-palette kbd {
+  padding: 2px 5px;
+  border: 1px solid var(--c-line);
+  border-radius: 4px;
+  color: var(--c-muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.mo-palette-list {
+  max-height: 52vh;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.mo-palette-group {
+  margin: 10px 10px 6px;
+  color: var(--c-muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.mo-palette-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--c-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.mo-palette-item.is-active {
+  background: rgba(124, 156, 217, 0.14);
+}
+
+.mo-palette-icon {
+  width: 18px;
+  color: var(--c-sig);
+  text-align: center;
+}
+
+.mo-palette-body { flex: 1; min-width: 0; }
+
+.mo-palette-body strong {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.mo-palette-body small {
+  display: block;
+  color: var(--c-muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mo-palette-empty {
+  padding: 26px 12px;
+  color: var(--c-muted);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-align: center;
+}
+
+.mo-palette-foot {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  border-top: 1px solid var(--c-line);
+  color: var(--c-muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+.mo-palette-foot kbd {
+  padding: 1px 4px;
+  margin-right: 4px;
+}
+
+.mo-palette-foot-right { margin-left: auto; }
+
+/* -------------------------------------------------------------------------- Console ------------------------------------------------------------ */
+.mo-term-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(6, 8, 13, 0.6);
+}
+
+.mo-term {
+  width: min(660px, 95vw);
+  border: 1px solid var(--c-line-strong);
+  border-radius: 10px;
+  background: rgba(9, 12, 19, 0.96);
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.mo-term-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-bottom: 1px solid var(--c-line);
+  background: var(--c-panel);
+}
+
+.mo-win { display: inline-flex; gap: 5px; }
+.mo-win i {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+.mo-win i:first-child { background: #e0685c; }
+.mo-win i:nth-child(2) { background: var(--c-gold); }
+.mo-win i:last-child { background: var(--c-ok); }
+
+.mo-term-title {
+  flex: 1;
+  color: var(--c-muted);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.mo-term-bar button {
+  border: 0;
+  background: transparent;
+  color: var(--c-muted);
+  cursor: pointer;
+}
+.mo-term-bar button:hover { color: var(--c-text); }
+
+.mo-term-body {
+  height: min(360px, 56vh);
+  overflow-y: auto;
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  cursor: text;
+}
+
+.mo-term-body p { margin: 0; white-space: pre-wrap; word-break: break-word; }
+.mo-t-prompt { color: var(--c-sig); }
+.mo-t-in { color: var(--c-text); }
+.mo-t-out { color: var(--c-muted); }
+.mo-t-ok { color: var(--c-ok); }
+.mo-t-err { color: #e0685c; }
+.mo-t-cmd { color: var(--c-gold); }
+
+.mo-term-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.mo-term-input input {
+  flex: 1;
+  border: 0;
+  background: transparent;
+  color: var(--c-text);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  outline: none;
+}
+.mo-term-input input::placeholder { color: var(--c-muted); }
+
+/* -------------------------------------------------------------------------- Custom cursor ------------------------------------------------------ */
+.mo-cursor { position: fixed; inset: 0; z-index: 300; pointer-events: none; }
+
+.mo-cursor-dot,
+.mo-cursor-ring {
+  position: absolute;
+  top: 0; left: 0;
+  will-change: transform;
+}
+
+.mo-cursor-dot {
+  width: 6px; height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--c-sig);
+}
+.mo-cursor-dot.is-down { background: var(--c-gold); }
+
+.mo-cursor-ring {
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  margin: -17px 0 0 -17px;
+  border: 1px solid rgba(124, 156, 217, 0.5);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.25s, width 0.25s, height 0.25s, margin 0.25s, background 0.25s;
+}
+.mo-cursor-ring.is-visible { opacity: 1; }
+.mo-cursor-ring.is-active {
+  width: 52px; height: 52px;
+  margin: -26px 0 0 -26px;
+  background: rgba(124, 156, 217, 0.12);
+}
+
+.mo-cursor-label {
+  color: var(--c-sig);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+/* Hand the pointer back to the OS once our cursor is live. */
+.mo-has-cursor,
+.mo-has-cursor * { cursor: none !important; }
+.mo-has-cursor input,
+.mo-has-cursor textarea { cursor: text !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mo-caret { animation: none; }
+  .mo-cursor { display: none; }
+}
+
+/* ==========================================================================
+   INTERSTELLAR THEME LAYER
+   Deep-field universe skin: drifting starfield, dust nebulae, event
+   horizon, accretion amber, wormhole transit, Ranger cursor.
+   Imported last — wins ties against every earlier layer.
+   ========================================================================== */
+
+/* ------------------------------------------------------- 1. Palette */
+/* Mirror the theme tokens at :root so the Ask-Moin portal (ported to
+   <body>, outside .reimagine.mo) can resolve them too. */
+:root {
+  --c-bg: #04060d;
+  --c-panel: #0a0f1c;
+  --c-text: #e9eefb;
+  --c-muted: #8b98b3;
+  --c-sig: #7fb4ff;
+  --c-gold: #f0a45a;
+  --c-ok: #6fd7b2;
+}
+
+.reimagine.mo {
+  --c-bg: #04060d;
+  --c-panel: #0a0f1c;
+  --c-panel-2: #0e1626;
+  --c-paper: #f0e8d9;      /* Endurance hull light — warm cream */
+  --c-paper-2: #e6dcc6;
+  --c-ink: #17191f;
+  --c-text: #e9eefb;
+  --c-muted: #8b98b3;
+  --c-muted-ink: #5c5f68;
+  --c-line: rgba(255, 255, 255, 0.12);
+  --c-line-strong: rgba(255, 255, 255, 0.22);
+  --c-sig: #7fb4ff;        /* lensed starlight blue */
+  --c-sig-deep: #3f77cf;
+  --c-gold: #f0a45a;       /* accretion amber */
+  --c-ok: #6fd7b2;
+  background: #04060d;
+  color: var(--c-text);
+}
+
+/* ------------------------------------------------------- 2. Starfield + dust
+   Fixed tiled star layers (three depths) drifting slowly, over soft
+   nebulae. Transparent act backgrounds let it show through the whole page. */
+.reimagine.mo::before {
+  content: "";
+  position: fixed;
+  inset: -12vw;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 32px 48px, rgba(255, 255, 255, 0.95), transparent 100%),
+    radial-gradient(1.1px 1.1px at 180px 120px, rgba(255, 255, 255, 0.7), transparent 100%),
+    radial-gradient(1.7px 1.7px at 260px 210px, rgba(210, 228, 255, 0.9), transparent 100%),
+    radial-gradient(1px 1px at 90px 260px, rgba(255, 255, 255, 0.5), transparent 100%),
+    radial-gradient(1.3px 1.3px at 320px 60px, rgba(255, 225, 190, 0.65), transparent 100%),
+    radial-gradient(1px 1px at 420px 380px, rgba(255, 255, 255, 0.4), transparent 100%),
+    radial-gradient(ellipse 60% 42% at 78% 10%, rgba(240, 164, 90, 0.10), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 10% 76%, rgba(127, 180, 255, 0.10), transparent 70%),
+    radial-gradient(ellipse 48% 36% at 46% 48%, rgba(150, 115, 205, 0.06), transparent 75%);
+  background-size: 380px 320px, 460px 520px, 640px 560px, 520px 600px, 700px 460px, 880px 780px,
+    100% 100%, 100% 100%, 100% 100%;
+  animation: mo-star-drift 240s linear infinite;
+}
+
+@keyframes mo-star-drift {
+  to {
+    background-position: -380px -320px, -460px -520px, -640px -560px, -520px -600px,
+      -700px -460px, -880px -780px, 0 0, 0 0, 0 0;
+  }
+}
+
+/* ------------------------------------------------------------- 3. Act skins */
+/* Dark acts float directly on the starfield. */
+.mo-act--dark {
+  background: transparent;
+}
+
+/* Paper acts become warm Endurance-interior cream. */
+.mo-act--paper {
+  background: linear-gradient(180deg, var(--c-paper), var(--c-paper-2));
+}
+
+/* The stack act IS the event horizon: rotating accretion ring + lens core. */
+.mo-act--deep {
+  overflow: hidden;
+  background: linear-gradient(180deg, #03040a, #010208 55%, #03040a);
+}
+
+.mo-act--deep::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(84vw, 820px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: conic-gradient(
+    from 200deg,
+    rgba(240, 164, 90, 0.9),
+    rgba(255, 236, 210, 0.35) 10%,
+    rgba(240, 164, 90, 0.1) 28%,
+    rgba(127, 180, 255, 0.5) 52%,
+    rgba(240, 164, 90, 0.08) 72%,
+    rgba(240, 164, 90, 0.9)
+  );
+  -webkit-mask: radial-gradient(circle, transparent 0 39%, #000 43% 50%, transparent 56%);
+  mask: radial-gradient(circle, transparent 0 39%, #000 43% 50%, transparent 56%);
+  filter: blur(7px) saturate(1.25);
+  opacity: 0.5;
+  animation: mo-accretion 90s linear infinite;
+  pointer-events: none;
+}
+
+.mo-act--deep::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: min(84vw, 820px);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.92) 0 33%,
+    rgba(240, 164, 90, 0.16) 40%,
+    transparent 64%
+  );
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.mo-act--deep .mo-wrap {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes mo-accretion {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* The academy act glows like a nebula core. */
+.mo-act--gold {
+  background:
+    radial-gradient(circle at 82% 12%, rgba(240, 164, 90, 0.16), transparent 44%),
+    radial-gradient(circle at 8% 90%, rgba(127, 180, 255, 0.10), transparent 40%),
+    #0a0f1c;
+}
+
+.mo-act--gold::before {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--c-gold) 0 14px,
+    #0a0f1c 14px 28px
+  );
+}
+
+/* Marquee becomes the solar-panel amber band. */
+.mo-band {
+  background: var(--c-gold);
+  color: #160c04;
+  border-block-color: rgba(22, 12, 4, 0.45);
+}
+
+.mo-band-track b {
+  color: #160c04;
+}
+
+/* Boot happens in deep space too. */
+.mo-boot {
+  background: #04060d;
+}
+
+/* --------------------------------------------------------------- 4. Hero */
+.reimagine.mo .mo-hero {
+  background:
+    radial-gradient(circle at 74% 46%, rgba(240, 164, 90, 0.10), transparent 44%),
+    radial-gradient(circle at 14% 84%, rgba(127, 180, 255, 0.10), transparent 42%),
+    transparent;
+}
+
+/* Replace the tech grid with lensing rings around the wormhole mouth. */
+.mo-hero::before {
+  background-image: repeating-radial-gradient(
+    circle at 74% 46%,
+    rgba(255, 255, 255, 0.05) 0 1px,
+    transparent 1px 92px
+  );
+  -webkit-mask-image: radial-gradient(ellipse at 74% 46%, black 8%, transparent 78%);
+  mask-image: radial-gradient(ellipse at 74% 46%, black 8%, transparent 78%);
+}
+
+.mo-hero::after {
+  z-index: 2;
+  background: radial-gradient(
+    460px circle at var(--mo-mx, 62%) var(--mo-my, 38%),
+    rgba(240, 164, 90, 0.10),
+    transparent 65%
+  );
+}
+
+/* ------------------------------------------------- 4b. Wormhole gate
+   The hero's background is a wormhole: two counter-rotating accretion
+   bands, a photon ring and a black lens core. The stack orbits the rim
+   and sinks in & out of the throat — swallowed at the core, re-emerging
+   a few degrees around (the arm keeps turning while they're hidden). */
+.mo-gate {
+  --mo-gate: min(54vw, 640px);
+  --r-in: calc(var(--mo-gate) * 0.105);
+  position: absolute;
+  z-index: 1;
+  left: 74%;
+  top: 46%;
+  width: var(--mo-gate);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* Soft amber-to-starlight bloom behind the mouth. */
+.mo-gate-halo {
+  position: absolute;
+  inset: -16%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(240, 164, 90, 0.26) 0 30%,
+    rgba(127, 180, 255, 0.13) 52%,
+    transparent 72%
+  );
+  filter: blur(8px);
+  animation: mo-gate-breathe 9s ease-in-out infinite;
+}
+
+/* Outer accretion band — slow prograde swirl. */
+.mo-gate-disk {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 200deg,
+    rgba(240, 164, 90, 0.95),
+    rgba(255, 236, 210, 0.4) 10%,
+    rgba(240, 164, 90, 0.12) 28%,
+    rgba(127, 180, 255, 0.55) 52%,
+    rgba(240, 164, 90, 0.1) 72%,
+    rgba(240, 164, 90, 0.95)
+  );
+  -webkit-mask: radial-gradient(circle, transparent 0 58%, #000 66% 78%, transparent 88%);
+  mask: radial-gradient(circle, transparent 0 58%, #000 66% 78%, transparent 88%);
+  filter: blur(6px) saturate(1.25);
+  animation: mo-gate-spin 68s linear infinite;
+}
+
+/* Inner band — faster, retrograde, tighter to the throat. */
+.mo-gate-disk--in {
+  inset: 13%;
+  -webkit-mask: radial-gradient(circle, transparent 0 44%, #000 56% 72%, transparent 84%);
+  mask: radial-gradient(circle, transparent 0 44%, #000 56% 72%, transparent 84%);
+  filter: blur(4px) saturate(1.3);
+  opacity: 0.85;
+  animation: mo-gate-spin 34s linear infinite reverse;
+}
+
+/* Photon ring hugging the event horizon. */
+.mo-gate-photon {
+  position: absolute;
+  inset: 31%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 236, 210, 0.8);
+  box-shadow:
+    0 0 26px rgba(240, 164, 90, 0.55),
+    inset 0 0 20px rgba(240, 164, 90, 0.35);
+  animation: mo-gate-photon 6s ease-in-out infinite;
+}
+
+/* Black lens core — swallows the starfield behind it. */
+.mo-gate-core {
+  position: absolute;
+  inset: 33%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    #000 0 58%,
+    rgba(2, 4, 10, 0.96) 80%,
+    rgba(2, 4, 10, 0) 100%
+  );
+  box-shadow: 0 0 44px 10px rgba(0, 0, 0, 0.75);
+}
+
+/* Orbiting tech tokens ---------------------------------------------------- */
+.mo-gate-arm {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform: rotate(var(--a));
+  animation: mo-gate-orbit var(--dur, 100s) linear infinite;
+}
+
+.mo-gate-radius {
+  --r-out: calc(var(--mo-gate) * 0.55 * var(--rk, 0.76));
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translateX(var(--r-out));
+  animation: mo-gate-sink var(--sdur, 12s) linear infinite;
+  animation-delay: var(--sdly, 0s);
+  opacity: 0.9;
+}
+
+.mo-gate-token {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid rgba(240, 164, 90, 0.45);
+  border-radius: 4px;
+  background: rgba(7, 11, 20, 0.82);
+  box-shadow: 0 0 14px rgba(240, 164, 90, 0.18);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #f2d9bb;
+  transform: translate(-50%, -50%) rotate(calc(-1 * var(--a)));
+  animation: mo-gate-upright var(--dur, 100s) linear infinite;
+}
+
+.mo-gate-token.is-blue {
+  border-color: rgba(127, 180, 255, 0.5);
+  box-shadow: 0 0 14px rgba(127, 180, 255, 0.2);
+  color: #cfe1ff;
+}
+
+@keyframes mo-gate-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes mo-gate-orbit {
+  from {
+    transform: rotate(var(--a));
+  }
+  to {
+    transform: rotate(calc(var(--a) + 360deg));
+  }
+}
+
+/* Cancels the arm's rotation so chips stay upright. Same duration and
+   start time as mo-gate-orbit, so they stay in sync. */
+@keyframes mo-gate-upright {
+  from {
+    transform: translate(-50%, -50%) rotate(calc(-1 * var(--a)));
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(calc(-1 * var(--a) - 360deg));
+  }
+}
+
+/* Sink in & out of the throat: drift to the rim, plunge, vanish behind
+   the core, re-emerge, drift back out. */
+@keyframes mo-gate-sink {
+  0% {
+    transform: translateX(var(--r-out)) scale(0.92);
+    opacity: 0;
+    animation-timing-function: ease-in;
+  }
+  14% {
+    opacity: 1;
+    animation-timing-function: linear;
+  }
+  46% {
+    transform: translateX(var(--r-in)) scale(0.5);
+    opacity: 1;
+    animation-timing-function: ease-in;
+  }
+  54% {
+    transform: translateX(calc(var(--r-in) * 0.35)) scale(0.22);
+    opacity: 0;
+  }
+  62% {
+    transform: translateX(calc(var(--r-in) * 0.35)) scale(0.2);
+    opacity: 0;
+    animation-timing-function: ease-out;
+  }
+  70% {
+    transform: translateX(var(--r-in)) scale(0.5);
+    opacity: 1;
+    animation-timing-function: linear;
+  }
+  94% {
+    transform: translateX(var(--r-out)) scale(0.92);
+    opacity: 1;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    transform: translateX(var(--r-out)) scale(0.92);
+    opacity: 0;
+  }
+}
+
+@keyframes mo-gate-breathe {
+  0%,
+  100% {
+    opacity: 0.65;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes mo-gate-photon {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Gate fits itself to narrow viewports (portrait moves on top at 1024). */
+@media (max-width: 1024px) {
+  .mo-gate {
+    --mo-gate: min(84vw, 520px);
+    left: 78%;
+    top: 26%;
+    opacity: 0.85;
+  }
+
+  .mo-gate-arm:nth-child(n + 11) {
+    display: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .mo-gate {
+    --mo-gate: min(96vw, 430px);
+    left: 72%;
+    top: 22%;
+    opacity: 0.7;
+  }
+
+  .mo-gate-arm:nth-child(n + 9) {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------- 5. Wormhole transit */
+.mo-wormhole {
+  position: fixed;
+  inset: 0;
+  z-index: 190;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.mo-wormhole-streaks {
+  position: absolute;
+  width: 240vmax;
+  aspect-ratio: 1;
+  background: repeating-conic-gradient(
+    from 0deg at 50% 50%,
+    rgba(255, 255, 255, 0.55) 0deg 0.16deg,
+    transparent 0.16deg 3.4deg
+  );
+  -webkit-mask: radial-gradient(circle, transparent 0 6%, #000 20% 62%, transparent 74%);
+  mask: radial-gradient(circle, transparent 0 6%, #000 20% 62%, transparent 74%);
+  animation: mo-wh-streak 0.95s cubic-bezier(0.3, 0, 0.2, 1) forwards;
+}
+
+.mo-wormhole-ring {
+  position: absolute;
+  width: 46vmin;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    rgba(240, 164, 90, 0.9),
+    rgba(255, 255, 255, 0.55) 12%,
+    rgba(127, 180, 255, 0.6) 42%,
+    rgba(240, 164, 90, 0.12) 62%,
+    rgba(240, 164, 90, 0.9)
+  );
+  -webkit-mask: radial-gradient(circle, transparent 0 42%, #000 47% 53%, transparent 58%);
+  mask: radial-gradient(circle, transparent 0 42%, #000 47% 53%, transparent 58%);
+  filter: blur(4px);
+  animation: mo-wh-ring 0.95s cubic-bezier(0.3, 0, 0.2, 1) forwards;
+}
+
+@keyframes mo-wh-ring {
+  0% { transform: scale(0.12); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+@keyframes mo-wh-streak {
+  0% { transform: scale(0.2) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.85; }
+  100% { transform: scale(1.7) rotate(22deg); opacity: 0; }
+}
+
+/* ------------------------------------------------- 6. Ranger cursor (ship) */
+.mo-ship {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.mo-ship svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 6px rgba(240, 164, 90, 0.5));
+}
+
+.mo-ship-plume {
+  position: absolute;
+  left: 50%;
+  top: 66%;
+  width: 4px;
+  height: 14px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, #ffe3b8, rgba(240, 164, 90, 0.8), transparent);
+  border-radius: 50%;
+  filter: blur(1.4px);
+  animation: mo-plume 0.4s ease-in-out infinite alternate;
+}
+
+@keyframes mo-plume {
+  from { height: 10px; opacity: 0.7; }
+  to { height: 20px; opacity: 1; }
+}
+
+/* Target-lock reticle around interactive elements. */
+.mo-cursor-ring {
+  border-color: rgba(240, 164, 90, 0.55);
+}
+
+.mo-cursor-ring.is-active {
+  background: rgba(240, 164, 90, 0.10);
+}
+
+.mo-cursor-label {
+  color: var(--c-gold);
+}
+
+.mo-cursor-dot.is-down {
+  background: var(--c-gold);
+}
+
+/* ------------------------------------------------------ 7. Endurance buddy
+   The canonical M-Buddy 3D skin in reimagine-fixes.css declares every
+   surface with !important, so the helmet retheme answers in the same
+   currency: dark glass helmet + amber visor horizon, cream EVA suit. */
+.reimagine .moin-buddy-orb {
+  border-radius: 50% !important;
+  border: 1px solid rgba(240, 164, 90, 0.6) !important;
+  background: linear-gradient(160deg, #101828, #05070f) !important;
+  box-shadow:
+    0 16px 38px rgba(2, 4, 10, 0.6),
+    0 0 0 5px rgba(240, 164, 90, 0.08) !important;
+}
+
+.reimagine .moin-buddy-orb::before {
+  background: radial-gradient(
+    circle at 40% 25%,
+    rgba(255, 255, 255, 0.10),
+    rgba(240, 164, 90, 0.12) 46%,
+    transparent 72%
+  ) !important;
+  filter: blur(5px);
+  opacity: 0.8;
+}
+
+.reimagine .moin-buddy-orb::after {
+  background: var(--c-gold) !important;
+  box-shadow: 0 0 16px rgba(240, 164, 90, 0.9) !important;
+}
+
+.reimagine .moin-buddy-orb.is-open {
+  background: #05070f !important;
+}
+
+.reimagine .moin-buddy-cape {
+  /* No capes in vacuum — the life-support pack carries the silhouette. */
+  background: linear-gradient(145deg, #222b42, #0a0f1c) !important;
+  filter: drop-shadow(0 5px 4px rgba(2, 4, 10, 0.55));
+}
+
+.reimagine .moin-buddy-head {
+  background: linear-gradient(150deg, #1b2438, #05070f) !important;
+  border: 1px solid rgba(240, 164, 90, 0.55) !important;
+  box-shadow:
+    inset 0 8px 14px rgba(255, 255, 255, 0.06),
+    0 7px 12px rgba(2, 4, 10, 0.6) !important;
+}
+
+.reimagine .moin-buddy-head::after {
+  /* Visor glass: dark polarized dome reflecting an amber horizon. */
+  background: radial-gradient(
+    130% 110% at 50% 128%,
+    rgba(240, 164, 90, 0.42),
+    rgba(12, 18, 33, 0.96) 58%
+  ) !important;
+  box-shadow: inset 0 -3px 6px rgba(240, 164, 90, 0.25) !important;
+}
+
+.reimagine .moin-buddy-visor i {
+  background: var(--c-gold) !important;
+  box-shadow: 0 0 8px rgba(240, 164, 90, 0.95) !important;
+}
+
+.reimagine .moin-buddy-ear {
+  background: linear-gradient(145deg, #2a3450, #0a0f1c) !important;
+  border: 1px solid rgba(240, 164, 90, 0.35) !important;
+  box-shadow: 0 5px 8px rgba(2, 4, 10, 0.5) !important;
+}
+
+.reimagine .moin-buddy-ear i {
+  background: var(--c-gold) !important;
+  box-shadow: 0 0 9px rgba(240, 164, 90, 0.95) !important;
+}
+
+.reimagine .moin-buddy-body {
+  /* Cream EVA suit. */
+  background: linear-gradient(145deg, #ece4d2, #b0a794) !important;
+  border: 1px solid rgba(240, 164, 90, 0.4) !important;
+  box-shadow:
+    inset 3px 2px 6px rgba(255, 255, 255, 0.4),
+    0 8px 13px rgba(2, 4, 10, 0.5) !important;
+}
+
+.reimagine .moin-buddy-body b {
+  /* Mission patch. */
+  background: #0a0f1c !important;
+  color: var(--c-gold) !important;
+  box-shadow: 0 0 8px rgba(240, 164, 90, 0.45) !important;
+}
+
+.reimagine .moin-buddy-arm {
+  background: linear-gradient(145deg, #e4dcc9, #a9a08d) !important;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.35), 0 5px 8px rgba(2, 4, 10, 0.4) !important;
+}
+
+.reimagine .moin-buddy-foot {
+  background: linear-gradient(145deg, #cfc6b2, #8f8877) !important;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.3), 0 5px 7px rgba(2, 4, 10, 0.4) !important;
+}
+
+/* ------------------------------------------------- 7b. Comms console (portal)
+   The chat panel portals to <body>, outside .reimagine, and the canonical
+   skin paints it light with !important everywhere. Scope the dark console
+   retheme to the portal wrapper so it wins on specificity + order. */
+.moin-buddy-portal .ask-moin-panel {
+  background: #0a0f1c !important;
+  color: #e9eefb !important;
+  border-color: rgba(240, 164, 90, 0.35) !important;
+  box-shadow:
+    0 40px 90px -30px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(240, 164, 90, 0.12),
+    0 -30px 80px -40px rgba(240, 164, 90, 0.25) !important;
+}
+
+.moin-buddy-portal .ask-moin-header {
+  background: linear-gradient(135deg, #101828, #070b14) !important;
+  border-bottom-color: rgba(240, 164, 90, 0.25) !important;
+}
+
+.moin-buddy-portal .ask-moin-title .mono,
+.moin-buddy-portal .ask-moin-kicker {
+  color: var(--c-gold) !important;
+}
+
+.moin-buddy-portal .ask-moin-title strong {
+  color: #e9eefb !important;
+}
+
+.moin-buddy-portal .ask-moin-body {
+  background: #0a0f1c !important;
+}
+
+.moin-buddy-portal .ask-moin-intro-copy h3 {
+  color: #e9eefb !important;
+}
+
+.moin-buddy-portal .ask-moin-intro-copy p {
+  color: #8b98b3 !important;
+}
+
+.moin-buddy-portal .ask-moin-starters button {
+  background: linear-gradient(135deg, #101a2e, #0a1120) !important;
+  color: #9fc0f5 !important;
+  border-color: rgba(240, 164, 90, 0.22) !important;
+}
+
+.moin-buddy-portal .ask-moin-starter-icon {
+  background: rgba(240, 164, 90, 0.12) !important;
+  color: var(--c-gold) !important;
+}
+
+.moin-buddy-portal .ask-moin-message-user {
+  background: linear-gradient(145deg, #f0a45a, #c97f33) !important;
+  color: #160c04 !important;
+}
+
+.moin-buddy-portal .ask-moin-message-assistant {
+  background: #121b2e !important;
+  color: #d7e0f2 !important;
+}
+
+.moin-buddy-portal .ask-moin-form {
+  background: #070b14 !important;
+  border-color: rgba(240, 164, 90, 0.45) !important;
+  box-shadow: 0 0 0 3px rgba(240, 164, 90, 0.08) !important;
+}
+
+.moin-buddy-portal .ask-moin-form input {
+  color: #e9eefb !important;
+}
+
+.moin-buddy-portal .ask-moin-form button {
+  background: var(--c-gold) !important;
+  color: #160c04 !important;
+}
+
+.moin-buddy-portal .ask-moin-form button:disabled {
+  opacity: 0.4;
+}
+
+.moin-buddy-portal .ask-moin-note,
+.moin-buddy-portal .ask-moin-close,
+.moin-buddy-portal .ask-moin-followups > span {
+  color: #8b98b3 !important;
+}
+
+.moin-buddy-portal .ask-moin-brand-mark {
+  background: linear-gradient(145deg, #f0a45a, #b06f2c) !important;
+  color: #160c04 !important;
+  box-shadow: 0 7px 18px rgba(240, 164, 90, 0.25) !important;
+}
+
+.moin-buddy-portal .ask-moin-brand .mono {
+  color: var(--c-gold) !important;
+}
+
+.moin-buddy-portal .ask-moin-close {
+  border-color: rgba(240, 164, 90, 0.3) !important;
+  background: rgba(240, 164, 90, 0.1) !important;
+  color: var(--c-gold) !important;
+}
+
+.moin-buddy-portal .ask-moin-close:hover {
+  background: rgba(240, 164, 90, 0.2) !important;
+}
+
+.moin-buddy-portal .ask-moin-starter-arrow {
+  color: var(--c-gold) !important;
+}
+
+.moin-buddy-portal .ask-moin-followups button {
+  background: rgba(240, 164, 90, 0.08) !important;
+  color: #e9c9a4 !important;
+  border-color: rgba(240, 164, 90, 0.3) !important;
+}
+
+.moin-buddy-portal .ask-moin-skeleton-line {
+  background: linear-gradient(90deg, #121b2e, #1a2540, #121b2e) !important;
+}
+
+/* Helmet colours for the mascot that lives inside the portal. */
+.moin-buddy-portal .moin-buddy-cape {
+  background: linear-gradient(145deg, #222b42, #0a0f1c) !important;
+}
+
+.moin-buddy-portal .moin-buddy-head {
+  background: linear-gradient(150deg, #1b2438, #05070f) !important;
+  border: 1px solid rgba(240, 164, 90, 0.55) !important;
+}
+
+.moin-buddy-portal .moin-buddy-head::after {
+  background: radial-gradient(
+    130% 110% at 50% 128%,
+    rgba(240, 164, 90, 0.42),
+    rgba(12, 18, 33, 0.96) 58%
+  ) !important;
+}
+
+.moin-buddy-portal .moin-buddy-visor i {
+  background: var(--c-gold) !important;
+  box-shadow: 0 0 8px rgba(240, 164, 90, 0.95) !important;
+}
+
+.moin-buddy-portal .moin-buddy-ear {
+  background: linear-gradient(145deg, #2a3450, #0a0f1c) !important;
+  border-color: rgba(240, 164, 90, 0.35) !important;
+}
+
+.moin-buddy-portal .moin-buddy-ear i {
+  background: var(--c-gold) !important;
+  box-shadow: 0 0 9px rgba(240, 164, 90, 0.95) !important;
+}
+
+.moin-buddy-portal .moin-buddy-body {
+  background: linear-gradient(145deg, #ece4d2, #b0a794) !important;
+  border-color: rgba(240, 164, 90, 0.4) !important;
+}
+
+.moin-buddy-portal .moin-buddy-body b {
+  background: #0a0f1c !important;
+  color: var(--c-gold) !important;
+}
+
+.moin-buddy-portal .moin-buddy-arm {
+  background: linear-gradient(145deg, #e4dcc9, #a9a08d) !important;
+}
+
+.moin-buddy-portal .moin-buddy-foot {
+  background: linear-gradient(145deg, #cfc6b2, #8f8877) !important;
+}
+
+/* --------------------------------------------- 8. Reduced-motion safeguards */
+@media (prefers-reduced-motion: reduce) {
+  .reimagine.mo::before {
+    animation: none;
+  }
+  .mo-act--deep::before {
+    animation: none;
+  }
+  .mo-wormhole {
+    display: none;
+  }
+  /* Gate freezes into a static composition: chips rest on the rim. */
+  .mo-gate-halo,
+  .mo-gate-disk,
+  .mo-gate-photon,
+  .mo-gate-arm,
+  .mo-gate-radius,
+  .mo-gate-token {
+    animation: none;
+  }
+  .mo-gate-radius {
+    opacity: 0.9;
+  }
+}
