@@ -557,7 +557,7 @@ export function ReimagineHome() {
                   width={380}
                   height={437}
                   priority
-                  sizes="(max-width: 1024px) 340px, 380px"
+                  sizes="(max-width: 1024px) 340px, 350px"
                 />
                 <figcaption>
                   <span>

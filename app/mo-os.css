@@ -391,6 +391,8 @@
 /* Score control docks inside the rail column — collapsed to an icon so it
    never covers act copy — and unfolds to its label on hover/focus. */
 .mo .sound-control {
+  display: flex;
+  align-items: center;
   left: 18px;
   right: auto;
   bottom: 64px;
@@ -408,9 +410,18 @@
     border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.mo .sound-control > span {
+.mo .sound-control > .sound-glyph {
   flex: 0 0 auto;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
   font-size: 12px;
+  line-height: 1;
+  /* Nudge: the ▶ glyph renders optically left-heavy in its advance. */
+  padding-left: 1px;
 }
 
 .mo .sound-control .sound-label {
@@ -823,7 +834,7 @@
 .mo-portrait {
   position: relative;
   justify-self: end;
-  width: min(100%, 380px);
+  width: min(100%, 350px);
 }
 
 .mo-ghost {
@@ -2457,9 +2468,18 @@
 }
 
 /* --------------------------------------------------------------- 4. Hero */
+/* The gate's centre is one shared var (--mo-gx/--mo-gy) so the background
+   wash, the lensing rings and the gate itself always agree — and can be
+   nudged per breakpoint to keep the mouth clear of the portrait frame. */
 .reimagine.mo .mo-hero {
+  --mo-gx: 59%;
+  --mo-gy: 46%;
   background:
-    radial-gradient(circle at 74% 46%, rgba(240, 164, 90, 0.10), transparent 44%),
+    radial-gradient(
+      circle at var(--mo-gx) var(--mo-gy),
+      rgba(240, 164, 90, 0.10),
+      transparent 44%
+    ),
     radial-gradient(circle at 14% 84%, rgba(127, 180, 255, 0.10), transparent 42%),
     transparent;
 }
@@ -2467,12 +2487,20 @@
 /* Replace the tech grid with lensing rings around the wormhole mouth. */
 .mo-hero::before {
   background-image: repeating-radial-gradient(
-    circle at 74% 46%,
+    circle at var(--mo-gx) var(--mo-gy),
     rgba(255, 255, 255, 0.05) 0 1px,
     transparent 1px 92px
   );
-  -webkit-mask-image: radial-gradient(ellipse at 74% 46%, black 8%, transparent 78%);
-  mask-image: radial-gradient(ellipse at 74% 46%, black 8%, transparent 78%);
+  -webkit-mask-image: radial-gradient(
+    ellipse at var(--mo-gx) var(--mo-gy),
+    black 8%,
+    transparent 78%
+  );
+  mask-image: radial-gradient(
+    ellipse at var(--mo-gx) var(--mo-gy),
+    black 8%,
+    transparent 78%
+  );
 }
 
 .mo-hero::after {
@@ -2490,12 +2518,12 @@
    and sinks in & out of the throat — swallowed at the core, re-emerging
    a few degrees around (the arm keeps turning while they're hidden). */
 .mo-gate {
-  --mo-gate: min(54vw, 640px);
+  --mo-gate: min(44vw, 560px);
   --r-in: calc(var(--mo-gate) * 0.105);
   position: absolute;
   z-index: 1;
-  left: 74%;
-  top: 46%;
+  left: var(--mo-gx);
+  top: var(--mo-gy);
   width: var(--mo-gate);
   aspect-ratio: 1;
   transform: translate(-50%, -50%);
@@ -2712,12 +2740,18 @@
   }
 }
 
-/* Gate fits itself to narrow viewports (portrait moves on top at 1024). */
+/* The gate follows the hero's --mo-gx/--mo-gy. On narrow screens the
+   portrait jumps above the copy, so the gate moves up-right into clear
+   sky; on wide screens the content wrap recentres, so the clear lane
+   between the copy and the portrait drifts left — the gate drifts with it. */
 @media (max-width: 1024px) {
+  .reimagine.mo .mo-hero {
+    --mo-gx: 78%;
+    --mo-gy: 26%;
+  }
+
   .mo-gate {
     --mo-gate: min(84vw, 520px);
-    left: 78%;
-    top: 26%;
     opacity: 0.85;
   }
 
@@ -2727,15 +2761,53 @@
 }
 
 @media (max-width: 700px) {
+  .reimagine.mo .mo-hero {
+    /* Portrait is full-width at the top here, so the gate drops below it
+       and backs the headline instead of hiding behind the photo. */
+    --mo-gx: 72%;
+    --mo-gy: 42%;
+  }
+
   .mo-gate {
     --mo-gate: min(96vw, 430px);
-    left: 72%;
-    top: 22%;
     opacity: 0.7;
   }
 
   .mo-gate-arm:nth-child(n + 9) {
     display: none;
+  }
+}
+
+/* Narrow desktops (1025–1279): the portrait is anchored to the right
+   edge and the wrap is at its widest relative to the viewport, so the
+   gate shrinks and slides left to keep the mouth fully clear. */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .reimagine.mo .mo-hero {
+    --mo-gx: 53%;
+  }
+
+  .mo-gate {
+    --mo-gate: min(36vw, 460px);
+  }
+}
+
+@media (min-width: 1441px) {
+  .reimagine.mo .mo-hero {
+    --mo-gx: 60%;
+  }
+
+  .mo-gate {
+    --mo-gate: min(46vw, 600px);
+  }
+}
+
+@media (min-width: 1800px) {
+  .reimagine.mo .mo-hero {
+    --mo-gx: 57%;
+  }
+
+  .mo-gate {
+    --mo-gate: 600px;
   }
 }
 
@@ -2851,9 +2923,8 @@
 }
 
 /* ------------------------------------------------------ 7. Endurance buddy
-   The canonical M-Buddy 3D skin in reimagine-fixes.css declares every
-   surface with !important, so the helmet retheme answers in the same
-   currency: dark glass helmet + amber visor horizon, cream EVA suit. */
+   The astronaut skin is declared once in reimagine-fixes.css; here only
+   the pod around it is themed for deep space. */
 .reimagine .moin-buddy-orb {
   border-radius: 50% !important;
   border: 1px solid rgba(240, 164, 90, 0.6) !important;
@@ -2883,71 +2954,9 @@
   background: #05070f !important;
 }
 
-.reimagine .moin-buddy-cape {
-  /* No capes in vacuum — the life-support pack carries the silhouette. */
-  background: linear-gradient(145deg, #222b42, #0a0f1c) !important;
-  filter: drop-shadow(0 5px 4px rgba(2, 4, 10, 0.55));
-}
-
-.reimagine .moin-buddy-head {
-  background: linear-gradient(150deg, #1b2438, #05070f) !important;
-  border: 1px solid rgba(240, 164, 90, 0.55) !important;
-  box-shadow:
-    inset 0 8px 14px rgba(255, 255, 255, 0.06),
-    0 7px 12px rgba(2, 4, 10, 0.6) !important;
-}
-
-.reimagine .moin-buddy-head::after {
-  /* Visor glass: dark polarized dome reflecting an amber horizon. */
-  background: radial-gradient(
-    130% 110% at 50% 128%,
-    rgba(240, 164, 90, 0.42),
-    rgba(12, 18, 33, 0.96) 58%
-  ) !important;
-  box-shadow: inset 0 -3px 6px rgba(240, 164, 90, 0.25) !important;
-}
-
-.reimagine .moin-buddy-visor i {
-  background: var(--c-gold) !important;
-  box-shadow: 0 0 8px rgba(240, 164, 90, 0.95) !important;
-}
-
-.reimagine .moin-buddy-ear {
-  background: linear-gradient(145deg, #2a3450, #0a0f1c) !important;
-  border: 1px solid rgba(240, 164, 90, 0.35) !important;
-  box-shadow: 0 5px 8px rgba(2, 4, 10, 0.5) !important;
-}
-
-.reimagine .moin-buddy-ear i {
-  background: var(--c-gold) !important;
-  box-shadow: 0 0 9px rgba(240, 164, 90, 0.95) !important;
-}
-
-.reimagine .moin-buddy-body {
-  /* Cream EVA suit. */
-  background: linear-gradient(145deg, #ece4d2, #b0a794) !important;
-  border: 1px solid rgba(240, 164, 90, 0.4) !important;
-  box-shadow:
-    inset 3px 2px 6px rgba(255, 255, 255, 0.4),
-    0 8px 13px rgba(2, 4, 10, 0.5) !important;
-}
-
-.reimagine .moin-buddy-body b {
-  /* Mission patch. */
-  background: #0a0f1c !important;
-  color: var(--c-gold) !important;
-  box-shadow: 0 0 8px rgba(240, 164, 90, 0.45) !important;
-}
-
-.reimagine .moin-buddy-arm {
-  background: linear-gradient(145deg, #e4dcc9, #a9a08d) !important;
-  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.35), 0 5px 8px rgba(2, 4, 10, 0.4) !important;
-}
-
-.reimagine .moin-buddy-foot {
-  background: linear-gradient(145deg, #cfc6b2, #8f8877) !important;
-  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.3), 0 5px 7px rgba(2, 4, 10, 0.4) !important;
-}
+/* The mascot itself is a full astronaut now (skin in reimagine-fixes.css):
+   bubble helmet, polarised dome, EVA pack, cream suit, boots. The
+   robot-part colour overrides that used to live here went with the robot. */
 
 /* ------------------------------------------------- 7b. Comms console (portal)
    The chat panel portals to <body>, outside .reimagine, and the canonical
@@ -3069,56 +3078,8 @@
   background: linear-gradient(90deg, #121b2e, #1a2540, #121b2e) !important;
 }
 
-/* Helmet colours for the mascot that lives inside the portal. */
-.moin-buddy-portal .moin-buddy-cape {
-  background: linear-gradient(145deg, #222b42, #0a0f1c) !important;
-}
-
-.moin-buddy-portal .moin-buddy-head {
-  background: linear-gradient(150deg, #1b2438, #05070f) !important;
-  border: 1px solid rgba(240, 164, 90, 0.55) !important;
-}
-
-.moin-buddy-portal .moin-buddy-head::after {
-  background: radial-gradient(
-    130% 110% at 50% 128%,
-    rgba(240, 164, 90, 0.42),
-    rgba(12, 18, 33, 0.96) 58%
-  ) !important;
-}
-
-.moin-buddy-portal .moin-buddy-visor i {
-  background: var(--c-gold) !important;
-  box-shadow: 0 0 8px rgba(240, 164, 90, 0.95) !important;
-}
-
-.moin-buddy-portal .moin-buddy-ear {
-  background: linear-gradient(145deg, #2a3450, #0a0f1c) !important;
-  border-color: rgba(240, 164, 90, 0.35) !important;
-}
-
-.moin-buddy-portal .moin-buddy-ear i {
-  background: var(--c-gold) !important;
-  box-shadow: 0 0 9px rgba(240, 164, 90, 0.95) !important;
-}
-
-.moin-buddy-portal .moin-buddy-body {
-  background: linear-gradient(145deg, #ece4d2, #b0a794) !important;
-  border-color: rgba(240, 164, 90, 0.4) !important;
-}
-
-.moin-buddy-portal .moin-buddy-body b {
-  background: #0a0f1c !important;
-  color: var(--c-gold) !important;
-}
-
-.moin-buddy-portal .moin-buddy-arm {
-  background: linear-gradient(145deg, #e4dcc9, #a9a08d) !important;
-}
-
-.moin-buddy-portal .moin-buddy-foot {
-  background: linear-gradient(145deg, #cfc6b2, #8f8877) !important;
-}
+/* The portal mascot shares the astronaut skin from reimagine-fixes.css —
+   no per-part colour overrides needed. */
 
 /* --------------------------------------------- 8. Reduced-motion safeguards */
 @media (prefers-reduced-motion: reduce) {

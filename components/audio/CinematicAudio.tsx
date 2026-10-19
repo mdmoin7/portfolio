@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
    Cinematic score — the Interstellar main theme.
    The track is served from /audio and routed through Web Audio
    (element → gain → destination) so the wormhole transit can bloom the
-   master while it plays. Everything is created lazily on the first start —
-   which is a user gesture, so autoplay policy is satisfied.
-   To swap the music, replace public/audio/interstellar-main-theme.m4a and
-   SCORE_SRC; nothing else needs to change.
+   master while it plays. Everything is created lazily on the first start.
+   Autoplay is attempted on mount where policy allows; otherwise the
+   visitor's first interaction anywhere arms it (browsers require a user
+   gesture before audible playback). To swap the music, replace
+   public/audio/interstellar-main-theme.m4a and SCORE_SRC.
    ========================================================================== */
 
 const SCORE_SRC = "/audio/interstellar-main-theme.m4a";
@@ -125,16 +126,52 @@ export function isCinematicAudioPlaying() {
 
 export function CinematicAudioControl() {
   const [on, setOn] = useState(state.playing);
+
   useEffect(() => {
     const sync = () => setOn(state.playing);
     window.addEventListener("moin-audio-state", sync);
-    return () => window.removeEventListener("moin-audio-state", sync);
+
+    /* Autoplay: try straight away where policy allows it, and arm the
+       visitor's first interaction anywhere on the page as the gesture
+       that unlocks it otherwise. Once they stop it, it stays stopped. */
+    let armed = true;
+    const disarm = () => {
+      armed = false;
+      window.removeEventListener("pointerdown", tryStart);
+      window.removeEventListener("keydown", tryStart);
+      window.removeEventListener("touchstart", tryStart);
+    };
+    const tryStart = async () => {
+      const started = await startCinematicAudio();
+      if (started || !armed) disarm();
+    };
+
+    // Calling play() forces the download even when it will be rejected, so
+    // only probe up-front where the browser can tell us a gesture has
+    // already happened (revisit, or a pre-hydration click).
+    const activation = (navigator as Navigator & {
+      userActivation?: { hasBeenActive: boolean };
+    }).userActivation;
+    if (activation ? activation.hasBeenActive : true) {
+      void tryStart();
+    }
+
+    window.addEventListener("pointerdown", tryStart);
+    window.addEventListener("keydown", tryStart);
+    window.addEventListener("touchstart", tryStart, { passive: true });
+
+    return () => {
+      window.removeEventListener("moin-audio-state", sync);
+      disarm();
+    };
   }, []);
+
   const toggle = async () => {
     if (state.playing) await stopCinematicAudio();
     else await startCinematicAudio();
     setOn(state.playing);
   };
+
   return (
     <button
       type="button"
@@ -143,7 +180,9 @@ export function CinematicAudioControl() {
       aria-pressed={on}
       aria-label={on ? "Turn the Interstellar score off" : "Play the Interstellar score"}
     >
-      <span aria-hidden="true">{on ? "◉" : "▶"}</span>{" "}
+      <span className="sound-glyph" aria-hidden="true">
+        {on ? "◉" : "▶"}
+      </span>
       <b className="sound-label">
         {on ? "INTERSTELLAR · PLAYING" : "PLAY INTERSTELLAR SCORE"}
       </b>
