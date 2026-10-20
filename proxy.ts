@@ -21,7 +21,8 @@ function verificationResponse() {
   });
 }
 
-export function middleware(request: NextRequest) {
+/* Next 16 renamed the middleware convention to proxy; behavior is unchanged. */
+export function proxy(request: NextRequest) {
   if (GOOGLE_VERIFICATION_PATHS.has(request.nextUrl.pathname)) {
     return verificationResponse();
   }

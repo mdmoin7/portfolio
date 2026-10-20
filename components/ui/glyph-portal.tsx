@@ -102,11 +102,13 @@ export default function GlyphPortal({
   const progressRef = useRef(onProgress);
   useLayoutEffect(() => { progressRef.current = onProgress; }, [onProgress]);
   const text = word.trim().normalize("NFC") || "SUBLIME";
-  let characterOffset = 0;
-  const characters = Array.from(text, (char) => {
-    const index = characterOffset; characterOffset += char.length;
-    return { char, index };
-  });
+  const codePoints = Array.from(text);
+  const characters = codePoints.map((char, position) => ({
+    char,
+    index: codePoints
+      .slice(0, position)
+      .reduce((sum, previous) => sum + previous.length, 0),
+  }));
   const length = Number.isFinite(scrollLength) ? clamp(scrollLength, 1, 8) : 2.4;
   const weight = Number.isFinite(fontWeight) ? clamp(fontWeight, 1, 1000) : 900;
   const hasFront = front != null;

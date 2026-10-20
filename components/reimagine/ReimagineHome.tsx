@@ -22,8 +22,9 @@ import {
   useTypewriterCycle,
 } from "@/components/reimagine/useTypewriter";
 
-const PROFILE_IMAGE =
-  "https://cdn.jsdelivr.net/gh/mdmoin7/portfolio@reimagine/v2/assets/profile.webp";
+/* Self-hosted: the old mutable `@reimagine/v2` CDN ref silently re-pointed on
+   every branch push. */
+const PROFILE_IMAGE = "/assets/profile.webp";
 const EMAIL = "mohammadmoin.tech@gmail.com";
 
 /* Module-level so the typewriter's dep identity is stable across the

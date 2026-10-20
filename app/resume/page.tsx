@@ -1,7 +1,7 @@
 "use client";
 import "./MoinResume.css";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useSyncExternalStore } from "react";
+import Link from "next/link";
 import { CinematicFooter } from "@/components/ui/motion-footer";
 import { MoinBuddy } from "@/components/reimagine/MoinBuddy";
 import GlyphPortal from "@/components/ui/glyph-portal";
@@ -103,28 +103,53 @@ const education = [
 
 /* ------------------------------------------------------------------------- */
 
+/* Theme as an external store: read from localStorage on the client, fall back
+   to "light" during SSR, and let the toggle write through the same channel so
+   there is no setState-inside-effect or hydration mismatch. */
+const THEME_KEY = "moin-theme";
+const themeListeners = new Set<() => void>();
+let themeSnapshot: "light" | "dark" | null = null;
+
+function readStoredTheme(): "light" | "dark" | null {
+  const saved = window.localStorage.getItem(THEME_KEY);
+  return saved === "light" || saved === "dark" ? saved : null;
+}
+
+function subscribeTheme(listener: () => void) {
+  themeListeners.add(listener);
+  return () => {
+    themeListeners.delete(listener);
+  };
+}
+
+function applyTheme(next: "light" | "dark") {
+  themeSnapshot = next;
+  window.localStorage.setItem(THEME_KEY, next);
+  themeListeners.forEach((listener) => listener());
+}
+
+function useTheme() {
+  const theme = useSyncExternalStore(
+    subscribeTheme,
+    () => themeSnapshot ?? readStoredTheme(),
+    () => "light" as const,
+  );
+  return [theme, applyTheme] as const;
+}
+
 export default function MoinResume() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem("moin-theme");
-    if (saved === "light" || saved === "dark") setTheme(saved);
-  }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem("moin-theme", theme);
-  }, [theme]);
+  const [theme, setTheme] = useTheme();
 
   return (
     <div className={`reimagine is-${theme} resume-page`}>
       <header className="top-nav resume-nav">
-        <a className="brand-lockup" href="/">
+        <Link className="brand-lockup" href="/">
           <span className="brand-mark" aria-hidden="true"><span>M</span></span>
           <span>
             <strong>MOHAMMAD MOIN</strong>
             <small>Consult · Build · Train</small>
           </span>
-        </a>
+        </Link>
         <nav>
           {[
             ["About", "/#author"],
@@ -147,7 +172,7 @@ export default function MoinResume() {
             ◐
           </button>
           <a className="nav-cta" href="mailto:mohammadmoin.tech@gmail.com">
-            Let's Talk <span aria-hidden="true">→</span>
+            Let&apos;s Talk <span aria-hidden="true">→</span>
           </a>
         </div>
       </header>
