@@ -3105,3 +3105,20 @@
     opacity: 0.9;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Scroll-container override — MUST stay last in the cascade.
+   globals.css sets `.reimagine { overflow: hidden }`, which makes the page
+   wrapper a scroll container that itself never scrolls. That has two nasty
+   effects: position:sticky children (the resume hero stage) pin to the
+   wrapper instead of the viewport and scroll away, and any ViewTimeline/
+   scroll-driven animation resolves its scroller to the wrapper and freezes.
+   `clip` keeps the exact same visual clipping without creating a scrollport,
+   so sticky positioning and scroll timelines fall through to the document.
+   mo-os.css is imported after every other stylesheet, so this rule wins over
+   any earlier `.reimagine` overflow declaration — do not move it.
+   -------------------------------------------------------------------------- */
+.reimagine {
+  overflow-x: clip;
+  overflow-y: clip;
+}

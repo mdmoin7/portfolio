@@ -156,16 +156,16 @@ export default function OpengraphImage() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: 18,
-              fontSize: 27,
+              gap: 14,
+              fontSize: 21,
               fontWeight: 600,
-              letterSpacing: 2,
+              letterSpacing: 1,
               color: SIG,
             }}
           >
-            Independent Software Engineering Consultant
-            <span style={{ color: GOLD }}>×</span>
-            Corporate Technology Trainer
+            <span>Independent Software Engineering Consultant</span>
+            <span style={{ color: GOLD, margin: "0 4px" }}>×</span>
+            <span>Corporate Technology Trainer</span>
           </div>
         </div>
 
