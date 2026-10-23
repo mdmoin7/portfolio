@@ -1,0 +1,215 @@
+/* ==========================================================================
+   System fallback pages — 404 + error boundary
+   Same mission-control language as MOIN.OS, but self-contained: the color
+   tokens in mo-os.css live under `.reimagine.mo`, so the literal console
+   palette is repeated here (kept in one place for both fallback pages).
+   ========================================================================== */
+
+.mo-fallback {
+  --fb-bg: #0a0d14;
+  --fb-panel: #10141e;
+  --fb-text: #e9edf5;
+  --fb-muted: #8c97ad;
+  --fb-line: rgba(255, 255, 255, 0.13);
+  --fb-sig: #7c9cd9;
+  --fb-gold: #d8b477;
+
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 40px 24px;
+  background:
+    radial-gradient(circle at 72% 26%, rgba(124, 156, 217, 0.12), transparent 44%),
+    radial-gradient(circle at 14% 88%, rgba(216, 180, 119, 0.07), transparent 42%),
+    var(--fb-bg);
+  color: var(--fb-text);
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* Faint console grid, masked away from the card. */
+.mo-fallback::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at 30% 40%, black 8%, transparent 78%);
+  mask-image: radial-gradient(ellipse at 30% 40%, black 8%, transparent 78%);
+  pointer-events: none;
+}
+
+.mo-fallback-card {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  padding: clamp(30px, 5vw, 52px);
+  background: rgba(16, 20, 30, 0.82);
+  border: 1px solid var(--fb-line);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Gold corner ticks, same motif as the hero frame. */
+.mo-fallback-card::before,
+.mo-fallback-card::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--fb-gold);
+  pointer-events: none;
+}
+
+.mo-fallback-card::before {
+  top: -6px;
+  left: -6px;
+  border-right: 0;
+  border-bottom: 0;
+}
+
+.mo-fallback-card::after {
+  bottom: -6px;
+  right: -6px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.mo-fallback-slug {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 22px;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--fb-muted);
+}
+
+.mo-fallback-slug i {
+  font-style: normal;
+  color: var(--fb-gold);
+}
+
+.mo-fallback-slug::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--fb-line);
+}
+
+.mo-fallback-code {
+  margin: 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(72px, 14vw, 148px);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  color: var(--fb-text);
+}
+
+.mo-fallback-code em {
+  font-style: italic;
+  color: var(--fb-sig);
+}
+
+.mo-fallback h1 {
+  margin: 22px 0 12px;
+  font-family: var(--font-display), Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(26px, 4vw, 38px);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+}
+
+.mo-fallback p {
+  max-width: 46ch;
+  margin: 0;
+  color: var(--fb-muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.mo-fallback-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+.mo-fallback-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border: 1px solid transparent;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s, background 0.25s, color 0.25s,
+    border-color 0.25s;
+}
+
+.mo-fallback-btn span {
+  transition: transform 0.25s;
+}
+
+.mo-fallback-btn:hover span {
+  transform: translateX(5px);
+}
+
+.mo-fallback-btn--solid {
+  background: var(--fb-text);
+  color: #0a0d14;
+}
+
+.mo-fallback-btn--solid:hover {
+  background: var(--fb-sig);
+  transform: translateY(-2px);
+}
+
+.mo-fallback-btn--ghost {
+  border-color: rgba(255, 255, 255, 0.24);
+  color: var(--fb-text);
+}
+
+.mo-fallback-btn--ghost:hover {
+  border-color: var(--fb-gold);
+  color: var(--fb-gold);
+  transform: translateY(-2px);
+}
+
+.mo-fallback-btn:focus-visible {
+  outline: 2px solid var(--fb-sig);
+  outline-offset: 3px;
+}
+
+.mo-fallback-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin-top: 34px;
+  padding-top: 18px;
+  border-top: 1px solid var(--fb-line);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--fb-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mo-fallback-btn,
+  .mo-fallback-btn span {
+    transition: none;
+  }
+}

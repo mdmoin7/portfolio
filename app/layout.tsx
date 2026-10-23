@@ -4,11 +4,8 @@ import { GeistMono } from "geist/font/mono";
 import { getJsonLd, siteMetadata, SITE_URL, PROFILE_IMAGE } from "@/lib/seo";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScroll";
 import "./globals.css";
-import "./reimagine-theme.css";
 import "./reimagine-fixes.css";
-import "./reimagine-3d.css";
 import "./reimagine-performance.css";
-import "./hero-lab.css";
 import "./mo-os.css";
 
 const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", display: "swap" });

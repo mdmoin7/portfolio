@@ -1,5 +1,17 @@
 import { NextResponse } from "next/server";
 import { searchMoinKnowledge } from "@/lib/ask-moin-knowledge";
+import { getClientKey, isRateLimited } from "@/lib/rate-limit";
+
+/* Abuse damping for the LLM-backed endpoint. Chat deserves more headroom than
+   the contact form, but every request here spends provider quota, so two
+   tiers: a burst ceiling and a sustained hourly ceiling per client IP. */
+const BURST_WINDOW_MS = 2 * 60 * 1000;
+const BURST_MAX = 15;
+const HOURLY_WINDOW_MS = 60 * 60 * 1000;
+const HOURLY_MAX = 60;
+
+const RATE_LIMIT_ANSWER =
+  "You're asking me a lot at once — give me a moment and try again shortly. For anything urgent, the Contact page reaches Mohammad directly.";
 
 type ConversationMessage = {
   role: "user" | "assistant";
@@ -354,6 +366,20 @@ async function generateWithGroq({
 }
 
 export async function POST(request: Request) {
+  const clientKey = getClientKey(request);
+
+  // Both tiers run before any body parsing or provider spend. Namespaced keys
+  // keep the burst and hourly windows independent inside the shared store.
+  if (
+    isRateLimited(`ask-moin:burst:${clientKey}`, BURST_WINDOW_MS, BURST_MAX) ||
+    isRateLimited(`ask-moin:hourly:${clientKey}`, HOURLY_WINDOW_MS, HOURLY_MAX)
+  ) {
+    return NextResponse.json(
+      { answer: RATE_LIMIT_ANSWER, followUps: [] },
+      { status: 429, headers: { "Retry-After": "120" } },
+    );
+  }
+
   try {
     const body = (await request.json()) as {
       message?: string;

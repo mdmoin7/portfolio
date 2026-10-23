@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
    Cinematic score — the Interstellar main theme.
    The track is served from /audio and routed through Web Audio
    (element → gain → destination) so the wormhole transit can bloom the
-   master while it plays. Everything is created lazily on the first start —
-   which is a user gesture, so autoplay policy is satisfied.
-   To swap the music, replace public/audio/interstellar-main-theme.m4a and
-   SCORE_SRC; nothing else needs to change.
+   master while it plays. Everything is created lazily on the first start.
+   Autoplay is attempted on mount where policy allows; otherwise the
+   visitor's first interaction anywhere arms it (browsers require a user
+   gesture before audible playback). To swap the music, replace
+   public/audio/interstellar-main-theme.m4a and SCORE_SRC.
    ========================================================================== */
 
 const SCORE_SRC = "/audio/interstellar-main-theme.m4a";
@@ -29,6 +30,41 @@ const state: ScoreState = {
   playing: false,
 };
 
+/* Once the visitor explicitly stops the score it stays stopped for the rest
+   of this tab — every navigation in this app is a full page load, so module
+   state alone would forget the choice and autoplay would come right back.
+   sessionStorage keeps the stop for the session while a fresh tab gets the
+   autoplay again. */
+const STOP_KEY = "moin-audio-stopped";
+
+function readStopped() {
+  try {
+    return globalThis.sessionStorage?.getItem(STOP_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+let stoppedByUser = typeof window !== "undefined" && readStopped();
+
+function markStopped() {
+  stoppedByUser = true;
+  try {
+    globalThis.sessionStorage.setItem(STOP_KEY, "1");
+  } catch {
+    /* storage unavailable — in-memory stop still holds for this page */
+  }
+}
+
+function clearStopped() {
+  stoppedByUser = false;
+  try {
+    globalThis.sessionStorage.removeItem(STOP_KEY);
+  } catch {
+    /* storage unavailable — nothing to clear */
+  }
+}
+
 function notify() {
   window.dispatchEvent(new Event("moin-audio-state"));
 }
@@ -41,6 +77,10 @@ function ensureGraph() {
     el.loop = true;
     el.preload = "none";
     state.element = el;
+  } else if (!state.element.getAttribute("src")) {
+    /* A rejected autoplay probe drops the src to abort its download —
+       restore it before the next start attempt. */
+    state.element.src = SCORE_SRC;
   }
   if (!state.context || state.context.state === "closed") {
     const Ctor =
@@ -62,6 +102,7 @@ function ensureGraph() {
 }
 
 export async function startCinematicAudio() {
+  if (stoppedByUser) return false;
   if (state.playing) return true;
   try {
     if (!ensureGraph()) return false;
@@ -82,11 +123,19 @@ export async function startCinematicAudio() {
   } catch (error) {
     console.warn("Cinematic score could not start.", error);
     await stopCinematicAudio();
+    /* A rejected play() can still have kicked off the 5MB fetch — dropping
+       the src invokes the media load algorithm and aborts it. */
+    const el = state.element;
+    if (el && !state.playing && el.getAttribute("src")) {
+      el.pause();
+      el.removeAttribute("src");
+    }
     return false;
   }
 }
 
-export async function stopCinematicAudio() {
+export async function stopCinematicAudio(userInitiated = false) {
+  if (userInitiated) markStopped();
   const context = state.context;
   const gain = state.gain;
   if (context && gain && context.state === "running") {
@@ -125,16 +174,52 @@ export function isCinematicAudioPlaying() {
 
 export function CinematicAudioControl() {
   const [on, setOn] = useState(state.playing);
+
   useEffect(() => {
     const sync = () => setOn(state.playing);
     window.addEventListener("moin-audio-state", sync);
-    return () => window.removeEventListener("moin-audio-state", sync);
+
+    /* Autoplay: try straight away where policy allows it, and arm the
+       visitor's first interaction anywhere on the page as the gesture
+       that unlocks it otherwise. Once they stop it, it stays stopped. */
+    let armed = true;
+    const disarm = () => {
+      armed = false;
+      window.removeEventListener("pointerdown", tryStart);
+      window.removeEventListener("keydown", tryStart);
+      window.removeEventListener("touchstart", tryStart);
+    };
+    const tryStart = async () => {
+      const started = await startCinematicAudio();
+      if (started || !armed) disarm();
+    };
+
+    /* Autoplay: probe on every mount — where policy allows (media
+       engagement from earlier visits, a pre-hydration click) the score now
+       starts with the page instead of waiting for a gesture that never
+       comes. On rejection nothing is lost: the first-interaction listeners
+       below stay armed, and the aborted probe download is dropped above. */
+    void tryStart();
+
+    window.addEventListener("pointerdown", tryStart);
+    window.addEventListener("keydown", tryStart);
+    window.addEventListener("touchstart", tryStart, { passive: true });
+
+    return () => {
+      window.removeEventListener("moin-audio-state", sync);
+      disarm();
+    };
   }, []);
+
   const toggle = async () => {
-    if (state.playing) await stopCinematicAudio();
-    else await startCinematicAudio();
+    if (state.playing) await stopCinematicAudio(true);
+    else {
+      clearStopped();
+      await startCinematicAudio();
+    }
     setOn(state.playing);
   };
+
   return (
     <button
       type="button"
@@ -143,7 +228,9 @@ export function CinematicAudioControl() {
       aria-pressed={on}
       aria-label={on ? "Turn the Interstellar score off" : "Play the Interstellar score"}
     >
-      <span aria-hidden="true">{on ? "◉" : "▶"}</span>{" "}
+      <span className="sound-glyph" aria-hidden="true">
+        {on ? "◉" : "▶"}
+      </span>
       <b className="sound-label">
         {on ? "INTERSTELLAR · PLAYING" : "PLAY INTERSTELLAR SCORE"}
       </b>

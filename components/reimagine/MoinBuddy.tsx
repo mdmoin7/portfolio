@@ -21,22 +21,22 @@ const starters = [
 function BuddyIcon({ className = "" }: { className?: string }) {
   return (
     <span className={`moin-buddy-hero ${className}`} aria-hidden="true">
-      <span className="moin-buddy-cape" />
-      <span className="moin-buddy-ear moin-buddy-ear-left"><i /></span>
-      <span className="moin-buddy-ear moin-buddy-ear-right"><i /></span>
-      <motion.span className="moin-buddy-head">
-        <span className="moin-buddy-visor">
+      <span className="moin-buddy-pack" />
+      <span className="moin-buddy-boot moin-buddy-boot-left" />
+      <span className="moin-buddy-boot moin-buddy-boot-right" />
+      <span className="moin-buddy-sleeve moin-buddy-sleeve-left" />
+      <span className="moin-buddy-sleeve moin-buddy-sleeve-right" />
+      <span className="moin-buddy-suit">
+        <i className="moin-buddy-console" />
+        <b>M</b>
+      </span>
+      <motion.span className="moin-buddy-helmet">
+        <span className="moin-buddy-dome">
           <i />
           <i />
         </span>
+        <span className="moin-buddy-helmet-light" />
       </motion.span>
-      <span className="moin-buddy-arm moin-buddy-arm-left" />
-      <span className="moin-buddy-arm moin-buddy-arm-right" />
-      <span className="moin-buddy-body">
-        <b>M</b>
-      </span>
-      <span className="moin-buddy-foot moin-buddy-foot-left" />
-      <span className="moin-buddy-foot moin-buddy-foot-right" />
     </span>
   );
 }
@@ -426,19 +426,22 @@ export function MoinBuddy() {
         whileTap={{ scale: 0.94 }}
       >
         <motion.span className="moin-buddy-hero" style={{ x: eyeX, y: eyeY }}>
-          <span className="moin-buddy-ear moin-buddy-ear-left"><i /></span>
-          <span className="moin-buddy-ear moin-buddy-ear-right"><i /></span>
-          <motion.span className="moin-buddy-head">
-            <span className="moin-buddy-visor">
+          <span className="moin-buddy-pack" />
+          <span className="moin-buddy-boot moin-buddy-boot-left" />
+          <span className="moin-buddy-boot moin-buddy-boot-right" />
+          <span className="moin-buddy-sleeve moin-buddy-sleeve-left" />
+          <span className="moin-buddy-sleeve moin-buddy-sleeve-right" />
+          <span className="moin-buddy-suit">
+            <i className="moin-buddy-console" />
+            <b>M</b>
+          </span>
+          <motion.span className="moin-buddy-helmet" style={{ x: eyeX, y: eyeY }}>
+            <span className="moin-buddy-dome">
               <motion.i style={{ x: eyeX, y: eyeY }} />
               <motion.i style={{ x: eyeX, y: eyeY }} />
             </span>
+            <span className="moin-buddy-helmet-light" />
           </motion.span>
-          <span className="moin-buddy-arm moin-buddy-arm-left" />
-          <span className="moin-buddy-arm moin-buddy-arm-right" />
-          <span className="moin-buddy-body"><b>M</b></span>
-          <span className="moin-buddy-foot moin-buddy-foot-left" />
-          <span className="moin-buddy-foot moin-buddy-foot-right" />
         </motion.span>
       </motion.button>
     </div>

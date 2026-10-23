@@ -433,7 +433,7 @@ export function CinematicFooter({ id = "footer", homeHref = "" }: { id?: string;
                 href={`mailto:${EMAIL}`}
                 className="motion-footer-pill"
               >
-                Let's Talk <span>→</span>
+                Let&apos;s Talk <span>→</span>
               </MagneticButton>
             </div>
           </div>
