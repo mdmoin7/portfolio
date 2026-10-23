@@ -388,63 +388,13 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Score control docks inside the rail column — collapsed to an icon so it
-   never covers act copy — and unfolds to its label on hover/focus. */
+/* Score control: labelled pill in the bottom-right (V1 placement). The
+   mascot orb owns the very corner, so the pill sits directly above it —
+   clear of the resume foot row (y band 860+) and the toon's walk (x < 1160). */
 .mo .sound-control {
-  display: flex;
-  align-items: center;
-  left: 18px;
-  right: auto;
-  bottom: 64px;
-  width: 46px;
-  height: 46px;
-  padding: 0;
-  justify-content: center;
-  gap: 0;
-  overflow: hidden;
-  border-radius: 50%;
-  transition:
-    width 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    padding 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    gap 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-    border-radius 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.mo .sound-control > .sound-glyph {
-  flex: 0 0 auto;
-  box-sizing: border-box;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  font-size: 12px;
-  line-height: 1;
-  /* Nudge: the ▶ glyph renders optically left-heavy in its advance. */
-  padding-left: 1px;
-}
-
-.mo .sound-control .sound-label {
-  max-width: 0;
-  opacity: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  transition: max-width 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
-}
-
-.mo .sound-control:hover,
-.mo .sound-control:focus-visible {
-  width: 218px;
-  padding: 0 16px;
-  gap: 9px;
-  justify-content: flex-start;
-  border-radius: 999px;
-}
-
-.mo .sound-control:hover .sound-label,
-.mo .sound-control:focus-visible .sound-label {
-  max-width: 160px;
-  opacity: 1;
+  right: 24px;
+  bottom: 116px;
+  left: auto;
 }
 
 /* --------------------------------------------------------------------------
@@ -1827,8 +1777,6 @@
   .reimagine.mo { --mo-rail: 0px; }
 
   .mo-rail { display: none; }
-
-  .mo .sound-control { left: 14px; }
 
   .mo-led { display: none; }
 

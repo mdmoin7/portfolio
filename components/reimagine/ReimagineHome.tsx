@@ -520,6 +520,9 @@ export function ReimagineHome() {
                 <a className="mo-btn mo-btn--ghost" href="#index">
                   Open the Index <span aria-hidden="true">↓</span>
                 </a>
+                <a className="mo-btn mo-btn--ghost" href="/resume">
+                  Open the Resume <span aria-hidden="true">→</span>
+                </a>
               </motion.div>
               <div className="mo-hero-stats">
                 <HeroStat

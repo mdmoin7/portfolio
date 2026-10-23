@@ -30,6 +30,41 @@ const state: ScoreState = {
   playing: false,
 };
 
+/* Once the visitor explicitly stops the score it stays stopped for the rest
+   of this tab — every navigation in this app is a full page load, so module
+   state alone would forget the choice and autoplay would come right back.
+   sessionStorage keeps the stop for the session while a fresh tab gets the
+   autoplay again. */
+const STOP_KEY = "moin-audio-stopped";
+
+function readStopped() {
+  try {
+    return globalThis.sessionStorage?.getItem(STOP_KEY) === "1";
+  } catch {
+    return false;
+  }
+}
+
+let stoppedByUser = typeof window !== "undefined" && readStopped();
+
+function markStopped() {
+  stoppedByUser = true;
+  try {
+    globalThis.sessionStorage.setItem(STOP_KEY, "1");
+  } catch {
+    /* storage unavailable — in-memory stop still holds for this page */
+  }
+}
+
+function clearStopped() {
+  stoppedByUser = false;
+  try {
+    globalThis.sessionStorage.removeItem(STOP_KEY);
+  } catch {
+    /* storage unavailable — nothing to clear */
+  }
+}
+
 function notify() {
   window.dispatchEvent(new Event("moin-audio-state"));
 }
@@ -42,6 +77,10 @@ function ensureGraph() {
     el.loop = true;
     el.preload = "none";
     state.element = el;
+  } else if (!state.element.getAttribute("src")) {
+    /* A rejected autoplay probe drops the src to abort its download —
+       restore it before the next start attempt. */
+    state.element.src = SCORE_SRC;
   }
   if (!state.context || state.context.state === "closed") {
     const Ctor =
@@ -63,6 +102,7 @@ function ensureGraph() {
 }
 
 export async function startCinematicAudio() {
+  if (stoppedByUser) return false;
   if (state.playing) return true;
   try {
     if (!ensureGraph()) return false;
@@ -83,11 +123,19 @@ export async function startCinematicAudio() {
   } catch (error) {
     console.warn("Cinematic score could not start.", error);
     await stopCinematicAudio();
+    /* A rejected play() can still have kicked off the 5MB fetch — dropping
+       the src invokes the media load algorithm and aborts it. */
+    const el = state.element;
+    if (el && !state.playing && el.getAttribute("src")) {
+      el.pause();
+      el.removeAttribute("src");
+    }
     return false;
   }
 }
 
-export async function stopCinematicAudio() {
+export async function stopCinematicAudio(userInitiated = false) {
+  if (userInitiated) markStopped();
   const context = state.context;
   const gain = state.gain;
   if (context && gain && context.state === "running") {
@@ -146,15 +194,12 @@ export function CinematicAudioControl() {
       if (started || !armed) disarm();
     };
 
-    // Calling play() forces the download even when it will be rejected, so
-    // only probe up-front where the browser can tell us a gesture has
-    // already happened (revisit, or a pre-hydration click).
-    const activation = (navigator as Navigator & {
-      userActivation?: { hasBeenActive: boolean };
-    }).userActivation;
-    if (activation ? activation.hasBeenActive : true) {
-      void tryStart();
-    }
+    /* Autoplay: probe on every mount — where policy allows (media
+       engagement from earlier visits, a pre-hydration click) the score now
+       starts with the page instead of waiting for a gesture that never
+       comes. On rejection nothing is lost: the first-interaction listeners
+       below stay armed, and the aborted probe download is dropped above. */
+    void tryStart();
 
     window.addEventListener("pointerdown", tryStart);
     window.addEventListener("keydown", tryStart);
@@ -167,8 +212,11 @@ export function CinematicAudioControl() {
   }, []);
 
   const toggle = async () => {
-    if (state.playing) await stopCinematicAudio();
-    else await startCinematicAudio();
+    if (state.playing) await stopCinematicAudio(true);
+    else {
+      clearStopped();
+      await startCinematicAudio();
+    }
     setOn(state.playing);
   };
 
