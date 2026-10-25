@@ -130,7 +130,7 @@ const ACTS = [
     id: "title",
     no: "01",
     label: "TITLE",
-    tour: "Hi — I'm Moin's guide. Scroll on, I'll walk you through the record.",
+    tour: "Hi — I'm Moin's guide. Scroll on, I'll fly you through the record.",
   },
   {
     id: "record",
