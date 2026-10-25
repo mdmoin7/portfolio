@@ -7,8 +7,7 @@
      - the opening: giant name with the portrait masked inside it, scroll
        choreography to a full-frame photo, statement hand-off (ktzm.dk),
      - the record timeline: giant year numerals left, content right,
-     - the academy stat numerals,
-     - the MoinToon walk-cycle guide,
+     - the academy stat numerals,      - the MoinToon flight guide,
      - the record meta/tags, education/contact split, case-card prose.
 
    NOTE: .resume-page sits ON the .reimagine.mo root (same element), so every
@@ -372,15 +371,16 @@
 }
 
 /* ==========================================================================
-   MoinToon — the guide who walks across the stage with scroll
-   Fixed to the viewport bottom; framer drives translateX. pointer-events off
-   so it never intercepts clicks; aria-hidden (decorative narration).
+   MoinToon — the guide who flies across the stage with scroll
+   Top-anchored and fixed; framer drives translateX + translateY through a
+   mid-air flight path. pointer-events off so it never intercepts clicks;
+   aria-hidden (decorative narration).
    ========================================================================== */
 .cv-toon {
   position: fixed;
   z-index: 88;
+  top: 0;
   left: 0;
-  bottom: clamp(10px, 2vh, 22px);
   pointer-events: none;
   will-change: transform;
 }
@@ -388,9 +388,10 @@
 .cv-toon-figure {
   display: block;
   overflow: visible;
-  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.45));
   transition: scale 0.35s ease;
-  animation: cv-idle 3.6s ease-in-out infinite;
+  /* Hovering rest state — the mascot's gentle float and rock. */
+  animation: cv-idle 3.8s ease-in-out infinite;
 }
 
 /* Face the direction of travel without fighting the bob animation —
@@ -400,7 +401,7 @@
   scale: -1 1;
 }
 
-.cv-toon.is-walking .cv-toon-figure {
+.cv-toon.is-flying .cv-toon-figure {
   animation: cv-bob 0.5s ease-in-out infinite;
 }
 
@@ -411,13 +412,13 @@
   transform-origin: top center;
 }
 
-.cv-toon.is-walking .cv-toon-limb--a,
-.cv-toon.is-walking .cv-toon-arm--back {
+.cv-toon.is-flying .cv-toon-limb--a,
+.cv-toon.is-flying .cv-toon-arm--back {
   animation: cv-swing-a 0.5s ease-in-out infinite;
 }
 
-.cv-toon.is-walking .cv-toon-limb--b,
-.cv-toon.is-walking .cv-toon-arm--front {
+.cv-toon.is-flying .cv-toon-limb--b,
+.cv-toon.is-flying .cv-toon-arm--front {
   animation: cv-swing-b 0.5s ease-in-out infinite;
 }
 
@@ -428,23 +429,60 @@
   animation: cv-blink 5.5s steps(1, end) infinite;
 }
 
-@keyframes cv-idle {
+/* Helmet status beacon — same blink cadence as the mascot's light. */
+.cv-toon-beacon,
+.cv-toon-beacon-halo {
+  animation: cv-beacon 2.8s ease-in-out infinite;
+}
+
+@keyframes cv-beacon {
   0%,
+  82%,
   100% {
-    transform: translateY(0);
+    opacity: 1;
   }
-  50% {
-    transform: translateY(-2px);
+  90% {
+    opacity: 0.25;
   }
 }
 
+.cv-toon-beacon-halo {
+  opacity: 0.3;
+  animation-name: cv-beacon-halo;
+}
+
+@keyframes cv-beacon-halo {
+  0%,
+  82%,
+  100% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.08;
+  }
+}
+
+/* Hover rest: a soft float with a slight rock, like the mascot. */
+@keyframes cv-idle {
+  0%,
+  100% {
+    transform: translateY(1px) rotate(-1.2deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(1.2deg);
+  }
+}
+
+/* Flight: quicker bob with a forward lean. The face-the-direction flip is
+   the independent `scale` property, which mirrors this rotation for free —
+   one keyframe set leans correctly both ways. */
 @keyframes cv-bob {
   0%,
   100% {
-    transform: translateY(0);
+    transform: translateY(0) rotate(4deg);
   }
   50% {
-    transform: translateY(-3px);
+    transform: translateY(-6px) rotate(2.5deg);
   }
 }
 
@@ -497,6 +535,11 @@
   box-shadow: 0 18px 44px rgba(0, 0, 0, 0.5);
 }
 
+.cv-toon.is-left .cv-toon-bubble {
+  left: -10px;
+  translate: 0 0;
+}
+
 .cv-toon.is-right .cv-toon-bubble {
   left: auto;
   right: -10px;
@@ -511,6 +554,11 @@
   margin-left: -7px;
   border: 7px solid transparent;
   border-top-color: rgba(16, 20, 30, 0.96);
+}
+
+.cv-toon.is-left .cv-toon-bubble::after {
+  left: 36px;
+  margin-left: 0;
 }
 
 .cv-toon.is-right .cv-toon-bubble::after {
@@ -787,7 +835,7 @@
 }
 
 /* ==========================================================================
-   Reduced motion — the walk, blink, nudge and typing all stop; the page
+   Reduced motion — the flight, blink, nudge and typing all stop; the page
    keeps a readable static opening (JS parks the toon and skips transforms).
    ========================================================================== */
 @media (prefers-reduced-motion: reduce) {
@@ -795,6 +843,8 @@
   .cv-toon-limb,
   .cv-toon-arm,
   .cv-toon-eyes,
+  .cv-toon-beacon,
+  .cv-toon-beacon-halo,
   .cv-toon-caret,
   .cv-scrollcue span {
     animation: none !important;
