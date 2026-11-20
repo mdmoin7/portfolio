@@ -1,0 +1,198 @@
+export type ClientProject = {
+  name: string;
+  type: string;
+  platform: string;
+  image: string;
+  url?: string;
+  domain?: string;
+};
+
+/* Delivered client work, oldest first. Rendered as the card ledger under the
+   case files on the home page. Entries sharing a name are separate deliverables
+   (web build vs. app build), so they stay as distinct cards. */
+export const clientProjects: ClientProject[] = [
+  {
+    name: "Orange Eclipse",
+    type: "CMS",
+    platform: "WordPress",
+    image: "/assets/projects/orange-eclipse.jpg",
+    url: "https://orangeeclipse.com",
+    domain: "orangeeclipse.com",
+  },
+  {
+    name: "Preplan",
+    type: "SaaS",
+    platform: "AngularJS",
+    image: "/assets/projects/preplan.jpg",
+    url: "http://preplan.tributetree.com/",
+    domain: "preplan.tributetree.com",
+  },
+  {
+    name: "Tribute Tree",
+    type: "Responsive",
+    platform: "Bootstrap",
+    image: "/assets/projects/tribute-tree.jpg",
+    url: "http://www.tributetree.com/",
+    domain: "tributetree.com",
+  },
+  {
+    name: "My Flower Shoppe",
+    type: "E-commerce",
+    platform: "WooCommerce",
+    image: "/assets/projects/my-flower-shoppe-web.jpg",
+    url: "http://www.myflowershoppe.com/",
+    domain: "myflowershoppe.com",
+  },
+  {
+    name: "My Flower Shoppe",
+    type: "App",
+    platform: "Android",
+    image: "/assets/projects/my-flower-shoppe-app.jpg",
+    url: "http://www.myflowershoppe.com/",
+    domain: "myflowershoppe.com",
+  },
+  {
+    name: "IT4U Services",
+    type: "Responsive",
+    platform: "Bootstrap",
+    image: "/assets/projects/it4u-services.jpg",
+    url: "http://it4uservices.net/",
+    domain: "it4uservices.net",
+  },
+  {
+    name: "India On the Move",
+    type: "CMS",
+    platform: "WordPress",
+    image: "/assets/projects/india-on-the-move.jpg",
+    url: "http://indiaonthemove.net/",
+    domain: "indiaonthemove.net",
+  },
+  {
+    name: "Al-Riyadh",
+    type: "UI & CMS",
+    platform: "WordPress",
+    image: "/assets/projects/al-riyadh.jpg",
+    url: "http://alriyad.iq/",
+    domain: "alriyad.iq",
+  },
+  {
+    name: "Azrou",
+    type: "CMS",
+    platform: "WordPress",
+    image: "/assets/projects/azrou.jpg",
+    url: "http://azrou.iq/",
+    domain: "azrou.iq",
+  },
+  {
+    name: "Al Merjan",
+    type: "CMS",
+    platform: "WordPress",
+    image: "/assets/projects/al-merjan.jpg",
+    url: "http://mtiraq.com/",
+    domain: "mtiraq.com",
+  },
+  {
+    name: "Valley Retail",
+    type: "Dashboard",
+    platform: "PHP + AngularJS",
+    image: "/assets/projects/valley-retail-web.jpg",
+    url: "http://admin.valleyretail.in/",
+    domain: "admin.valleyretail.in",
+  },
+  {
+    name: "Valley Retail",
+    type: "App",
+    platform: "Windows",
+    image: "/assets/projects/valley-retail-app.jpg",
+    url: "http://admin.valleyretail.in/",
+    domain: "admin.valleyretail.in",
+  },
+  {
+    name: "Vodafone 4G Tablet",
+    type: "App",
+    platform: "Android",
+    image: "/assets/projects/vodafone-tablet.jpg",
+  },
+  {
+    name: "Vodafone 4G Handset",
+    type: "App",
+    platform: "Android",
+    image: "/assets/projects/vodafone-handset.jpg",
+  },
+  {
+    name: "Master Kitchen",
+    type: "Desktop",
+    platform: ".NET",
+    image: "/assets/projects/master-kitchen.jpg",
+  },
+  {
+    name: "City Car Club",
+    type: "Dashboard",
+    platform: ".NET",
+    image: "/assets/projects/city-car-club.jpg",
+    url: "http://www.citycarclubapp.com/",
+    domain: "citycarclubapp.com",
+  },
+  {
+    name: "Aptech Bangalore",
+    type: "CMS",
+    platform: "WordPress",
+    image: "/assets/projects/aptech-bangalore.jpg",
+    url: "https://aptechbangalore.in",
+    domain: "aptechbangalore.in",
+  },
+  {
+    name: "Golden BRx",
+    type: "Dashboard",
+    platform: "AngularJS",
+    image: "/assets/projects/golden-brx.jpg",
+    url: "https://goldenbrx.com",
+    domain: "goldenbrx.com",
+  },
+  {
+    name: "My Final Wishes",
+    type: "CMS",
+    platform: "WordPress",
+    image: "/assets/projects/my-final-wishes.jpg",
+    url: "https://myfinalwishes.ca",
+    domain: "myfinalwishes.ca",
+  },
+  {
+    name: "180 Drums",
+    type: "CMS",
+    platform: "WordPress",
+    image: "/assets/projects/180-drums.jpg",
+    url: "https://180drums.com",
+    domain: "180drums.com",
+  },
+  {
+    name: "QBox",
+    type: "App",
+    platform: "UWP · Windows 10",
+    image: "/assets/projects/qbox.jpg",
+  },
+  {
+    name: "Motorogue",
+    type: "E-commerce",
+    platform: "WooCommerce",
+    image: "/assets/projects/motorogue.jpg",
+    url: "https://motorogue.in",
+    domain: "motorogue.in",
+  },
+  {
+    name: "Sevaro",
+    type: "SaaS",
+    platform: "Angular",
+    image: "/assets/projects/sevaro.jpg",
+    url: "https://sevaro.com",
+    domain: "sevaro.com",
+  },
+  {
+    name: "JLL",
+    type: "AEM",
+    platform: "React",
+    image: "/assets/projects/jll.jpg",
+    url: "https://jll.com",
+    domain: "jll.com",
+  },
+];
