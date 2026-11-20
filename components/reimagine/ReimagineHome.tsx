@@ -13,6 +13,7 @@ import { CinematicAudioControl } from "@/components/audio/CinematicAudio";
 import { CinematicFooter } from "@/components/ui/motion-footer";
 import { MoinBuddy } from "@/components/reimagine/MoinBuddy";
 import { SpotlightCard } from "@/components/ui/spotlight-card";
+import { clientProjects } from "@/lib/projects";
 import { CommandPalette } from "@/components/reimagine/CommandPalette";
 import { Terminal } from "@/components/reimagine/Terminal";
 import { CustomCursor } from "@/components/reimagine/CustomCursor";
@@ -862,8 +863,8 @@ export function ReimagineHome() {
                   <em>outcomes.</em>
                 </h2>
                 <p className="mo-lede">
-                  Case-study thinking over screenshot galleries: problem →
-                  system → engineering → outcome.
+                  Case-study thinking over galleries: problem → system →
+                  engineering → outcome. The ledger below is the full record.
                 </p>
               </div>
             </Reveal>
@@ -928,6 +929,67 @@ export function ReimagineHome() {
                   </a>
                 </div>
               </SpotlightCard>
+            </Reveal>
+
+            <Reveal delay={0.18}>
+              <div className="mo-ledger">
+                <div className="mo-ledger-head">
+                  <p className="mo-kicker">Client ledger</p>
+                  <p className="mo-ledger-note">
+                    {clientProjects.length} deliveries · CMS, commerce, dashboards,
+                    mobile
+                  </p>
+                </div>
+                <ul className="mo-ledger-grid">
+                  {clientProjects.map((project, index) => {
+                    const card = (
+                      <>
+                        <span className="mo-ledger-shot">
+                          <Image
+                            src={project.image}
+                            alt=""
+                            fill
+                            sizes="(max-width: 420px) 92vw, (max-width: 860px) 45vw, (max-width: 1180px) 30vw, 22vw"
+                          />
+                          <span className="mo-ledger-idx">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                        </span>
+                        <span className="mo-ledger-body">
+                          <span className="mo-ledger-name">{project.name}</span>
+                          <span className="mo-ledger-meta">
+                            {project.type} · {project.platform}
+                          </span>
+                          {project.domain ? (
+                            <span className="mo-ledger-domain">
+                              {project.domain} <span aria-hidden="true">↗</span>
+                            </span>
+                          ) : null}
+                        </span>
+                      </>
+                    );
+
+                    return (
+                      <li key={`${project.name}-${project.platform}-${index}`}>
+                        {project.url ? (
+                          <a
+                            className="mo-ledger-card"
+                            href={project.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                          >
+                            {card}
+                          </a>
+                        ) : (
+                          <div className="mo-ledger-card mo-ledger-card--flat">
+                            {card}
+                          </div>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
             </Reveal>
           </div>
         </section>
